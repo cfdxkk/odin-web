@@ -1,0 +1,128 @@
+{
+  "source": "odin.blend",
+  "meshCount": 140,
+  "triangles": 753527,
+  "animationClips": 0,
+  "engineAnchors": [
+    {
+      "position": [
+        0.0,
+        0.1512,
+        2.4025
+      ],
+      "radius": 0.1
+    },
+    {
+      "position": [
+        -0.7245,
+        0.1666,
+        2.346
+      ],
+      "radius": 0.063
+    },
+    {
+      "position": [
+        0.7245,
+        0.1666,
+        2.346
+      ],
+      "radius": 0.063
+    },
+    {
+      "position": [
+        -0.4279,
+        0.0739,
+        2.591
+      ],
+      "radius": 0.027999999999999997
+    },
+    {
+      "position": [
+        0.4279,
+        0.0739,
+        2.591
+      ],
+      "radius": 0.027999999999999997
+    },
+    {
+      "position": [
+        -0.519,
+        0.0959,
+        2.591
+      ],
+      "radius": 0.027999999999999997
+    },
+    {
+      "position": [
+        0.519,
+        0.0959,
+        2.591
+      ],
+      "radius": 0.027999999999999997
+    },
+    {
+      "position": [
+        -0.23420000000000002,
+        -0.4819,
+        0.40049999999999997
+      ],
+      "radius": 0.027000000000000003
+    },
+    {
+      "position": [
+        0.23420000000000002,
+        -0.4819,
+        0.40049999999999997
+      ],
+      "radius": 0.027000000000000003
+    },
+    {
+      "position": [
+        -1.0462,
+        0.21600000000000003,
+        1.919
+      ],
+      "radius": 0.0165
+    },
+    {
+      "position": [
+        1.0462,
+        0.21600000000000003,
+        1.919
+      ],
+      "radius": 0.0165
+    },
+    {
+      "position": [
+        -1.0462,
+        0.1304,
+        1.919
+      ],
+      "radius": 0.0165
+    },
+    {
+      "position": [
+        1.0462,
+        0.1304,
+        1.919
+      ],
+      "radius": 0.0165
+    }
+  ],
+  "completion": [
+    "Restored opposite-side housing",
+    "Finished retractable gun hatch geometry",
+    "Rebuilt PBR materials from original packed wear texture",
+    "Added physical engine cores and nozzle collars",
+    "Added bridge glazing and navigation lights",
+    "Added hull registration markings",
+    "Preserved all active Odin hull and turret geometry; excluded Perseus and hidden backups"
+  ],
+  "webOptimization": {
+    "batchedMeshes": 18,
+    "highTriangles": 753527,
+    "liteTriangles": 256217,
+    "highBytes": 11185772,
+    "liteBytes": 7957360
+  }
+}
