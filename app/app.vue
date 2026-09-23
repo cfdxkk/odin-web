@@ -15,7 +15,10 @@ const currentChapter = computed(() => chapters[chapterIndex.value]!)
 const clock = computed(() => `00:${String(Math.floor(filmTime.value)).padStart(2, '0')}`)
 function chooseChapter(index: number) { explore.value = false; viewer.value?.seek(chapters[index]!.time); playing.value = true }
 function toggleExplore() { explore.value = !explore.value }
-function scrub(event: Event) { viewer.value?.seek(Number((event.target as HTMLInputElement).value)) }
+function scrub(event: Event) {
+  playing.value = false
+  viewer.value?.seek(Number((event.target as HTMLInputElement).value))
+}
 function keyboard(event: KeyboardEvent) {
   const element = event.target as HTMLElement
   if (/INPUT|BUTTON|A|TEXTAREA|SELECT/.test(element.tagName) || showAbout.value) return
@@ -67,7 +70,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', keyboard))
           <div class="shot-caption"><span class="eyebrow">{{ explore ? 'YOUR PERSPECTIVE' : `0${chapterIndex + 1} / ${currentChapter.english}` }}</span><p>{{ explore ? '从你的视角，发现奥丁。' : currentChapter.caption }}</p></div>
           <div class="playback" :class="{ dimmed: explore }">
             <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="playing = !playing"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ 00:40</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
-            <input class="timeline" type="range" min="0" max="39.99" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / 40 * 100}%` }" @input="scrub" />
+            <input class="timeline" type="range" min="0" max="39.99" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / 40 * 100}%` }" @pointerdown="playing = false" @input="scrub" />
             <div class="chapter-buttons"><button v-for="(chapter, index) in chapters" :key="chapter.name" :disabled="!ready" :class="{ active: !explore && chapterIndex === index }" @click="chooseChapter(index)"><span>0{{ index + 1 }}</span>{{ chapter.name }}</button></div>
           </div>
         </div>
