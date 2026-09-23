@@ -1,4 +1,5 @@
 export const FILM_DURATION = 60
+export const DEPLOY_SECONDS = 9
 export const MODES = [
   { name: '飞船外观', english: 'EXTERIOR', time: 0, caption: '于静默中，显露锋芒。' },
   { name: 'SCM/战斗', english: 'COMBAT CONFIGURATION', time: 12, caption: '装甲就位。全舰武备展开。' },
@@ -10,9 +11,9 @@ export function ease(a: number, b: number, value: number) {
 }
 export function sampleOdinMotion(time: number) {
   const t = Math.max(0, Math.min(FILM_DURATION, time))
-  const deployment = ease(12, 24, t) * (1 - ease(32, 44, t))
+  const deployment = ease(12, 12 + DEPLOY_SECONDS, t) * (1 - ease(32, 32 + DEPLOY_SECONDS, t))
   // Thrust is interlocked with the mechanical stow sequence, including armor.
-  const thrust = deployment === 0 ? ease(44.5, 48, t) * (1 - ease(58, 60, t)) : 0
+  const thrust = deployment === 0 ? ease(41, 43.5, t) * (1 - ease(58, 60, t)) : 0
   return { deployment, thrust, mode: t < 12 ? 'exterior' : t < 32 ? 'scm' : 'nav' }
 }
 export type ManualMotion = { deployment: number; thrust: number }
@@ -22,10 +23,10 @@ export function advanceManualMotion(state: ManualMotion, deployed: boolean, dt: 
   let { deployment, thrust } = state
   if (deployed) {
     thrust = Math.max(0, thrust - dt / 1.2)
-    if (thrust === 0) deployment = Math.min(1, deployment + dt / 12)
+    if (thrust === 0) deployment = Math.min(1, deployment + dt / DEPLOY_SECONDS)
   } else {
-    deployment = Math.max(0, deployment - dt / 12)
-    thrust = deployment === 0 ? Math.min(1, thrust + dt / 3.5) : 0
+    deployment = Math.max(0, deployment - dt / DEPLOY_SECONDS)
+    thrust = deployment === 0 ? Math.min(1, thrust + dt / 2.5) : 0
   }
   return { deployment, thrust }
 }

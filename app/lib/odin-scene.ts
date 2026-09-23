@@ -10,15 +10,14 @@ import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
+import { sampleOdinCamera } from './odin-camera'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
-export type OdinExperience = { seek: (t: number) => void; reset: () => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
+export type OdinExperience = { seek: (t: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
 const TAU = Math.PI * 2
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
-
-// One steady orbit at a fixed distance: no engine close-up or focal-length jump.
 
 export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hooks): Promise<OdinExperience> {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' })
@@ -100,7 +99,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const modelPath = softwareRenderer || canvas.clientWidth < 700 ? '/models/odin-lite.glb' : '/models/odin.glb'
   canvas.dataset.asset = modelPath
   try {
-    gltf = await loader.loadAsync(modelPath + '?v=0.3.0', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
+    gltf = await loader.loadAsync(modelPath + '?v=0.4.0', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
   } catch (error) {
     controls.dispose(); composer.dispose(); environment.dispose(); renderer.dispose(); draco.dispose()
     throw error
@@ -189,10 +188,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const angle = -.79 - TAU * t / FILM_DURATION
-    const radius = 11.6 * (width < 700 ? 1.60 : Math.max(1, 1.25 / camera.aspect))
-    target.set(0, .24, 0)
-    desired.set(Math.cos(angle) * radius, 3.7, Math.sin(angle) * radius)
+    const shot = sampleOdinCamera(t, camera.aspect, width < 700)
+    target.copy(shot.target); desired.copy(shot.position)
     camera.fov = 33 + (width < 700 ? 16 : 0)
     camera.updateProjectionMatrix()
   }
@@ -254,14 +251,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
     else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = 1.25 }
   }
-  function reset() {
-    if (!hooks.state().explore) time = 0
-    sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target)
-    controls.target.copy(target); controls.update()
-  }
-  resize(); reset(); hooks.progress(100); frame = requestAnimationFrame(animate)
+  resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target)
+  controls.target.copy(target); controls.update()
+  hooks.progress(100); frame = requestAnimationFrame(animate)
   return {
-    seek, reset, setExplore, resize,
+    seek, setExplore, resize,
     dispose() {
       alive = false; cancelAnimationFrame(frame); resizeObserver.disconnect(); controls.dispose(); draco.dispose()
       const geometries = new Set<THREE.BufferGeometry>(), textures = new Set<THREE.Texture>(), allMaterials = new Set<THREE.Material>()

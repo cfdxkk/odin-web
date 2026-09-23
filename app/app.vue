@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
-const viewer = ref<{ seek: (t: number) => void; reset: () => void }>()
+const viewer = ref<{ seek: (t: number) => void }>()
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const playback = ref({ userPaused: false, scrubbing: false })
 const playing = computed(() => isPlaying(playback.value))
@@ -28,7 +28,7 @@ function keyboard(event: KeyboardEvent) {
   const element = event.target as HTMLElement
   if (/INPUT|BUTTON|A|TEXTAREA|SELECT/.test(element.tagName) || showAbout.value) return
   if (event.code === 'Space') { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
-  if (event.key.toLowerCase() === 'r') { explore.value = false; viewer.value?.seek(0) }
+  if (event.key.toLowerCase() === 'r' && !explore.value) viewer.value?.seek(0)
 }
 onMounted(() => {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) playback.value.userPaused = true
@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
 
         <div v-if="ready" class="viewer-actions">
           <button class="explore-button" :class="{ selected: explore }" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5M4 16.5l8-4 8 4" /></svg>{{ explore ? '返回电影视角' : '自由探索' }}<span>↗</span></button>
-          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>左键旋转 · 右键平移 · 滚轮缩放</span><span class="explore-mode">{{ deployed ? 'SCM/战斗模式' : 'NAV/航行模式' }}</span><button @click="deployed = !deployed">{{ deployed ? '切换为 NAV/航行模式' : '切换为 SCM/战斗模式' }}</button><button @click="viewer?.reset()">复位视角</button></div></Transition>
+          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>左键旋转 · 右键平移 · 滚轮缩放</span><span class="explore-mode">{{ deployed ? 'SCM/战斗模式' : 'NAV/航行模式' }}</span><button @click="deployed = !deployed">{{ deployed ? '切换为 NAV/航行模式' : '切换为 SCM/战斗模式' }}</button></div></Transition>
         </div>
 
         <div class="hero-bottom">

@@ -27,7 +27,7 @@ onMounted(async () => {
 watch(() => props.explore, value => experience?.setExplore(value))
 watch(() => props.lowPower, () => experience?.resize())
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
-defineExpose({ seek: (time: number) => experience?.seek(time), reset: () => experience?.reset() })
+defineExpose({ seek: (time: number) => experience?.seek(time) })
 </script>
 
 <template>
