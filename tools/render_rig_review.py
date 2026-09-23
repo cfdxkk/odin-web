@@ -15,6 +15,7 @@ for pose in json.loads((out/'poses.json').read_text(encoding='utf8')):
   q=j['quaternion'];o.rotation_mode='QUATERNION';o.rotation_quaternion=basis.inverted()@Quaternion((q[3],q[0],q[1],q[2]))@basis
  bpy.context.view_layer.update()
  for name,aim,direction,extent in views:
+  if not name.startswith('main') and name!='ventral' and pose['deployment'] not in (0,.5,1):continue
   center=Vector(aim)*.01;c.data.ortho_scale=extent;c.location=center+Vector(direction)*4
   c.rotation_euler=(center-c.location).to_track_quat('-Z','Y').to_euler()
   s.render.filepath=str(out/f'{name}-{pose["deployment"]:.2f}.png');bpy.ops.render.render(write_still=True)

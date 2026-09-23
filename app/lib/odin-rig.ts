@@ -21,20 +21,20 @@ export function createOdinRig(root: THREE.Object3D) {
   }
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
-    // The main-battery clip lowers the two foredeck armor plates first. The three
-    // barrels then emerge on a nearly fixed bearing; only after that does the
-    // trapezoidal armored cradle lift and advance. These curves are also used
-    // in reverse when stowing, so the doors are the last parts to close.
-    const covers = ease(0, .28, d)
-    const barrelLift = ease(.12, .43, d)
-    const barrelSettle = ease(.39, .68, d)
-    const barrels = ease(.12, .68, d)
-    const lift = ease(.29, .83, d)
-    const shroudClearance = ease(.17, .57, d)
+    // All five armor pieces clear the bore corridor before any gun movement.
+    // Side skins travel along the outboard shell into their pockets; the nose
+    // first lifts over its seal, then slides toward the bow. Reverse evaluation
+    // lowers the gun completely before these skins close around it.
+    const covers = ease(0, .34, d)
+    const barrelLift = ease(.38, .66, d)
+    const barrelSettle = ease(.63, .88, d)
+    const barrels = ease(.38, .88, d)
+    const lift = ease(.52, .93, d)
+    const shroudClearance = ease(.38, .78, d)
     // The original source gun is depressed by eleven degrees in its recess.
     // Level it behind the opening doors, then keep the three bores parallel
     // throughout the visible rise; the telescope tubes never pitch alone.
-    const level = ease(.06, .23, d)
+    const level = ease(.36, .49, d)
     const aim = ease(.95, 1, d)
     for (const side of ['Dorsal', 'Ventral']) {
       const sign = side === 'Dorsal' ? 1 : -1
@@ -55,17 +55,32 @@ export function createOdinRig(root: THREE.Object3D) {
       for (const leaf of ['Port', 'Starboard']) {
         const name = `Hatch_${side}_${leaf}`
         const data = joints.get(name)?.object.userData
-        // Fixed-camera frame matching on the RSI clip shows rigid translation:
-        // the rib direction and plate perspective do not rotate. Each plate
-        // slides a little outboard and mostly down into its deck-side cassette.
-        if (data?.slideVector) {
-          const [x, y, z] = data.slideVector as [number, number, number]
-          pose(name, v(x * covers, y * covers, z * covers))
+        // Clear the stowed bores along the sloping exterior before the final
+        // descent below the hull lip. The rigid plate never changes orientation.
+        if (data?.guideExit && data?.guidePocket) {
+          const exit = ease(0, .64, covers), pocket = ease(.61, 1, covers)
+          const a = data.guideExit as [number, number, number]
+          const b = data.guidePocket as [number, number, number]
+          pose(name, v(a[0] * exit + b[0] * pocket, a[1] * exit + b[1] * pocket, a[2] * exit + b[2] * pocket))
+        }
+        // The narrow skirts under the aft shrouds slide independently. They
+        // stay with the hull, never ride upward with the armored gun housing.
+        const aftName = `Hatch_${side}_Aft_${leaf}`, aft = joints.get(aftName)?.object.userData
+        if (aft?.guideExit && aft?.guidePocket) {
+          const first = ease(.01, .18, d), sink = ease(.14, .32, d)
+          const a = aft.guideExit as [number, number, number], b = aft.guidePocket as [number, number, number]
+          pose(aftName, v(a[0] * first + b[0] * sink, 0, a[2] * first + b[2] * sink))
         }
         // The outer bores telescope a little after all three gun bodies emerge.
         // The offset follows their bore axis and the two sides lag subtly.
-        const extend = ease(leaf === 'Port' ? .38 : .43, leaf === 'Port' ? .73 : .78, d)
+        const extend = ease(leaf === 'Port' ? .66 : .70, leaf === 'Port' ? .91 : .95, d)
         pose(`Main_${side}_Tube_${leaf}`, v(0, 2.0 * extend, -sign * .389 * extend))
+      }
+      const noseName = `Hatch_${side}_Nose`, nose = joints.get(noseName)?.object.userData
+      if (nose?.liftVector && nose?.slideVector) {
+        const raise = ease(0, .10, d), forward = ease(.10, .31, d)
+        const a = nose.liftVector as [number, number, number], b = nose.slideVector as [number, number, number]
+        pose(noseName, v(a[0] * raise + b[0] * forward, a[1] * raise + b[1] * forward, a[2] * raise + b[2] * forward))
       }
     }
     const axialShutters = ease(.08, .35, d)

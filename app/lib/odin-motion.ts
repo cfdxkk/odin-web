@@ -1,5 +1,5 @@
 export const FILM_DURATION = 60
-export const DEPLOY_SECONDS = 9
+export const DEPLOY_SECONDS = 6.5
 export const MODES = [
   { name: '飞船外观', english: 'EXTERIOR', time: 0, caption: '于静默中，显露锋芒。' },
   { name: 'SCM/战斗', english: 'COMBAT CONFIGURATION', time: 12, caption: '装甲就位。全舰武备展开。' },
@@ -13,7 +13,8 @@ export function sampleOdinMotion(time: number) {
   const t = Math.max(0, Math.min(FILM_DURATION, time))
   const deployment = ease(12, 12 + DEPLOY_SECONDS, t) * (1 - ease(32, 32 + DEPLOY_SECONDS, t))
   // Thrust is interlocked with the mechanical stow sequence, including armor.
-  const thrust = deployment === 0 ? ease(41, 43.5, t) * (1 - ease(58, 60, t)) : 0
+  const navStowed = 32 + DEPLOY_SECONDS
+  const thrust = deployment === 0 ? ease(navStowed, navStowed + 2.5, t) * (1 - ease(58, 60, t)) : 0
   return { deployment, thrust, mode: t < 12 ? 'exterior' : t < 32 ? 'scm' : 'nav' }
 }
 export type ManualMotion = { deployment: number; thrust: number }

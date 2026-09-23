@@ -99,7 +99,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const modelPath = softwareRenderer || canvas.clientWidth < 700 ? '/models/odin-lite.glb' : '/models/odin.glb'
   canvas.dataset.asset = modelPath
   try {
-    gltf = await loader.loadAsync(modelPath + '?v=0.5.0', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
+    gltf = await loader.loadAsync(modelPath + '?v=0.6.0', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
   } catch (error) {
     controls.dispose(); composer.dispose(); environment.dispose(); renderer.dispose(); draco.dispose()
     throw error

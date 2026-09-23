@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 117,
-  "triangles": 2401209,
+  "meshCount": 123,
+  "triangles": 2414436,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -110,7 +110,8 @@
     }
   ],
   "completion": [
-    "Full-length main bay armor rebuilt from the original Odin source contour, sliding outboard and into the deck without rotating",
+    "Five-piece main bay armor: two polygonal forward skins, two original aft skirts below the shrouds, and the short fore-end wedge cap that lifts then slides forward",
+    "Main guns wait until all five armor pieces clear their travel corridor",
     "Independent outer main-barrel telescopic tubes",
     "Six original axial shutter half-banks",
     "Parallel quad gun slides and short gunner-pod travel",
@@ -119,16 +120,16 @@
     "Original-style gray charcoal and orange albedo with 2K wear maps"
   ],
   "webOptimization": {
-    "batchedMeshes": 117,
-    "highTriangles": 2401209,
-    "liteTriangles": 872842,
-    "highBytes": 16187324,
-    "liteBytes": 6917692,
+    "batchedMeshes": 123,
+    "highTriangles": 2414436,
+    "liteTriangles": 886370,
+    "highBytes": 16335868,
+    "liteBytes": 7075804,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.5.0",
-  "articulatedSource": "assets/blender/odin_articulated_v0.5.0.blend",
+  "version": "0.6.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.6.0.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",

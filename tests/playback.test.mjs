@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { isPlaying, nextPlayback, sampleOdinMotion, advanceManualMotion, FILM_DURATION, MODES } from '../app/lib/odin-motion.ts'
+import { isPlaying, nextPlayback, sampleOdinMotion, advanceManualMotion, FILM_DURATION, DEPLOY_SECONDS, MODES } from '../app/lib/odin-motion.ts'
 
 test('dragging temporarily pauses and releasing resumes when the user was playing', () => {
   let state = { userPaused: false, scrubbing: false }
@@ -28,9 +28,10 @@ test('SCM deploys all weapons; NAV begins by stowing them', () => {
   assert.equal(sampleOdinMotion(32).deployment, 1)
   assert.ok(sampleOdinMotion(38).deployment < 1)
   assert.equal(sampleOdinMotion(44).deployment, 0)
-  assert.equal(sampleOdinMotion(16.5).deployment, .5)
-  assert.equal(sampleOdinMotion(21).deployment, 1)
-  assert.equal(sampleOdinMotion(41).deployment, 0)
+  assert.equal(sampleOdinMotion(12 + DEPLOY_SECONDS / 2).deployment, .5)
+  assert.equal(sampleOdinMotion(12 + DEPLOY_SECONDS).deployment, 1)
+  assert.equal(sampleOdinMotion(32 + DEPLOY_SECONDS).deployment, 0)
+  assert.ok(DEPLOY_SECONDS < 7, 'The complete transition is faster than the previous nine seconds')
 })
 test('thrusters cannot ignite while any weapon is in the deployment sequence', () => {
   for (let t = 0; t <= FILM_DURATION; t += .025) {
@@ -38,9 +39,10 @@ test('thrusters cannot ignite while any weapon is in the deployment sequence', (
     if (state.deployment > 0) assert.equal(state.thrust, 0, `time ${t}`)
     if (state.thrust > 0) { assert.equal(state.deployment, 0); assert.equal(state.mode, 'nav') }
   }
-  assert.equal(sampleOdinMotion(41).thrust, 0)
-  assert.ok(sampleOdinMotion(41.5).thrust < sampleOdinMotion(43).thrust)
-  for (let t = 43.5; t <= 58; t += .1) assert.equal(sampleOdinMotion(t).thrust, 1)
+  const stowed = 32 + DEPLOY_SECONDS
+  assert.equal(sampleOdinMotion(stowed).thrust, 0)
+  assert.ok(sampleOdinMotion(stowed + .5).thrust < sampleOdinMotion(stowed + 2).thrust)
+  for (let t = stowed + 2.5; t <= 58; t += .1) assert.equal(sampleOdinMotion(t).thrust, 1)
 })
 
 test('free exploration NAV visibly ignites after full stow, and reversals stay interlocked', () => {
@@ -48,8 +50,8 @@ test('free exploration NAV visibly ignites after full stow, and reversals stay i
   for (let n = 0; n < 1800; n++) {
     state = advanceManualMotion(state, false, 1 / 60)
     if (state.deployment > 0) assert.equal(state.thrust, 0)
-    if (n < 535) assert.ok(state.deployment > 0, 'The faster stow still needs nine seconds')
-    if (n > 545) assert.ok(state.thrust > 0, 'Exhaust begins as soon as stow finishes')
+    if (n < DEPLOY_SECONDS * 60 - 2) assert.ok(state.deployment > 0, 'The complete stow sequence finishes before thrust')
+    if (n > DEPLOY_SECONDS * 60 + 2) assert.ok(state.thrust > 0, 'Exhaust begins as soon as stow finishes')
   }
   assert.deepEqual(state, { deployment: 0, thrust: 1 })
   for (let n = 0; n < 850; n++) {

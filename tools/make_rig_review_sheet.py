@@ -26,8 +26,16 @@ def sheet(name, rows, stages, width):
     canvas.save(target/name, quality=90, optimize=True, subsampling=0)
     print(target/name)
 
-sheet('main-battery-sequence.jpg', [('main-rear','MAIN BATTERY')],
-      [(0,'0%'),(.25,'25%'),(.5,'50%'),(.75,'75%'),(1,'100%')], 560)
+stages=[(0,'CLOSED'),(.20,'ARMOR CLEARING'),(.34,'BAY CLEAR'),
+        (.5,'GUN LIFT'),(.75,'CRADLE RISE'),(1,'SCM READY')]
+width=800;tile_height=round(width*2/3);header=35
+canvas=Image.new('RGB',(width*3,(tile_height+header)*2),'#17212a');draw=ImageDraw.Draw(canvas)
+for i,(stage,label) in enumerate(stages):
+    src=Image.open(source/f'main-rear-{stage:.2f}.png').convert('RGB').resize((width,tile_height),Image.Resampling.LANCZOS)
+    x=(i%3)*width;y=(i//3)*(tile_height+header)
+    canvas.paste(src,(x,y+header));draw.text((x+12,y+6),f'{stage:.0%}   {label}',fill='#e5ecf2',font=font)
+canvas.save(target/'main-battery-sequence.jpg',quality=92,optimize=True,subsampling=0)
+sheet('main-armor-guide.jpg',[('main-top','FIVE-PIECE ARMOR')],[(0,'CLOSED'),(.10,'LIFT / CLEAR'),(.20,'SLIDING')],800)
 sheet('articulation-stages.jpg',
       [('main','DORSAL MAIN'),('bridge','BRIDGE'),('quad','QUAD GUN'),
        ('bridge-rear','REAR ARMOR'),('ventral','VENTRAL MAIN'),

@@ -15,10 +15,12 @@ const nodes = gltf.nodes.map(node => {
 gltf.nodes.forEach((node, i) => node.children?.forEach(child => nodes[i].add(nodes[child])))
 const root = new THREE.Group(); gltf.scenes[gltf.scene || 0].nodes.forEach(i => root.add(nodes[i]))
 const rig = createOdinRig(root)
-const poses = [0, .25, .5, .75, 1].map(deployment => {
+const samplePose = deployment => {
   rig.apply(deployment, 20)
   return { deployment, joints: nodes.filter(n => n.userData.staticJoint).map(n => ({ name: n.name, position: n.position.toArray(), quaternion: n.quaternion.toArray() })) }
-})
+}
+const poses = [0, .10, .20, .25, .34, .5, .65, .75, 1].map(samplePose)
 fs.mkdirSync(new URL('../work/rig-review/', import.meta.url), { recursive: true })
 fs.writeFileSync(new URL('../work/rig-review/poses.json', import.meta.url), JSON.stringify(poses))
+fs.writeFileSync(new URL('../work/rig-review/clearance-poses.json', import.meta.url), JSON.stringify(Array.from({ length: 101 }, (_, i) => samplePose(i / 100))))
 console.log(`Reviewing ${rig.jointCount} static joints at ${poses.length} deployment stages`)

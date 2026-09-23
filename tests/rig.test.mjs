@@ -20,21 +20,28 @@ function loadRig() {
   return { root, nodes, rig: createOdinRig(root) }
 }
 
-test('main batteries follow the reference sequence: doors, barrels, then armored cradle', () => {
+test('all five main armor pieces clear before the barrels or armored cradle move', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)
   const door = root.getObjectByName('Hatch_Dorsal_Port')
   const barrel = root.getObjectByName('Main_Dorsal_Barrels')
   const mount = root.getObjectByName('Main_Dorsal_Mount')
-  const first = { door: door.position.clone(), barrel: barrel.position.clone(), mount: mount.position.clone() }
+  const first = { door: door.position.clone(), barrel: barrel.position.clone(), rotation: barrel.quaternion.clone(), mount: mount.position.clone() }
   rig.apply(.20, 0)
   assert.ok(door.position.distanceTo(first.door) > 3, 'Foredeck armor slides clear before the cradle rises')
-  assert.ok(barrel.position.distanceTo(first.barrel) > 1, 'Gun bodies begin to emerge while doors open')
+  assert.ok(barrel.position.distanceTo(first.barrel) < 1e-6, 'Guns wait while the side plates descend')
   assert.ok(mount.position.distanceTo(first.mount) < 1e-6, 'Housing waits until the barrels emerge')
-  rig.apply(.28, 0)
+  for (const d of [.10, .20, .30, .34]) {
+    rig.apply(d, 0)
+    assert.ok(barrel.position.distanceTo(first.barrel) < 1e-6, `Barrels move before armor clearance at ${d}`)
+    assert.ok(barrel.quaternion.angleTo(first.rotation) < 1e-6, `Barrels pitch into armor at ${d}`)
+  }
+  rig.apply(.34, 0)
   const doorOpen = door.position.clone()
   rig.apply(.55, 0)
   assert.ok(door.position.distanceTo(doorOpen) < 1e-6, 'Armor remains parked during the cradle lift')
+  assert.ok(barrel.position.distanceTo(first.barrel) > 1, 'Gun bodies emerge after the armor is parked')
+  rig.apply(.70, 0)
   assert.ok(mount.position.distanceTo(first.mount) > .2, 'Armored cradle rises and advances')
   for (let d = 0; d <= 1; d += .01) {
     rig.apply(d, 0)
@@ -54,15 +61,15 @@ test('all three main bores level together and stay parallel during their visible
       }
     }
   }
-  rig.apply(.35, 3)
+  rig.apply(.50, 3)
   const level = root.getObjectByName('Main_Dorsal_Barrels').quaternion.clone()
-  for (const d of [.40, .55, .75, 1]) {
+  for (const d of [.55, .75, 1]) {
     rig.apply(d, 3)
     assert.ok(root.getObjectByName('Main_Dorsal_Barrels').quaternion.angleTo(level) < 1e-6, `Bores pitch during visible travel at ${d}`)
   }
 })
 
-test('paired main armor translates outboard and down without any rotation', () => {
+test('polygonal side armor clears outboard before descending into the hull without rotation', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)
   for (const bank of ['Dorsal', 'Ventral']) {
@@ -73,6 +80,8 @@ test('paired main armor translates outboard and down without any rotation', () =
       assert.equal(Math.sign(x), sign)
       assert.equal(y, 0)
       assert.equal(Math.sign(z), bank === 'Dorsal' ? -1 : 1)
+      assert.ok(plate.userData.closedOutlineXY.length >= 6, 'The skin has shroud and foredeck chamfers')
+      assert.ok(Math.abs(plate.userData.guideExit[0]) > 13, 'The first travel leg clears the bore corridor')
       for (const d of [.07, .14, .21, .28, .5, 1]) {
         rig.apply(d, 0)
         assert.ok(plate.quaternion.angleTo(closedRotation) < 1e-6, `${bank} ${side} rotated at ${d}`)
@@ -82,6 +91,47 @@ test('paired main armor translates outboard and down without any rotation', () =
       rig.apply(0, 0)
       assert.ok(plate.position.distanceTo(closedPosition) < 1e-6, `${bank} ${side} did not return exactly`)
     }
+  }
+})
+
+test('the aft armor skirts retract independently before their shrouds rise', () => {
+  const { root, rig } = loadRig()
+  for (const bank of ['Dorsal', 'Ventral']) for (const side of ['Port', 'Starboard']) {
+    rig.apply(0, 0)
+    const apron = root.getObjectByName(`Hatch_${bank}_Aft_${side}`)
+    const start = apron.position.clone(), turn = apron.quaternion.clone()
+    assert.equal(apron.userData.sourceObject, bank === 'Dorsal' ? 'holo.001' : 'holo.013')
+    assert.equal(apron.parent.name, 'Odin_Asset', 'Aft armor belongs to the hull, not the rising cradle')
+    rig.apply(.32, 0)
+    const clear = apron.position.clone()
+    assert.ok(clear.distanceTo(start) > 9, 'Skirt descends before gun rise')
+    for (const d of [.36, .5, .75, 1]) {
+      rig.apply(d, 0)
+      assert.ok(apron.position.distanceTo(clear) < 1e-6, 'Skirt stays parked while its shroud rises')
+      assert.ok(apron.quaternion.angleTo(turn) < 1e-6, 'Skirt translates without hinging')
+    }
+    rig.apply(0, 0)
+    assert.ok(apron.position.distanceTo(start) < 1e-6)
+  }
+})
+
+test('the short fore-end wedge lifts before sliding forward and closes exactly', () => {
+  const { root, rig } = loadRig()
+  for (const bank of ['Dorsal', 'Ventral']) {
+    rig.apply(0, 0)
+    const plate = root.getObjectByName(`Hatch_${bank}_Nose`)
+    const start = plate.position.clone(), turn = plate.quaternion.clone()
+    rig.apply(.10, 0)
+    assert.ok(Math.abs(plate.position.y - start.y) > .8, 'Nose first lifts away from its seal')
+    assert.ok(Math.abs(plate.position.z - start.z) < 1e-6, 'Forward travel waits for the seal clearance')
+    rig.apply(.31, 0)
+    assert.ok(start.z - plate.position.z > 12, 'The short cap slides toward the bow')
+    const open = plate.position.clone()
+    rig.apply(1, 0)
+    assert.ok(plate.position.distanceTo(open) < 1e-6, 'Nose stays clear throughout the turret rise')
+    assert.ok(plate.quaternion.angleTo(turn) < 1e-6)
+    rig.apply(0, 0)
+    assert.ok(plate.position.distanceTo(start) < 1e-6)
   }
 })
 
