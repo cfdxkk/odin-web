@@ -23,7 +23,7 @@ npm run generate
 
 ## 交互
 
-- 40 秒三段镜头循环：外观、SCM、NAV。外观无尾焰，SCM 展开武备和舰桥护甲，NAV 先收拢武备再渐亮尾焰。
+- 40 秒三段镜头循环：飞船外观、SMC/战斗、NAV/航行。外观无尾焰，战斗展开武备和舰桥护甲，航行先收拢武备，再从真实喷口渐亮尾焰；30.8 秒开始点火，33.8–39 秒保持巡航推力。
 - 按住时间轴暂停，松开恢复此前的播放意图。主动暂停后，拖动、切换模式或浏览器标签均不会恢复播放；空格暂停，R 回到开场。
 - 自由探索：拖动旋转，滚轮或双指缩放，可独立展开/收拢武备。
 - PC 高画质优先：2K PBR 贴图、真实倒角、环境遮蔽、4K 阴影及抗锯齿。流畅模式关闭阴影、环境遮蔽与泛光；窄屏和软件渲染器使用轻量模型。
@@ -33,7 +33,7 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前可编辑补完模型：[`assets/blender/odin_articulated_v0.2.0.blend`](assets/blender/odin_articulated_v0.2.0.blend)，已另存到此仓库。早期模型仍保留在原目录。
+当前可编辑补完模型：[`assets/blender/odin_articulated_v0.2.1.blend`](assets/blender/odin_articulated_v0.2.1.blend)，修复 13 个喷口的局部原点，已另存到此仓库。早期模型仍保留。
 
 甄别保留当前可见奥丁组件与炮塔集合实例，排除 `perseus`、隐藏旧版、原场景灯光、相机和 VFX。补充缺失的右侧对称外壳、主炮舱盖倒角、推进器内芯及喷口环、舰桥窗、导航灯和舰体编号。沿用原始材质分区和内嵌磨损贴图，将游戏节点材质转换为 glTF PBR。
 
@@ -54,6 +54,7 @@ npm run generate
 - `tools/finish_model.py`：材质转换和外观补完，另存独立 Blender 文件。
 - `tools/optimize_model.py`：合批、Draco 压缩和轻量模型导出。
 - `tools/build_articulated_asset.py`、`export_articulated_asset.py`：新版静态关节重建、贴图补完及无动画导出。
+- `tools/repair_engine_origins.py`：保持网格位置不变，恢复 13 个喷口的局部原点，另存新版 Blender 文件。
 - `tools/review_rig_poses.mjs`、`render_rig_review.py`：用真实 JS 关节变换生成静态检查图，不生成动画片段。
 - `tools/verify-asset.mjs`：GLB 结构、动画排除、部件与贴图验证。
 

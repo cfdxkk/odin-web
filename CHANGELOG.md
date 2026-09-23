@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.2.1-rc.1
+
+- Rebalance the warm-neutral key, fill and environment light; soften reflections on painted armor and limit bloom so highlights retain surface detail. Reduce navigation/service-light glare separately from engine output.
+- Restore all 13 engine anchor origins to their actual nozzle centers. Save a separate `odin_articulated_v0.2.1.blend` and export static high/lite GLBs; original meshes and mechanical joints remain in place.
+- Frame the stern during NAV ignition, lengthen and soften visible exhaust, and hold cruise thrust from 33.8–39 seconds after stowing completes at 30.5 seconds.
+- Rename tabs to 飞船外观 / SMC/战斗 / NAV/航行, preserving explicit pause behavior.
+- Verify every exported engine anchor against its physical nozzle position, rather than only checking that its name exists.
+
 ## v0.2.0-rc.1
 
 - Rebuild the static asset with 119 independent mechanical joints. Main guns now clear rigid bay covers before lifting their cradles and aligning their barrels; secondary batteries, eight defense mounts, quad-gun carriages and individual folding arms have their own motions.

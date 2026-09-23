@@ -1,13 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.2.0.blend` is a separate, editable exterior model derived from the user's `odin.blend`. The original remains unchanged outside this repository.
+`odin_articulated_v0.2.1.blend` is the current separate, editable exterior model derived from the user's `odin.blend`. The original and the v0.2.0 copy remain unchanged. Version 0.2.1 restores the 13 engine origins to their actual nozzle centers without moving any mesh vertices in world space.
 
 The model has independent main barrel cradles, sliding shrouds, rigid telescopic covers, mirrored secondary batteries, defense carriages, tower quad-gun arms, and 45 recovered bridge armor slats. It includes 2K original wear/normal/roughness textures and additional machined edge geometry. It intentionally has no animation actions.
 
 Re-export from this file with Blender 5.1:
 
 ```powershell
-blender -b assets/blender/odin_articulated_v0.2.0.blend --python tools/export_articulated_asset.py
+blender -b assets/blender/odin_articulated_v0.2.1.blend --python tools/export_articulated_asset.py
 ```
 
 Motion remains authored in `app/lib/odin-rig.ts`, with mode and exhaust timing in `app/lib/odin-motion.ts`.

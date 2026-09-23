@@ -28,8 +28,9 @@ const rail = [
   { t: 18, a: .75, r: 5.8, h: 3.0, aim: [0, .52, -.6], fov: 35 },
   { t: 23, a: 1.35, r: 6.6, h: .6, aim: [0, .2, .3], fov: 35 },
   { t: 26, a: 2.10, r: 8.8, h: -2.5, aim: [0, -.15, .2], fov: 33 },
-  { t: 33.4, a: 2.83, r: 9.3, h: 2.8, aim: [0, .15, 1], fov: 33 },
-  { t: 37, a: 4.03, r: 11.3, h: 3.5, aim: [0, .24, 0], fov: 33 },
+  { t: 30.8, a: 2.28, r: 10.8, h: 2.5, aim: [0, .15, .5], fov: 35 },
+  { t: 33.8, a: 2.65, r: 11.5, h: 3.0, aim: [0, .24, .5], fov: 35 },
+  { t: 37, a: 4.03, r: 11.6, h: 3.5, aim: [0, .24, 0], fov: 33 },
   { t: 40, a: TAU - .79, r: 11.6, h: 3.9, aim: [0, .24, 0], fov: 33 },
 ]
 
@@ -42,7 +43,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const softwareRenderer = /swiftshader|llvmpipe|software|basic render/i.test(gpuName)
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.22
+  renderer.toneMappingExposure = 1.0
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   const scene = new THREE.Scene()
@@ -57,19 +58,19 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
 
   const pmrem = new THREE.PMREMGenerator(renderer)
   const environmentScene = new RoomEnvironment()
-  const environment = pmrem.fromScene(environmentScene, .05)
+  const environment = pmrem.fromScene(environmentScene, .15)
   scene.environment = environment.texture
-  scene.environmentIntensity = .26
+  scene.environmentIntensity = .38
   environmentScene.dispose(); pmrem.dispose()
-  scene.add(new THREE.HemisphereLight(0xa0c8ef, 0x151520, 1.0))
-  const key = new THREE.DirectionalLight(0xe4edff, 4.1); key.position.set(4, 7, -4); scene.add(key)
+  scene.add(new THREE.HemisphereLight(0xc9d1da, 0x34373c, .45))
+  const key = new THREE.DirectionalLight(0xfff3e6, 2.4); key.position.set(4, 7, -4); scene.add(key)
   key.castShadow = true
   key.shadow.mapSize.set(4096, 4096)
   Object.assign(key.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: .5, far: 25 })
   key.shadow.bias = -.00008; key.shadow.normalBias = .003
-  const rim = new THREE.DirectionalLight(0x497cdd, 2.7); rim.position.set(-5, 2, 1); scene.add(rim)
-  const warm = new THREE.DirectionalLight(0xff804b, 1.45); warm.position.set(3, -1.3, 4); scene.add(warm)
-  const bow = new THREE.DirectionalLight(0xa8bccb, .8); bow.position.set(-1, 1, -8); scene.add(bow)
+  const rim = new THREE.DirectionalLight(0xb7c7df, .9); rim.position.set(-5, 2, 1); scene.add(rim)
+  const fill = new THREE.DirectionalLight(0xd7cbb9, .45); fill.position.set(3, -1.3, 4); scene.add(fill)
+  const bow = new THREE.DirectionalLight(0xc6ced4, .25); bow.position.set(-1, 1, -8); scene.add(bow)
 
   // A deterministic, sparse star field. No network images or video backgrounds.
   let seed = 7729
@@ -95,7 +96,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
   ao.blendIntensity = .48
   composer.addPass(ao)
-  const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), .40, .48, 1.1)
+  // Subtle glow above the hull's working range, rather than blooming its reflections.
+  const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), .16, .22, 2.8)
   composer.addPass(bloom)
   const grade = new ShaderPass({
     uniforms: { tDiffuse: { value: null }, time: { value: 0 } },
@@ -133,9 +135,20 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       if (materials.has(material)) return
       materials.add(material)
       if (material instanceof THREE.MeshStandardMaterial) {
-        material.envMapIntensity = .5
+        material.envMapIntensity = 1
+        // The exterior is painted armor; exposed gun/engine alloys remain metallic.
+        if (material.name.startsWith('Odin_Paint_')) {
+          material.metalness = .18
+          material.roughness = 1.4
+        }
+        if (material.name === 'Odin_Added_Machined_Alloy') material.roughness = .43
+        if (material.name.startsWith('Odin_Nav_')) material.emissiveIntensity = 1.2
+        if (material.name === 'Odin_Bay_Service_Light' || material.name === 'Odin_Hangar_Amber') material.emissiveIntensity = .65
         for (const map of [material.map, material.normalMap, material.roughnessMap]) if (map) map.anisotropy = renderer.capabilities.getMaxAnisotropy()
-        if (material.name === 'Odin_Engine_Emission') engineMaterials.push(material)
+        if (material.name === 'Odin_Engine_Emission') {
+          material.emissive.setRGB(.12, .44, 1)
+          engineMaterials.push(material)
+        }
       }
     })
   })
@@ -155,21 +168,23 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (!engineCore) continue
     const position = engineCore.getWorldPosition(new THREE.Vector3())
     const radius = Number(engineCore.userData.radius || 3) * .01
-    const length = radius * (i === 0 ? 21 : 9)
+    const length = radius * (i === 0 ? 20 : 12)
     const shader = new THREE.ShaderMaterial({
       uniforms: { time: { value: 0 }, power: { value: 1 } },
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-      vertexShader: `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-      fragmentShader: `varying vec2 vUv; uniform float time; uniform float power;
-        void main(){float f=pow(1.-vUv.y,2.);float bands=.83+.17*sin(vUv.y*55.-time*18.);
-        float edge=sin(vUv.x*3.14159); float a=f*bands*.28*power;
-        gl_FragColor=vec4(mix(vec3(.08,.24,1.),vec3(.35,.65,1.6),f),a);}`,
+      vertexShader: `varying vec2 vUv; varying vec3 vNormal; varying vec3 vView;
+        void main(){vUv=uv;vec4 p=modelViewMatrix*vec4(position,1.);vNormal=normalize(normalMatrix*normal);vView=-p.xyz;gl_Position=projectionMatrix*p;}`,
+      fragmentShader: `varying vec2 vUv; varying vec3 vNormal; varying vec3 vView; uniform float time; uniform float power;
+        void main(){float f=pow(clamp(1.-vUv.y,0.,1.),1.35);float bands=.87+.13*sin(vUv.y*42.-time*12.);
+        float edge=pow(clamp(abs(dot(normalize(vNormal),normalize(vView))),0.,1.),1.3);
+        float a=f*bands*edge*.55*power;
+        gl_FragColor=vec4(mix(vec3(.08,.38,1.4),vec3(.65,1.6,2.7),f),a);}`,
     })
     const cone = new THREE.Mesh(new THREE.ConeGeometry(radius * .82, length, 24, 1, true), shader)
     cone.rotation.x = Math.PI / 2; cone.position.copy(position); cone.position.z += length / 2
     ship.add(cone)
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0x6ba6ff, transparent: true, opacity: .55, blending: THREE.AdditiveBlending, depthWrite: false }))
-    glow.position.copy(position); glow.position.z += .01; glow.scale.setScalar(radius * 5.2); ship.add(glow)
+    glow.position.copy(position); glow.position.z += .015; glow.scale.setScalar(radius * 3.3); ship.add(glow)
     exhausts.push({ cone, glow, radius, length, material: shader })
   }
 
@@ -226,7 +241,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     deployment = state.explore ? THREE.MathUtils.damp(deployment, targetDeployment, 3, dt) : targetDeployment
     const mechanism = rig.apply(deployment, time)
     const power = state.explore ? 0 : motion.thrust
-    engineMaterials.forEach(material => { material.emissiveIntensity = power * 7 })
+    engineMaterials.forEach(material => { material.emissiveIntensity = power * 4 })
     exhausts.forEach(({ cone, glow, length, material }, i) => {
       cone.visible = glow.visible = power > .001
       material.uniforms.time!.value = time + i; material.uniforms.power!.value = power
@@ -235,7 +250,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       // Scale around the nozzle, not around the exhaust's midpoint.
       cone.position.z += (factor * length / 2 - Number(cone.userData.offset || length / 2))
       cone.userData.offset = factor * length / 2
-      glow.material.opacity = power * .62
+      glow.material.opacity = power * .42
     })
     ship.rotation.z = Math.sin(time * TAU / 40) * .014
     stars.rotation.y = time * .0007

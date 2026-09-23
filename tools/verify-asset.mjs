@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs'
 import assert from 'node:assert/strict'
+import * as THREE from 'three'
+const manifest = JSON.parse(readFileSync(new URL('../public/models/asset-manifest.json', import.meta.url)))
 for (const model of ['odin.glb', 'odin-lite.glb']) {
 const file = readFileSync(new URL(`../public/models/${model}`, import.meta.url))
 assert.equal(file.readUInt32LE(0), 0x46546c67, 'GLB header')
@@ -14,7 +16,24 @@ for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels',
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'bridge-armor' && n.extras?.staticJoint).length, 45, '45 articulated bridge armor slats')
 assert.equal(asset.nodes.filter(n => /^SideBattery_\d_(Port|Starboard)$/.test(n.name)).length, 8, 'Eight independently mirrored secondary batteries')
 assert.ok(asset.materials.some(m => m.normalTexture), 'Source tangent normals preserved')
-for (let i = 0; i < 13; i++) assert.ok(names.has(`EngineCore_${String(i).padStart(2, '0')}`), `Engine ${i}`)
+// Named empties alone are insufficient: they used to exist but all had origin (0,0,0).
+const nodes = asset.nodes.map(n => {
+  const object = new THREE.Object3D()
+  if (n.matrix) new THREE.Matrix4().fromArray(n.matrix).decompose(object.position, object.quaternion, object.scale)
+  if (n.translation) object.position.fromArray(n.translation)
+  if (n.rotation) object.quaternion.fromArray(n.rotation)
+  if (n.scale) object.scale.fromArray(n.scale)
+  return object
+})
+asset.nodes.forEach((n, i) => n.children?.forEach(c => nodes[i].add(nodes[c])))
+for (let i = 0; i < 13; i++) {
+  const name = `EngineCore_${String(i).padStart(2, '0')}`
+  const index = asset.nodes.findIndex(n => n.name === name)
+  assert.ok(index >= 0, `Engine ${i}`)
+  const expected = new THREE.Vector3().fromArray(manifest.engineAnchors[i].position)
+  const actual = nodes[index].getWorldPosition(new THREE.Vector3())
+  assert.ok(actual.distanceTo(expected) < .001, `${name} must coincide with its nozzle, got ${actual.toArray()}`)
+}
 assert.ok(asset.images?.length > 0 && asset.images.every(i => i.bufferView !== undefined), 'Textures embedded for portable loading')
 assert.ok(asset.materials?.length > 0, 'PBR materials present')
 assert.ok(file.length < 25 * 1024 * 1024, 'Desktop asset fits the static host 25 MiB per-file budget')

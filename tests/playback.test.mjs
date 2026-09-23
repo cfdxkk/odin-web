@@ -15,7 +15,7 @@ test('an explicit pause survives scrubbing, mode changes and browser tab changes
   state = nextPlayback(state, 'toggle'); assert.equal(isPlaying(state), true)
 })
 test('the three modes have stable timeline entry points', () => {
-  assert.deepEqual(MODES.map(m => m.name), ['外观', 'SCM', 'NAV'])
+  assert.deepEqual(MODES.map(m => m.name), ['飞船外观', 'SMC/战斗', 'NAV/航行'])
   assert.equal(sampleOdinMotion(MODES[0].time).mode, 'exterior')
   assert.equal(sampleOdinMotion(MODES[1].time).mode, 'scm')
   assert.equal(sampleOdinMotion(MODES[2].time).mode, 'nav')
@@ -35,6 +35,7 @@ test('thrusters cannot ignite while any weapon is in the deployment sequence', (
     if (state.deployment > 0) assert.equal(state.thrust, 0, `time ${t}`)
     if (state.thrust > 0) { assert.equal(state.deployment, 0); assert.equal(state.mode, 'nav') }
   }
-  assert.equal(sampleOdinMotion(33.4).thrust, 0)
-  assert.ok(sampleOdinMotion(35).thrust < sampleOdinMotion(37).thrust)
+  assert.equal(sampleOdinMotion(30.8).thrust, 0)
+  assert.ok(sampleOdinMotion(32).thrust < sampleOdinMotion(33.5).thrust)
+  for (let t = 33.8; t <= 39; t += .1) assert.equal(sampleOdinMotion(t).thrust, 1)
 })
