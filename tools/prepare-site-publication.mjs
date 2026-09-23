@@ -35,6 +35,6 @@ run(git, ['push', 'sites', `HEAD:${credential.branch}`], {
 })
 if (run(git, ['status', '--porcelain'])) throw new Error('Working tree changed during publication')
 run('tar', ['-czf', resolve(archivePath), '.openai/hosting.json', '.output/public'])
-const entries = run('tar', ['-tzf', resolve(archivePath)]).split('\n')
+const entries = run('tar', ['-tzf', resolve(archivePath)]).split(/\r?\n/)
 if (!entries.includes('.output/public/index.html') || entries.some(e => e.includes('node_modules/') || e.includes('work/'))) throw new Error('Invalid deployment archive')
 console.log(JSON.stringify({ project_id: manifest.project_id, checkout_path: root, commit_sha: commit, archive: resolve(archivePath) }))
