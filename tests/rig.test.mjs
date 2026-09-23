@@ -20,29 +20,69 @@ function loadRig() {
   return { root, nodes, rig: createOdinRig(root) }
 }
 
-test('main covers clear before barrels lift and axial shutters precede elevation', () => {
+test('main batteries follow the reference sequence: doors, barrels, then armored cradle', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)
+  const door = root.getObjectByName('Hatch_Dorsal_Port')
   const barrel = root.getObjectByName('Main_Dorsal_Barrels')
-  const initial = barrel.position.clone()
+  const mount = root.getObjectByName('Main_Dorsal_Mount')
+  const first = { door: door.position.clone(), barrel: barrel.position.clone(), mount: mount.position.clone() }
+  rig.apply(.20, 0)
+  assert.ok(door.position.distanceTo(first.door) > 3, 'Foredeck armor slides clear before the cradle rises')
+  assert.ok(barrel.position.distanceTo(first.barrel) > 1, 'Gun bodies begin to emerge while doors open')
+  assert.ok(mount.position.distanceTo(first.mount) < 1e-6, 'Housing waits until the barrels emerge')
+  rig.apply(.28, 0)
+  const doorOpen = door.position.clone()
+  rig.apply(.55, 0)
+  assert.ok(door.position.distanceTo(doorOpen) < 1e-6, 'Armor remains parked during the cradle lift')
+  assert.ok(mount.position.distanceTo(first.mount) > .2, 'Armored cradle rises and advances')
   for (let d = 0; d <= 1; d += .01) {
-    const state = rig.apply(d, 0)
-    // The paired cover leaves must clear before the cradle rises.
-    if (state.covers < .999) assert.ok(barrel.position.distanceTo(initial) < 1, `barrel clearance ${d}`)
+    rig.apply(d, 0)
     if (d < .35) assert.ok(root.getObjectByName('Axial_Bow_Barrel').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
   }
 })
 
-test('main cover hinges stay fixed and paired leaves rotate in opposite directions', () => {
+test('all three main bores level together and stay parallel during their visible travel', () => {
   const { root, rig } = loadRig()
-  const port = root.getObjectByName('Hatch_Dorsal_Port'), starboard = root.getObjectByName('Hatch_Dorsal_Starboard')
+  for (const d of [.20, .28, .40, .55, .75, 1]) {
+    rig.apply(d, 3)
+    for (const side of ['Dorsal', 'Ventral']) {
+      const barrel = root.getObjectByName(`Main_${side}_Barrels`)
+      for (const role of ['Port', 'Center', 'Starboard']) {
+        const guide = root.getObjectByName(`Main_${side}_Shroud_${role}`)
+        assert.ok(barrel.quaternion.angleTo(guide.quaternion) < 1e-6, `${side} ${role} diverges at ${d}`)
+      }
+    }
+  }
+  rig.apply(.35, 3)
+  const level = root.getObjectByName('Main_Dorsal_Barrels').quaternion.clone()
+  for (const d of [.40, .55, .75, 1]) {
+    rig.apply(d, 3)
+    assert.ok(root.getObjectByName('Main_Dorsal_Barrels').quaternion.angleTo(level) < 1e-6, `Bores pitch during visible travel at ${d}`)
+  }
+})
+
+test('paired main armor translates outboard and down without any rotation', () => {
+  const { root, rig } = loadRig()
   rig.apply(0, 0)
-  const original = [port.position.clone(), starboard.position.clone()]
-  rig.apply(.35, 0)
-  assert.equal(port.position.distanceTo(original[0]), 0)
-  assert.equal(starboard.position.distanceTo(original[1]), 0)
-  assert.ok(port.quaternion.clone().invert().angleTo(starboard.quaternion) < 1e-6)
-  assert.ok(port.quaternion.angleTo(new THREE.Quaternion()) > 1.8)
+  for (const bank of ['Dorsal', 'Ventral']) {
+    for (const [side, sign] of [['Port', -1], ['Starboard', 1]]) {
+      const plate = root.getObjectByName(`Hatch_${bank}_${side}`)
+      const closedPosition = plate.position.clone(), closedRotation = plate.quaternion.clone()
+      const [x, y, z] = plate.userData.slideVector
+      assert.equal(Math.sign(x), sign)
+      assert.equal(y, 0)
+      assert.equal(Math.sign(z), bank === 'Dorsal' ? -1 : 1)
+      for (const d of [.07, .14, .21, .28, .5, 1]) {
+        rig.apply(d, 0)
+        assert.ok(plate.quaternion.angleTo(closedRotation) < 1e-6, `${bank} ${side} rotated at ${d}`)
+      }
+      rig.apply(1, 0)
+      assert.ok(plate.position.distanceTo(closedPosition) > 12)
+      rig.apply(0, 0)
+      assert.ok(plate.position.distanceTo(closedPosition) < 1e-6, `${bank} ${side} did not return exactly`)
+    }
+  }
 })
 
 test('quad barrels retain orientation during stow/deploy while pod travel is short', () => {

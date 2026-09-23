@@ -33,13 +33,13 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前可编辑补完模型：[`assets/blender/odin_articulated_v0.4.0.blend`](assets/blender/odin_articulated_v0.4.0.blend)。重新匹配主炮翻盖位置，分离外侧炮管伸缩段与原模型单联炮护罩；舰桥四联炮改为平移展开，缩短炮手舱行程；分离原本仍粘在舰体上的舰桥前装甲，并恢复隐藏的原始尾舱门及门框。双联炮略微上仰，朝向错开。早期模型仍保留。
+当前可编辑补完模型：[`assets/blender/odin_articulated_v0.5.0.blend`](assets/blender/odin_articulated_v0.5.0.blend)。主炮井的两块长护甲采用原始模型楔形轮廓和密集肋纹，展开时保持板面方向，向舷外小幅平移并沉入炮井侧槽；三联炮与梯形炮罩按官网画面的先后次序前探、升起，左右外炮管稍后伸出。单联炮护罩、舰桥装甲与原始尾舱门沿用上一版的独立关节。早期模型仍保留。
 
 甄别保留当前可见奥丁组件与炮塔集合实例，排除 `perseus`、隐藏旧版、原场景灯光、相机和 VFX。补充缺失的右侧对称外壳、主炮舱盖倒角、推进器内芯及喷口环、舰桥窗、导航灯和舰体编号。沿用原始材质分区和内嵌磨损贴图，将游戏节点材质转换为 glTF PBR。
 
 这是面向外观展示的粉丝艺术补完，不是完整可游览内装，也不是官方生产级资产。
 
-高画质模型约 240 万三角面，轻量版约 88 万三角面。保留 126 个静态关节，含上下主炮、副炮、防御炮、舰桥四联炮滑轨、4 组主炮侧翻盖、4 个外炮管伸缩段、6 组单联炮护罩、45 片舰桥护甲和固定尾舱门。贴图内嵌，动画片段数为 0。实际尺寸与网格明细见 `public/models/asset-manifest.json`。动作静帧和参考说明见 [`docs/review/`](docs/review/README.md)。
+高画质模型约 240 万三角面，轻量版约 88 万三角面。保留 126 个静态关节，含上下主炮、副炮、防御炮、舰桥四联炮滑轨、4 组主炮平移护甲、4 个外炮管伸缩段、6 组单联炮护罩、45 片舰桥护甲和固定尾舱门。贴图内嵌，动画片段数为 0。实际尺寸与网格明细见 `public/models/asset-manifest.json`。动作静帧和参考说明见 [`docs/review/`](docs/review/README.md)。
 
 ## 主要源码
 
@@ -58,6 +58,7 @@ npm run generate
 - `tools/repair_engine_origins.py`：保持网格位置不变，恢复 13 个喷口的局部原点，另存新版 Blender 文件。
 - `tools/revise_mechanisms_v03.py`：在 v0.2.1 副本中重建侧翻盖、四联炮支架、尾舱门和涂装，另存 v0.3.0。
 - `tools/revise_mechanisms_v04.py`：在 v0.3.0 副本中恢复原始护罩、舰桥装甲、尾舱门并修正炮塔关节，另存 v0.4.0；读取 `inspect_articulation.py` 生成的原模型审计结果。
+- `tools/revise_main_battery_v05.py`：从原模型舱盖轮廓重建整片平移护甲，另存 v0.5.0；不覆盖早期版本。
 - `tools/review_rig_poses.mjs`、`render_rig_review.py`：用真实 JS 关节变换生成静态检查图，不生成动画片段。
 - `tools/verify-asset.mjs`：GLB 结构、动画排除、部件与贴图验证。
 

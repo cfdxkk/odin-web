@@ -21,31 +21,51 @@ export function createOdinRig(root: THREE.Object3D) {
   }
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
-    const covers = ease(0, .25, d)
-    const lift = ease(.30, .60, d)
-    const barrels = ease(.52, .90, d)
-    const shroudClearance = ease(.16, .42, d)
+    // The main-battery clip lowers the two foredeck armor plates first. The three
+    // barrels then emerge on a nearly fixed bearing; only after that does the
+    // trapezoidal armored cradle lift and advance. These curves are also used
+    // in reverse when stowing, so the doors are the last parts to close.
+    const covers = ease(0, .28, d)
+    const barrelLift = ease(.12, .43, d)
+    const barrelSettle = ease(.39, .68, d)
+    const barrels = ease(.12, .68, d)
+    const lift = ease(.29, .83, d)
+    const shroudClearance = ease(.17, .57, d)
+    // The original source gun is depressed by eleven degrees in its recess.
+    // Level it behind the opening doors, then keep the three bores parallel
+    // throughout the visible rise; the telescope tubes never pitch alone.
+    const level = ease(.06, .23, d)
     const aim = ease(.95, 1, d)
-    // Guns return to the neutral axis before lowering; plates close last.
     for (const side of ['Dorsal', 'Ventral']) {
       const sign = side === 'Dorsal' ? 1 : -1
-      pose(`Main_${side}_Mount`, v(0, 0, 0))
-      pose(`Main_${side}_Housing`, v(0, side === 'Ventral' ? .274 * lift : 0, sign * (side === 'Dorsal' ? 2.311 : 3.137) * lift))
-      const cradle = 3.806 * ease(.30, .56, d) + 1.997 * barrels
-      pose(`Main_${side}_Barrels`, v(0, side === 'Ventral' ? .780 * lift : 0, sign * (cradle + (side === 'Dorsal' ? 2.311 : 3.115) * lift - 3 * (1 - lift))), rotation(sign * 11 * barrels, 0, 0))
+      const mountRise = side === 'Dorsal' ? 2.311 : 3.137
+      // Moving the parent keeps the circular base, armored housing and bore
+      // guides together rather than letting their separate joints drift apart.
+      pose(`Main_${side}_Mount`, v(0, (2 + (side === 'Ventral' ? .274 : 0)) * lift, sign * mountRise * lift))
+      pose(`Main_${side}_Housing`, v(0, 0, 0))
+      const cradle = 3.806 * barrelLift + 1.997 * barrelSettle - 3 * (1 - barrelLift)
+      pose(`Main_${side}_Barrels`, v(0, 2.8 * barrelLift + (side === 'Ventral' ? .506 * lift : 0), sign * cradle), rotation(sign * 11 * level, 0, 0))
       for (const [role, offset] of [['Port', -2], ['Center', 0], ['Starboard', 2]] as const) {
-        const mountTravel = (side === 'Dorsal' ? 2.311 : 3.091) * lift
-        const shroudTravel = role === 'Center' ? -2.118 * barrels : 3.009 * barrels
-        pose(`Main_${side}_Shroud_${role}`, v(offset * sign * shroudClearance, .60 * barrels, sign * (mountTravel + shroudTravel)), rotation(sign * 11 * barrels, 0, 0))
+        // These small source-model guides settle around the common cradle.
+        // Their different starting heights require opposite local Z travel;
+        // the parent supplies the shared housing rise and forward movement.
+        const shroudTravel = role === 'Center' ? -2.118 : 3.009
+        pose(`Main_${side}_Shroud_${role}`, v(offset * sign * shroudClearance, .60 * shroudClearance, sign * shroudTravel * shroudClearance), rotation(sign * 11 * level, 0, 0))
       }
       for (const leaf of ['Port', 'Starboard']) {
-          const name = `Hatch_${side}_${leaf}`
-          const data = joints.get(name)?.object.userData
-          if (!data?.hingeAxis) continue
-          pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...data.hingeAxis as [number, number, number]).normalize(), rad(Number(data.openingSign) * 112 * covers)))
-          // Two independent outer tubes telescope along their depressed bore axis.
-          const extend = ease(.42, .85, d)
-          pose(`Main_${side}_Tube_${leaf}`, v(0, 2.0 * extend, -sign * .389 * extend))
+        const name = `Hatch_${side}_${leaf}`
+        const data = joints.get(name)?.object.userData
+        // Fixed-camera frame matching on the RSI clip shows rigid translation:
+        // the rib direction and plate perspective do not rotate. Each plate
+        // slides a little outboard and mostly down into its deck-side cassette.
+        if (data?.slideVector) {
+          const [x, y, z] = data.slideVector as [number, number, number]
+          pose(name, v(x * covers, y * covers, z * covers))
+        }
+        // The outer bores telescope a little after all three gun bodies emerge.
+        // The offset follows their bore axis and the two sides lag subtly.
+        const extend = ease(leaf === 'Port' ? .38 : .43, leaf === 'Port' ? .73 : .78, d)
+        pose(`Main_${side}_Tube_${leaf}`, v(0, 2.0 * extend, -sign * .389 * extend))
       }
     }
     const axialShutters = ease(.08, .35, d)

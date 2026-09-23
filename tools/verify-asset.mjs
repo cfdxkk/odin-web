@@ -13,7 +13,11 @@ assert.equal(asset.cameras?.length || 0, 0, 'No Blender camera exported')
 assert.ok(!asset.nodes.some(n => /perseus/i.test(n.name)), 'Other ships excluded')
 const names = new Set(asset.nodes.map(n => n.name))
 for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_Shutter_Port', 'Axial_Stern_Shutter_Starboard', 'Axial_Keel_Shutter_Port', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-hatch' && n.extras?.staticJoint).length, 4, 'Two fitted main hatch banks per battery')
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-hatch' && n.extras?.staticJoint).length, 4, 'Two sliding main armor plates per battery')
+for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) {
+  assert.ok(Array.isArray(plate.extras.slideVector) && plate.extras.slideVector.length === 3 && plate.extras.slideVector.every(Number.isFinite), `${plate.name} has a static slide guide`)
+  assert.equal(plate.extras.hingeAxis, undefined, `${plate.name} must not have a hinge`)
+}
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'axial-shutter' && n.extras?.staticJoint).length, 6, 'Original shutters on all three axial batteries')
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint).length, 4, 'Only the outer main tubes telescope')
 const stern = asset.nodes.find(n => n.name === 'SternHangarDoor')
