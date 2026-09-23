@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 140,
-  "triangles": 753527,
+  "meshCount": 110,
+  "triangles": 2417665,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -116,13 +116,30 @@
     "Added physical engine cores and nozzle collars",
     "Added bridge glazing and navigation lights",
     "Added hull registration markings",
-    "Preserved all active Odin hull and turret geometry; excluded Perseus and hidden backups"
+    "Preserved all active Odin hull and turret geometry; excluded Perseus and hidden backups",
+    "Recovered independent barrel, shroud, side battery and PDC joints",
+    "Separated 45 existing bridge armor slats with physical hinges",
+    "Rigid telescopic bay covers and recessed service rails",
+    "2K source wear, tangent normal and roughness textures; machined edge bevels"
   ],
   "webOptimization": {
-    "batchedMeshes": 18,
-    "highTriangles": 753527,
-    "liteTriangles": 256217,
-    "highBytes": 11185772,
-    "liteBytes": 7957360
-  }
+    "batchedMeshes": 110,
+    "highTriangles": 2417665,
+    "liteTriangles": 861732,
+    "highBytes": 15354744,
+    "liteBytes": 6700620,
+    "highTextureResolution": 2048,
+    "highPositionQuantization": 16
+  },
+  "version": "0.2.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.2.0.blend",
+  "bridgeArmorSlats": 45,
+  "rigSystems": [
+    "main",
+    "main-hatch",
+    "secondary",
+    "defense",
+    "pdc",
+    "bridge-armor"
+  ]
 }

@@ -8,6 +8,9 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js'
+import { createOdinRig } from './odin-rig'
+import { sampleOdinMotion } from './odin-motion'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
@@ -21,10 +24,12 @@ const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t
 const rail = [
   { t: 0, a: -.79, r: 11.6, h: 3.9, aim: [0, .24, 0], fov: 33 },
   { t: 8, a: -.1, r: 10.5, h: 2.9, aim: [0, .20, 0], fov: 33 },
-  { t: 14, a: .34, r: 5.0, h: 2.6, aim: [0, .52, -.6], fov: 35 },
-  { t: 21, a: 1.20, r: 7.5, h: 1.9, aim: [0, .12, 1.5], fov: 35 },
-  { t: 28, a: 2.48, r: 10.4, h: 3.5, aim: [0, .20, .2], fov: 33 },
-  { t: 34, a: 3.83, r: 11.6, h: 4.8, aim: [0, .24, 0], fov: 33 },
+  { t: 12, a: .34, r: 8.7, h: 3.9, aim: [0, .30, -.5], fov: 33 },
+  { t: 18, a: .75, r: 5.8, h: 3.0, aim: [0, .52, -.6], fov: 35 },
+  { t: 23, a: 1.35, r: 6.6, h: .6, aim: [0, .2, .3], fov: 35 },
+  { t: 26, a: 2.10, r: 8.8, h: -2.5, aim: [0, -.15, .2], fov: 33 },
+  { t: 33.4, a: 2.83, r: 9.3, h: 2.8, aim: [0, .15, 1], fov: 33 },
+  { t: 37, a: 4.03, r: 11.3, h: 3.5, aim: [0, .24, 0], fov: 33 },
   { t: 40, a: TAU - .79, r: 11.6, h: 3.9, aim: [0, .24, 0], fov: 33 },
 ]
 
@@ -39,7 +44,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.22
   renderer.shadowMap.enabled = true
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap
+  renderer.shadowMap.type = THREE.PCFShadowMap
   const scene = new THREE.Scene()
   scene.background = new THREE.Color('#070b12')
   const camera = new THREE.PerspectiveCamera(33, 1, .035, 500)
@@ -59,9 +64,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   scene.add(new THREE.HemisphereLight(0xa0c8ef, 0x151520, 1.0))
   const key = new THREE.DirectionalLight(0xe4edff, 4.1); key.position.set(4, 7, -4); scene.add(key)
   key.castShadow = true
-  key.shadow.mapSize.set(2048, 2048)
+  key.shadow.mapSize.set(4096, 4096)
   Object.assign(key.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: .5, far: 25 })
-  key.shadow.bias = -.0002; key.shadow.normalBias = .013
+  key.shadow.bias = -.00008; key.shadow.normalBias = .003
   const rim = new THREE.DirectionalLight(0x497cdd, 2.7); rim.position.set(-5, 2, 1); scene.add(rim)
   const warm = new THREE.DirectionalLight(0xff804b, 1.45); warm.position.set(3, -1.3, 4); scene.add(warm)
   const bow = new THREE.DirectionalLight(0xa8bccb, .8); bow.position.set(-1, 1, -8); scene.add(bow)
@@ -83,9 +88,13 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ size: .10, vertexColors: true, transparent: true, opacity: .7, depthWrite: false }))
   scene.add(stars)
 
-  const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 2 })
+  const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 4 })
   const composer = new EffectComposer(renderer, renderTarget)
   composer.addPass(new RenderPass(scene, camera))
+  const ao = new GTAOPass(scene, camera, 1, 1)
+  ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
+  ao.blendIntensity = .48
+  composer.addPass(ao)
   const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), .40, .48, 1.1)
   composer.addPass(bloom)
   const grade = new ShaderPass({
@@ -125,16 +134,13 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       materials.add(material)
       if (material instanceof THREE.MeshStandardMaterial) {
         material.envMapIntensity = .5
-        if (material.map) material.map.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy())
+        for (const map of [material.map, material.normalMap, material.roughnessMap]) if (map) map.anisotropy = renderer.capabilities.getMaxAnisotropy()
         if (material.name === 'Odin_Engine_Emission') engineMaterials.push(material)
       }
     })
   })
   const find = (name: string) => gltf.scene.getObjectByName(name)
-  const top = find('MainTurret_Dorsal'), bottom = find('MainTurret_Ventral')
-  const topStart = top?.position.clone(), bottomStart = bottom?.position.clone()
-  const hatchTop = find('Hatch_Dorsal'), hatchBottom = find('Hatch_Ventral')
-  const turrets = Array.from({ length: 8 }, (_, i) => find(`DefenseTurret_${String(i + 1).padStart(2, '0')}`)).filter(Boolean) as THREE.Object3D[]
+  const rig = createOdinRig(gltf.scene)
 
   const glowCanvas = document.createElement('canvas'); glowCanvas.width = glowCanvas.height = 128
   const gc = glowCanvas.getContext('2d')!
@@ -173,10 +179,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
   function resize() {
     const bounds = canvas.getBoundingClientRect(); width = Math.max(1, bounds.width); height = Math.max(1, bounds.height)
-    const ratio = Math.min(window.devicePixelRatio, hooks.state().lowPower || softwareRenderer ? 1 : (width < 700 ? 1.25 : 1.5))
+    const ratio = hooks.state().lowPower || softwareRenderer ? 1 : Math.min(2, Math.max(1.5, window.devicePixelRatio))
     renderer.setPixelRatio(ratio); renderer.setSize(width, height, false)
     composer.setPixelRatio(ratio); composer.setSize(width, height)
     camera.aspect = width / height; camera.updateProjectionMatrix()
+    ao.enabled = !hooks.state().lowPower && !softwareRenderer
     camera.setViewOffset(width, height, 0, -height * (width < 700 ? 0 : .035), width, height)
     bloom.enabled = !hooks.state().lowPower
     renderer.shadowMap.enabled = !hooks.state().lowPower && !softwareRenderer
@@ -213,25 +220,22 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       controls.target.copy(cameraAim)
     } else { controls.update(); cameraAim.copy(controls.target) }
 
-    const targetDeployment = state.explore ? Number(state.deployed) : smooth(3, 11, time) * (1 - smooth(33, 39.5, time))
+    const motion = sampleOdinMotion(time)
+    const targetDeployment = state.explore ? Number(state.deployed) : motion.deployment
     // In manual mode deployment eases independently; a paused film remains frozen.
     deployment = state.explore ? THREE.MathUtils.damp(deployment, targetDeployment, 3, dt) : targetDeployment
-    const hatchOpen = smooth(0, .6, deployment), turretUp = smooth(.35, 1, deployment)
-    if (hatchTop) { hatchTop.position.y = -9 * hatchOpen; hatchTop.position.z = -90 * hatchOpen }
-    if (hatchBottom) { hatchBottom.position.y = 14 * hatchOpen; hatchBottom.position.z = -90 * hatchOpen }
-    if (top && topStart) { top.position.y = topStart.y + 12 * turretUp; top.rotation.y = Math.sin(time * .19) * .10 * turretUp }
-    if (bottom && bottomStart) { bottom.position.y = bottomStart.y - 12 * turretUp; bottom.rotation.y = -Math.sin(time * .19) * .10 * turretUp }
-    turrets.forEach((turret, i) => { turret.rotation.y = Math.sin(time * .14 + i * .6) * .22 * turretUp })
-    const power = .48 + .52 * smooth(17, 22, time) * (1 - smooth(30, 37, time))
-    engineMaterials.forEach(material => { material.emissiveIntensity = 3 + 4 * power })
+    const mechanism = rig.apply(deployment, time)
+    const power = state.explore ? 0 : motion.thrust
+    engineMaterials.forEach(material => { material.emissiveIntensity = power * 7 })
     exhausts.forEach(({ cone, glow, length, material }, i) => {
+      cone.visible = glow.visible = power > .001
       material.uniforms.time!.value = time + i; material.uniforms.power!.value = power
-      const factor = .75 + power * .6 + Math.sin(time * 17 + i) * .035
+      const factor = .12 + power * 1.23 + Math.sin(time * 17 + i) * .02 * power
       cone.scale.y = factor
       // Scale around the nozzle, not around the exhaust's midpoint.
       cone.position.z += (factor * length / 2 - Number(cone.userData.offset || length / 2))
       cone.userData.offset = factor * length / 2
-      glow.material.opacity = .38 + power * .24
+      glow.material.opacity = power * .62
     })
     ship.rotation.z = Math.sin(time * TAU / 40) * .014
     stars.rotation.y = time * .0007
@@ -239,6 +243,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
+    canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
+    canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
@@ -268,7 +274,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       })
       allMaterials.forEach(m => { Object.values(m).forEach(v => { if (v instanceof THREE.Texture) textures.add(v) }); m.dispose() })
       geometries.forEach(g => g.dispose()); textures.forEach(t => t.dispose()); glowTex.dispose()
-      environment.dispose(); bloom.dispose(); grade.dispose(); composer.dispose(); renderer.dispose()
+      environment.dispose(); ao.dispose(); bloom.dispose(); grade.dispose(); composer.dispose(); renderer.dispose()
     },
   }
 }

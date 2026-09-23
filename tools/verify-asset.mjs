@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import assert from 'node:assert/strict'
-const file = readFileSync(new URL('../public/models/odin.glb', import.meta.url))
+for (const model of ['odin.glb', 'odin-lite.glb']) {
+const file = readFileSync(new URL(`../public/models/${model}`, import.meta.url))
 assert.equal(file.readUInt32LE(0), 0x46546c67, 'GLB header')
 assert.equal(file.readUInt32LE(4), 2, 'glTF 2.0')
 assert.equal(file.readUInt32LE(8), file.length, 'complete file length')
@@ -9,9 +10,13 @@ assert.equal(asset.animations?.length || 0, 0, 'All animation must remain in Nux
 assert.equal(asset.cameras?.length || 0, 0, 'No Blender camera exported')
 assert.ok(!asset.nodes.some(n => /perseus/i.test(n.name)), 'Other ships excluded')
 const names = new Set(asset.nodes.map(n => n.name))
-for (const name of ['Odin_Asset', 'MainTurret_Dorsal', 'MainTurret_Ventral', 'Hatch_Dorsal', 'Hatch_Ventral', 'Odin_Restored_Starboard_Housing']) assert.ok(names.has(name), `Required part ${name}`)
+for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_00', 'Hatch_Ventral_04', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'Defense_08_Elevation']) assert.ok(names.has(name), `Required part ${name}`)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'bridge-armor' && n.extras?.staticJoint).length, 45, '45 articulated bridge armor slats')
+assert.equal(asset.nodes.filter(n => /^SideBattery_\d_(Port|Starboard)$/.test(n.name)).length, 8, 'Eight independently mirrored secondary batteries')
+assert.ok(asset.materials.some(m => m.normalTexture), 'Source tangent normals preserved')
 for (let i = 0; i < 13; i++) assert.ok(names.has(`EngineCore_${String(i).padStart(2, '0')}`), `Engine ${i}`)
 assert.ok(asset.images?.length > 0 && asset.images.every(i => i.bufferView !== undefined), 'Textures embedded for portable loading')
 assert.ok(asset.materials?.length > 0, 'PBR materials present')
-assert.ok(file.length < 20 * 1024 * 1024, 'Web asset below 20 MB')
-console.log(JSON.stringify({ valid: true, sizeMB: +(file.length / 1024 / 1024).toFixed(2), meshes: asset.meshes.length, materials: asset.materials.length, embeddedTextures: asset.images.length, animationClips: 0 }, null, 2))
+assert.ok(file.length < 25 * 1024 * 1024, 'Desktop asset fits the static host 25 MiB per-file budget')
+console.log(JSON.stringify({ model, valid: true, sizeMB: +(file.length / 1024 / 1024).toFixed(2), meshes: asset.meshes.length, materials: asset.materials.length, embeddedTextures: asset.images.length, animationClips: 0 }, null, 2))
+}
