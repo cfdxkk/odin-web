@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MODES, isPlaying, nextPlayback } from '~/lib/odin-motion'
+import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
 const viewer = ref<{ seek: (t: number) => void; reset: () => void }>()
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const playback = ref({ userPaused: false, scrubbing: false })
@@ -11,11 +11,15 @@ const filmTime = ref(0), error = ref(''), showAbout = ref(false)
 const aboutDialog = ref<HTMLDialogElement>()
 watch(showAbout, value => { if (value) aboutDialog.value?.showModal(); else aboutDialog.value?.close() })
 const chapters = MODES
-const chapterIndex = computed(() => filmTime.value < 12 ? 0 : filmTime.value < 26 ? 1 : 2)
+const chapterIndex = computed(() => filmTime.value < MODES[1].time ? 0 : filmTime.value < MODES[2].time ? 1 : 2)
 const currentChapter = computed(() => chapters[chapterIndex.value]!)
-const clock = computed(() => `00:${String(Math.floor(filmTime.value)).padStart(2, '0')}`)
+const formatTime = (t: number) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t % 60)).padStart(2, '0')}`
+const clock = computed(() => formatTime(filmTime.value))
 function chooseChapter(index: number) { explore.value = false; viewer.value?.seek(chapters[index]!.time) }
-function toggleExplore() { explore.value = !explore.value }
+function toggleExplore() {
+  if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).mode === 'scm'
+  explore.value = !explore.value
+}
 function scrub(event: Event) {
   viewer.value?.seek(Number((event.target as HTMLInputElement).value))
 }
@@ -73,14 +77,14 @@ onBeforeUnmount(() => {
 
         <div v-if="ready" class="viewer-actions">
           <button class="explore-button" :class="{ selected: explore }" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5M4 16.5l8-4 8 4" /></svg>{{ explore ? '返回电影视角' : '自由探索' }}<span>↗</span></button>
-          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>拖动旋转 · 滚轮缩放</span><button :aria-pressed="deployed" @click="deployed = !deployed">{{ deployed ? '收拢武备' : '展开武备' }}</button><button @click="viewer?.reset()">复位视角</button></div></Transition>
+          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>左键旋转 · 右键平移 · 滚轮缩放</span><span class="explore-mode">{{ deployed ? 'SCM/战斗模式' : 'NAV/航行模式' }}</span><button @click="deployed = !deployed">{{ deployed ? '切换为 NAV/航行模式' : '切换为 SCM/战斗模式' }}</button><button @click="viewer?.reset()">复位视角</button></div></Transition>
         </div>
 
         <div class="hero-bottom">
           <div class="shot-caption"><span class="eyebrow">{{ explore ? 'YOUR PERSPECTIVE' : `0${chapterIndex + 1} / ${currentChapter.english}` }}</span><p>{{ explore ? '从你的视角，发现奥丁。' : currentChapter.caption }}</p></div>
           <div class="playback" :class="{ dimmed: explore }">
-            <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="togglePlayback"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ 00:40</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
-            <input class="timeline" type="range" min="0" max="39.99" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / 40 * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
+            <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="togglePlayback"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
+            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
             <div class="chapter-buttons"><button v-for="(chapter, index) in chapters" :key="chapter.name" :disabled="!ready" :class="{ active: !explore && chapterIndex === index }" @click="chooseChapter(index)"><span>0{{ index + 1 }}</span>{{ chapter.name }}</button></div>
           </div>
         </div>

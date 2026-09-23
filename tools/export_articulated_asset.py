@@ -26,8 +26,9 @@ for o in list(bpy.context.scene.objects):
   o.data.validate(clean_customdata=True);o.data.update()
 low=export('odin-lite.glb')
 manifest=root/'public/models/asset-manifest.json';d=json.loads(manifest.read_text(encoding='utf8'))
-d.update(version='0.2.1',meshCount=sum(o.type=='MESH' for o in bpy.context.scene.objects),triangles=high,animationClips=0,articulatedSource='assets/blender/odin_articulated_v0.2.1.blend',bridgeArmorSlats=45,rigSystems=['main','main-hatch','secondary','defense','pdc','bridge-armor'])
+d.update(version='0.3.0',meshCount=sum(o.type=='MESH' for o in bpy.context.scene.objects),triangles=high,animationClips=0,articulatedSource='assets/blender/odin_articulated_v0.3.0.blend',bridgeArmorSlats=45,rigSystems=['main','main-hatch','secondary','defense','pdc','bridge-armor','stern-door'])
 d['webOptimization']={'batchedMeshes':sum(o.type=='MESH' for o in bpy.context.scene.objects),'highTriangles':high,'liteTriangles':low,'highBytes':(root/'public/models/odin.glb').stat().st_size,'liteBytes':(root/'public/models/odin-lite.glb').stat().st_size,'highTextureResolution':2048,'highPositionQuantization':16}
-d['completion']+=['Recovered independent barrel, shroud, side battery and PDC joints','Separated 45 existing bridge armor slats with physical hinges','Rigid telescopic bay covers and recessed service rails','2K source wear, tangent normal and roughness textures; machined edge bevels']
+d['completion']=[item for item in d['completion'] if 'telescopic' not in item]
+d['completion']+=['Paired side-hinged main battery covers','Quad gun arms separated from their fixed forks, with aiming gimbals','Restored lower aft hangar closure and frame','Original-style gray charcoal and orange albedo with 2K wear maps']
 d['completion']=list(dict.fromkeys(d['completion']))
 manifest.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf8');print('EXPORTED',d['webOptimization'],flush=True)

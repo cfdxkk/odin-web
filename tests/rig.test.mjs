@@ -27,10 +27,37 @@ test('main covers clear before barrels lift, and PDC carriage clears before arms
   const initial = barrel.position.clone()
   for (let d = 0; d <= 1; d += .01) {
     const state = rig.apply(d, 0)
-    // Below 0.28 the plates still travel; first small cradle travel remains inside the bay.
+    // The paired cover leaves must clear before the cradle rises.
     if (state.covers < .999) assert.ok(barrel.position.distanceTo(initial) < 1, `barrel clearance ${d}`)
     if (state.pdcArms > .05) assert.ok(Math.abs(root.getObjectByName('PDC_Starboard_Carriage').position.x - 12.263671875) > 19)
   }
+})
+
+test('main cover hinges stay fixed and paired leaves rotate in opposite directions', () => {
+  const { root, rig } = loadRig()
+  const port = root.getObjectByName('Hatch_Dorsal_Port_00'), starboard = root.getObjectByName('Hatch_Dorsal_Starboard_00')
+  rig.apply(0, 0)
+  const original = [port.position.clone(), starboard.position.clone()]
+  rig.apply(.35, 0)
+  assert.equal(port.position.distanceTo(original[0]), 0)
+  assert.equal(starboard.position.distanceTo(original[1]), 0)
+  assert.ok(port.quaternion.clone().invert().angleTo(starboard.quaternion) < 1e-6)
+  assert.ok(port.quaternion.angleTo(new THREE.Quaternion()) > 2.9)
+})
+
+test('only twin and quad secondary mounts scan after deployment', () => {
+  const { root, nodes, rig } = loadRig()
+  const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|Defense_)/.test(n.name))
+  rig.apply(1, 0)
+  const original = fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()])
+  const twin = root.getObjectByName('SideBattery_1_Port').quaternion.clone()
+  const quad = root.getObjectByName('PDC_Starboard_Gimbal').quaternion.clone()
+  rig.apply(1, 10)
+  assert.deepEqual(fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), original)
+  assert.ok(twin.angleTo(root.getObjectByName('SideBattery_1_Port').quaternion) > .02)
+  assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) > .005)
+  rig.apply(.9, 10)
+  assert.ok(root.getObjectByName('PDC_Starboard_Gimbal').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
 })
 
 test('scrubbing backward restores every joint exactly without scaling rigid armor', () => {

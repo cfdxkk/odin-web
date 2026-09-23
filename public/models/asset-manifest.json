@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 110,
-  "triangles": 2417665,
+  "meshCount": 123,
+  "triangles": 2422221,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -119,20 +119,23 @@
     "Preserved all active Odin hull and turret geometry; excluded Perseus and hidden backups",
     "Recovered independent barrel, shroud, side battery and PDC joints",
     "Separated 45 existing bridge armor slats with physical hinges",
-    "Rigid telescopic bay covers and recessed service rails",
-    "2K source wear, tangent normal and roughness textures; machined edge bevels"
+    "2K source wear, tangent normal and roughness textures; machined edge bevels",
+    "Paired side-hinged main battery covers",
+    "Quad gun arms separated from their fixed forks, with aiming gimbals",
+    "Restored lower aft hangar closure and frame",
+    "Original-style gray charcoal and orange albedo with 2K wear maps"
   ],
   "webOptimization": {
-    "batchedMeshes": 110,
-    "highTriangles": 2417665,
-    "liteTriangles": 861739,
-    "highBytes": 15355924,
-    "liteBytes": 6702132,
+    "batchedMeshes": 123,
+    "highTriangles": 2422221,
+    "liteTriangles": 869043,
+    "highBytes": 16361928,
+    "liteBytes": 6974700,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.2.1",
-  "articulatedSource": "assets/blender/odin_articulated_v0.2.1.blend",
+  "version": "0.3.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.3.0.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",
@@ -140,6 +143,7 @@
     "secondary",
     "defense",
     "pdc",
-    "bridge-armor"
+    "bridge-armor",
+    "stern-door"
   ]
 }

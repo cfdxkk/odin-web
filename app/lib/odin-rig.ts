@@ -22,13 +22,13 @@ export function createOdinRig(root: THREE.Object3D) {
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
     const covers = ease(0, .28, d)
-    const lift = ease(.22, .55, d)
+    const lift = ease(.32, .61, d)
     const barrels = ease(.48, .82, d)
-    const aim = ease(.88, 1, d)
+    const aim = ease(.95, 1, d)
     // Guns return to the neutral axis before lowering; plates close last.
     for (const side of ['Dorsal', 'Ventral']) {
       const sign = side === 'Dorsal' ? 1 : -1
-      pose(`Main_${side}_Mount`, v(0, 0, 0), rotation(0, 0, Math.sin(time * .13) * 3 * aim))
+      pose(`Main_${side}_Mount`, v(0, 0, 0))
       pose(`Main_${side}_Housing`, v(0, side === 'Ventral' ? .274 * lift : 0, sign * (side === 'Dorsal' ? 2.311 : 3.137) * lift))
       pose(`Main_${side}_Barrels`, v(0, side === 'Ventral' ? .780 * lift : 0, sign * (side === 'Dorsal' ? 8.114 : 8.918) * lift), rotation(sign * 11 * barrels, 0, 0))
       for (const [role, offset] of [['Port', -2], ['Center', 0], ['Starboard', 2]] as const) {
@@ -36,8 +36,13 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(`Main_${side}_Shroud_${role}`, v(offset * sign * lift, .60 * lift, sign * travel * lift), rotation(sign * 11 * barrels, 0, 0))
       }
       for (let i = 0; i < 5; i++) {
-        const travel = (4 - i) * 19.8
-        pose(`Hatch_${side}_${String(i).padStart(2, '0')}`, v(0, travel * covers, -sign * ((4 - i) * 3.45 + .85 + i * .70) * covers))
+        for (const leaf of ['Port', 'Starboard']) {
+          const name = `Hatch_${side}_${leaf}_${String(i).padStart(2, '0')}`
+          const data = joints.get(name)?.object.userData
+          if (!data?.hingeAxis) continue
+          const open = ease(i * .009, .24 + i * .009, d)
+          pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...data.hingeAxis as [number, number, number]).normalize(), rad(Number(data.openingSign) * 172 * open)))
+        }
       }
     }
     const axial = ease(.24, .76, d)
@@ -50,7 +55,8 @@ export function createOdinRig(root: THREE.Object3D) {
       const unfold = ease(.16 + index * .025, .77 + index * .025, d)
       for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
         const [x, y, z] = sideAngles[index]!
-        pose(`SideBattery_${index + 1}_${side}`, v(0, 0, 0), rotation(x! * unfold, y! * sign * unfold, z! * sign * unfold))
+        const scan = Math.sin(time * .11 + index * .85) * 7 * aim
+        pose(`SideBattery_${index + 1}_${side}`, v(0, 0, 0), rotation(0, 0, scan).multiply(rotation(x! * unfold, y! * sign * unfold, z! * sign * unfold)))
       }
     }
     const carriage = ease(.06, .37, d), ring = ease(.31, .60, d), gun = ease(.57, .91, d)
@@ -61,18 +67,20 @@ export function createOdinRig(root: THREE.Object3D) {
       const prefix = `Defense_${String(i + 1).padStart(2, '0')}`, data = joints.get(prefix + '_Carriage')?.object.userData
       const sign = Number(data?.side || 1), forward = i < 4
       pose(prefix + '_Carriage', v(sign * (forward ? 9.781 : 9.903) * carriage, (forward ? 2.079 : -1.392) * carriage, 2 * ring))
-      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * 35 * gun + Math.sin(time * .16 + i) * 4 * aim))
+      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * 35 * gun))
       const axis = joints.get(prefix + '_Elevation')?.object.userData.hingeAxis
       if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...axis as [number, number, number]), rad(25 * gun)))
     }
     // Tower PDCs: withdraw the folded gun arms behind the armored pod, slide the
     // carriage clear of the tower, then unfold opposing arms around separate hinges.
-    const pdcOut = ease(.08, .44, d), pdcArms = ease(.40, .88, d)
+    const pdcOut = ease(.10, .42, d), pdcArms = ease(.46, .90, d)
     for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       pose(`PDC_${side}_Carriage`, v(sign * 20 * pdcOut, 0, 0))
+      pose(`PDC_${side}_Gimbal`, v(0, 0, 0), rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const upper = i % 2 === 1
-        pose(`PDC_${side}_Arm_${i}`, v(0, 0, 0), rotation(0, sign * (upper ? -1 : 1) * 165 * (1 - pdcArms), 0))
+        const armOpen = ease(.46 + (i >= 2 ? .035 : 0), .88 + (i >= 2 ? .035 : 0), d)
+        pose(`PDC_${side}_Arm_${i}`, v(0, 0, 0), rotation(0, sign * (upper ? -1 : 1) * 180 * (1 - armOpen), 0))
       }
     }
     // Existing bridge louvers follow the roof guide before rotating into place.
