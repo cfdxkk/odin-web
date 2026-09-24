@@ -127,13 +127,13 @@
     "batchedMeshes": 129,
     "highTriangles": 2543373,
     "liteTriangles": 922660,
-    "highBytes": 17297696,
-    "liteBytes": 7690056,
+    "highBytes": 17300192,
+    "liteBytes": 7692128,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.8.3",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.3.blend",
+  "version": "0.8.4",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.4.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",
