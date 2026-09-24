@@ -1,0 +1,19 @@
+{
+  "file": "seam-before-after.png",
+  "dimensions": [
+    3840,
+    1390
+  ],
+  "source": "Uncropped direct geometry renders, composed side by side at original resolution with labels; identical camera and scale",
+  "before": {
+    "version": "0.8.5",
+    "source": "work\\v086-review\\baseline-v085-closed-edge.png",
+    "sha256": "9d7a7731ca11f9ee528363a2d2da057915fea356ca1ce3b3dd23f7dc24b27b52"
+  },
+  "after": {
+    "version": "0.8.6",
+    "source": "final-closed-edge.png",
+    "sha256": "28bf6e5b9692281b215a8e23f4c86fc8351fad2148943817f049f1b1c276c283"
+  },
+  "sha256": "36408fdcf7f91a86e050032bae9744a1e16e39d6822f77d15077ba1da059c254"
+}

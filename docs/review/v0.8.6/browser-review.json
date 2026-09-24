@@ -1,0 +1,18 @@
+{
+  "version": "0.8.6",
+  "blendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "glbSha256": "3f4b53f10d9b4043f3a995976c78ab5e3a8ab2d16515cdd236bf8441fc9e22da",
+  "url": "http://127.0.0.1:4173/",
+  "viewport": [1265, 712],
+  "quality": "high",
+  "checks": [
+    "Reloaded the generated Nuxt page after final geometry export and generation",
+    "SCM free exploration displays independent armor leaves, all main bores and red interior",
+    "NAV closes the final armor and displays exhaust after stow",
+    "The intentional film pause remains active through scrubbing and mode changes",
+    "Orbit and zoom remain operational",
+    "Other visible weapons and bridge armor still deploy and stow"
+  ],
+  "consoleWarningsAndErrors": [],
+  "productionSiteReplaced": false
+}

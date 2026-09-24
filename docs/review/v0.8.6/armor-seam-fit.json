@@ -1,0 +1,342 @@
+{
+  "revision": "0.8.6",
+  "baseline": "odin_articulated_v0.8.5.blend",
+  "fixedHullUnchanged": true,
+  "ventralGeometryUnchanged": true,
+  "jointTransformsAndAnimationMetadataUnchanged": true,
+  "parts": {
+    "Hatch_Dorsal_Aft_Port": {
+      "construction": "original-plane-refit",
+      "maximumOutwardExtension": 0.15836972130380075,
+      "newVertices": 0,
+      "planeNormal": [
+        -0.8368749022483826,
+        0.10126672685146332,
+        0.5379456281661987
+      ],
+      "closedHullPairs": 0
+    },
+    "Hatch_Dorsal_Aft_Starboard": {
+      "construction": "original-plane-refit",
+      "maximumOutwardExtension": 0.19777162260593706,
+      "newVertices": 0,
+      "planeNormal": [
+        0.8523180484771729,
+        0.1046634167432785,
+        0.5124447345733643
+      ],
+      "closedHullPairs": 0
+    },
+    "Hatch_Dorsal_Port": {
+      "construction": "existing-skin-and-ribs-refit",
+      "maximumSourceDisplacementXYZ": 2.8793505645391604,
+      "targetEdgeTopSurfaceOffset": 0.085,
+      "meshes": {
+        "Hatch_Dorsal_Port_FittedSkin": {
+          "changedSourceVertices": 314,
+          "sourceVertexCount": 2010,
+          "finalVertexCount": 2010,
+          "maximumSourceDisplacementXYZ": 2.8793505645391604,
+          "localHullFitVertices": 6,
+          "localHullFitMaximum": 0.045,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_00": {
+          "changedSourceVertices": 64,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.0505485544743767,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_01": {
+          "changedSourceVertices": 60,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.16631317401163084,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_02": {
+          "changedSourceVertices": 62,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.2819175744733215,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_03": {
+          "changedSourceVertices": 70,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.38758215604879276,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_04": {
+          "changedSourceVertices": 70,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.5997436789288453,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_05": {
+          "changedSourceVertices": 72,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.2833923333893236,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_06": {
+          "changedSourceVertices": 80,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.8245377067745032,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_07": {
+          "changedSourceVertices": 80,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.8882416172942542,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_08": {
+          "changedSourceVertices": 88,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9199170998313095,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_09": {
+          "changedSourceVertices": 94,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9581966699097746,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_10": {
+          "changedSourceVertices": 104,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9990094756965222,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_11": {
+          "changedSourceVertices": 116,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.0604162418845897,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_12": {
+          "changedSourceVertices": 136,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.1006314047943055,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Port_Rib_13": {
+          "changedSourceVertices": 154,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.181466777845159,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        }
+      },
+      "nominalVerticalThickness": 0.055
+    },
+    "Hatch_Dorsal_Starboard": {
+      "construction": "existing-skin-and-ribs-refit",
+      "maximumSourceDisplacementXYZ": 2.8793507146194144,
+      "targetEdgeTopSurfaceOffset": 0.085,
+      "meshes": {
+        "Hatch_Dorsal_Starboard_FittedSkin": {
+          "changedSourceVertices": 318,
+          "sourceVertexCount": 2006,
+          "finalVertexCount": 2006,
+          "maximumSourceDisplacementXYZ": 2.8793507146194144,
+          "localHullFitVertices": 6,
+          "localHullFitMaximum": 0.045,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_00": {
+          "changedSourceVertices": 62,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.04656219419916594,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_01": {
+          "changedSourceVertices": 56,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.1673698449202752,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_02": {
+          "changedSourceVertices": 66,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.28816604793527023,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_03": {
+          "changedSourceVertices": 70,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.3982586029531932,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_04": {
+          "changedSourceVertices": 74,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 0.5989899651149753,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_05": {
+          "changedSourceVertices": 80,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.2862044323884054,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_06": {
+          "changedSourceVertices": 80,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.820303487141444,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_07": {
+          "changedSourceVertices": 80,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.888209072243986,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_08": {
+          "changedSourceVertices": 90,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9198418636472645,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_09": {
+          "changedSourceVertices": 98,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9579877400499057,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_10": {
+          "changedSourceVertices": 106,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 1.9990061473611176,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_11": {
+          "changedSourceVertices": 124,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.0604138661344016,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_12": {
+          "changedSourceVertices": 140,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.100464580156892,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        },
+        "Hatch_Dorsal_Starboard_Rib_13": {
+          "changedSourceVertices": 162,
+          "sourceVertexCount": 330,
+          "finalVertexCount": 330,
+          "maximumSourceDisplacementXYZ": 2.1814367289531815,
+          "localHullFitVertices": 0,
+          "localHullFitMaximum": 0,
+          "closedHullPairs": 0
+        }
+      },
+      "nominalVerticalThickness": 0.055
+    },
+    "Hatch_Dorsal_Nose": {
+      "construction": "shared-section-ruled-nose-with-receiving-return",
+      "maximumSourceDisplacementXYZ": 3.0877977184721317,
+      "targetEdgeTopSurfaceOffset": 0.085,
+      "meshes": {
+        "Hatch_Dorsal_Nose_Wedge": {
+          "changedSourceVertices": 20974,
+          "sourceVertexCount": 32746,
+          "finalVertexCount": 426,
+          "maximumSourceDisplacementXYZ": 3.0877977184721317,
+          "localHullFitVertices": 140,
+          "localHullFitMaximum": 0.09,
+          "closedHullPairs": 0
+        }
+      },
+      "nominalVerticalThickness": 0.025
+    }
+  },
+  "blendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "noseTipReturnNormalClearance": 0.03,
+  "local101PoseCheck": {
+    "sourcePoses": "work/preview-v0.8.5/poses.json",
+    "samples": 101,
+    "collisionPoses": 0,
+    "log": "work/v086-review/quick9.log"
+  }
+}
