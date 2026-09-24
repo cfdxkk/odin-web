@@ -1,0 +1,48 @@
+{
+  "assetVersion": "0.8.5",
+  "glbSha256": "49624430938b851393d79904857d28e34cb0feeef02ed37b6e264256cdb6047e",
+  "rigSha256": "c1c0818b205975b85770d152ddafc7c6cfaa79c4b3ed1b201c55d34a549b3007",
+  "blendSha256": "1518d276be3432ea8305aac75dbc0b71570e3214ccd0096bf36dbffefb8bb74b",
+  "source": "actual JS runtime poses; same fixed animation-preview camera; full original renders; no geometry hidden; editable source not saved",
+  "cameraLocation": [
+    4.088761806488037,
+    6.228761196136475,
+    5.58022928237915
+  ],
+  "cameraRotation": [
+    0.9078301787376404,
+    8.123834049911238e-08,
+    2.4668517112731934
+  ],
+  "cameraOrthoScale": 1.5499999523162842,
+  "images": [
+    {
+      "file": "closed-seam-detail.png",
+      "deployment": 0,
+      "width": 1920,
+      "height": 1280,
+      "sha256": "549cc8657922a82220678b9ab1b80f784d13bef2c97f8ba3318c97e64f265ca4"
+    },
+    {
+      "file": "half-open-seam-detail.png",
+      "deployment": 0.5,
+      "width": 1920,
+      "height": 1280,
+      "sha256": "05f8e3149581e9d2eaaf34968bc11d8dc4496ecddf222cc7466068503e530923"
+    },
+    {
+      "file": "front-interior.png",
+      "deployment": 0.62,
+      "width": 1920,
+      "height": 1280,
+      "sha256": "1769a2e550bab5164682a7a424f6805ccdc284ef3e4e08a6a715cb4113ba6fdf"
+    },
+    {
+      "file": "open-seam-detail.png",
+      "deployment": 1,
+      "width": 1920,
+      "height": 1280,
+      "sha256": "a9a75e180223d4042926b624d866631b9074a3aa32e3ece6bc9f6d6791c238ef"
+    }
+  ]
+}

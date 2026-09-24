@@ -1,0 +1,72 @@
+[
+  {
+    "pixel": [
+      378,
+      355
+    ],
+    "obj": "holo.001",
+    "face": 185047,
+    "material": "Odin_Turret_Interior_DeepRed",
+    "point": [
+      12.86944580078125,
+      101.63400268554688,
+      39.686431884765625
+    ]
+  },
+  {
+    "pixel": [
+      418,
+      385
+    ],
+    "obj": "holo.001",
+    "face": 185047,
+    "material": "Odin_Turret_Interior_DeepRed",
+    "point": [
+      12.355506896972656,
+      111.33001708984375,
+      39.202392578125
+    ]
+  },
+  {
+    "pixel": [
+      459,
+      415
+    ],
+    "obj": "holo.001",
+    "face": 185047,
+    "material": "Odin_Turret_Interior_DeepRed",
+    "point": [
+      11.668510437011719,
+      121.06808471679688,
+      38.659576416015625
+    ]
+  },
+  {
+    "pixel": [
+      500,
+      445
+    ],
+    "obj": "holo.001",
+    "face": 185047,
+    "material": "Odin_Turret_Interior_DeepRed",
+    "point": [
+      10.981575012207031,
+      130.80625915527344,
+      38.11680221557617
+    ]
+  },
+  {
+    "pixel": [
+      521,
+      460
+    ],
+    "obj": "holo.001",
+    "face": 185047,
+    "material": "Odin_Turret_Interior_DeepRed",
+    "point": [
+      10.551505088806152,
+      135.69630432128906,
+      37.81599426269531
+    ]
+  }
+]

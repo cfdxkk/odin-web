@@ -1,0 +1,10 @@
+{
+  "baseline": "0.8.4",
+  "candidate": "0.8.5",
+  "scope": "Every object outside the four side and four aft armor assemblies; includes both independent Nose assemblies, main barrels, fixed hull geometry, secondary/PDC, bridge and stern mechanisms. Fixed hull face-material assignments separately audited for exterior-lip correction.",
+  "objectsCompared": 339,
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "passed": true
+}
