@@ -81,13 +81,21 @@ test('polygonal side armor clears outboard before descending into the hull witho
       assert.equal(y, 0)
       assert.equal(Math.sign(z), bank === 'Dorsal' ? -1 : 1)
       assert.ok(plate.userData.closedOutlineXY.length >= 6, 'The skin has shroud and foredeck chamfers')
-      assert.ok(Math.abs(plate.userData.guideExit[0]) > 13, 'The first travel leg clears the bore corridor')
+      const exit = new THREE.Vector3(...plate.userData.guideExit)
+      const pocket = new THREE.Vector3(...plate.userData.guidePocket)
+      assert.ok(exit.x * sign > 0, 'The first travel leg clears the bore corridor outboard')
+      const [maxOutboard, maxDescent] = bank === 'Dorsal' ? [10.5, 17.6] : [10, 16.1]
+      assert.ok(Math.abs(x) <= maxOutboard + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stay within its measured hull pocket guide`)
+      assert.ok(exit.clone().add(pocket).distanceTo(new THREE.Vector3(x, y, z)) < 1e-6, 'Guide stages agree with the authored parking endpoint')
       for (const d of [.07, .14, .21, .28, .5, 1]) {
         rig.apply(d, 0)
         assert.ok(plate.quaternion.angleTo(closedRotation) < 1e-6, `${bank} ${side} rotated at ${d}`)
+        assert.ok(Math.abs(plate.position.x - closedPosition.x) <= Math.abs(x) + 1e-6, `${bank} ${side} overshoots the outboard pocket`)
+        assert.ok(Math.abs(plate.position.y - closedPosition.y) <= Math.abs(z) + 1e-6, `${bank} ${side} descends past the pocket`)
       }
       rig.apply(1, 0)
-      assert.ok(plate.position.distanceTo(closedPosition) > 12)
+      const expected = closedPosition.clone().add(new THREE.Vector3(x, z, -y))
+      assert.ok(plate.position.distanceTo(expected) < 1e-6, 'Armor parks on the shortened guide endpoint')
       rig.apply(0, 0)
       assert.ok(plate.position.distanceTo(closedPosition) < 1e-6, `${bank} ${side} did not return exactly`)
     }
@@ -100,11 +108,15 @@ test('the aft armor skirts retract independently before their shrouds rise', () 
     rig.apply(0, 0)
     const apron = root.getObjectByName(`Hatch_${bank}_Aft_${side}`)
     const start = apron.position.clone(), turn = apron.quaternion.clone()
-    assert.equal(apron.userData.sourceObject, bank === 'Dorsal' ? 'holo.001' : 'holo.013')
+    assert.equal(apron.userData.construction, 'gap-filler', 'Aft plates fill the shroud seam instead of cutting away the fixed hull skin')
+    assert.equal(apron.userData.hullFacesRemoved, 0, 'Filling the gap must preserve the original fixed hull faces')
     assert.equal(apron.parent.name, 'Odin_Asset', 'Aft armor belongs to the hull, not the rising cradle')
     rig.apply(.32, 0)
     const clear = apron.position.clone()
-    assert.ok(clear.distanceTo(start) > 9, 'Skirt descends before gun rise')
+    const [x, y, z] = apron.userData.slideVector
+    assert.ok(Math.abs(x) <= 1.7 + 1e-6 && Math.abs(z) <= 7 + 1e-6, 'Gap filler uses its shallow hull pocket')
+    assert.ok(clear.distanceTo(start) > 6, 'Gap filler clears before gun rise')
+    assert.ok(clear.distanceTo(start.clone().add(new THREE.Vector3(x, z, -y))) < 1e-6, 'Gap filler parks at its authored guide endpoint')
     for (const d of [.36, .5, .75, 1]) {
       rig.apply(d, 0)
       assert.ok(apron.position.distanceTo(clear) < 1e-6, 'Skirt stays parked while its shroud rises')
@@ -150,14 +162,51 @@ test('quad barrels retain orientation during stow/deploy while pod travel is sho
   arms.forEach((n, i) => assert.ok(n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i]) > .2))
 })
 
-test('outer main tubes telescope independently and the original front bridge shields actually open', () => {
+test('outer main tubes retract to the marked muzzle line while retaining their full SCM reach', () => {
   const { root, rig } = loadRig()
-  const names = ['Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Starboard', 'Main_Ventral_Tube_Port', 'Main_Ventral_Tube_Starboard']
+  const sourcePositions = new Map()
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+    const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
+    sourcePositions.set(name, tube.position.clone())
+  }
   rig.apply(0, 0)
-  const tubes = names.map(name => root.getObjectByName(name)), starts = tubes.map(n => n.position.clone())
+  const stowed = new Map()
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+    const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
+    stowed.set(name, tube.position.clone())
+    // The original visible inner bore is about 34 units long. The red-line
+    // target removes about 40% of that exposed length (at least 13.5 units).
+    assert.ok(tube.position.z - sourcePositions.get(name).z >= 13.5, `${name} still protrudes past the marked stow line`)
+    assert.equal(root.getObjectByName(`Main_${bank}_Tube_Center`), undefined, 'The center bore must not gain a telescope joint')
+  }
+  for (const d of [.1, .2, .34, .5, .65]) {
+    rig.apply(d, 0)
+    for (const [name, position] of stowed) {
+      assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6, `${name} extends before the armor and cradle clear`)
+    }
+  }
+  rig.apply(1, 0)
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+    const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
+    const expected = sourcePositions.get(name).clone().add(new THREE.Vector3(0, bank === 'Dorsal' ? -.389 : .389, -2))
+    assert.ok(tube.position.distanceTo(expected) < 1e-6, `${name} changed the existing fully deployed reach`)
+    assert.ok(tube.position.distanceTo(stowed.get(name)) >= 15.5, `${name} lacks the deeper telescopic stroke`)
+    const axis = new THREE.Vector3(tube.userData.boreAxis[0], tube.userData.boreAxis[2], -tube.userData.boreAxis[1]).normalize()
+    assert.ok(tube.position.clone().sub(stowed.get(name)).normalize().angleTo(axis) < 1e-6, `${name} slips across its bore axis`)
+  }
+  // The same reverse timeline must finish tube retraction while the armor
+  // remains parked, with no direction-dependent state after scrubbing.
+  rig.apply(.65, 0)
+  for (const [name, position] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6)
+  rig.apply(0, 0)
+  for (const [name, position] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6)
+})
+
+test('the original front bridge shields actually open', () => {
+  const { root, rig } = loadRig()
+  rig.apply(0, 0)
   const armor = root.getObjectByName('BridgeArmor_Front_00'), original = armor.quaternion.clone()
   rig.apply(1, 0)
-  tubes.forEach((n, i) => assert.ok(n.position.distanceTo(starts[i]) > 1.9))
   assert.ok(armor.quaternion.angleTo(original) > .7)
   assert.ok(armor.children.some(n => n.type === 'Object3D'), 'Shield joint must carry exported geometry')
 })

@@ -1,0 +1,72 @@
+{
+  "baseline": "odin_articulated_v0.5.0.blend",
+  "candidate": "odin_articulated_v0.7.0.blend",
+  "baselineSha256": "a7efa03f683d5bfdd9a4614a290364693eb436fa9969ab4cf16f57f22bd44586",
+  "candidateSha256": "c94abf5450daa5939e2b2098775b00742b2d97a82ef330cef12c440ac62444d9",
+  "comparison": "Exact per-index float coordinates, polygon vertex order, mesh edge endpoints and object world transform; material changes allowed",
+  "objects": {
+    "holo.001": {
+      "vertexCount": 183665,
+      "polygonCount": 234247,
+      "edgeCount": 413245,
+      "vertexCoordinatesIdentical": true,
+      "polygonTopologyIdentical": true,
+      "edgeTopologyIdentical": true,
+      "worldTransformIdentical": true,
+      "changedCoordinateIndices": [],
+      "vertexSha256": "2b43eaedb2ad9d088e4262cf73dbab71ef818a17867a180748e73d0b3a38775b",
+      "polygonSha256": "86b60d025c98bd4a55766080e46d7a75a7384f578ee9f1bf7bcb3584f79b3979",
+      "edgeSha256": "43ec149fecda51a594dc467c86817d1321da415ff8bf55b311a6f6e90d7cb32e",
+      "materialIndexChanges": 1,
+      "baselineMaterials": [
+        "Odin_Paint_Light",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_White",
+        "Odin_Equipment_Alloy",
+        "Odin_Paint_Orange"
+      ],
+      "candidateMaterials": [
+        "Odin_Paint_Light",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_White",
+        "Odin_Equipment_Alloy",
+        "Odin_Paint_Orange",
+        "Odin_Bay_Primer"
+      ]
+    },
+    "holo.013": {
+      "vertexCount": 5884,
+      "polygonCount": 6454,
+      "edgeCount": 12340,
+      "vertexCoordinatesIdentical": true,
+      "polygonTopologyIdentical": true,
+      "edgeTopologyIdentical": true,
+      "worldTransformIdentical": true,
+      "changedCoordinateIndices": [],
+      "vertexSha256": "5a311df478cc23d926987add44fd48139864eda89aab005b36c32c9d919d1551",
+      "polygonSha256": "3e26662f2ebcca53def33dfb9c177f41ca1318746ea6c8a39dd129a1d636f2a8",
+      "edgeSha256": "a9681dccf0f32bdb9eb5ce79b3d1c22dee8f1b144a24ad4494f33c13ff3e7a7b",
+      "materialIndexChanges": 6,
+      "baselineMaterials": [
+        "Odin_Paint_Light",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_Orange",
+        "Odin_Paint_White",
+        "Odin_Paint_White",
+        "Odin_Equipment_Alloy"
+      ],
+      "candidateMaterials": [
+        "Odin_Paint_Light",
+        "Odin_Paint_Dark.001",
+        "Odin_Paint_Orange",
+        "Odin_Paint_White",
+        "Odin_Paint_White",
+        "Odin_Equipment_Alloy",
+        "Odin_Bay_Primer"
+      ]
+    }
+  },
+  "passed": true
+}

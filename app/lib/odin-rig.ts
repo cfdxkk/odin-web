@@ -71,10 +71,17 @@ export function createOdinRig(root: THREE.Object3D) {
           const a = aft.guideExit as [number, number, number], b = aft.guidePocket as [number, number, number]
           pose(aftName, v(a[0] * first + b[0] * sink, 0, a[2] * first + b[2] * sink))
         }
-        // The outer bores telescope a little after all three gun bodies emerge.
-        // The offset follows their bore axis and the two sides lag subtly.
+        // The outer tubes stay deeply nested until the armor and gun bodies
+        // are clear. Their measured bore axes preserve the sleeve alignment;
+        // the deployed end position stays fixed while the stow end moves aft.
+        // Reversing this curve nests the tubes well before the armor closes.
         const extend = ease(leaf === 'Port' ? .66 : .70, leaf === 'Port' ? .91 : .95, d)
-        pose(`Main_${side}_Tube_${leaf}`, v(0, 2.0 * extend, -sign * .389 * extend))
+        const tubeName = `Main_${side}_Tube_${leaf}`, tube = joints.get(tubeName)?.object.userData
+        if (tube?.boreAxis && tube?.deployedOffset && Number.isFinite(tube.stowTravel)) {
+          const axis = tube.boreAxis as [number, number, number]
+          const end = tube.deployedOffset as [number, number, number]
+          pose(tubeName, v(...end).addScaledVector(v(...axis).normalize(), -Number(tube.stowTravel) * (1 - extend)))
+        }
       }
       const noseName = `Hatch_${side}_Nose`, nose = joints.get(noseName)?.object.userData
       if (nose?.liftVector && nose?.slideVector) {

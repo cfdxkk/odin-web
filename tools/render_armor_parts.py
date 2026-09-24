@@ -1,8 +1,14 @@
 """A static color key matching the user's five-piece annotation; never saved."""
-import bpy
+import bpy,json,math
 from pathlib import Path
-from mathutils import Vector
+from mathutils import Vector,Quaternion
 root=Path(__file__).resolve().parents[1];s=bpy.context.scene
+basis=Quaternion((1,0,0),-math.pi/2)
+for joint in json.loads((root/'work/rig-review/poses.json').read_text())[0]['joints']:
+    obj=bpy.data.objects[joint['name']];x,y,z=joint['position'];obj.location=(x,-z,y)
+    q=joint['quaternion'];obj.rotation_mode='QUATERNION'
+    obj.rotation_quaternion=basis.inverted()@Quaternion((q[3],q[0],q[1],q[2]))@basis
+bpy.context.view_layer.update()
 s.render.engine='BLENDER_WORKBENCH';s.render.resolution_x=1500;s.render.resolution_y=1000;s.render.resolution_percentage=100
 s.display.shading.color_type='MATERIAL';s.display.shading.light='STUDIO';s.display.shading.show_cavity=True;s.display.shading.cavity_type='BOTH'
 s.display.shading.background_type='WORLD';s.world.color=(.045,.055,.07)
