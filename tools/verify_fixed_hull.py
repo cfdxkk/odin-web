@@ -1,10 +1,18 @@
-import bpy,json,hashlib,struct,sys
+"""Compare immutable hull geometry; append -- 0.8.1 for a versioned report.
+
+Historical defaults and v0.8.0 paths remain unchanged for older review scripts.
+"""
+import bpy,json,hashlib,struct,sys,re
 from pathlib import Path
 r=Path(__file__).resolve().parents[1]
 base=r/'assets/blender/odin_articulated_v0.5.0.blend'
-version=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else '0.7.0'
+arguments=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
+version=arguments[0] if arguments else '0.7.0'
+if len(arguments)>1 or not re.fullmatch(r'\d+\.\d+\.\d+',version):raise RuntimeError('Usage: blender --background --python tools/verify_fixed_hull.py -- 0.8.1')
 candidate=r/f'assets/blender/odin_articulated_v{version}.blend'
-output=r/'docs/review/v0.8/hull-preservation.json' if version=='0.8.0' else r/'docs/review/hull-preservation-v07.json'
+if version=='0.7.0':output=r/'docs/review/hull-preservation-v07.json'
+elif version=='0.8.0':output=r/'docs/review/v0.8/hull-preservation.json'
+else:output=r/f'docs/review/v{version}/hull-preservation.json'
 output.parent.mkdir(parents=True,exist_ok=True)
 def read(path):
  bpy.ops.wm.open_mainfile(filepath=str(path));result={}

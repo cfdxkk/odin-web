@@ -1,0 +1,21 @@
+{
+  "version": "0.8.1",
+  "url": "http://127.0.0.1:4173/",
+  "viewport": [
+    1600,
+    900
+  ],
+  "quality": "high",
+  "build": "npm run generate succeeded",
+  "checked": [
+    "Current v0.8.1 high-detail model loaded after rebuild and browser reload",
+    "SCM film at 23 seconds renders deployed main and secondary batteries",
+    "Explicit pause survives slider value 23, NAV mode change to 32, free exploration entry, free SCM switch and return to film",
+    "Free NAV visibly shows engine plumes",
+    "Community badge present"
+  ],
+  "warningOrErrorConsoleEntries": 0,
+  "tests": 20,
+  "assetAnimationClips": 0,
+  "note": "Browser screenshots were inspected through CUA. No production deployment was performed."
+}

@@ -63,14 +63,16 @@ export function createOdinRig(root: THREE.Object3D) {
           const settle = travel * travel
           const clearance = data.clearanceLift as [number, number, number]
           const slide = data.slideVector as [number, number, number]
-          pose(name, v(slide[0] * travel, slide[1] * travel, clearance[2] * liftOff * (1 - settle) + slide[2] * settle))
+          // Release the close-fitting aft scarf before crossing its hinged lip.
+          const seamRelease = Number(data.seamReleaseVector?.[1] || 0) * ease(.10, .20, d)
+          pose(name, v(slide[0] * travel, slide[1] * travel + seamRelease, clearance[2] * liftOff * (1 - settle) + slide[2] * settle))
         }
         // The aft fillers fold out and down about the sloped fixed hull lip.
         // Their pivots stay anchored instead of sliding with the armor skin.
         const aftName = `Hatch_${side}_Aft_${leaf}`, aft = joints.get(aftName)?.object.userData
         if (aft?.hingeAxis && Number.isFinite(aft.openingAngleDegrees)) {
           const axis = aft.hingeAxis as [number, number, number]
-          const turn = new THREE.Quaternion().setFromAxisAngle(v(...axis).normalize(), rad(Number(aft.openingAngleDegrees)) * ease(.01, .28, d))
+          const turn = new THREE.Quaternion().setFromAxisAngle(v(...axis).normalize(), rad(Number(aft.openingAngleDegrees)) * ease(.14, .32, d))
           pose(aftName, v(0, 0, 0), turn)
         }
       }

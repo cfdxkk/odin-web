@@ -1,0 +1,76 @@
+{
+  "Dorsal/Port": {
+    "lipGap": 0.035,
+    "lipHeightOffset": 0.005,
+    "frontRidge": [
+      -1.3065,
+      154.95,
+      48.98
+    ],
+    "aftMeetingPoint": [
+      -8.7977,
+      112.7544,
+      43.1184
+    ]
+  },
+  "Dorsal/Starboard": {
+    "lipGap": 0.035,
+    "lipHeightOffset": 0.005,
+    "frontRidge": [
+      1.4934999999999998,
+      154.95,
+      48.98
+    ],
+    "aftMeetingPoint": [
+      8.9847,
+      112.7544,
+      43.1184
+    ]
+  },
+  "Dorsal/Nose": {
+    "aftSeamGap": 0.035,
+    "aftCrest": 48.98,
+    "forwardCrest": 47.76721954345703,
+    "fixedForedeckProbes": [
+      47.75911331176758,
+      47.775325775146484
+    ]
+  },
+  "Ventral/Port": {
+    "lipGap": 0.035,
+    "lipHeightOffset": 0.005,
+    "frontRidge": [
+      -1.3936,
+      103,
+      -55.68
+    ],
+    "aftMeetingPoint": [
+      -8.882067,
+      63.704905,
+      -53.144062
+    ]
+  },
+  "Ventral/Starboard": {
+    "lipGap": 0.035,
+    "lipHeightOffset": 0.005,
+    "frontRidge": [
+      1.4063999999999999,
+      103,
+      -55.68
+    ],
+    "aftMeetingPoint": [
+      8.894867,
+      63.704905,
+      -53.144062
+    ]
+  },
+  "Ventral/Nose": {
+    "aftSeamGap": 0.035,
+    "aftCrest": -55.68,
+    "forwardCrest": -52.29196739196777,
+    "fixedForedeckProbes": [
+      -52.28763961791992,
+      -52.296295166015625
+    ]
+  }
+}

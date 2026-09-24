@@ -2,7 +2,10 @@
 
 Usage, after regenerating the 101 runtime poses with review_rig_poses.mjs:
   blender -b assets/blender/odin_articulated_v0.8.0.blend \
-    --python tools/check_main_hull_sweep_v08.py
+    --python tools/check_main_hull_sweep_v08.py -- 0.8.0
+
+For v0.8.1, open that version's Blend and append ``-- 0.8.1`` instead.
+The versioned report is then work/v081-review/hull-sweep.json.
 
 The report is work/v08-review/hull-sweep.json. This script never edits meshes,
 keyframes, the source .blend, or the website. Coordinates are centimeters in
@@ -11,6 +14,8 @@ Odin_Asset local space (X starboard, Y bow, Z up).
 import hashlib
 import json
 import math
+import re
+import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -21,9 +26,14 @@ from mathutils.geometry import intersect_ray_tri
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BLEND = (ROOT / 'assets/blender/odin_articulated_v0.8.0.blend').resolve()
+arguments = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+VERSION = arguments[0] if arguments else '0.8.0'
+if len(arguments) > 1 or not re.fullmatch(r'\d+\.\d+\.\d+', VERSION):
+    raise RuntimeError('Usage: blender -b <versioned.blend> --python tools/check_main_hull_sweep_v08.py -- 0.8.1')
+REVIEW_DIR = 'v08-review' if VERSION == '0.8.0' else f'v{VERSION.replace(".", "")}-review'
+BLEND = (ROOT / f'assets/blender/odin_articulated_v{VERSION}.blend').resolve()
 POSES_PATH = ROOT / 'work/rig-review/clearance-poses.json'
-OUT_PATH = ROOT / 'work/v08-review/hull-sweep.json'
+OUT_PATH = ROOT / 'work' / REVIEW_DIR / 'hull-sweep.json'
 GLB_PATH = ROOT / 'public/models/odin.glb'
 RIG_PATH = ROOT / 'app/lib/odin-rig.ts'
 MANIFEST_PATH = ROOT / 'public/models/asset-manifest.json'
@@ -31,12 +41,12 @@ HULLS = {'Dorsal': 'holo.001', 'Ventral': 'holo.013'}
 ROLES = ('Port', 'Starboard', 'Nose', 'Aft_Port', 'Aft_Starboard')
 
 if Path(bpy.data.filepath).resolve() != BLEND:
-    raise RuntimeError(f'Open the v0.8 editable source first: {BLEND}')
+    raise RuntimeError(f'Open the v{VERSION} editable source first: {BLEND}')
 if not POSES_PATH.is_file():
     raise RuntimeError(f'Generate 101 current runtime poses first: {POSES_PATH}')
 manifest = json.loads(MANIFEST_PATH.read_text(encoding='utf8'))
-if manifest.get('version') != '0.8.0':
-    raise RuntimeError(f'Expected exported v0.8.0 asset, found {manifest.get("version")}')
+if manifest.get('version') != VERSION:
+    raise RuntimeError(f'Expected exported v{VERSION} asset, found {manifest.get("version")}')
 if POSES_PATH.stat().st_mtime_ns < max(GLB_PATH.stat().st_mtime_ns, RIG_PATH.stat().st_mtime_ns):
     raise RuntimeError('The 101 runtime poses predate the current GLB or rig; rerun node tools/review_rig_poses.mjs')
 poses = json.loads(POSES_PATH.read_text(encoding='utf8'))
@@ -190,6 +200,7 @@ for sample_index, pose in enumerate(poses):
         print(f'HULL_SWEEP {sample_index:03d}/100', flush=True)
 
 report = {
+    'assetVersion': VERSION,
     'sourceBlend': BLEND.name,
     'sourceBlendSha256': hashlib.sha256(BLEND.read_bytes()).hexdigest(),
     'rigSha256': hashlib.sha256(RIG_PATH.read_bytes()).hexdigest(),

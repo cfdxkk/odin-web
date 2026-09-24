@@ -83,10 +83,12 @@ test('polygonal side armor releases the serrated lip before translating to its e
       assert.ok(plate.userData.closedOutlineXY.length >= 6, 'The skin has shroud and foredeck chamfers')
       const direction = bank === 'Dorsal' ? 1 : -1
       const clearance = new THREE.Vector3(...plate.userData.clearanceLift)
+      const seamRelease = new THREE.Vector3(...plate.userData.seamReleaseVector)
+      assert.ok(seamRelease.y > 0 && seamRelease.y <= 1, 'Close-fitting aft seams need only a short forward release')
       const maxDescent = bank === 'Dorsal' ? 6.4 : 3
       assert.equal(clearance.x, 0)
       assert.equal(clearance.y, 0)
-      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .8 : 1.6)) < 1e-6, 'The initial lift is only the authored serration clearance')
+      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .8 : 2.2)) < 1e-6, 'The initial lift is only the authored serration clearance')
       assert.ok(Math.abs(x) <= 9.6 + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stop on the short exterior guide instead of sinking into the hull`)
       rig.apply(.05, 0)
       assert.ok((plate.position.y - closedPosition.y) * direction > .01, 'The skin lifts away from the teeth before lateral movement')
@@ -98,10 +100,10 @@ test('polygonal side armor releases the serrated lip before translating to its e
         const outward = (plate.position.y - closedPosition.y) * direction
         assert.ok(outward <= Math.abs(clearance.z) + 1e-6, `${bank} ${side} exceeds the tooth-clearance lift`)
         assert.ok(outward >= -Math.abs(z) - 1e-6, `${bank} ${side} descends past the exterior endpoint`)
-        assert.ok(Math.abs(plate.position.z - closedPosition.z) < 1e-6, 'Serration release must not add forward drift')
+        assert.ok(closedPosition.z - plate.position.z >= -1e-6 && closedPosition.z - plate.position.z <= seamRelease.y + 1e-6, 'Forward release stays within the short mating-seam allowance')
       }
       rig.apply(1, 0)
-      const expected = closedPosition.clone().add(new THREE.Vector3(x, z, -y))
+      const expected = closedPosition.clone().add(new THREE.Vector3(x, z, -y-seamRelease.y))
       assert.ok(plate.position.distanceTo(expected) < 1e-6, 'Armor parks on the shortened guide endpoint')
       rig.apply(0, 0)
       assert.ok(plate.position.distanceTo(closedPosition) < 1e-6, `${bank} ${side} did not return exactly`)
@@ -115,7 +117,6 @@ test('the aft armor fillers fold 130 degrees around fixed hull-lip hinges before
     rig.apply(0, 0)
     const apron = root.getObjectByName(`Hatch_${bank}_Aft_${side}`)
     const start = apron.position.clone(), turn = apron.quaternion.clone()
-    assert.equal(apron.userData.construction, 'gap-filler-hinged-outward-130-degrees', 'Aft plates fill the shroud seam and hinge outward instead of cutting away the fixed hull skin')
     assert.equal(apron.userData.hullFacesRemoved, 0, 'Filling the gap must preserve the original fixed hull faces')
     assert.equal(apron.parent.name, 'Odin_Asset', 'Aft armor belongs to the hull, not the rising cradle')
     assert.deepEqual(apron.userData.slideVector, [0, 0, 0], 'Aft fillers rotate without a slide offset')

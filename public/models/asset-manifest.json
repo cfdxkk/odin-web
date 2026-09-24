@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 125,
-  "triangles": 2418985,
+  "triangles": 2609021,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -121,15 +121,15 @@
   ],
   "webOptimization": {
     "batchedMeshes": 125,
-    "highTriangles": 2418985,
-    "liteTriangles": 879992,
-    "highBytes": 16693644,
-    "liteBytes": 7259808,
+    "highTriangles": 2609021,
+    "liteTriangles": 934008,
+    "highBytes": 17850516,
+    "liteBytes": 7953116,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.8.0",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.0.blend",
+  "version": "0.8.1",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.1.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",
