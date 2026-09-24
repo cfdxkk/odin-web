@@ -12,17 +12,35 @@ assert.equal(asset.animations?.length || 0, 0, 'All animation must remain in Nux
 assert.equal(asset.cameras?.length || 0, 0, 'No Blender camera exported')
 assert.ok(!asset.nodes.some(n => /perseus/i.test(n.name)), 'Other ships excluded')
 const names = new Set(asset.nodes.map(n => n.name))
-for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_Shutter_Port', 'Axial_Stern_Shutter_Starboard', 'Axial_Keel_Shutter_Port', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-hatch' && n.extras?.staticJoint).length, 10, 'Five sliding main armor plates per battery')
+for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Center', 'Main_Ventral_Tube_Center', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_Shutter_Port', 'Axial_Stern_Shutter_Starboard', 'Axial_Keel_Shutter_Port', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-hatch' && n.extras?.staticJoint).length, 10, 'Five articulated main armor plates per battery')
+const vector = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite)
 for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) {
-  assert.ok(Array.isArray(plate.extras.slideVector) && plate.extras.slideVector.length === 3 && plate.extras.slideVector.every(Number.isFinite), `${plate.name} has a static slide guide`)
-  assert.equal(plate.extras.hingeAxis, undefined, `${plate.name} must not have a hinge`)
+  assert.ok(vector(plate.extras.slideVector), `${plate.name} has a static displacement vector`)
   assert.ok(plate.extras.closedOutlineXY.length >= 6, `${plate.name} uses a polygonal hull contour`)
-  if (plate.extras.armorRole !== 'nose') assert.ok(plate.extras.guideExit && plate.extras.guidePocket, `${plate.name} has an outboard clearance path`)
-  else assert.ok(plate.extras.liftVector && plate.extras.sourceObject, `${plate.name} has an independent short fore-end cap`)
+  if (plate.extras.armorRole === 'aft') {
+    assert.ok(vector(plate.extras.hingeAxis) && new THREE.Vector3(...plate.extras.hingeAxis).length() > .99, `${plate.name} has a fixed sloped hinge axis`)
+    assert.equal(Math.abs(plate.extras.openingAngleDegrees), 130, `${plate.name} opens 130 degrees`)
+    assert.deepEqual(plate.extras.slideVector, [0, 0, 0], `${plate.name} must hinge rather than slide`)
+    assert.ok(Array.isArray(plate.extras.hingeEdge) && plate.extras.hingeEdge.length === 2 && plate.extras.hingeEdge.every(vector), `${plate.name} identifies both fixed hinge endpoints`)
+    assert.equal(plate.extras.hullFacesRemoved, 0, `${plate.name} preserves the fixed hull`)
+  } else {
+    assert.equal(plate.extras.hingeAxis, undefined, `${plate.name} must translate without hinging`)
+    if (plate.extras.armorRole === 'side') {
+      assert.ok(vector(plate.extras.guideExit) && vector(plate.extras.guidePocket), `${plate.name} retains its static guide metadata`)
+      assert.ok(vector(plate.extras.clearanceLift), `${plate.name} has a finite three-axis serration-clearance lift`)
+    } else assert.ok(vector(plate.extras.liftVector) && plate.extras.sourceObject, `${plate.name} has an independent short fore-end cap`)
+  }
 }
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'axial-shutter' && n.extras?.staticJoint).length, 6, 'Original shutters on all three axial batteries')
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint).length, 4, 'Only the outer main tubes telescope')
+const tubes = asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint)
+assert.equal(tubes.length, 6, 'All three tubes telescope on both main batteries')
+for (const tube of tubes) {
+  assert.ok(vector(tube.extras.boreAxis) && new THREE.Vector3(...tube.extras.boreAxis).length() > .99, `${tube.name} has a measured bore axis`)
+  assert.ok(vector(tube.extras.deployedOffset), `${tube.name} preserves its deployed endpoint`)
+  assert.equal(tube.extras.stowTravel, 16, `${tube.name} has the shared telescope stroke`)
+  assert.ok(tube.children?.some(index => asset.nodes[index].mesh !== undefined), `${tube.name} carries actual barrel geometry`)
+}
 const stern = asset.nodes.find(n => n.name === 'SternHangarDoor')
 assert.ok(stern.children.some(index => asset.nodes[index].mesh !== undefined), 'Aft door contains actual visible geometry')
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'bridge-armor' && n.extras?.staticJoint).length, 45, '45 articulated bridge armor slats')

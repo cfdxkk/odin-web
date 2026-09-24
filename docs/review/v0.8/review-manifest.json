@@ -1,0 +1,102 @@
+{
+  "sourceBlendSha256": "52b479bf7a0a9e5446e588c0fa77c5be3d1da59b623c98ec643ed8c6ec8b9e61",
+  "glbSha256": "8f2e29efa6a008eba3fc5a37571716118a3547505124c3efff43c43a7d895c7d",
+  "rigSha256": "7d142439b7709ed48a751319202a398b63ce12d7c0c5c415b9b26ba91fd0b99e",
+  "frameSize": [
+    1440,
+    960
+  ],
+  "sheetSize": [
+    3200,
+    1928
+  ],
+  "fixedCamera": true,
+  "animationSource": "Nuxt app/lib/odin-rig.ts evaluated on actual GLB hierarchy",
+  "websiteDeployed": false,
+  "frames": [
+    {
+      "index": 1,
+      "deployment": 0,
+      "label": "完全收拢",
+      "file": "frame-01-d0.00.png",
+      "sha256": "c255643bb614df4f174a48bd4f67fd0272883fac4ff1f349d794a5cf671ead3b"
+    },
+    {
+      "index": 2,
+      "deployment": 0.05,
+      "label": "护甲脱开接缝",
+      "file": "frame-02-d0.05.png",
+      "sha256": "29d204a5f1df14a3510e0f86abe1a379ca17476c96d7707ba36d9f1f250f2350"
+    },
+    {
+      "index": 3,
+      "deployment": 0.1,
+      "label": "前盖前移／后片外翻",
+      "file": "frame-03-d0.10.png",
+      "sha256": "0c47012d3ddffe40ae517e2ff4fa63230b71bf6187b4ac1f435cd7cedcc1e203"
+    },
+    {
+      "index": 4,
+      "deployment": 0.16,
+      "label": "主护甲向外让位",
+      "file": "frame-04-d0.16.png",
+      "sha256": "e76fd03c31f66e0e1ccf1a549bf5c27fa8820f1c8ad817ab4dfbb2aefe77ea4a"
+    },
+    {
+      "index": 5,
+      "deployment": 0.22,
+      "label": "后片沿斜轴下翻",
+      "file": "frame-05-d0.22.png",
+      "sha256": "de6cf56a3a7dcc548eb6b35d75fd807d46852c011ffb0fd3f7cc3ab623ef3418"
+    },
+    {
+      "index": 6,
+      "deployment": 0.3,
+      "label": "护甲接近展开终点",
+      "file": "frame-06-d0.30.png",
+      "sha256": "9e327bca1f46e79b6ff59235fab60c277fbba3e0b561023b5b46362b8d9479a5"
+    },
+    {
+      "index": 7,
+      "deployment": 0.34,
+      "label": "护甲让位完成",
+      "file": "frame-07-d0.34.png",
+      "sha256": "37b503a3568f2bbd00442f942c09424f3af96d4458b2baddbc336740c43c23fc"
+    },
+    {
+      "index": 8,
+      "deployment": 0.45,
+      "label": "炮管调平",
+      "file": "frame-08-d0.45.png",
+      "sha256": "4e3465deaa41f2650c4b17878d1dd274891dd59e6803b9958ccfb16332bcb9f9"
+    },
+    {
+      "index": 9,
+      "deployment": 0.6,
+      "label": "炮塔升起",
+      "file": "frame-09-d0.60.png",
+      "sha256": "2afacf4760c8a766208ac36c219cdccfe5e48a6c6491b447663032f3ad114619"
+    },
+    {
+      "index": 10,
+      "deployment": 0.75,
+      "label": "三根炮管同步伸出",
+      "file": "frame-10-d0.75.png",
+      "sha256": "ffb99ca3046ca20bff404e34fdfef9410b18d4f91ed9e3906d3cc18372d91fa2"
+    },
+    {
+      "index": 11,
+      "deployment": 0.9,
+      "label": "炮管接近伸出终点",
+      "file": "frame-11-d0.90.png",
+      "sha256": "72b790db6c53a324adc79e96c1373228bdff49ff46327bfe13c22bcbd893e542"
+    },
+    {
+      "index": 12,
+      "deployment": 1,
+      "label": "SCM／战斗模式",
+      "file": "frame-12-d1.00.png",
+      "sha256": "69a36ccef378e8d8d0879dffdb170d3be8457805f95720819081860809acddcd"
+    }
+  ]
+}

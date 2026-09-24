@@ -22,9 +22,10 @@ export function createOdinRig(root: THREE.Object3D) {
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
     // All five armor pieces clear the bore corridor before any gun movement.
-    // Side skins travel along the outboard shell into their pockets; the nose
-    // first lifts over its seal, then slides toward the bow. Reverse evaluation
-    // lowers the gun completely before these skins close around it.
+    // The long skins translate to their exposed outboard resting position;
+    // aft fillers turn around the fixed hull lips, and the nose lifts over its
+    // seal before sliding toward the bow. Reverse evaluation lowers the guns
+    // completely before the armor closes around them.
     const covers = ease(0, .34, d)
     const barrelLift = ease(.38, .66, d)
     const barrelSettle = ease(.63, .88, d)
@@ -55,28 +56,30 @@ export function createOdinRig(root: THREE.Object3D) {
       for (const leaf of ['Port', 'Starboard']) {
         const name = `Hatch_${side}_${leaf}`
         const data = joints.get(name)?.object.userData
-        // Clear the stowed bores along the sloping exterior before the final
-        // descent below the hull lip. The rigid plate never changes orientation.
-        if (data?.guideExit && data?.guidePocket) {
-          const exit = ease(0, .64, covers), pocket = ease(.61, 1, covers)
-          const a = data.guideExit as [number, number, number]
-          const b = data.guidePocket as [number, number, number]
-          pose(name, v(a[0] * exit + b[0] * pocket, a[1] * exit + b[1] * pocket, a[2] * exit + b[2] * pocket))
+        // First lift just clear of the serrated lip, then ease outboard and
+        // down to the exposed resting position. The rigid skin never rotates.
+        if (data?.clearanceLift && data?.slideVector) {
+          const liftOff = ease(0, .14, covers), travel = ease(.10, 1, covers)
+          const settle = travel * travel
+          const clearance = data.clearanceLift as [number, number, number]
+          const slide = data.slideVector as [number, number, number]
+          pose(name, v(slide[0] * travel, slide[1] * travel, clearance[2] * liftOff * (1 - settle) + slide[2] * settle))
         }
-        // The narrow skirts under the aft shrouds slide independently. They
-        // stay with the hull, never ride upward with the armored gun housing.
+        // The aft fillers fold out and down about the sloped fixed hull lip.
+        // Their pivots stay anchored instead of sliding with the armor skin.
         const aftName = `Hatch_${side}_Aft_${leaf}`, aft = joints.get(aftName)?.object.userData
-        if (aft?.guideExit && aft?.guidePocket) {
-          const first = ease(.01, .18, d), sink = ease(.14, .32, d)
-          const a = aft.guideExit as [number, number, number], b = aft.guidePocket as [number, number, number]
-          pose(aftName, v(a[0] * first + b[0] * sink, 0, a[2] * first + b[2] * sink))
+        if (aft?.hingeAxis && Number.isFinite(aft.openingAngleDegrees)) {
+          const axis = aft.hingeAxis as [number, number, number]
+          const turn = new THREE.Quaternion().setFromAxisAngle(v(...axis).normalize(), rad(Number(aft.openingAngleDegrees)) * ease(.01, .28, d))
+          pose(aftName, v(0, 0, 0), turn)
         }
-        // The outer tubes stay deeply nested until the armor and gun bodies
-        // are clear. Their measured bore axes preserve the sleeve alignment;
-        // the deployed end position stays fixed while the stow end moves aft.
-        // Reversing this curve nests the tubes well before the armor closes.
-        const extend = ease(leaf === 'Port' ? .66 : .70, leaf === 'Port' ? .91 : .95, d)
-        const tubeName = `Main_${side}_Tube_${leaf}`, tube = joints.get(tubeName)?.object.userData
+      }
+      // All three tubes telescope together after the armor and gun bodies
+      // clear. Each follows its measured bore axis; the deployed endpoints
+      // stay fixed, and reversing nests the tubes before the armor closes.
+      const extend = ease(.66, .93, d)
+      for (const role of ['Port', 'Center', 'Starboard']) {
+        const tubeName = `Main_${side}_Tube_${role}`, tube = joints.get(tubeName)?.object.userData
         if (tube?.boreAxis && tube?.deployedOffset && Number.isFinite(tube.stowTravel)) {
           const axis = tube.boreAxis as [number, number, number]
           const end = tube.deployedOffset as [number, number, number]

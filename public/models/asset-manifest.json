@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 123,
-  "triangles": 2417349,
+  "meshCount": 125,
+  "triangles": 2418985,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -110,9 +110,9 @@
     }
   ],
   "completion": [
-    "Five-piece main bay armor: two polygonal forward skins, two independent gap fillers below the shrouds; intact fixed hull and fitted serrated seams, and the short fore-end wedge cap that lifts then slides forward",
+    "Five-piece main bay armor: two polygonal forward skins, two independent gap fillers hinging outward 130 degrees along the inclined hull lip; intact fixed hull and fitted serrated seams, and the serrated fore-end cap that lifts then slides forward; dark red inward-facing armor surfaces",
     "Main guns wait until all five armor pieces clear their travel corridor",
-    "Independent outer main-barrel telescopic tubes",
+    "Synchronized three-bore main-barrel telescopic tubes, measured center-bore axes",
     "Six original axial shutter half-banks",
     "Parallel quad gun slides and short gunner-pod travel",
     "Recovered front bridge armor separated from the hull",
@@ -120,16 +120,16 @@
     "Original-style gray charcoal and orange albedo with 2K wear maps"
   ],
   "webOptimization": {
-    "batchedMeshes": 123,
-    "highTriangles": 2417349,
-    "liteTriangles": 878358,
-    "highBytes": 16417200,
-    "liteBytes": 7056220,
+    "batchedMeshes": 125,
+    "highTriangles": 2418985,
+    "liteTriangles": 879992,
+    "highBytes": 16693644,
+    "liteBytes": 7259808,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.7.0",
-  "articulatedSource": "assets/blender/odin_articulated_v0.7.0.blend",
+  "version": "0.8.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.0.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",

@@ -1,7 +1,11 @@
-import bpy,json,hashlib,struct
+import bpy,json,hashlib,struct,sys
 from pathlib import Path
 r=Path(__file__).resolve().parents[1]
-base=r/'assets/blender/odin_articulated_v0.5.0.blend';candidate=r/'assets/blender/odin_articulated_v0.7.0.blend'
+base=r/'assets/blender/odin_articulated_v0.5.0.blend'
+version=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else '0.7.0'
+candidate=r/f'assets/blender/odin_articulated_v{version}.blend'
+output=r/'docs/review/v0.8/hull-preservation.json' if version=='0.8.0' else r/'docs/review/hull-preservation-v07.json'
+output.parent.mkdir(parents=True,exist_ok=True)
 def read(path):
  bpy.ops.wm.open_mainfile(filepath=str(path));result={}
  for name in ('holo.001','holo.013'):
@@ -16,6 +20,6 @@ for name,x in a.items():
  info={'vertexCount':len(y['coordinates']),'polygonCount':len(y['faces']),'edgeCount':len(y['edges']),'vertexCoordinatesIdentical':x['coordinates']==y['coordinates'],'polygonTopologyIdentical':x['faces']==y['faces'],'edgeTopologyIdentical':x['edges']==y['edges'],'worldTransformIdentical':x['matrix']==y['matrix'],'changedCoordinateIndices':changed,'vertexSha256':digest(y['coordinates']),'polygonSha256':digest(y['faces']),'edgeSha256':digest(y['edges']),'materialIndexChanges':sum(p!=q for p,q in zip(x['materialIndices'],y['materialIndices'])),'baselineMaterials':x['materials'],'candidateMaterials':y['materials']}
  result['objects'][name]=info
 result['passed']=all(all(v[k] for k in ['vertexCoordinatesIdentical','polygonTopologyIdentical','edgeTopologyIdentical','worldTransformIdentical']) for v in result['objects'].values())
-(r/'docs/review/hull-preservation-v07.json').write_text(json.dumps(result,indent=2),encoding='utf8')
+output.write_text(json.dumps(result,indent=2),encoding='utf8')
 print(json.dumps(result,indent=2),flush=True)
 if not result['passed']:raise RuntimeError('Hull geometry differs')

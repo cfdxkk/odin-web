@@ -69,7 +69,7 @@ test('all three main bores level together and stay parallel during their visible
   }
 })
 
-test('polygonal side armor clears outboard before descending into the hull without rotation', () => {
+test('polygonal side armor releases the serrated lip before translating to its exposed endpoint', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)
   for (const bank of ['Dorsal', 'Ventral']) {
@@ -81,17 +81,24 @@ test('polygonal side armor clears outboard before descending into the hull witho
       assert.equal(y, 0)
       assert.equal(Math.sign(z), bank === 'Dorsal' ? -1 : 1)
       assert.ok(plate.userData.closedOutlineXY.length >= 6, 'The skin has shroud and foredeck chamfers')
-      const exit = new THREE.Vector3(...plate.userData.guideExit)
-      const pocket = new THREE.Vector3(...plate.userData.guidePocket)
-      assert.ok(exit.x * sign > 0, 'The first travel leg clears the bore corridor outboard')
-      const [maxOutboard, maxDescent] = bank === 'Dorsal' ? [10.5, 17.6] : [10, 16.1]
-      assert.ok(Math.abs(x) <= maxOutboard + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stay within its measured hull pocket guide`)
-      assert.ok(exit.clone().add(pocket).distanceTo(new THREE.Vector3(x, y, z)) < 1e-6, 'Guide stages agree with the authored parking endpoint')
-      for (const d of [.07, .14, .21, .28, .5, 1]) {
+      const direction = bank === 'Dorsal' ? 1 : -1
+      const clearance = new THREE.Vector3(...plate.userData.clearanceLift)
+      const maxDescent = bank === 'Dorsal' ? 6.4 : 3
+      assert.equal(clearance.x, 0)
+      assert.equal(clearance.y, 0)
+      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .8 : 1.6)) < 1e-6, 'The initial lift is only the authored serration clearance')
+      assert.ok(Math.abs(x) <= 9.6 + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stop on the short exterior guide instead of sinking into the hull`)
+      rig.apply(.05, 0)
+      assert.ok((plate.position.y - closedPosition.y) * direction > .01, 'The skin lifts away from the teeth before lateral movement')
+      assert.ok(Math.abs(plate.position.x - closedPosition.x) < 1e-6, 'Outboard movement waits for serration release')
+      for (const d of [.03, .07, .14, .21, .28, .34, .5, 1]) {
         rig.apply(d, 0)
         assert.ok(plate.quaternion.angleTo(closedRotation) < 1e-6, `${bank} ${side} rotated at ${d}`)
-        assert.ok(Math.abs(plate.position.x - closedPosition.x) <= Math.abs(x) + 1e-6, `${bank} ${side} overshoots the outboard pocket`)
-        assert.ok(Math.abs(plate.position.y - closedPosition.y) <= Math.abs(z) + 1e-6, `${bank} ${side} descends past the pocket`)
+        assert.ok(Math.abs(plate.position.x - closedPosition.x) <= Math.abs(x) + 1e-6, `${bank} ${side} overshoots the outboard endpoint`)
+        const outward = (plate.position.y - closedPosition.y) * direction
+        assert.ok(outward <= Math.abs(clearance.z) + 1e-6, `${bank} ${side} exceeds the tooth-clearance lift`)
+        assert.ok(outward >= -Math.abs(z) - 1e-6, `${bank} ${side} descends past the exterior endpoint`)
+        assert.ok(Math.abs(plate.position.z - closedPosition.z) < 1e-6, 'Serration release must not add forward drift')
       }
       rig.apply(1, 0)
       const expected = closedPosition.clone().add(new THREE.Vector3(x, z, -y))
@@ -102,28 +109,38 @@ test('polygonal side armor clears outboard before descending into the hull witho
   }
 })
 
-test('the aft armor skirts retract independently before their shrouds rise', () => {
+test('the aft armor fillers fold 130 degrees around fixed hull-lip hinges before their shrouds rise', () => {
   const { root, rig } = loadRig()
   for (const bank of ['Dorsal', 'Ventral']) for (const side of ['Port', 'Starboard']) {
     rig.apply(0, 0)
     const apron = root.getObjectByName(`Hatch_${bank}_Aft_${side}`)
     const start = apron.position.clone(), turn = apron.quaternion.clone()
-    assert.equal(apron.userData.construction, 'gap-filler', 'Aft plates fill the shroud seam instead of cutting away the fixed hull skin')
+    assert.equal(apron.userData.construction, 'gap-filler-hinged-outward-130-degrees', 'Aft plates fill the shroud seam and hinge outward instead of cutting away the fixed hull skin')
     assert.equal(apron.userData.hullFacesRemoved, 0, 'Filling the gap must preserve the original fixed hull faces')
     assert.equal(apron.parent.name, 'Odin_Asset', 'Aft armor belongs to the hull, not the rising cradle')
+    assert.deepEqual(apron.userData.slideVector, [0, 0, 0], 'Aft fillers rotate without a slide offset')
+    assert.equal(Math.abs(apron.userData.openingAngleDegrees), 130)
+    const axis = new THREE.Vector3(apron.userData.hingeAxis[0], apron.userData.hingeAxis[2], -apron.userData.hingeAxis[1]).normalize()
+    const edgeWorld = apron.userData.hingeEdge.map(([x, y, z]) => apron.parent.localToWorld(new THREE.Vector3(x, z, -y)))
+    const edgeLocal = edgeWorld.map(p => apron.worldToLocal(p.clone()))
+    for (const d of [.08, .16, .24, .32, .5, 1]) {
+      rig.apply(d, 0)
+      assert.ok(apron.position.distanceTo(start) < 1e-6, 'The fixed hull hinge must not translate')
+      edgeLocal.forEach((p, index) => assert.ok(apron.localToWorld(p.clone()).distanceTo(edgeWorld[index]) < 1e-5, 'The entire sloped hinge edge remains fixed'))
+    }
     rig.apply(.32, 0)
-    const clear = apron.position.clone()
-    const [x, y, z] = apron.userData.slideVector
-    assert.ok(Math.abs(x) <= 1.7 + 1e-6 && Math.abs(z) <= 7 + 1e-6, 'Gap filler uses its shallow hull pocket')
-    assert.ok(clear.distanceTo(start) > 6, 'Gap filler clears before gun rise')
-    assert.ok(clear.distanceTo(start.clone().add(new THREE.Vector3(x, z, -y))) < 1e-6, 'Gap filler parks at its authored guide endpoint')
+    const open = apron.quaternion.clone()
+    const expected = new THREE.Quaternion().setFromAxisAngle(axis, THREE.MathUtils.degToRad(apron.userData.openingAngleDegrees)).multiply(turn)
+    assert.ok(open.angleTo(expected) < 1e-6, 'Gap filler opens around its authored axis in the correct direction')
+    assert.ok(Math.abs(THREE.MathUtils.radToDeg(open.angleTo(turn)) - 130) < 1e-5)
     for (const d of [.36, .5, .75, 1]) {
       rig.apply(d, 0)
-      assert.ok(apron.position.distanceTo(clear) < 1e-6, 'Skirt stays parked while its shroud rises')
-      assert.ok(apron.quaternion.angleTo(turn) < 1e-6, 'Skirt translates without hinging')
+      assert.ok(apron.position.distanceTo(start) < 1e-6, 'The hinge stays fixed while its shroud rises')
+      assert.ok(apron.quaternion.angleTo(open) < 1e-6, 'Filler stays folded clear while its shroud rises')
     }
     rig.apply(0, 0)
     assert.ok(apron.position.distanceTo(start) < 1e-6)
+    assert.ok(apron.quaternion.angleTo(turn) < 1e-6)
   }
 })
 
@@ -162,22 +179,21 @@ test('quad barrels retain orientation during stow/deploy while pod travel is sho
   arms.forEach((n, i) => assert.ok(n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i]) > .2))
 })
 
-test('outer main tubes retract to the marked muzzle line while retaining their full SCM reach', () => {
+test('all three main tubes telescope in sync while retaining their full SCM reach', () => {
   const { root, rig } = loadRig()
   const sourcePositions = new Map()
-  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Center', 'Starboard']) {
     const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
     sourcePositions.set(name, tube.position.clone())
   }
   rig.apply(0, 0)
   const stowed = new Map()
-  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Center', 'Starboard']) {
     const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
     stowed.set(name, tube.position.clone())
     // The original visible inner bore is about 34 units long. The red-line
     // target removes about 40% of that exposed length (at least 13.5 units).
     assert.ok(tube.position.z - sourcePositions.get(name).z >= 13.5, `${name} still protrudes past the marked stow line`)
-    assert.equal(root.getObjectByName(`Main_${bank}_Tube_Center`), undefined, 'The center bore must not gain a telescope joint')
   }
   for (const d of [.1, .2, .34, .5, .65]) {
     rig.apply(d, 0)
@@ -186,13 +202,22 @@ test('outer main tubes retract to the marked muzzle line while retaining their f
     }
   }
   rig.apply(1, 0)
-  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Starboard']) {
+  for (const bank of ['Dorsal', 'Ventral']) for (const leaf of ['Port', 'Center', 'Starboard']) {
     const name = `Main_${bank}_Tube_${leaf}`, tube = root.getObjectByName(name)
-    const expected = sourcePositions.get(name).clone().add(new THREE.Vector3(0, bank === 'Dorsal' ? -.389 : .389, -2))
+    const endOffset = leaf === 'Center' ? new THREE.Vector3() : new THREE.Vector3(0, bank === 'Dorsal' ? -.389 : .389, -2)
+    const expected = sourcePositions.get(name).clone().add(endOffset)
     assert.ok(tube.position.distanceTo(expected) < 1e-6, `${name} changed the existing fully deployed reach`)
     assert.ok(tube.position.distanceTo(stowed.get(name)) >= 15.5, `${name} lacks the deeper telescopic stroke`)
     const axis = new THREE.Vector3(tube.userData.boreAxis[0], tube.userData.boreAxis[2], -tube.userData.boreAxis[1]).normalize()
     assert.ok(tube.position.clone().sub(stowed.get(name)).normalize().angleTo(axis) < 1e-6, `${name} slips across its bore axis`)
+  }
+  for (const d of [.67, .72, .8, .9, .93, .8, .72]) {
+    rig.apply(d, 0)
+    const fractions = [...stowed].map(([name, start]) => {
+      const tube = root.getObjectByName(name)
+      return tube.position.distanceTo(start) / tube.userData.stowTravel
+    })
+    assert.ok(fractions.every(f => Math.abs(f - fractions[0]) < 1e-6), 'Center and both outer tubes must share the same extension progress')
   }
   // The same reverse timeline must finish tube retraction while the armor
   // remains parked, with no direction-dependent state after scrubbing.
