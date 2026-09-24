@@ -46,6 +46,20 @@ export function createOdinRig(root: THREE.Object3D) {
       pose(`Main_${side}_Housing`, v(0, 0, 0))
       const cradle = 3.806 * barrelLift + 1.997 * barrelSettle - 3 * (1 - barrelLift)
       pose(`Main_${side}_Barrels`, v(0, 2.8 * barrelLift + (side === 'Ventral' ? .506 * lift : 0), sign * cradle), rotation(sign * 11 * level, 0, 0))
+      // The centre gun nests immediately below the upper cover. The two
+      // flanking complete gun assemblies tuck down and slightly inward;
+      // collars, breeches and telescopic tubes remain aligned as one carriage.
+      // Their individual slides start only after the five armor pieces clear.
+      // The outer pair stays narrow until the bores have levelled above the
+      // hull lip, then returns to the original deployed spacing.
+      for (const role of ['Port', 'Center', 'Starboard']) {
+        const name = `Main_${side}_Carrier_${role}`, carrier = joints.get(name)?.object.userData
+        if (carrier?.stowOffset) {
+          const carriageOpen = role === 'Center' ? ease(.36, .62, d) : ease(.49, .66, d)
+          const move = v(...carrier.stowOffset as [number, number, number]).multiplyScalar(1 - carriageOpen)
+          pose(name, move)
+        }
+      }
       for (const [role, offset] of [['Port', -2], ['Center', 0], ['Starboard', 2]] as const) {
         // These small source-model guides settle around the common cradle.
         // Their different starting heights require opposite local Z travel;

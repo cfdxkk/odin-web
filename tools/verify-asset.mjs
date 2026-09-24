@@ -34,6 +34,15 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
 }
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'axial-shutter' && n.extras?.staticJoint).length, 6, 'Original shutters on all three axial batteries')
 const tubes = asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint)
+const carriages = asset.nodes.filter(n => n.extras?.system === 'main-bore-carriage' && n.extras?.staticJoint)
+assert.equal(carriages.length, 6, 'Three independently positioned complete bore carriages per battery')
+for (const bank of ['Dorsal', 'Ventral']) for (const role of ['Port', 'Center', 'Starboard']) {
+  const name = `Main_${bank}_Carrier_${role}`
+  const carriage = carriages.find(n => n.name === name)
+  assert.ok(carriage && vector(carriage.extras.stowOffset), `${name} has a measured stow displacement`)
+  assert.ok(carriage.children?.some(index => asset.nodes[index].mesh !== undefined), `${name} carries the original breech and collar geometry`)
+  assert.ok(carriage.children?.some(index => asset.nodes[index].name === `Main_${bank}_Tube_${role}`), `${name} carries its telescopic bore`)
+}
 assert.equal(tubes.length, 6, 'All three tubes telescope on both main batteries')
 for (const tube of tubes) {
   assert.ok(vector(tube.extras.boreAxis) && new THREE.Vector3(...tube.extras.boreAxis).length() > .99, `${tube.name} has a measured bore axis`)

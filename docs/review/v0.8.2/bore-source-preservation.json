@@ -1,0 +1,158 @@
+{
+  "Dorsal": {
+    "source": "odin.004",
+    "sourceVertices": 23572,
+    "sourceFaces": 26659,
+    "sourceGeometryUVMaterialsPreserved": true,
+    "fullDeploymentPreserved": true,
+    "carriages": {
+      "Port": {
+        "vertices": 7894,
+        "islands": [
+          1136,
+          1555,
+          970,
+          244,
+          1207,
+          239,
+          582,
+          345,
+          80,
+          80,
+          80,
+          702,
+          674
+        ],
+        "stowOffset": [
+          1.6,
+          0.0,
+          0.0
+        ],
+        "tube": "Main_Dorsal_Tube_Port"
+      },
+      "Center": {
+        "vertices": 7832,
+        "islands": [
+          1116,
+          1638,
+          979,
+          227,
+          1334,
+          225,
+          590,
+          347,
+          684,
+          692
+        ],
+        "stowOffset": [
+          0.0,
+          0.0,
+          10.25
+        ],
+        "tube": "Main_Dorsal_Tube_Center"
+      },
+      "Starboard": {
+        "vertices": 7846,
+        "islands": [
+          1120,
+          1587,
+          986,
+          222,
+          1218,
+          222,
+          557,
+          346,
+          80,
+          80,
+          80,
+          700,
+          648
+        ],
+        "stowOffset": [
+          -1.6,
+          0.0,
+          0.0
+        ],
+        "tube": "Main_Dorsal_Tube_Starboard"
+      }
+    }
+  },
+  "Ventral": {
+    "source": "odin.012",
+    "sourceVertices": 23572,
+    "sourceFaces": 26659,
+    "sourceGeometryUVMaterialsPreserved": true,
+    "fullDeploymentPreserved": true,
+    "carriages": {
+      "Port": {
+        "vertices": 7846,
+        "islands": [
+          1120,
+          1587,
+          986,
+          222,
+          1218,
+          222,
+          557,
+          346,
+          80,
+          80,
+          80,
+          700,
+          648
+        ],
+        "stowOffset": [
+          2.4,
+          0.0,
+          -0.0
+        ],
+        "tube": "Main_Ventral_Tube_Port"
+      },
+      "Center": {
+        "vertices": 7832,
+        "islands": [
+          1116,
+          1638,
+          979,
+          227,
+          1334,
+          225,
+          590,
+          347,
+          684,
+          692
+        ],
+        "stowOffset": [
+          0.0,
+          0.0,
+          -10.25
+        ],
+        "tube": "Main_Ventral_Tube_Center"
+      },
+      "Starboard": {
+        "vertices": 7894,
+        "islands": [
+          1136,
+          1555,
+          970,
+          244,
+          1207,
+          239,
+          582,
+          345,
+          80,
+          80,
+          80,
+          702,
+          674
+        ],
+        "stowOffset": [
+          -2.4,
+          0.0,
+          -0.0
+        ],
+        "tube": "Main_Ventral_Tube_Starboard"
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@
 import bpy,json
 from pathlib import Path
 root=Path(__file__).resolve().parents[1];asset=bpy.data.objects['Odin_Asset']
+version=str(asset['version'])
 for o in list(bpy.context.scene.objects):
  if o.name.startswith('EngineCore_'):
   name=o.name;mw=o.matrix_world.copy();props=dict(o.items());o.name=name+'_Geometry'
@@ -26,8 +27,9 @@ for o in list(bpy.context.scene.objects):
   o.data.validate(clean_customdata=True);o.data.update()
 low=export('odin-lite.glb')
 manifest=root/'public/models/asset-manifest.json';d=json.loads(manifest.read_text(encoding='utf8'))
-d.update(version='0.8.1',meshCount=sum(o.type=='MESH' for o in bpy.context.scene.objects),triangles=high,animationClips=0,articulatedSource='assets/blender/odin_articulated_v0.8.1.blend',bridgeArmorSlats=45,rigSystems=['main','main-hatch','main-telescope','secondary','axial-shutter','defense','pdc','bridge-armor','stern-door'])
+d.update(version=version,meshCount=sum(o.type=='MESH' for o in bpy.context.scene.objects),triangles=high,animationClips=0,articulatedSource=f'assets/blender/odin_articulated_v{version}.blend',bridgeArmorSlats=45,rigSystems=['main','main-hatch','main-bore-carriage','main-telescope','secondary','axial-shutter','defense','pdc','bridge-armor','stern-door'])
 d['webOptimization']={'batchedMeshes':sum(o.type=='MESH' for o in bpy.context.scene.objects),'highTriangles':high,'liteTriangles':low,'highBytes':(root/'public/models/odin.glb').stat().st_size,'liteBytes':(root/'public/models/odin-lite.glb').stat().st_size,'highTextureResolution':2048,'highPositionQuantization':16}
 d['completion']=['Five-piece main bay armor: two polygonal forward skins, two independent gap fillers hinging outward 130 degrees along the inclined hull lip; intact fixed hull and fitted serrated seams, and the serrated fore-end cap that lifts then slides forward; dark red inward-facing armor surfaces','Main guns wait until all five armor pieces clear their travel corridor','Synchronized three-bore main-barrel telescopic tubes, measured center-bore axes','Six original axial shutter half-banks','Parallel quad gun slides and short gunner-pod travel','Recovered front bridge armor separated from the hull','Original hidden aft door and frame restored','Original-style gray charcoal and orange albedo with 2K wear maps']
 d['completion']=list(dict.fromkeys(d['completion']))
+d['completion'] += ['Aft armor leaves are single inclined planes with constant thickness and fitted edges', 'Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained']
 manifest.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf8');print('EXPORTED',d['webOptimization'],flush=True)

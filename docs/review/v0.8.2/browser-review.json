@@ -1,0 +1,17 @@
+{
+  "assetVersion": "0.8.2",
+  "url": "http://127.0.0.1:4173/",
+  "environment": "Nuxt generated static site in Codex in-app browser, desktop viewport",
+  "checks": [
+    "High-detail model loads and renders; final closed and SCM poses inspected",
+    "NAV and SCM mode controls remain available",
+    "An explicit pause remains paused after a mode change and slider adjustment",
+    "Free exploration switches between NAV and SCM; returning to film retains explicit pause",
+    "No browser warning or error logs during the checks",
+    "Final MP4 opens in the browser native video player"
+  ],
+  "mechanicalCloseups": ["dorsal-bore-stow.png", "ventral-bore-stow.png", "main-battery-sequence.png"],
+  "otherSystems": "Bridge quads and bridge armor, defense mounts, axial single mount and stern door inspected in actual-JS-pose renders; 291 unrelated objects unchanged",
+  "limitations": "Full pose sweep is offline using the same JS rig; browser views are sampled visual checks, not a continuous browser collision proof.",
+  "productionDeployment": false
+}

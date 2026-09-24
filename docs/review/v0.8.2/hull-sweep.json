@@ -1,0 +1,101 @@
+{
+  "assetVersion": "0.8.2",
+  "sourceBlend": "odin_articulated_v0.8.2.blend",
+  "sourceBlendSha256": "f4966666520201f933611305ebdffee1fae553dc0bfc233d663e59ac6b7cacb1",
+  "rigSha256": "c022b0e4e7925a35e6a95f10f71c55c8706cc828b2710cb9c6649c2dc2d5eb17",
+  "glbSha256": "d385f4f1df6e667c567c932ffabe4acb08902fc4a95bcccf0c348d6e5806f7cd",
+  "posesSha256": "5491787b55ac6862db26477972fef35480445623d9c1bb65499063ca5db5df30",
+  "coordinateSpace": "Odin_Asset source-model coordinates; X starboard, Y bow, Z up",
+  "samples": 101,
+  "testedLeavesPerSample": 10,
+  "fixedHulls": {
+    "Dorsal": "holo.001",
+    "Ventral": "holo.013"
+  },
+  "hitSamples": 0,
+  "hitEvents": 0,
+  "intermediateHitEvents": 0,
+  "summary": {
+    "Dorsal/Port": {
+      "movingJoint": "Hatch_Dorsal_Port",
+      "fixedHull": "holo.001",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Dorsal/Starboard": {
+      "movingJoint": "Hatch_Dorsal_Starboard",
+      "fixedHull": "holo.001",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Dorsal/Nose": {
+      "movingJoint": "Hatch_Dorsal_Nose",
+      "fixedHull": "holo.001",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Dorsal/Aft_Port": {
+      "movingJoint": "Hatch_Dorsal_Aft_Port",
+      "fixedHull": "holo.001",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Dorsal/Aft_Starboard": {
+      "movingJoint": "Hatch_Dorsal_Aft_Starboard",
+      "fixedHull": "holo.001",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Ventral/Port": {
+      "movingJoint": "Hatch_Ventral_Port",
+      "fixedHull": "holo.013",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Ventral/Starboard": {
+      "movingJoint": "Hatch_Ventral_Starboard",
+      "fixedHull": "holo.013",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Ventral/Nose": {
+      "movingJoint": "Hatch_Ventral_Nose",
+      "fixedHull": "holo.013",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Ventral/Aft_Port": {
+      "movingJoint": "Hatch_Ventral_Aft_Port",
+      "fixedHull": "holo.013",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    },
+    "Ventral/Aft_Starboard": {
+      "movingJoint": "Hatch_Ventral_Aft_Starboard",
+      "fixedHull": "holo.013",
+      "hitSamples": 0,
+      "firstDeployment": null,
+      "lastDeployment": null,
+      "peakTrianglePairs": 0
+    }
+  },
+  "hits": []
+}

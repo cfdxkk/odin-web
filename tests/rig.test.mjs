@@ -228,6 +228,53 @@ test('all three main tubes telescope in sync while retaining their full SCM reac
   for (const [name, position] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6)
 })
 
+test('the centre complete bore stays high while the outer complete bores tuck inward beneath it', () => {
+  const { root, rig } = loadRig()
+  const rest = new Map()
+  const cradleRest = new Map(['Dorsal', 'Ventral'].map(bank => [bank, root.getObjectByName(`Main_${bank}_Barrels`).position.clone()]))
+  for (const bank of ['Dorsal', 'Ventral']) for (const role of ['Port', 'Center', 'Starboard']) {
+    const name = `Main_${bank}_Carrier_${role}`, carrier = root.getObjectByName(name)
+    assert.ok(carrier, `${name} must carry the complete original bore assembly`)
+    assert.equal(carrier.parent.name, `Main_${bank}_Barrels`)
+    assert.equal(root.getObjectByName(`Main_${bank}_Tube_${role}`).parent, carrier, 'The tube must stay with its own collar and breech')
+    assert.ok(carrier.children.some(child => child.name.includes('CarrierMesh')), 'The carrier includes source collar and breech geometry')
+    rest.set(name, { position: carrier.position.clone(), quaternion: carrier.quaternion.clone() })
+  }
+  const stowed = new Map()
+  rig.apply(0, 0)
+  for (const bank of ['Dorsal', 'Ventral']) {
+    const outward = bank === 'Dorsal' ? 1 : -1
+    const center = root.getObjectByName(`Main_${bank}_Carrier_Center`)
+    const centerOffset = center.position.clone().sub(rest.get(center.name).position)
+    assert.ok(centerOffset.y * outward > 2, 'Centre carriage compensates most of the shared stow descent')
+    assert.ok(Math.abs(centerOffset.x) < 1e-6, 'Centre bore stays on the ship centreline')
+    for (const [role, xSign] of [['Port', 1], ['Starboard', -1]]) {
+      const carrier = root.getObjectByName(`Main_${bank}_Carrier_${role}`)
+      const offset = carrier.position.clone().sub(rest.get(carrier.name).position)
+      assert.ok(offset.x * xSign > 0 && offset.x * xSign <= 2.4 + 1e-6, 'Outer bore nests inward by the short hull-lip clearance slide')
+      const cradle = root.getObjectByName(`Main_${bank}_Barrels`)
+      assert.ok((cradle.position.y - cradleRest.get(bank).y) * outward < -2, 'The common cradle lowers the outer pair while the centre compensates that descent')
+      assert.ok((centerOffset.y - offset.y) * outward > 3, 'Centre bore visibly stays above the outer pair')
+      assert.ok(Math.abs(offset.z) < 1e-6, 'Nesting must not alter the independent telescopic stroke')
+    }
+  }
+  for (const [name] of rest) stowed.set(name, root.getObjectByName(name).position.clone())
+  for (const d of [.1, .2, .3, .34]) {
+    rig.apply(d, 0)
+    for (const [name, start] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(start) < 1e-6, 'Independent nesting waits until all armor clears')
+  }
+  for (const d of [.4, .5, .62, .8, 1]) {
+    rig.apply(d, 0)
+    for (const [name, initial] of rest) {
+      const carrier = root.getObjectByName(name)
+      assert.ok(carrier.quaternion.angleTo(initial.quaternion) < 1e-6, 'Nesting is a translation; bore carriages must never twist')
+      if (d >= .66) assert.ok(carrier.position.distanceTo(initial.position) < 1e-6, 'All carriages rejoin the original SCM position before tube extension')
+    }
+  }
+  for (const d of [.8, .5, .2, 0]) rig.apply(d, 0)
+  for (const [name, start] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(start) < 1e-6, 'Reverse evaluation restores the differential stow exactly')
+})
+
 test('the original front bridge shields actually open', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)

@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 125,
-  "triangles": 2609021,
+  "meshCount": 129,
+  "triangles": 2543373,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -117,23 +117,26 @@
     "Parallel quad gun slides and short gunner-pod travel",
     "Recovered front bridge armor separated from the hull",
     "Original hidden aft door and frame restored",
-    "Original-style gray charcoal and orange albedo with 2K wear maps"
+    "Original-style gray charcoal and orange albedo with 2K wear maps",
+    "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
+    "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained"
   ],
   "webOptimization": {
-    "batchedMeshes": 125,
-    "highTriangles": 2609021,
-    "liteTriangles": 934008,
-    "highBytes": 17850516,
-    "liteBytes": 7953116,
+    "batchedMeshes": 129,
+    "highTriangles": 2543373,
+    "liteTriangles": 922660,
+    "highBytes": 17301184,
+    "liteBytes": 7696960,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.8.1",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.1.blend",
+  "version": "0.8.2",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.2.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",
     "main-hatch",
+    "main-bore-carriage",
     "main-telescope",
     "secondary",
     "axial-shutter",
