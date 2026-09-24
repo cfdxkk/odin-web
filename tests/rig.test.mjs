@@ -17,7 +17,38 @@ function loadRig() {
   })
   gltf.nodes.forEach((n, i) => n.children?.forEach(c => nodes[i].add(nodes[c])))
   const root = new THREE.Group(); gltf.scenes[gltf.scene || 0].nodes.forEach(n => root.add(nodes[n]))
-  return { root, nodes, rig: createOdinRig(root) }
+  const meshBounds = new Map()
+  gltf.nodes.forEach((node, index) => {
+    if (node.mesh === undefined) return
+    const bounds = new THREE.Box3()
+    for (const primitive of gltf.meshes[node.mesh].primitives) {
+      const position = gltf.accessors[primitive.attributes.POSITION]
+      if (position.min && position.max) bounds.union(new THREE.Box3(new THREE.Vector3(...position.min), new THREE.Vector3(...position.max)))
+    }
+    if (!bounds.isEmpty()) meshBounds.set(nodes[index], bounds)
+  })
+  return { root, nodes, meshBounds, rig: createOdinRig(root) }
+}
+
+function relativeMatrix(object, reference) {
+  return reference.matrixWorld.clone().invert().multiply(object.matrixWorld)
+}
+
+function assertMatrixClose(actual, expected, message, tolerance = 1e-6) {
+  const error = Math.max(...actual.elements.map((value, i) => Math.abs(value - expected.elements[i])))
+  assert.ok(error < tolerance, `${message}; matrix error ${error}`)
+}
+
+function mainAssemblies(root) {
+  return ['Dorsal', 'Ventral'].flatMap(bank => ['Port', 'Center', 'Starboard'].map(role => {
+    const coverRole = bank === 'Ventral' && role !== 'Center' ? (role === 'Port' ? 'Starboard' : 'Port') : role
+    return {
+      bank, role, outward: bank === 'Dorsal' ? 1 : -1,
+      carrier: root.getObjectByName(`Main_${bank}_Carrier_${role}`),
+      shroud: root.getObjectByName(`Main_${bank}_Shroud_${coverRole}`),
+      tube: root.getObjectByName(`Main_${bank}_Tube_${role}`),
+    }
+  }))
 }
 
 test('all five main armor pieces clear before the barrels or armored cradle move', () => {
@@ -40,7 +71,7 @@ test('all five main armor pieces clear before the barrels or armored cradle move
   const doorOpen = door.position.clone()
   rig.apply(.55, 0)
   assert.ok(door.position.distanceTo(doorOpen) < 1e-6, 'Armor remains parked during the cradle lift')
-  assert.ok(barrel.position.distanceTo(first.barrel) > 1, 'Gun bodies emerge after the armor is parked')
+  assert.ok(barrel.position.distanceTo(first.barrel) > .1, 'Gun bodies emerge after the armor is parked')
   rig.apply(.70, 0)
   assert.ok(mount.position.distanceTo(first.mount) > .2, 'Armored cradle rises and advances')
   for (let d = 0; d <= 1; d += .01) {
@@ -49,23 +80,72 @@ test('all five main armor pieces clear before the barrels or armored cradle move
   }
 })
 
-test('all three main bores level together and stay parallel during their visible travel', () => {
+test('every main bore follows its physical cover as a rigid assembly throughout the common stroke', () => {
   const { root, rig } = loadRig()
-  for (const d of [.20, .28, .40, .55, .75, 1]) {
+  const assemblies = mainAssemblies(root)
+  rig.apply(1, 0)
+  root.updateMatrixWorld(true)
+  const reference = assemblies.map(({ carrier, shroud }) => relativeMatrix(carrier, shroud))
+  for (let index = 0; index <= 1000; index++) {
+    const d = index / 1000
     rig.apply(d, 3)
-    for (const side of ['Dorsal', 'Ventral']) {
-      const barrel = root.getObjectByName(`Main_${side}_Barrels`)
-      for (const role of ['Port', 'Center', 'Starboard']) {
-        const guide = root.getObjectByName(`Main_${side}_Shroud_${role}`)
-        assert.ok(barrel.quaternion.angleTo(guide.quaternion) < 1e-6, `${side} ${role} diverges at ${d}`)
-      }
-    }
+    root.updateMatrixWorld(true)
+    assemblies.forEach(({ bank, role, carrier, shroud, tube }, i) => {
+      assert.equal(tube.parent, carrier, 'The telescopic tube travels with its own collar and breech')
+      assert.ok(carrier.children.some(child => child.name.includes('CarrierMesh')), 'The rigid assembly includes the original collar and breech')
+      const relative = relativeMatrix(carrier, shroud)
+      if (role === 'Center' || d >= .44) assertMatrixClose(relative, reference[i], `${bank} ${role} slips relative to its physical cover at ${d}`)
+      assert.ok(new THREE.Quaternion().setFromRotationMatrix(relative).angleTo(new THREE.Quaternion().setFromRotationMatrix(reference[i])) < 1e-6, `${bank} ${role} twists independently of its cover at ${d}`)
+    })
   }
-  rig.apply(.50, 3)
-  const level = root.getObjectByName('Main_Dorsal_Barrels').quaternion.clone()
-  for (const d of [.55, .75, 1]) {
-    rig.apply(d, 3)
-    assert.ok(root.getObjectByName('Main_Dorsal_Barrels').quaternion.angleTo(level) < 1e-6, `Bores pitch during visible travel at ${d}`)
+  // Reverse evaluation must preserve the same rigid relationship after arbitrary seeks.
+  for (const d of [.9, .55, .8, .44, .34, 0]) {
+    rig.apply(d, 7)
+    root.updateMatrixWorld(true)
+    assemblies.forEach(({ bank, role, carrier, shroud }, i) => {
+      if (role === 'Center' || d >= .44) assertMatrixClose(relativeMatrix(carrier, shroud), reference[i], `${bank} ${role} loses its cover attachment after scrubbing`)
+    })
+  }
+})
+
+test('the centre bore and its cover travel without a downward or backward rebound', () => {
+  const { root, rig, meshBounds } = loadRig()
+  const probes = []
+  for (const bank of ['Dorsal', 'Ventral']) {
+    const tube = root.getObjectByName(`Main_${bank}_Tube_Center`)
+    tube.traverse(mesh => {
+      const bounds = meshBounds.get(mesh)
+      if (!bounds) return
+      const centre = bounds.getCenter(new THREE.Vector3())
+      probes.push({ bank, object: mesh, point: centre, label: 'tube midpoint' })
+      // Follow the measured bore axis through the exported mesh bounds, with
+      // Blender-to-glTF coordinates and the mesh's own transform accounted for.
+      const axis = tube.userData.boreAxis
+      const direction = new THREE.Vector3(axis[0], axis[2], -axis[1])
+        .transformDirection(tube.matrixWorld).transformDirection(mesh.matrixWorld.clone().invert())
+      const distance = Math.min(...['x', 'y', 'z'].filter(key => Math.abs(direction[key]) > 1e-8)
+        .map(key => ((direction[key] > 0 ? bounds.max[key] : bounds.min[key]) - centre[key]) / direction[key]))
+      probes.push({ bank, object: mesh, point: centre.clone().addScaledVector(direction, distance), label: 'tube forward section' })
+    })
+    probes.push({ bank, object: root.getObjectByName(`Main_${bank}_Shroud_Center`), point: new THREE.Vector3(), label: 'cover pivot' })
+  }
+  assert.ok(probes.length >= 6, 'Both centre bores require actual exported mesh bounds')
+  let previous
+  const initial = []
+  for (let index = 0; index <= 1000; index++) {
+    const d = index / 1000
+    rig.apply(d, 0)
+    root.updateMatrixWorld(true)
+    const current = probes.map(({ object, point }) => point.clone().applyMatrix4(object.matrixWorld))
+    if (!index) initial.push(...current.map(point => point.clone()))
+    current.forEach((point, i) => {
+      if (!previous) return
+      const { bank, label } = probes[i], outward = bank === 'Dorsal' ? 1 : -1
+      assert.ok((point.y - previous[i].y) * outward >= -1e-8, `${bank} ${label} dips back into the hull at ${d}`)
+      assert.ok(point.z - previous[i].z <= 1e-8, `${bank} ${label} reverses toward the stern at ${d}`)
+      if (d <= .46) assert.ok(point.distanceTo(initial[i]) < 1e-7, 'The centre and its cover wait until the outer bores are seated')
+    })
+    previous = current
   }
 })
 
@@ -208,7 +288,8 @@ test('all three main tubes telescope in sync while retaining their full SCM reac
     const endOffset = leaf === 'Center' ? new THREE.Vector3() : new THREE.Vector3(0, bank === 'Dorsal' ? -.389 : .389, -2)
     const expected = sourcePositions.get(name).clone().add(endOffset)
     assert.ok(tube.position.distanceTo(expected) < 1e-6, `${name} changed the existing fully deployed reach`)
-    assert.ok(tube.position.distanceTo(stowed.get(name)) >= 15.5, `${name} lacks the deeper telescopic stroke`)
+    assert.ok(tube.userData.stowTravel >= 16, `${name} must retain at least the approved recessed stroke`)
+    assert.ok(Math.abs(tube.position.distanceTo(stowed.get(name)) - tube.userData.stowTravel) < 1e-6, `${name} does not follow its authored telescopic stroke`)
     const axis = new THREE.Vector3(tube.userData.boreAxis[0], tube.userData.boreAxis[2], -tube.userData.boreAxis[1]).normalize()
     assert.ok(tube.position.clone().sub(stowed.get(name)).normalize().angleTo(axis) < 1e-6, `${name} slips across its bore axis`)
   }
@@ -228,51 +309,79 @@ test('all three main tubes telescope in sync while retaining their full SCM reac
   for (const [name, position] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6)
 })
 
-test('the centre complete bore stays high while the outer complete bores tuck inward beneath it', () => {
+test('outer bores finish sinking only after their covers have stopped on the return stroke', () => {
   const { root, rig } = loadRig()
-  const rest = new Map()
-  const cradleRest = new Map(['Dorsal', 'Ventral'].map(bank => [bank, root.getObjectByName(`Main_${bank}_Barrels`).position.clone()]))
-  for (const bank of ['Dorsal', 'Ventral']) for (const role of ['Port', 'Center', 'Starboard']) {
-    const name = `Main_${bank}_Carrier_${role}`, carrier = root.getObjectByName(name)
-    assert.ok(carrier, `${name} must carry the complete original bore assembly`)
-    assert.equal(carrier.parent.name, `Main_${bank}_Barrels`)
-    assert.equal(root.getObjectByName(`Main_${bank}_Tube_${role}`).parent, carrier, 'The tube must stay with its own collar and breech')
-    assert.ok(carrier.children.some(child => child.name.includes('CarrierMesh')), 'The carrier includes source collar and breech geometry')
-    rest.set(name, { position: carrier.position.clone(), quaternion: carrier.quaternion.clone() })
+  const outer = mainAssemblies(root).filter(({ role }) => role !== 'Center')
+  rig.apply(.44, 0)
+  root.updateMatrixWorld(true)
+  const seated = outer.map(({ carrier, shroud }) => ({
+    cover: shroud.matrixWorld.clone(),
+    bore: carrier.getWorldPosition(new THREE.Vector3()),
+    turn: carrier.getWorldQuaternion(new THREE.Quaternion()),
+  }))
+  rig.apply(.34, 0)
+  root.updateMatrixWorld(true)
+  const closed = outer.map(({ carrier }) => carrier.getWorldPosition(new THREE.Vector3()))
+  outer.forEach(({ bank, outward }, i) => {
+    assert.ok((seated[i].bore.y - closed[i].y) * outward > .01, `${bank} outer bores need a distinct final descent below the stationary covers`)
+  })
+  let previous = seated.map(({ bore }) => bore.clone())
+  for (let index = 0; index <= 100; index++) {
+    const d = .44 - index / 1000
+    rig.apply(d, 0)
+    root.updateMatrixWorld(true)
+    outer.forEach(({ bank, role, outward, carrier, shroud }, i) => {
+      assertMatrixClose(shroud.matrixWorld, seated[i].cover, `${bank} ${role} cover moves during the separate final sink`, 1e-8)
+      assert.ok(carrier.getWorldQuaternion(new THREE.Quaternion()).angleTo(seated[i].turn) < 1e-6, 'The final sink translates the complete bore without pitching it')
+      const point = carrier.getWorldPosition(new THREE.Vector3())
+      const stroke = closed[i].clone().sub(seated[i].bore), travelled = point.clone().sub(seated[i].bore)
+      assert.ok(travelled.clone().cross(stroke).length() < 1e-8, 'The bore follows one straight seating guide')
+      assert.ok((point.y - previous[i].y) * outward <= 1e-8, `${bank} ${role} rises again during final seating at ${d}`)
+      assert.ok(point.distanceTo(closed[i]) <= previous[i].distanceTo(closed[i]) + 1e-8, 'The sink approaches its endpoint without reversing')
+      previous[i] = point
+    })
   }
-  const stowed = new Map()
-  rig.apply(0, 0)
-  for (const bank of ['Dorsal', 'Ventral']) {
-    const outward = bank === 'Dorsal' ? 1 : -1
-    const center = root.getObjectByName(`Main_${bank}_Carrier_Center`)
-    const centerOffset = center.position.clone().sub(rest.get(center.name).position)
-    assert.ok(centerOffset.y * outward > 2, 'Centre carriage compensates most of the shared stow descent')
-    assert.ok(Math.abs(centerOffset.x) < 1e-6, 'Centre bore stays on the ship centreline')
-    for (const [role, xSign] of [['Port', 1], ['Starboard', -1]]) {
-      const carrier = root.getObjectByName(`Main_${bank}_Carrier_${role}`)
-      const offset = carrier.position.clone().sub(rest.get(carrier.name).position)
-      assert.ok(offset.x * xSign > 0 && offset.x * xSign <= 2.4 + 1e-6, 'Outer bore nests inward by the short hull-lip clearance slide')
-      const cradle = root.getObjectByName(`Main_${bank}_Barrels`)
-      assert.ok((cradle.position.y - cradleRest.get(bank).y) * outward < -2, 'The common cradle lowers the outer pair while the centre compensates that descent')
-      assert.ok((centerOffset.y - offset.y) * outward > 3, 'Centre bore visibly stays above the outer pair')
-      assert.ok(Math.abs(offset.z) < 1e-6, 'Nesting must not alter the independent telescopic stroke')
+  for (const d of [.3, .15, 0]) {
+    rig.apply(d, 0)
+    root.updateMatrixWorld(true)
+    outer.forEach(({ carrier, shroud }, i) => {
+      assert.ok(carrier.getWorldPosition(new THREE.Vector3()).distanceTo(closed[i]) < 1e-7, 'The bores remain seated while the bay armor closes')
+      assertMatrixClose(shroud.matrixWorld, seated[i].cover, 'The individual cover stays seated while the bay armor closes', 1e-8)
+    })
+  }
+})
+
+test('the main mechanism preserves every deployed world transform and leaves other systems unchanged', () => {
+  const baseline = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.8.3/baseline/v0.8.2-clearance-poses.json', import.meta.url), 'utf8'))
+  assert.equal(baseline.length, 101)
+  const { root, nodes, rig } = loadRig()
+  const staticNodes = new Map(nodes.filter(node => node.userData.staticJoint).map(node => [node.name, node]))
+  for (const pose of baseline) {
+    rig.apply(pose.deployment, 20)
+    for (const expected of pose.joints) {
+      if (expected.name.startsWith('Main_')) continue
+      const actual = staticNodes.get(expected.name)
+      assert.ok(actual, `Missing unchanged system joint ${expected.name}`)
+      assert.ok(actual.position.distanceTo(new THREE.Vector3(...expected.position)) < 1e-7, `${expected.name} moved from v0.8.2 at ${pose.deployment}`)
+      // Some source quaternions carry float32 length error. Comparing their
+      // components avoids angleTo reporting a false turn for identical values.
+      const quaternion = actual.quaternion.toArray()
+      const turnError = Math.min(...[1, -1].map(sign => Math.max(...quaternion.map((value, i) => Math.abs(value - sign * expected.quaternion[i])))))
+      assert.ok(turnError < 1e-8, `${expected.name} turned from v0.8.2 at ${pose.deployment}`)
     }
   }
-  for (const [name] of rest) stowed.set(name, root.getObjectByName(name).position.clone())
-  for (const d of [.1, .2, .3, .34]) {
-    rig.apply(d, 0)
-    for (const [name, start] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(start) < 1e-6, 'Independent nesting waits until all armor clears')
+  rig.apply(1, 20)
+  root.updateMatrixWorld(true)
+  const deployed = new Map([...staticNodes].filter(([name]) => name.startsWith('Main_')).map(([name, object]) => [name, object.matrixWorld.clone()]))
+  const reference = loadRig()
+  const referenceNodes = new Map(reference.nodes.map(node => [node.name, node]))
+  for (const joint of baseline.at(-1).joints) {
+    const object = referenceNodes.get(joint.name)
+    object.position.fromArray(joint.position)
+    object.quaternion.fromArray(joint.quaternion)
   }
-  for (const d of [.4, .5, .62, .8, 1]) {
-    rig.apply(d, 0)
-    for (const [name, initial] of rest) {
-      const carrier = root.getObjectByName(name)
-      assert.ok(carrier.quaternion.angleTo(initial.quaternion) < 1e-6, 'Nesting is a translation; bore carriages must never twist')
-      if (d >= .66) assert.ok(carrier.position.distanceTo(initial.position) < 1e-6, 'All carriages rejoin the original SCM position before tube extension')
-    }
-  }
-  for (const d of [.8, .5, .2, 0]) rig.apply(d, 0)
-  for (const [name, start] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(start) < 1e-6, 'Reverse evaluation restores the differential stow exactly')
+  reference.root.updateMatrixWorld(true)
+  for (const [name, matrix] of deployed) assertMatrixClose(matrix, referenceNodes.get(name).matrixWorld, `${name} changed the approved fully deployed position`, 1e-7)
 })
 
 test('the original front bridge shields actually open', () => {

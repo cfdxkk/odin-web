@@ -40,6 +40,8 @@ for (const bank of ['Dorsal', 'Ventral']) for (const role of ['Port', 'Center', 
   const name = `Main_${bank}_Carrier_${role}`
   const carriage = carriages.find(n => n.name === name)
   assert.ok(carriage && vector(carriage.extras.stowOffset), `${name} has a measured stow displacement`)
+  const coverRole = bank === 'Ventral' && role !== 'Center' ? (role === 'Port' ? 'Starboard' : 'Port') : role
+  assert.equal(carriage.extras.followShroud, `Main_${bank}_Shroud_${coverRole}`, `${name} follows its physically corresponding cover`)
   assert.ok(carriage.children?.some(index => asset.nodes[index].mesh !== undefined), `${name} carries the original breech and collar geometry`)
   assert.ok(carriage.children?.some(index => asset.nodes[index].name === `Main_${bank}_Tube_${role}`), `${name} carries its telescopic bore`)
 }
@@ -47,7 +49,7 @@ assert.equal(tubes.length, 6, 'All three tubes telescope on both main batteries'
 for (const tube of tubes) {
   assert.ok(vector(tube.extras.boreAxis) && new THREE.Vector3(...tube.extras.boreAxis).length() > .99, `${tube.name} has a measured bore axis`)
   assert.ok(vector(tube.extras.deployedOffset), `${tube.name} preserves its deployed endpoint`)
-  assert.equal(tube.extras.stowTravel, 16, `${tube.name} has the shared telescope stroke`)
+  assert.equal(tube.extras.stowTravel, 20, `${tube.name} has the shared telescope stroke with hull-lip clearance`)
   assert.ok(tube.children?.some(index => asset.nodes[index].mesh !== undefined), `${tube.name} carries actual barrel geometry`)
 }
 const stern = asset.nodes.find(n => n.name === 'SternHangarDoor')

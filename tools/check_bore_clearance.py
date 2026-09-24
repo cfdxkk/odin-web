@@ -14,12 +14,19 @@ contacts behind the unchanged housing mouth are explicitly reported as nested
 mount interfaces. Fixed hull and new top-cover contacts remain strict failures.
 No mesh or source file is modified. This is a triangle-intersection check;
 positive clearance measurements are sampled vertex-to-triangle distances.
+
+For a rig that keeps an existing guide attached to its cover, capture the
+previous fully deployed geometric pair with --capture-interface-baseline, then
+pass that file with --interface-baseline. The exception follows identical
+geometry and a rigid relative transform, not matching absolute world poses;
+the report records any change in the contact's active deployment interval.
 """
 import argparse
 import hashlib
 import json
 import math
 import sys
+from array import array
 from collections import Counter, defaultdict
 from itertools import combinations
 from pathlib import Path
@@ -36,6 +43,8 @@ parser.add_argument('--poses', type=Path, default=ROOT / 'work/rig-review/cleara
 parser.add_argument('--output', type=Path, help='Optional diagnostic report location')
 parser.add_argument('--baseline-report', type=Path, help='Earlier version report for explicit attachment/contact comparisons')
 parser.add_argument('--baseline-poses', type=Path, help='Earlier actual JS poses; required to establish unchanged guide contacts')
+parser.add_argument('--interface-baseline', type=Path, help='Fully deployed geometric interfaces captured before changing the rig')
+parser.add_argument('--capture-interface-baseline', type=Path, help='Capture geometric interfaces at the final supplied pose and exit')
 parser.add_argument('--diagnostic', action='store_true', help='Allow a temporary candidate and keep reports even on collisions')
 args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 VERSION = args.version
@@ -207,8 +216,91 @@ if baseline_report:
             baseline_events[(event['sample'], event['bank'], event['role'], contact['target'])] = contact
 
 
+geometry_cache = {}
+local_mesh_cache = {}
+
+
+def local_mesh(obj):
+    if obj.name not in local_mesh_cache:
+        obj.data.calc_loop_triangles()
+        local_mesh_cache[obj.name] = ([v.co.copy() for v in obj.data.vertices],
+                                      [tuple(t.vertices) for t in obj.data.loop_triangles])
+    return local_mesh_cache[obj.name]
+
+
+def geometry_fingerprint(obj):
+    if obj.name not in geometry_cache:
+        vertices, triangles = local_mesh(obj)
+        digest = hashlib.sha256()
+        digest.update(array('f', [coordinate for point in vertices for coordinate in point]).tobytes())
+        digest.update(array('I', [index for face in triangles for index in face]).tobytes())
+        geometry_cache[obj.name] = {'sha256': digest.hexdigest(), 'vertices': len(vertices), 'triangles': len(triangles)}
+    return geometry_cache[obj.name]
+
+
+def local_interface(moving_obj, target_obj):
+    """Measure contacts in the cover mesh's coordinates, independent of orbit/lift."""
+    points, faces = local_mesh(moving_obj)
+    target_points, target_faces = local_mesh(target_obj)
+    relative = target_obj.matrix_world.inverted() @ moving_obj.matrix_world
+    transformed = [relative @ p for p in points]
+    moving = (BVHTree.FromPolygons(transformed, faces, all_triangles=True, epsilon=.00001),
+              transformed, faces, [moving_obj.name] * len(faces))
+    target = (BVHTree.FromPolygons(target_points, target_faces, all_triangles=True, epsilon=.00001),
+              target_points, target_faces, [target_obj.name] * len(target_faces))
+    return relative, contacts(moving, target)
+
+
+interface_baseline = json.loads(args.interface_baseline.read_text(encoding='utf8')) if args.interface_baseline else None
+interface_matches = {}
+
+
+def preserved_relative_guide(bank, contact):
+    if not interface_baseline:
+        return False
+    key = contact['moving'] + '|' + contact['target']
+    original = interface_baseline['pairs'].get(key)
+    if not original or not original['contacts']:
+        return False
+    moving_obj, target_obj = bpy.data.objects[contact['moving']], bpy.data.objects[contact['target']]
+    if geometry_fingerprint(moving_obj) != original['movingGeometry'] or geometry_fingerprint(target_obj) != original['targetGeometry']:
+        return False
+    from mathutils import Matrix
+    relative, current_contacts = local_interface(moving_obj, target_obj)
+    reference = Matrix(original['movingToCoverMatrix'])
+    points, _ = local_mesh(moving_obj)
+    lower = [min(point[k] for point in points) for k in range(3)]
+    upper = [max(point[k] for point in points) for k in range(3)]
+    corners = [Vector((x, y, z)) for x in (lower[0], upper[0])
+               for y in (lower[1], upper[1]) for z in (lower[2], upper[2])]
+    # A bound on the displacement of this complete unchanged mesh. Tight
+    # float32 round-trip tolerance is separate from the shallow guide's
+    # ill-conditioned intersection endpoint: a measured 0.000019 transform
+    # error moves that near-coplanar endpoint by 0.00432 source units.
+    displacement = max((relative @ point - reference @ point).length for point in corners)
+    if displacement > .00005 or len(current_contacts) != len(original['contacts']):
+        return False
+    contact_bound_difference = 0
+    for current, old in zip(current_contacts, original['contacts']):
+        if current['moving'] != old['moving'] or current['target'] != old['target']:
+            return False
+        contact_bound_difference = max(contact_bound_difference,
+            max(abs(a - b) for arow, brow in zip(current['intersectionBounds'], old['intersectionBounds']) for a, b in zip(arow, brow)))
+        if contact_bound_difference > .005:
+            return False
+    interface_matches[key] = {'bank': bank, 'moving': contact['moving'], 'target': contact['target'],
+                              'geometryFingerprintsIdentical': True,
+                              'relativeTransformTolerance': .00005, 'localContactBoundsTolerance': .005,
+                              'maximumRelativeTransformDisplacement': max(displacement, interface_matches.get(key, {}).get('maximumRelativeTransformDisplacement', 0)),
+                              'maximumLocalContactBoundDifference': max(contact_bound_difference, interface_matches.get(key, {}).get('maximumLocalContactBoundDifference', 0)),
+                              'baselineLocalContacts': original['contacts']}
+    return True
+
+
 def unchanged_center_guide(index, bank, contact):
     """Only forgive the exact old center-guide contact at an unchanged pose."""
+    if interface_baseline:
+        return preserved_relative_guide(bank, contact)
     if not baseline_report or 'CarrierMesh_Center' not in contact['moving']:
         return False
     if contact['target'] != banks[bank]['shrouds'][1]:
@@ -231,6 +323,29 @@ def unchanged_center_guide(index, bank, contact):
             if max(abs(a - b) for a, b in zip(old_joints[name][field], current[name][field])) > 1e-5:
                 return False
     return True
+
+
+if args.capture_interface_baseline:
+    apply(poses[-1])
+    result = {'sourceBlend': BLEND.name, 'sourceBlendSha256': hashlib.sha256(BLEND.read_bytes()).hexdigest(),
+              'posesSha256': hashlib.sha256(POSES.read_bytes()).hexdigest(), 'deployment': poses[-1]['deployment'],
+              'coordinateSpace': 'Corresponding cover mesh local coordinates', 'pairs': {}}
+    for bank, config in banks.items():
+        for role in roles:
+            # Source ventral naming is mirrored: Shroud_Port is physically +X.
+            index = roles.index(role) if bank == 'Dorsal' else 2 - roles.index(role)
+            moving_obj = bpy.data.objects[f'Main_{bank}_CarrierMesh_{role}']
+            target_obj = bpy.data.objects[config['shrouds'][index]]
+            matrix, found = local_interface(moving_obj, target_obj)
+            result['pairs'][moving_obj.name + '|' + target_obj.name] = {
+                'bank': bank, 'physicalBoreRole': role, 'moving': moving_obj.name, 'target': target_obj.name,
+                'movingGeometry': geometry_fingerprint(moving_obj), 'targetGeometry': geometry_fingerprint(target_obj),
+                'movingToCoverMatrix': [list(row) for row in matrix], 'contacts': found,
+            }
+    args.capture_interface_baseline.parent.mkdir(parents=True, exist_ok=True)
+    args.capture_interface_baseline.write_text(json.dumps(result, indent=2), encoding='utf8')
+    print(f'Captured {len(result["pairs"])} fully deployed bore/cover interfaces: {args.capture_interface_baseline}', flush=True)
+    sys.exit(0)
 
 
 hits, enclosed_hits, external_hits, mount_contacts, old_guide_contacts, measures, summaries = [], [], [], [], [], {}, Counter()
@@ -261,7 +376,8 @@ for index, pose in enumerate(poses):
                             mount_contacts.append(entry)
                             continue
                     if unchanged_center_guide(index, bank, hit):
-                        entry['classification'] = 'Original center guide contact; identical ancestor poses and intersection bounds'
+                        entry['classification'] = ('Original deployed guide interface: identical geometry, relative transform and cover-local contact bounds'
+                                                   if interface_baseline else 'Original center guide contact; identical ancestor poses and intersection bounds')
                         old_guide_contacts.append(entry)
                     else:
                         external_hits.append(entry)
@@ -311,6 +427,15 @@ report = {'assetVersion': VERSION, 'sourceBlend': BLEND.name, 'sourceBlendSha256
           'externalHitSamples': len({hit['sample'] for hit in external_hits}), 'externalHitEvents': len(external_hits), 'externalHits': external_hits,
           'mountInterfaceContactEvents': len(mount_contacts), 'mountInterfaceContacts': mount_contacts,
           'unchangedBaselineGuideContactEvents': len(old_guide_contacts), 'unchangedBaselineGuideContacts': old_guide_contacts,
+          'guideInterfaceComparison': ({'baselineSha256': hashlib.sha256(args.interface_baseline.read_bytes()).hexdigest(),
+                                       'baselineBlendSha256': interface_baseline['sourceBlendSha256'],
+                                       'referenceDeployment': interface_baseline['deployment'],
+                                       'interfaces': [{**match,
+                                            'baselineActiveSamples': sorted({event['sample'] for event in baseline_report['hits']
+                                                if any(c['moving'] == match['moving'] and c['target'] == match['target'] for c in event['contacts'])}) if baseline_report else [],
+                                            'currentActiveSamples': sorted({event['sample'] for event in old_guide_contacts
+                                                if event['moving'] == match['moving'] and event['target'] == match['target']})}
+                                            for match in interface_matches.values()]} if interface_baseline else None),
           'baselineComparison': ({'sourceBlend': baseline_report['sourceBlend'], 'sourceBlendSha256': baseline_report['sourceBlendSha256'],
                                   'reportSha256': hashlib.sha256(args.baseline_report.read_bytes()).hexdigest(),
                                   'posesSha256': hashlib.sha256(args.baseline_poses.read_bytes()).hexdigest(),
@@ -320,7 +445,7 @@ report = {'assetVersion': VERSION, 'sourceBlend': BLEND.name, 'sourceBlendSha256
           'enclosedAttachmentEndpointContacts': enclosed_hits,
           'limitations': ['Rear attachment faces are reported separately, not counted as exposed-bore clearance.',
                           'Nested rear tubes/collars behind the housing mouth retain the original model\'s overlapping mount surfaces; their bounds and changed timing are explicit and are not a global zero-intersection claim.',
-                          'Fixed-hull, neighboring-bore and new shroud contacts fail the final audit. Original guide contacts require equal baseline poses and intersection bounds.',
+                          'Fixed-hull, neighboring-bore and new shroud contacts fail the final audit. Guide contacts require equal baseline world poses, or identical fully deployed source geometry, relative transform and cover-local contact bounds when an interface baseline is supplied.',
                           'BVH triangle intersection does not measure fully contained closed solids or prove exact minimum distance.']}
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf8')

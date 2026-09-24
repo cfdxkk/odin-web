@@ -1,0 +1,19 @@
+{
+  "baseline": "odin_articulated_v0.8.2.blend",
+  "candidate": "odin_articulated_v0.8.3.blend",
+  "candidateSha256": "969628d45beae4812706ab9258e634877d63ad88bce3f3f5fa22f166abd37afc",
+  "scope": "All objects outside Main_* and Hatch_* ancestry; exact effective world transform and mesh/UV/material equality",
+  "objectsCompared": 291,
+  "jointSystems": [
+    "axial-shutter",
+    "bridge-armor",
+    "defense",
+    "pdc",
+    "secondary",
+    "stern-door"
+  ],
+  "removed": [],
+  "added": [],
+  "changed": [],
+  "passed": true
+}

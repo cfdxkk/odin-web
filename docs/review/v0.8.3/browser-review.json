@@ -1,0 +1,15 @@
+{
+  "assetVersion": "0.8.3",
+  "url": "http://127.0.0.1:4173/",
+  "environment": "Generated Nuxt static site, Codex in-app browser, desktop high-quality mode",
+  "checks": [
+    "High-detail model loads without browser warning or error logs",
+    "Paused timeline can be sampled through the revised main-battery stroke",
+    "Explicit pause remains after time changes and entering free exploration",
+    "Free exploration zoom exposes the deep-red bearing drum and armor interiors while the outer skins remain gray",
+    "Free exploration SCM to NAV starts the revised retract sequence",
+    "Closed and fully deployed poses inspected alongside the actual-JS 101-frame close-up preview"
+  ],
+  "productionDeployment": false,
+  "limitations": "Browser checks sample the rendered controls and poses; mechanical relation and collision sweeps are validated separately using the same JavaScript rig."
+}

@@ -119,19 +119,21 @@
     "Original hidden aft door and frame restored",
     "Original-style gray charcoal and orange albedo with 2K wear maps",
     "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
-    "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained"
+    "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained",
+    "Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat",
+    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained"
   ],
   "webOptimization": {
     "batchedMeshes": 129,
     "highTriangles": 2543373,
     "liteTriangles": 922660,
-    "highBytes": 17301184,
-    "liteBytes": 7696960,
+    "highBytes": 17297696,
+    "liteBytes": 7690056,
     "highTextureResolution": 2048,
     "highPositionQuantization": 16
   },
-  "version": "0.8.2",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.2.blend",
+  "version": "0.8.3",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.3.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",

@@ -14,6 +14,8 @@ export function createOdinRig(root: THREE.Object3D) {
   const joints = new Map<string, { object: THREE.Object3D; position: THREE.Vector3; quaternion: THREE.Quaternion }>()
   root.traverse(object => { if (object.userData.staticJoint) joints.set(object.name, { object, position: object.position.clone(), quaternion: object.quaternion.clone() }) })
   const identity = new THREE.Quaternion()
+  const followers: { object: THREE.Object3D; shroud: THREE.Object3D; relative: THREE.Matrix4; stowDelta: THREE.Vector3 }[] = []
+  const targetMatrix = new THREE.Matrix4(), localMatrix = new THREE.Matrix4(), rigidScale = new THREE.Vector3()
   const pose = (name: string, move: THREE.Vector3, turn = identity) => {
     const joint = joints.get(name); if (!joint) return
     joint.object.position.copy(joint.position).add(move)
@@ -27,45 +29,33 @@ export function createOdinRig(root: THREE.Object3D) {
     // seal before sliding toward the bow. Reverse evaluation lowers the guns
     // completely before the armor closes around them.
     const covers = ease(0, .34, d)
-    const barrelLift = ease(.38, .66, d)
-    const barrelSettle = ease(.63, .88, d)
-    const barrels = ease(.38, .88, d)
+    // One mechanical stroke drives the armored cradle, covers and complete
+    // bores. Independent easing previously made the centre gun dip and rebound.
+    const barrels = ease(.46, .93, d)
     const lift = ease(.52, .93, d)
-    const shroudClearance = ease(.38, .78, d)
-    // The original source gun is depressed by eleven degrees in its recess.
-    // Level it behind the opening doors, then keep the three bores parallel
-    // throughout the visible rise; the telescope tubes never pitch alone.
-    const level = ease(.36, .49, d)
+    const sideSeat = ease(.34, .44, d)
     const aim = ease(.95, 1, d)
     for (const side of ['Dorsal', 'Ventral']) {
       const sign = side === 'Dorsal' ? 1 : -1
       const mountRise = side === 'Dorsal' ? 2.311 : 3.137
       // Moving the parent keeps the circular base, armored housing and bore
       // guides together rather than letting their separate joints drift apart.
-      pose(`Main_${side}_Mount`, v(0, (2 + (side === 'Ventral' ? .274 : 0)) * lift, sign * mountRise * lift))
+      pose(`Main_${side}_Mount`, v(0, (2 + (side === 'Ventral' ? .274 : 0)) * barrels, sign * mountRise * barrels))
       pose(`Main_${side}_Housing`, v(0, 0, 0))
-      const cradle = 3.806 * barrelLift + 1.997 * barrelSettle - 3 * (1 - barrelLift)
-      pose(`Main_${side}_Barrels`, v(0, 2.8 * barrelLift + (side === 'Ventral' ? .506 * lift : 0), sign * cradle), rotation(sign * 11 * level, 0, 0))
-      // The centre gun nests immediately below the upper cover. The two
-      // flanking complete gun assemblies tuck down and slightly inward;
-      // collars, breeches and telescopic tubes remain aligned as one carriage.
-      // Their individual slides start only after the five armor pieces clear.
-      // The outer pair stays narrow until the bores have levelled above the
-      // hull lip, then returns to the original deployed spacing.
-      for (const role of ['Port', 'Center', 'Starboard']) {
+      const cradle = -3 + 8.803 * barrels
+      pose(`Main_${side}_Barrels`, v(0, (2.8 + (side === 'Ventral' ? .506 : 0)) * barrels, sign * cradle), rotation(sign * 11 * barrels, 0, 0))
+      // Only used to capture the original closed and fully deployed reference
+      // poses at initialization. Runtime followers below solve the rigid link.
+      if (!followers.length) for (const role of ['Port', 'Center', 'Starboard']) {
         const name = `Main_${side}_Carrier_${role}`, carrier = joints.get(name)?.object.userData
         if (carrier?.stowOffset) {
-          const carriageOpen = role === 'Center' ? ease(.36, .62, d) : ease(.49, .66, d)
-          const move = v(...carrier.stowOffset as [number, number, number]).multiplyScalar(1 - carriageOpen)
+          const move = v(...carrier.stowOffset as [number, number, number]).multiplyScalar(1 - barrels)
           pose(name, move)
         }
       }
       for (const [role, offset] of [['Port', -2], ['Center', 0], ['Starboard', 2]] as const) {
-        // These small source-model guides settle around the common cradle.
-        // Their different starting heights require opposite local Z travel;
-        // the parent supplies the shared housing rise and forward movement.
         const shroudTravel = role === 'Center' ? -2.118 : 3.009
-        pose(`Main_${side}_Shroud_${role}`, v(offset * sign * shroudClearance, .60 * shroudClearance, sign * shroudTravel * shroudClearance), rotation(sign * 11 * level, 0, 0))
+        pose(`Main_${side}_Shroud_${role}`, v(offset * sign * barrels, .60 * barrels, sign * shroudTravel * barrels), rotation(sign * 11 * barrels, 0, 0))
       }
       for (const leaf of ['Port', 'Starboard']) {
         const name = `Hatch_${side}_${leaf}`
@@ -108,6 +98,20 @@ export function createOdinRig(root: THREE.Object3D) {
         const a = nose.liftVector as [number, number, number], b = nose.slideVector as [number, number, number]
         pose(noseName, v(a[0] * raise + b[0] * forward, a[1] * raise + b[1] * forward, a[2] * raise + b[2] * forward))
       }
+    }
+    // Keep each complete bore at its deployed rigid offset from its own cover.
+    // On closing, both side covers first reach their seat; only then do their
+    // bores descend the last short distance. The centre never leaves its cover.
+    for (const follower of followers) {
+      const { object, shroud, relative, stowDelta } = follower
+      shroud.updateWorldMatrix(true, false)
+      object.parent!.updateWorldMatrix(true, false)
+      targetMatrix.copy(relative)
+      targetMatrix.elements[12] += stowDelta.x * (1 - sideSeat)
+      targetMatrix.elements[13] += stowDelta.y * (1 - sideSeat)
+      targetMatrix.elements[14] += stowDelta.z * (1 - sideSeat)
+      localMatrix.copy(object.parent!.matrixWorld).invert().multiply(shroud.matrixWorld).multiply(targetMatrix)
+      localMatrix.decompose(object.position, object.quaternion, rigidScale)
     }
     const axialShutters = ease(.08, .35, d)
     for (const station of ['Bow', 'Stern', 'Keel']) for (const leaf of ['Port', 'Starboard']) {
@@ -167,5 +171,29 @@ export function createOdinRig(root: THREE.Object3D) {
     })
     return { joints: joints.size, deployment: d, covers, barrels, pdcArms, shield }
   }
+  // Capture the unchanged fully deployed attachment once. The ventral source
+  // cover names are mirrored relative to their physical port/starboard bores.
+  apply(1, 0)
+  root.updateWorldMatrix(true, true)
+  const references = [] as typeof followers
+  for (const bank of ['Dorsal', 'Ventral']) for (const role of ['Port', 'Center', 'Starboard']) {
+    const object = joints.get(`Main_${bank}_Carrier_${role}`)?.object
+    const coverRole = bank === 'Ventral' && role !== 'Center' ? (role === 'Port' ? 'Starboard' : 'Port') : role
+    const shroud = joints.get(object?.userData.followShroud || `Main_${bank}_Shroud_${coverRole}`)?.object
+    if (object && shroud) references.push({ object, shroud, relative: shroud.matrixWorld.clone().invert().multiply(object.matrixWorld), stowDelta: new THREE.Vector3() })
+  }
+  apply(0, 0)
+  root.updateWorldMatrix(true, true)
+  for (const follower of references) {
+    if (!follower.object.name.endsWith('_Center')) {
+      const closed = follower.shroud.matrixWorld.clone().invert().multiply(follower.object.matrixWorld)
+      follower.stowDelta.setFromMatrixPosition(closed).sub(new THREE.Vector3().setFromMatrixPosition(follower.relative))
+    }
+  }
+  followers.push(...references)
+  for (const { object, position, quaternion } of joints.values()) {
+    object.position.copy(position); object.quaternion.copy(quaternion)
+  }
+  root.updateWorldMatrix(true, true)
   return { apply, jointCount: joints.size }
 }
