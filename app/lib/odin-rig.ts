@@ -118,28 +118,26 @@ export function createOdinRig(root: THREE.Object3D) {
       localMatrix.copy(object.parent!.matrixWorld).invert().multiply(shroud.matrixWorld).multiply(targetMatrix)
       localMatrix.decompose(object.position, object.quaternion, rigidScale)
     }
-    const axialShutters = ease(.08, .35, d)
-    for (const station of ['Bow', 'Stern', 'Keel']) for (const leaf of ['Port', 'Starboard']) {
-      const name = `Axial_${station}_Shutter_${leaf}`, data = joints.get(name)?.object.userData
-      if (data?.hingeAxis) pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...data.hingeAxis as [number, number, number]).normalize(), rad(Number(data.openingSign) * 90 * (1 - axialShutters))))
-    }
-    const axial = ease(.38, .84, d)
-    pose('Axial_Bow_Barrel', v(0, .432 * axial, -.399 * axial - 5.2 * (1 - axial)), rotation(21 * axial, 0, 0))
-    pose('Axial_Stern_Barrel', v(0, -.276 * axial, -.505 * axial - 5.2 * (1 - axial)), rotation(-21 * axial, 0, 0))
-    pose('Axial_Keel_Mount', v(0, 14.270 * lift, -6.135 * lift))
-    pose('Axial_Keel_Barrel', v(0, -.386 * axial, .444 * axial + 5.2 * (1 - axial)), rotation(21 * axial, 0, 0))
-    for (let index = 0; index < 4; index++) {
-      const unfold = ease(.16 + index * .025, .77 + index * .025, d)
-      for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
-        const name = `SideBattery_${index + 1}_${side}`
-        const data = joints.get(name)?.object.userData.deployQuaternion
-        if (!data) continue
-        const scan = Math.sin(time * .11 + index * .85 + sign) * 5 * aim
-        const turn = identity.clone().slerp(new THREE.Quaternion(...data as [number, number, number, number]), unfold)
-        pose(name, v(0, 0, 0), rotation(0, 0, scan).multiply(turn))
+    // Eleven singles: one physical pitch axis per bore, no yaw or idle scan.
+    // Every pair of vented skins closes into the channel's triangular cap.
+    const singleCovers = ease(.06, .35, d), singleLift = ease(.39, .84, d)
+    joints.forEach(({ object }, name) => {
+      const data = object.userData
+      if (data.barrelJoint && data.hingeAxisModel) {
+        pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - singleCovers)))
       }
+      if (data.singleBattery && data.hingeAxisModel) {
+        const seating = v(...data.outwardNormal as [number, number, number]).multiplyScalar(-Number(data.stowSink || 0) * (1 - singleLift))
+        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.pitchDegrees)) * singleLift))
+      }
+    })
+    const keelCarriage = ease(.04, .32, d)
+    pose('Axial_Keel_Mount', v(0, 14.270 * keelCarriage, -6.135 * keelCarriage))
+    const gate = ease(.02, .22, d), carriage = ease(.24, .52, d), ring = ease(.47, .68, d), gun = ease(.65, .94, d)
+    for (let i = 5; i <= 8; i++) {
+      const name = `Defense_${String(i).padStart(2, '0')}_NotchGate`, data = joints.get(name)?.object.userData
+      if (data?.slideVector) pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(gate).add(v(...data.releaseVector as [number, number, number]).multiplyScalar(ease(0, .04, d))))
     }
-    const carriage = ease(.06, .37, d), ring = ease(.31, .60, d), gun = ease(.57, .91, d)
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       pose(`DefenseRail_${station}_${side}`, v(sign * (station === 'Forward' ? 9.781 : 9.903) * carriage, (station === 'Forward' ? 2.079 : -1.392) * carriage, 0))
     }
@@ -147,9 +145,12 @@ export function createOdinRig(root: THREE.Object3D) {
       const prefix = `Defense_${String(i + 1).padStart(2, '0')}`, data = joints.get(prefix + '_Carriage')?.object.userData
       const sign = Number(data?.side || 1), forward = i < 4
       pose(prefix + '_Carriage', v(sign * (forward ? 9.781 : 9.903) * carriage, (forward ? 2.079 : -1.392) * carriage, 2 * ring))
-      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * 35 * gun))
-      const axis = joints.get(prefix + '_Elevation')?.object.userData.hingeAxis
-      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...axis as [number, number, number]), rad(25 * gun)))
+      const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
+      const scan = Math.sin(time * .10 + i * .7) * 3 * aim
+      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gun + scan))
+      const elevation = joints.get(prefix + '_Elevation')?.object.userData
+      const axis = elevation?.hingeAxisModel
+      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...axis as [number, number, number]).normalize(), rad(Number(elevation.pitchDegrees)) * gun))
     }
     // The RSI tower-quad clip shows parallel gun rails, not a 180-degree flip.
     // A short pod travel precedes the longer gun slide; yaw begins only in SCM.
@@ -159,20 +160,26 @@ export function createOdinRig(root: THREE.Object3D) {
       pose(`PDC_${side}_Gimbal`, v(0, 0, 0), rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const armOpen = ease(.36 + (i >= 2 ? .025 : 0), .86 + (i >= 2 ? .025 : 0), d)
-        pose(`PDC_${side}_Arm_${i}`, v(-sign * 20 * (1 - armOpen), 0, 0))
+        const travel = Number(joints.get(`PDC_${side}_Arm_${i}`)?.object.userData.stowTravel || 13.5)
+        pose(`PDC_${side}_Arm_${i}`, v(-sign * travel * (1 - armOpen), 0, 0))
       }
     }
     // Existing bridge louvers follow the roof guide before rotating into place.
-    const shield = ease(.04, .56, d)
+    const shield = ease(.04, .88, d)
     joints.forEach(({ object }, name) => {
       if (!name.startsWith('BridgeArmor_')) return
       const bank = object.userData.bank
       if (bank === 'Front') {
-        const slide = ease(0, .50, shield), fold = ease(.25, 1, shield)
-        pose(name, v(0, -5 * (1 - slide), 1.50 * (1 - fold)), rotation(-55 * (1 - fold), 0, 0))
+        const open = 1 - shield, release = ease(0, .18, open), fold = ease(.18, .65, open), slide = ease(.65, 1, open)
+        pose(name, v(0, .9 * release - Number(object.userData.parkSlide) * slide, Number(object.userData.parkLift) * release), rotation(Number(object.userData.parkPitch) * fold, 0, 0))
       }
-      if (bank === 'RearUpper') pose(name, v(0, -.32 * shield, 0), rotation(-82 * shield, 0, 0))
-      if (bank === 'RearLower') pose(name, v(0, -.24 * shield, 0), rotation(77 * shield, 0, 0))
+      if (bank === 'RearUpper' || bank === 'RearLower') {
+        const open = 1 - shield, clear = ease(0, .35, open), fold = ease(.36, .74, open), nest = ease(.76, 1, open)
+        const upper = bank === 'RearUpper'
+        const y = upper ? -1.8 * clear + nest : -.45 * clear
+        const z = upper ? 2.5 * clear - 1.9 * nest : 0
+        pose(name, v(0, y, z), rotation((upper ? Number(object.userData.parkPitch) : 60) * fold, 0, 0))
+      }
     })
     return { joints: joints.size, deployment: d, covers, barrels, pdcArms, shield }
   }

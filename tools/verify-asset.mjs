@@ -32,7 +32,10 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
     } else assert.ok(vector(plate.extras.liftVector) && plate.extras.sourceObject, `${plate.name} has an independent short fore-end cap`)
   }
 }
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'axial-shutter' && n.extras?.staticJoint).length, 6, 'Original shutters on all three axial batteries')
+assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 70, 'Complete paired caps on eleven single batteries')
+assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'defense-gate').length, 4)
+for (const side of ['Port', 'Starboard']) assert.equal(asset.nodes.find(n => n.name === `PDC_${side}_Gimbal`).extras.fixedRootArmorPieces, 4)
 const tubes = asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint)
 const carriages = asset.nodes.filter(n => n.extras?.system === 'main-bore-carriage' && n.extras?.staticJoint)
 assert.equal(carriages.length, 6, 'Three independently positioned complete bore carriages per battery')
