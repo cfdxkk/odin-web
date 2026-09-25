@@ -35,7 +35,7 @@ if not ffmpeg:
 work = (ROOT / (args.work_dir or f'work/preview-v{args.version}')).resolve()
 output = (ROOT / (args.output_dir or f'docs/review/v{args.version}')).resolve()
 manifest = json.loads((work / 'render-manifest.json').read_text(encoding='utf8'))
-if manifest['assetVersion'] != args.version or manifest['frameCount'] != 101:
+if manifest.get('reviewVersion', manifest['assetVersion']) != args.version or manifest['frameCount'] != 101:
     raise RuntimeError('Render manifest does not match the requested version and 101 samples')
 paths = [work / 'frames' / frame['file'] for frame in manifest['frames']]
 for frame, path in zip(manifest['frames'], paths):

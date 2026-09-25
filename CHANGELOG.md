@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.8.9
+
+- Blend the outer main bores' seating stroke into the shared cradle lift, eliminating the visible stop and restart. Reverse motion follows the same continuous path.
+- Halve the outer bores' extra stow depth while retaining a short final sink, centre-bore/shroud attachment, inward nesting and deployed reach.
+- Release the accepted v0.8.8 armor geometry and the preceding main-battery refinements; retain the original source model and animation-free GLBs.
+- Add world-space motion regression checks and a versioned 1280 × 720 animation review. Allow motion reviews to reference unchanged, separately versioned geometry.
+
 ## v0.2.1-rc.1
 
 - Rebalance the warm-neutral key, fill and environment light; soften reflections on painted armor and limit bloom so highlights retain surface detail. Reduce navigation/service-light glare separately from engine output.

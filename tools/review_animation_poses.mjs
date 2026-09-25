@@ -10,11 +10,12 @@ import { createOdinRig } from '../app/lib/odin-rig.ts'
 
 const { values } = parseArgs({ options: {
   version: { type: 'string' },
+  'asset-version': { type: 'string' },
   'work-dir': { type: 'string' },
   help: { type: 'boolean', short: 'h' },
 } })
 if (values.help) {
-  console.log('Usage: node tools/review_animation_poses.mjs --version 0.8.1 [--work-dir work/preview-v0.8.1]')
+  console.log('Usage: node tools/review_animation_poses.mjs --version 0.8.1 [--asset-version 0.8.0] [--work-dir work/preview-v0.8.1]')
   process.exit(0)
 }
 if (!/^\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(values.version || '')) {
@@ -23,10 +24,12 @@ if (!/^\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(values.version || '')) {
 const project = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const assetPath = path.join(project, 'public/models/odin.glb')
 const rigPath = path.join(project, 'app/lib/odin-rig.ts')
-const blendPath = path.join(project, `assets/blender/odin_articulated_v${values.version}.blend`)
+const assetVersion = values['asset-version'] || values.version
+if (!/^\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(assetVersion)) throw new Error('Invalid asset version')
+const blendPath = path.join(project, `assets/blender/odin_articulated_v${assetVersion}.blend`)
 const manifest = JSON.parse(fs.readFileSync(path.join(project, 'public/models/asset-manifest.json'), 'utf8'))
-if (manifest.version !== values.version) {
-  throw new Error(`Requested v${values.version}, exported manifest is v${manifest.version}; export first`)
+if (manifest.version !== assetVersion) {
+  throw new Error(`Requested asset v${assetVersion}, exported manifest is v${manifest.version}; export first`)
 }
 const outDir = path.resolve(project, values['work-dir'] || `work/preview-v${values.version}`)
 const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
@@ -62,6 +65,7 @@ const poses = Array.from({ length: 101 }, (_, index) => {
 fs.mkdirSync(outDir, { recursive: true })
 fs.writeFileSync(path.join(outDir, 'poses.json'), JSON.stringify({
   source: 'app/lib/odin-rig.ts + public/models/odin.glb',
+  reviewVersion: values.version,
   assetVersion: manifest.version,
   glbSha256: sha(assetPath), rigSha256: sha(rigPath), blendSha256: sha(blendPath),
   jointCount: rig.jointCount, poses,

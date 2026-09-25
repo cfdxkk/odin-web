@@ -18,7 +18,7 @@ args = parser.parse_args()
 work = ROOT / (args.work_dir or f'work/preview-v{args.version}')
 output = ROOT / (args.output_dir or f'docs/review/v{args.version}')
 manifest = json.loads((work / 'render-manifest.json').read_text(encoding='utf8'))
-if manifest['assetVersion'] != args.version or manifest['frameCount'] != 101:
+if manifest.get('reviewVersion', manifest['assetVersion']) != args.version or manifest['frameCount'] != 101:
     raise RuntimeError('Render manifest does not match the requested version and 101 samples')
 stages = [(0, '完全收拢'), (5, '护甲脱开接缝'), (10, '前盖准备前移'),
           (16, '主护甲向外让位'), (22, '后片沿斜轴下翻'), (30, '护甲接近展开终点'),
@@ -31,6 +31,8 @@ if version_numbers >= (0, 8, 3):
               (34, '外装甲让位完成'), (45, '侧炮就位，等待共同抬升'),
               (60, '炮管与护罩同步抬升'), (75, '同步抬升与三管伸长'),
               (90, '抬升与伸长接近终点'), (100, 'SCM／战斗模式')]
+if version_numbers >= (0, 8, 9):
+    stages[7] = (45, '侧炮连续接入共同抬升')
 card_w, caption_h, header_h = 800, 75, 104
 image_h = round(card_w * manifest['height'] / manifest['width'])
 card_h = image_h + caption_h

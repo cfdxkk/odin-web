@@ -31,9 +31,11 @@ export function createOdinRig(root: THREE.Object3D) {
     const covers = ease(0, .34, d)
     // One mechanical stroke drives the armored cradle, covers and complete
     // bores. Independent easing previously made the centre gun dip and rebound.
-    const barrels = ease(.46, .93, d)
+    const barrels = ease(.40, .93, d)
     const lift = ease(.52, .93, d)
-    const sideSeat = ease(.34, .44, d)
+    // Overlap the short seating stroke with the cradle's acceleration: the
+    // outer bores must never finish one lift and wait for the next to start.
+    const sideSeat = ease(.34, .56, d)
     const aim = ease(.95, 1, d)
     for (const side of ['Dorsal', 'Ventral']) {
       const sign = side === 'Dorsal' ? 1 : -1
@@ -102,8 +104,8 @@ export function createOdinRig(root: THREE.Object3D) {
       }
     }
     // Keep each complete bore at its deployed rigid offset from its own cover.
-    // On closing, both side covers first reach their seat; only then do their
-    // bores descend the last short distance. The centre never leaves its cover.
+    // Closing blends continuously into the short final sink, which finishes
+    // after the covers seat. The centre never leaves its own cover.
     for (const follower of followers) {
       const { object, shroud, relative, stowDelta } = follower
       shroud.updateWorldMatrix(true, false)
@@ -190,6 +192,9 @@ export function createOdinRig(root: THREE.Object3D) {
     if (!follower.object.name.endsWith('_Center')) {
       const closed = follower.shroud.matrixWorld.clone().invert().multiply(follower.object.matrixWorld)
       follower.stowDelta.setFromMatrixPosition(closed).sub(new THREE.Vector3().setFromMatrixPosition(follower.relative))
+      // Keep the original inward nesting, but halve the excessive depth under
+      // the cover. At rest these shroud axes match the asset's glTF axes (+Y up).
+      follower.stowDelta.y *= .5
     }
   }
   followers.push(...references)

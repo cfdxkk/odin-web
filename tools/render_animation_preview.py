@@ -29,13 +29,13 @@ args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv
 if min(args.width, args.height) < 64 or args.width % 2 or args.height % 2:
     parser.error('Width and height must be positive even dimensions of at least 64 pixels')
 work = (ROOT / (args.work_dir or f'work/preview-v{args.version}')).resolve()
-expected_blend = (ROOT / f'assets/blender/odin_articulated_v{args.version}.blend').resolve()
-if Path(bpy.data.filepath).resolve() != expected_blend:
-    raise RuntimeError(f'Open the matching editable source first: {expected_blend}')
 poses_path = work / 'poses.json'
 review = json.loads(poses_path.read_text(encoding='utf8'))
-if review['assetVersion'] != args.version:
-    raise RuntimeError('Pose asset version differs from requested version')
+expected_blend = (ROOT / f"assets/blender/odin_articulated_v{review['assetVersion']}.blend").resolve()
+if Path(bpy.data.filepath).resolve() != expected_blend:
+    raise RuntimeError(f'Open the matching editable source first: {expected_blend}')
+if review.get('reviewVersion', review['assetVersion']) != args.version:
+    raise RuntimeError('Pose review version differs from requested version')
 for key, path in [('glbSha256', ROOT / 'public/models/odin.glb'),
                   ('rigSha256', ROOT / 'app/lib/odin-rig.ts'), ('blendSha256', expected_blend)]:
     if review.get(key) != hashlib.sha256(path.read_bytes()).hexdigest():

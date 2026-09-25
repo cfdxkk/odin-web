@@ -94,7 +94,7 @@ test('every main bore follows its physical cover as a rigid assembly throughout 
       assert.equal(tube.parent, carrier, 'The telescopic tube travels with its own collar and breech')
       assert.ok(carrier.children.some(child => child.name.includes('CarrierMesh')), 'The rigid assembly includes the original collar and breech')
       const relative = relativeMatrix(carrier, shroud)
-      if (role === 'Center' || d >= .44) assertMatrixClose(relative, reference[i], `${bank} ${role} slips relative to its physical cover at ${d}`)
+      if (role === 'Center' || d >= .56) assertMatrixClose(relative, reference[i], `${bank} ${role} slips relative to its physical cover at ${d}`)
       assert.ok(new THREE.Quaternion().setFromRotationMatrix(relative).angleTo(new THREE.Quaternion().setFromRotationMatrix(reference[i])) < 1e-6, `${bank} ${role} twists independently of its cover at ${d}`)
     })
   }
@@ -103,7 +103,7 @@ test('every main bore follows its physical cover as a rigid assembly throughout 
     rig.apply(d, 7)
     root.updateMatrixWorld(true)
     assemblies.forEach(({ bank, role, carrier, shroud }, i) => {
-      if (role === 'Center' || d >= .44) assertMatrixClose(relativeMatrix(carrier, shroud), reference[i], `${bank} ${role} loses its cover attachment after scrubbing`)
+      if (role === 'Center' || d >= .56) assertMatrixClose(relativeMatrix(carrier, shroud), reference[i], `${bank} ${role} loses its cover attachment after scrubbing`)
     })
   }
 })
@@ -143,7 +143,7 @@ test('the centre bore and its cover travel without a downward or backward reboun
       const { bank, label } = probes[i], outward = bank === 'Dorsal' ? 1 : -1
       assert.ok((point.y - previous[i].y) * outward >= -1e-8, `${bank} ${label} dips back into the hull at ${d}`)
       assert.ok(point.z - previous[i].z <= 1e-8, `${bank} ${label} reverses toward the stern at ${d}`)
-      if (d <= .46) assert.ok(point.distanceTo(initial[i]) < 1e-7, 'The centre and its cover wait until the outer bores are seated')
+      if (d <= .40) assert.ok(point.distanceTo(initial[i]) < 1e-7, 'The centre and its cover wait for armor clearance and the start of outer-bore seating')
     })
     previous = current
   }
@@ -310,10 +310,10 @@ test('all three main tubes telescope in sync while retaining their full SCM reac
   for (const [name, position] of stowed) assert.ok(root.getObjectByName(name).position.distanceTo(position) < 1e-6)
 })
 
-test('outer bores finish sinking only after their covers have stopped on the return stroke', () => {
+test('outer bores finish a short sink after their covers stop on the return stroke', () => {
   const { root, rig } = loadRig()
   const outer = mainAssemblies(root).filter(({ role }) => role !== 'Center')
-  rig.apply(.44, 0)
+  rig.apply(.40, 0)
   root.updateMatrixWorld(true)
   const seated = outer.map(({ carrier, shroud }) => ({
     cover: shroud.matrixWorld.clone(),
@@ -324,11 +324,12 @@ test('outer bores finish sinking only after their covers have stopped on the ret
   root.updateMatrixWorld(true)
   const closed = outer.map(({ carrier }) => carrier.getWorldPosition(new THREE.Vector3()))
   outer.forEach(({ bank, outward }, i) => {
-    assert.ok((seated[i].bore.y - closed[i].y) * outward > .01, `${bank} outer bores need a distinct final descent below the stationary covers`)
+    const finalSink = (seated[i].bore.y - closed[i].y) * outward
+    assert.ok(finalSink > .003 && finalSink < .008, `${bank} final descent should be short, not a second full stroke: ${finalSink}`)
   })
   let previous = seated.map(({ bore }) => bore.clone())
-  for (let index = 0; index <= 100; index++) {
-    const d = .44 - index / 1000
+  for (let index = 0; index <= 60; index++) {
+    const d = .40 - index / 1000
     rig.apply(d, 0)
     root.updateMatrixWorld(true)
     outer.forEach(({ bank, role, outward, carrier, shroud }, i) => {
@@ -350,6 +351,43 @@ test('outer bores finish sinking only after their covers have stopped on the ret
       assertMatrixClose(shroud.matrixWorld, seated[i].cover, 'The individual cover stays seated while the bay armor closes', 1e-8)
     })
   }
+})
+
+test('outer bores keep moving through the handoff to the shared lift in both directions', () => {
+  const { root, rig } = loadRig()
+  const outer = mainAssemblies(root).filter(({ role }) => role !== 'Center')
+  const samples = []
+  for (let index = 0; index <= 1000; index++) {
+    rig.apply(index / 1000, 0)
+    root.updateMatrixWorld(true)
+    samples.push(outer.map(({ carrier }) => carrier.getWorldPosition(new THREE.Vector3())))
+  }
+  for (let index = 341; index <= 930; index++) outer.forEach(({ bank, role, outward }, i) => {
+    const speed = (samples[index][i].y - samples[index - 1][i].y) * outward * 1000
+    assert.ok(speed > 0, `${bank} ${role} stops or reverses during its lift at ${index / 1000}`)
+    // Inspect actual world travel, not a copy of the two animation curves.
+    // The old curve fell to zero around 44–46% and visibly started a second time.
+    if (index >= 400 && index <= 600) assert.ok(speed > .06, `${bank} ${role} visibly stalls during the handoff: ${speed}`)
+  })
+  for (let index = 650; index >= 340; index--) {
+    rig.apply(index / 1000, 0)
+    root.updateMatrixWorld(true)
+    outer.forEach(({ carrier }, i) => assert.ok(carrier.getWorldPosition(new THREE.Vector3()).distanceTo(samples[index][i]) < 1e-8, 'Reversing follows the same continuous path'))
+  }
+})
+
+test('stowed outer bores nest just below their covers without the former deep drop', () => {
+  const { root, rig } = loadRig()
+  const outer = mainAssemblies(root).filter(({ role }) => role !== 'Center')
+  rig.apply(1, 0); root.updateMatrixWorld(true)
+  const attachments = outer.map(({ carrier, shroud }) => relativeMatrix(carrier, shroud))
+  rig.apply(0, 0); root.updateMatrixWorld(true)
+  outer.forEach(({ bank, role, outward, carrier, shroud }, i) => {
+    const seated = new THREE.Vector3().setFromMatrixPosition(shroud.matrixWorld.clone().multiply(attachments[i]))
+    const stowed = carrier.getWorldPosition(new THREE.Vector3())
+    const depth = (seated.y - stowed.y) * outward
+    assert.ok(depth > .02 && depth < .03, `${bank} ${role} stow depth should be 2–3 model cm, not the former 5.2 cm: ${depth}`)
+  })
 })
 
 test('the main mechanism preserves every deployed world transform and leaves other systems unchanged', () => {
