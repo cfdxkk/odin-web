@@ -129,7 +129,9 @@ for bank, hull_name in HULLS.items():
     hull = bpy.data.objects[hull_name]
     if hull.type != 'MESH':
         raise RuntimeError(f'Fixed hull {hull_name} is not a mesh')
-    fixed[bank] = build_bvh([mesh_data(hull)])
+    receivers = [obj for obj in bpy.context.scene.objects
+                 if obj.type == 'MESH' and obj.get('fixedHull') == hull_name]
+    fixed[bank] = build_bvh([mesh_data(hull)] + [mesh_data(obj) for obj in receivers])
     for role in ROLES:
         joint_name = f'Hatch_{bank}_{role}'
         if joint_name not in bpy.data.objects:

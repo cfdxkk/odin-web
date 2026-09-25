@@ -1,0 +1,36 @@
+{
+  "source": "app/lib/odin-rig.ts + public/models/odin.glb",
+  "reviewVersion": "0.8.10",
+  "assetVersion": "0.8.10",
+  "glbSha256": "c2d7e580cf74ce60ef65bb5a5abadfe0e2d2c45f0f252de80bb61f811da46cf8",
+  "rigSha256": "c3bc2df4790f34ccfdcf8960ff9a0cd069e6d4c233ded3888629b9c4fd8dc014",
+  "blendSha256": "710236a5e36f5075c915ee7bf58e6703c541c8c3e401cec3d911de67f7d53566",
+  "jointCount": 140,
+  "poseSha256": "7f765571faa64e735b49fc8c7ba470b2a5423a4b2dc451910b24e8f99f6e2d38",
+  "view": "official",
+  "frameCount": 101,
+  "width": 1280,
+  "height": 720,
+  "cameraLocation": [
+    -4.0,
+    6.380000114440918,
+    4.46999979019165
+  ],
+  "cameraRotation": [
+    1.0124163627624512,
+    3.883525945269639e-09,
+    -2.4668517112731934
+  ],
+  "cameraOrthoScale": 1.75,
+  "file": "main-battery-preview.mp4",
+  "bytes": 1299467,
+  "sha256": "32cc3f6afcb96450e94e5038f4bb31edd5062ea7c59789287dba7c75f62f4d4f",
+  "codec": "H.264/yuv420p",
+  "fps": 30,
+  "unfoldSeconds": 6.5,
+  "foldSeconds": 6.5,
+  "endpointHoldSeconds": 0.8,
+  "targetDurationSeconds": 14.6,
+  "durationSeconds": 14.566666666666666,
+  "decodedFrames": 437
+}
