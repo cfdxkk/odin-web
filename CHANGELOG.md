@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.8.11
+
+- Repartition the main-battery junction using the corrected annotated layout: the aft hinged leaf owns the diagonal triangular area, independently of the turret shroud and forward sliding armor.
+- Align the flat aft leaves and their fixed hinge edges with the original hull crease. Fit the receiving slots at those exact edges and close the forward corner with a fixed underlap.
+- Give the five dorsal leaves real perimeter thickness; retain gray exteriors and deep-red interiors. Rebuild the serrated skins with constrained triangulation on the existing flat planes.
+- Advance nose seal clearance and sequence the aft fold after the main leaves make room. Keep the accepted bore motion and all other weapon/bridge systems.
+- Save a separate editable v0.8.11 Blend and animation-free high/lite assets, with orthographic side/top comparisons and a complete unfold/fold preview.
+
 ## v0.8.10
 
 - Close the annotated side junction with a moving armor return and a separate fixed, underlapping hull receiver.

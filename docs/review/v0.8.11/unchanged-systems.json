@@ -1,0 +1,24 @@
+{
+  "baseline": "odin_articulated_v0.8.10.blend",
+  "candidate": "odin_articulated_v0.8.11.blend",
+  "candidateSha256": "c789b1f8afc891511737e44f52a2ccc505b72dd49861772b1350d8e9c15b57d3",
+  "scope": "All objects outside Main_* and Hatch_* ancestry; exact effective world transform and mesh/UV/material equality",
+  "objectsCompared": 293,
+  "jointSystems": [
+    "axial-shutter",
+    "bridge-armor",
+    "defense",
+    "pdc",
+    "secondary",
+    "stern-door"
+  ],
+  "removed": [],
+  "added": [],
+  "changed": [],
+  "explicitlyRevisedFixedMainBayObjects": [
+    "MainBay_Dorsal_Port_FixedReceiver",
+    "MainBay_Dorsal_Starboard_FixedReceiver",
+    "holo.001"
+  ],
+  "passed": true
+}

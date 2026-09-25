@@ -72,7 +72,7 @@ export function createOdinRig(root: THREE.Object3D) {
           // Release the close-fitting aft scarf before crossing its hinged lip.
           const earlyRelease = Number(data.earlySeamReleaseFraction || 0)
           const seamRelease = Number(data.seamReleaseVector?.[1] || 0) * (
-            earlyRelease * ease(0, .06, d) + (1 - earlyRelease) * ease(.10, .20, d))
+            earlyRelease * ease(side === 'Dorsal' ? .02 : 0, .06, d) + (1 - earlyRelease) * ease(.10, .20, d))
           pose(name, v(slide[0] * travel, slide[1] * travel + seamRelease, clearance[2] * liftOff * (1 - settle) + slide[2] * settle))
         }
         // The aft fillers fold out and down about the sloped fixed hull lip.
@@ -80,7 +80,8 @@ export function createOdinRig(root: THREE.Object3D) {
         const aftName = `Hatch_${side}_Aft_${leaf}`, aft = joints.get(aftName)?.object.userData
         if (aft?.hingeAxis && Number.isFinite(aft.openingAngleDegrees)) {
           const axis = aft.hingeAxis as [number, number, number]
-          const turn = new THREE.Quaternion().setFromAxisAngle(v(...axis).normalize(), rad(Number(aft.openingAngleDegrees)) * ease(.14, .32, d))
+          const fold = side === 'Dorsal' ? ease(.20, .32, d) : ease(.14, .32, d)
+          const turn = new THREE.Quaternion().setFromAxisAngle(v(...axis).normalize(), rad(Number(aft.openingAngleDegrees)) * fold)
           pose(aftName, v(0, 0, 0), turn)
         }
       }
@@ -98,7 +99,7 @@ export function createOdinRig(root: THREE.Object3D) {
       }
       const noseName = `Hatch_${side}_Nose`, nose = joints.get(noseName)?.object.userData
       if (nose?.liftVector && nose?.slideVector) {
-        const raise = ease(0, .10, d), forward = ease(.10, .31, d)
+        const raise = ease(0, side === 'Dorsal' ? .035 : .10, d), forward = ease(side === 'Dorsal' ? .07 : .10, .31, d)
         const a = nose.liftVector as [number, number, number], b = nose.slideVector as [number, number, number]
         pose(noseName, v(a[0] * raise + b[0] * forward, a[1] * raise + b[1] * forward, a[2] * raise + b[2] * forward))
       }

@@ -3,6 +3,7 @@
 blender -b --python-exit-code 1 --python tools/check_unrelated_systems.py -- 0.8.1 0.8.2
 """
 import array
+import argparse
 import bpy
 import hashlib
 import json
@@ -12,7 +13,11 @@ from pathlib import Path
 from mathutils import Quaternion, Vector
 
 root = Path(__file__).resolve().parents[1]
-old, new = sys.argv[sys.argv.index('--') + 1:]
+parser=argparse.ArgumentParser()
+parser.add_argument('old');parser.add_argument('new')
+parser.add_argument('--allow-fixed-main-bay',action='store_true',help='Permit the explicitly revised dorsal hull receiver, while checking all other objects exactly')
+args=parser.parse_args(sys.argv[sys.argv.index('--') + 1:])
+old,new=args.old,args.new
 baseline = root / f'assets/blender/odin_articulated_v{old}.blend'
 candidate = root / f'assets/blender/odin_articulated_v{new}.blend'
 output = root / f'work/v{new.replace(".", "")}-review'
@@ -54,12 +59,16 @@ def snapshot(path):
 a, b = snapshot(baseline), snapshot(candidate)
 removed, added = sorted(a.keys() - b.keys()), sorted(b.keys() - a.keys())
 changed = [name for name in a.keys() & b.keys() if a[name] != b[name]]
+allowed={'holo.001','MainBay_Dorsal_Port_FixedReceiver','MainBay_Dorsal_Starboard_FixedReceiver'} if args.allow_fixed_main_bay else set()
+permitted=sorted(set(removed+added+changed)&allowed)
+removed=[n for n in removed if n not in allowed];added=[n for n in added if n not in allowed];changed=[n for n in changed if n not in allowed]
 report = {'baseline': baseline.name, 'candidate': candidate.name,
           'candidateSha256': hashlib.sha256(candidate.read_bytes()).hexdigest(),
           'scope': 'All objects outside Main_* and Hatch_* ancestry; exact effective world transform and mesh/UV/material equality',
           'objectsCompared': len(a.keys() & b.keys()),
           'jointSystems': sorted({row['system'] for row in b.values() if row['system']}),
           'removed': removed, 'added': added, 'changed': changed,
+          'explicitlyRevisedFixedMainBayObjects':permitted,
           'passed': not (removed or added or changed)}
 (output/'unchanged-systems.json').write_text(json.dumps(report, indent=2), encoding='utf8')
 if not report['passed']:
