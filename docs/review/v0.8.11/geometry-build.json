@@ -1,0 +1,179 @@
+{
+  "version": "0.8.11",
+  "rimThickness": 0.18,
+  "parts": {
+    "Hatch_Dorsal_Aft_Port_GapFiller": {
+      "outerVertices": 482,
+      "rimThickness": 0.18,
+      "boundaryEdges": 482
+    },
+    "Hatch_Dorsal_Aft_Starboard_GapFiller": {
+      "outerVertices": 482,
+      "rimThickness": 0.18,
+      "boundaryEdges": 482
+    },
+    "Hatch_Dorsal_Port_FittedSkin": {
+      "outerVertices": 111,
+      "rimThickness": 0.18,
+      "boundaryEdges": 111
+    },
+    "Hatch_Dorsal_Starboard_FittedSkin": {
+      "outerVertices": 111,
+      "rimThickness": 0.18,
+      "boundaryEdges": 111
+    },
+    "Hatch_Dorsal_Nose_Wedge": {
+      "outerVertices": 181,
+      "rimThickness": 0.18,
+      "boundaryEdges": 181
+    },
+    "MainBay_Dorsal_Port_FixedReceiver": {
+      "outerVertices": 50,
+      "rimThickness": 0.06,
+      "boundaryEdges": 50
+    },
+    "MainBay_Dorsal_Starboard_FixedReceiver": {
+      "outerVertices": 50,
+      "rimThickness": 0.06,
+      "boundaryEdges": 50
+    }
+  },
+  "junctions": {
+    "Port": {
+      "mainRearDiagonal": [
+        [
+          -8.797701835632324,
+          112.28871154785156,
+          43.27149963378906
+        ],
+        [
+          -11.123249053955078,
+          116.7544174194336,
+          40.10286331176758
+        ]
+      ],
+      "triangularRegionParent": "Hatch_Dorsal_Aft_Port",
+      "fixedReceiver": {
+        "object": "holo.001",
+        "verticesRefitted": 390,
+        "maxAdjustment": 2.2858504846559637
+      }
+    },
+    "Starboard": {
+      "mainRearDiagonal": [
+        [
+          8.984700202941895,
+          112.2677001953125,
+          43.27880859375
+        ],
+        [
+          11.123249053955078,
+          116.7544174194336,
+          40.31692123413086
+        ]
+      ],
+      "triangularRegionParent": "Hatch_Dorsal_Aft_Starboard",
+      "fixedReceiver": {
+        "object": "holo.001",
+        "verticesRefitted": 407,
+        "maxAdjustment": 2.4988250832586125
+      }
+    }
+  },
+  "hullAlignedHinges": {
+    "Port": {
+      "sourceLine": [
+        [
+          -14.673100471496582,
+          76.17890167236328,
+          41.11940002441406
+        ],
+        [
+          -14.365300178527832,
+          81.8197021484375,
+          40.8213996887207
+        ]
+      ],
+      "hinge": [
+        [
+          -14.388562202453613,
+          75.73592376708984,
+          41.09747314453125
+        ],
+        [
+          -12.152225494384766,
+          116.71941375732422,
+          38.93233871459961
+        ]
+      ],
+      "planeNormal": [
+        -0.7500277161598206,
+        0.07563907653093338,
+        0.657067060470581
+      ],
+      "parallelError": 0.0,
+      "receiverVertices": 581
+    },
+    "Starboard": {
+      "sourceLine": [
+        [
+          14.673100471496582,
+          76.17890167236328,
+          41.11940002441406
+        ],
+        [
+          14.365300178527832,
+          81.8197021484375,
+          40.8213996887207
+        ]
+      ],
+      "hinge": [
+        [
+          14.543091773986816,
+          75.73592376708984,
+          41.13301467895508
+        ],
+        [
+          12.306755065917969,
+          116.71941375732422,
+          38.96788024902344
+        ]
+      ],
+      "planeNormal": [
+        0.7505403757095337,
+        0.0756361335515976,
+        0.6564818024635315
+      ],
+      "parallelError": 0.0,
+      "receiverVertices": 497
+    }
+  },
+  "fullRimReceiverVertices": 1110,
+  "receivingRebates": [
+    {
+      "armor": "Hatch_Dorsal_Aft_Port_GapFiller",
+      "receiver": "odin.005",
+      "facesBefore": 42456,
+      "facesAfter": 42870
+    },
+    {
+      "armor": "Hatch_Dorsal_Aft_Port_GapFiller",
+      "receiver": "odin.006",
+      "facesBefore": 2461,
+      "facesAfter": 2491
+    },
+    {
+      "armor": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+      "receiver": "odin.005",
+      "facesBefore": 42870,
+      "facesAfter": 42917
+    },
+    {
+      "armor": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+      "receiver": "odin.008",
+      "facesBefore": 3450,
+      "facesAfter": 3625
+    }
+  ],
+  "blendSha256": "c789b1f8afc891511737e44f52a2ccc505b72dd49861772b1350d8e9c15b57d3"
+}

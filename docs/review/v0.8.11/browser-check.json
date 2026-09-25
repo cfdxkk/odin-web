@@ -1,0 +1,17 @@
+{
+  "version": "0.8.11",
+  "date": "2026-09-25",
+  "surface": "Local production Nuxt build in Codex in-app browser",
+  "model": "/models/odin.glb?v=0.8.11",
+  "joints": 140,
+  "orthographicViewsInspected": ["side closed", "top closed", "rear oblique closed", "mid-fold", "fully deployed"],
+  "observations": [
+    "The aft leaf fills the diagonal region in the corrected red/green/blue partition.",
+    "The fixed edge follows the hull crease in rear-oblique and top views.",
+    "The former wide dark opening below the aft leaf is closed to a narrow mechanical seam.",
+    "The exterior skins remain flat; gray outer faces and red inner faces remain distinct.",
+    "Main Nuxt page loads the high-quality GLB without console errors.",
+    "An explicit pause remains paused after changing to SCM and moving the slider to 22 seconds."
+  ],
+  "consoleErrors": []
+}

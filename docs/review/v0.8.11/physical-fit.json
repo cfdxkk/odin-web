@@ -1,0 +1,66 @@
+{
+  "version": "0.8.11",
+  "blendSha256": "c789b1f8afc891511737e44f52a2ccc505b72dd49861772b1350d8e9c15b57d3",
+  "parts": {
+    "Hatch_Dorsal_Port_FittedSkin": {
+      "watertight": true,
+      "selfIntersections": 0,
+      "positiveVolume": 75.48001957159856,
+      "minimumCorrespondingSkinDistance": 0.25,
+      "maximumCorrespondingSkinDistance": 0.4081206021557549
+    },
+    "Hatch_Dorsal_Starboard_FittedSkin": {
+      "watertight": true,
+      "selfIntersections": 0,
+      "positiveVolume": 73.88871791384335,
+      "minimumCorrespondingSkinDistance": 0.25,
+      "maximumCorrespondingSkinDistance": 0.4081206021557549
+    },
+    "Hatch_Dorsal_Nose_Wedge": {
+      "watertight": true,
+      "selfIntersections": 0,
+      "positiveVolume": 26.329449397334017,
+      "minimumCorrespondingSkinDistance": 0.25,
+      "maximumCorrespondingSkinDistance": 0.25
+    },
+    "Hatch_Dorsal_Aft_Port_GapFiller": {
+      "watertight": true,
+      "selfIntersections": 0,
+      "positiveVolume": 19.74155513795944,
+      "minimumCorrespondingSkinDistance": 0.17999890026610915,
+      "maximumCorrespondingSkinDistance": 0.5464645063294482
+    },
+    "Hatch_Dorsal_Aft_Starboard_GapFiller": {
+      "watertight": true,
+      "selfIntersections": 0,
+      "positiveVolume": 19.505737306147758,
+      "minimumCorrespondingSkinDistance": 0.17999994542034964,
+      "maximumCorrespondingSkinDistance": 0.546900015550491
+    }
+  },
+  "hinges": {
+    "Hatch_Dorsal_Aft_Port": {
+      "singlePlaneError": 3.4868717193603516e-06,
+      "hingeOnMaterialEdge": [
+        0.0,
+        0.0
+      ],
+      "parallelToOriginalHullCreaseError": 6.869253740466581e-08,
+      "openingDegrees": -130,
+      "parent": "Odin_Asset"
+    },
+    "Hatch_Dorsal_Aft_Starboard": {
+      "singlePlaneError": 3.2782554626464844e-06,
+      "hingeOnMaterialEdge": [
+        0.0,
+        0.0
+      ],
+      "parallelToOriginalHullCreaseError": 6.869253740466581e-08,
+      "openingDegrees": 130,
+      "parent": "Odin_Asset"
+    }
+  },
+  "originalSourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "animationActions": 0,
+  "passed": true
+}

@@ -168,7 +168,7 @@ test('polygonal side armor releases the serrated lip before translating to its e
       const maxDescent = bank === 'Dorsal' ? 6.4 : 3
       assert.equal(clearance.x, 0)
       assert.equal(clearance.y, 0)
-      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .30 : 2.2)) < 1e-6, 'The thickened dorsal plate clears its fitted lip with a short lift')
+      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .42 : 2.2)) < 1e-6, 'The thickened dorsal plate clears its fitted lip with a short lift')
       assert.ok(Math.abs(x) <= 9.6 + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stop on the short exterior guide instead of sinking into the hull`)
       rig.apply(.05, 0)
       assert.ok((plate.position.y - closedPosition.y) * direction > 1e-5, 'The skin lifts away from the teeth before lateral movement')
@@ -232,7 +232,7 @@ test('the short fore-end wedge lifts before sliding forward and closes exactly',
     rig.apply(0, 0)
     const plate = root.getObjectByName(`Hatch_${bank}_Nose`)
     const start = plate.position.clone(), turn = plate.quaternion.clone()
-    rig.apply(.10, 0)
+    rig.apply(bank === 'Dorsal' ? .07 : .10, 0)
     assert.ok(Math.abs(plate.position.y - start.y) > .8, 'Nose first lifts away from its seal')
     assert.ok(Math.abs(plate.position.z - start.z) < 1e-6, 'Forward travel waits for the seal clearance')
     rig.apply(.31, 0)
@@ -409,9 +409,10 @@ test('the main mechanism preserves every deployed world transform and leaves oth
       // Those origins must stay fixed throughout the motion. v0.8.8 also
       // shortens the dorsal main-skin lift and releases its fitted rear seam
       // earlier; the guide/return test above checks that intentional change.
-      // The separate nose and every other system keep their prior position.
+      // v0.8.11 releases the thicker dorsal nose earlier; its dedicated test
+      // checks lift-before-slide and identical endpoints. Other systems stay.
       const expectedPosition = fixedAftPivots.get(expected.name) || new THREE.Vector3(...expected.position)
-      if (!/^Hatch_Dorsal_(Port|Starboard)$/.test(expected.name)) {
+      if (!/^Hatch_Dorsal_(Port|Starboard|Nose)$/.test(expected.name)) {
         assert.ok(actual.position.distanceTo(expectedPosition) < 1e-7, `${expected.name} moved from its fixed reference at ${pose.deployment}`)
       }
       // Some source quaternions carry float32 length error. Comparing their
