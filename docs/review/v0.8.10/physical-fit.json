@@ -1,0 +1,99 @@
+{
+  "version": "0.8.10",
+  "aft": {
+    "Hatch_Dorsal_Aft_Port": {
+      "planeError": 6.67572021484375e-06,
+      "hingeEndpointErrors": [
+        8.740569486533813e-06,
+        8.740569486533813e-06
+      ],
+      "thickness": [
+        0.019998423202196136,
+        0.12000216997694224
+      ]
+    },
+    "Hatch_Dorsal_Aft_Starboard": {
+      "planeError": 6.67572021484375e-06,
+      "hingeEndpointErrors": [
+        8.740569486533813e-06,
+        8.740569486533813e-06
+      ],
+      "thickness": [
+        0.019999057985842228,
+        0.12000102165620774
+      ]
+    },
+    "Hatch_Ventral_Aft_Port": {
+      "planeError": 5.7220458984375e-06,
+      "hingeEndpointErrors": [
+        0.0,
+        0.0
+      ],
+      "thickness": [
+        0.020001060678623617,
+        0.12000078125856817
+      ]
+    },
+    "Hatch_Ventral_Aft_Starboard": {
+      "planeError": 6.67572021484375e-06,
+      "hingeEndpointErrors": [
+        4.264961199760036e-06,
+        4.264961199760036e-06
+      ],
+      "thickness": [
+        0.020000127842649817,
+        0.12000089610228315
+      ]
+    }
+  },
+  "skins": {
+    "Hatch_Dorsal_Port_FittedSkin": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    },
+    "Hatch_Dorsal_Starboard_FittedSkin": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    },
+    "Hatch_Dorsal_Nose_Wedge": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    },
+    "Hatch_Ventral_Port_FittedSkin": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    },
+    "Hatch_Ventral_Starboard_FittedSkin": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    },
+    "Hatch_Ventral_Nose_Wedge": {
+      "thickness": [
+        0.054996490478515625,
+        0.18000030517578125
+      ]
+    }
+  },
+  "junctions": {
+    "Port": {
+      "blueParent": "Hatch_Dorsal_Port",
+      "redParent": "Odin_Asset"
+    },
+    "Starboard": {
+      "blueParent": "Hatch_Dorsal_Starboard",
+      "redParent": "Odin_Asset"
+    }
+  },
+  "originalSourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "blendSha256": "710236a5e36f5075c915ee7bf58e6703c541c8c3e401cec3d911de67f7d53566"
+}

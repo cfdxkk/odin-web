@@ -168,7 +168,7 @@ test('polygonal side armor releases the serrated lip before translating to its e
       const maxDescent = bank === 'Dorsal' ? 6.4 : 3
       assert.equal(clearance.x, 0)
       assert.equal(clearance.y, 0)
-      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .15 : 2.2)) < 1e-6, 'The fitted dorsal lip needs only a small clearance lift')
+      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .30 : 2.2)) < 1e-6, 'The thickened dorsal plate clears its fitted lip with a short lift')
       assert.ok(Math.abs(x) <= 9.6 + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stop on the short exterior guide instead of sinking into the hull`)
       rig.apply(.05, 0)
       assert.ok((plate.position.y - closedPosition.y) * direction > 1e-5, 'The skin lifts away from the teeth before lateral movement')
@@ -403,8 +403,9 @@ test('the main mechanism preserves every deployed world transform and leaves oth
       if (expected.name.startsWith('Main_')) continue
       const actual = staticNodes.get(expected.name)
       assert.ok(actual, `Missing unchanged system joint ${expected.name}`)
-      // v0.8.5 rebases only the aft hinge origins to clear the new corner;
-      // their axes, 130-degree turn and timing retain the approved curve.
+      // v0.8.10 fits the aft axes to the real material attachment edges.
+      // The dedicated hinge test verifies those intentional axes and the
+      // unchanged 130-degree turn; their origins stay fixed throughout.
       // Those origins must stay fixed throughout the motion. v0.8.8 also
       // shortens the dorsal main-skin lift and releases its fitted rear seam
       // earlier; the guide/return test above checks that intentional change.
@@ -417,7 +418,7 @@ test('the main mechanism preserves every deployed world transform and leaves oth
       // components avoids angleTo reporting a false turn for identical values.
       const quaternion = actual.quaternion.toArray()
       const turnError = Math.min(...[1, -1].map(sign => Math.max(...quaternion.map((value, i) => Math.abs(value - sign * expected.quaternion[i])))))
-      assert.ok(turnError < 1e-8, `${expected.name} turned from v0.8.2 at ${pose.deployment}`)
+      if (!fixedAftPivots.has(expected.name)) assert.ok(turnError < 1e-8, `${expected.name} turned from v0.8.2 at ${pose.deployment}`)
     }
   }
   rig.apply(1, 20)

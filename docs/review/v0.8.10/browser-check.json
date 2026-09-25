@@ -1,0 +1,23 @@
+{
+  "version": "0.8.10",
+  "browser": "Codex in-app browser",
+  "asset": "/models/odin.glb",
+  "quality": "high",
+  "staticJoints": 140,
+  "SCM": {
+    "deployment": 1,
+    "thrust": 0
+  },
+  "observedFps": 75,
+  "consoleWarnings": 0,
+  "consoleErrors": 0,
+  "canvasInteraction": "Free-view rotation and zoom verified; explicit pause retained while switching free-view configuration.",
+  "NAV": {
+    "deployment": 0,
+    "thrust": 1
+  },
+  "explicitPauseAfterModeChange": {
+    "button": "播放动画",
+    "time": 12
+  }
+}

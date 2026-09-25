@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.8.10
+
+- Close the annotated side junction with a moving armor return and a separate fixed, underlapping hull receiver.
+- Place the four aft armor axes on their actual straight attachment edges; retain planar faces and the 130-degree fold, with matching local hull relief.
+- Add finite armor thickness and fitted mating rims, preserving the accepted exterior planes, ribs and serrations. Paint the previously gray fore-cavity faces deep red.
+- Preserve the v0.8.9 continuous bore motion, and save new animation-free high/lite assets and a separate v0.8.10 editable Blend.
+- Include a complete unfolding/folding preview, twelve-frame sheet, side/interior details, physical-fit measurements and 101-pose collision reports.
+
 ## v0.8.9
 
 - Blend the outer main bores' seating stroke into the shared cradle lift, eliminating the visible stop and restart. Reverse motion follows the same continuous path.
