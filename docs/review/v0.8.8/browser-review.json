@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "assetVersion": "0.8.8",
+  "canvas": {"asset": "/models/odin.glb", "quality": "high", "joints": 140, "ready": true},
+  "scm": {"deployment": 1, "thrust": 0},
+  "nav": {"deployment": 0, "thrust": 1},
+  "explicitPauseRetained": {"filmTime": 12, "through": ["SCM mode selection", "free exploration", "NAV mode selection", "quality changes", "preview tab navigation"]},
+  "consoleErrorsAndWarnings": [],
+  "reviewVideo": {"url": "http://127.0.0.1:4173/review/v0.8.8/", "width": 1280, "height": 720, "duration": 14.566667, "readyState": 4, "playing": true, "error": null},
+  "publishedToProduction": false
+}

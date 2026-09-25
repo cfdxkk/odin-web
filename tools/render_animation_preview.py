@@ -24,6 +24,7 @@ parser.add_argument('--version', required=True)
 parser.add_argument('--work-dir')
 parser.add_argument('--width', type=int, default=768)
 parser.add_argument('--height', type=int, default=512)
+parser.add_argument('--view', choices=['legacy', 'official'], default='legacy')
 args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
 if min(args.width, args.height) < 64 or args.width % 2 or args.height % 2:
     parser.error('Width and height must be positive even dimensions of at least 64 pixels')
@@ -116,6 +117,11 @@ mid_x, mid_y = (bounds[0] + bounds[2]) / 2, (bounds[1] + bounds[3]) / 2
 camera.location += camera.rotation_euler.to_quaternion() @ Vector((mid_x, mid_y, 0))
 span_x, span_y = bounds[2] - bounds[0], bounds[3] - bounds[1]
 camera_data.ortho_scale = max(1.55, 1.14 * span_y * args.width / args.height, 1.14 * span_x)
+if args.view == 'official':
+    center = Vector((0, 138, 47)) * .01
+    camera.location = center + Vector((-1, 1.25, 1.0)) * 4
+    camera.rotation_euler = (center - camera.location).to_track_quat('-Z', 'Y').to_euler()
+    camera_data.ortho_scale = 1.75
 print(f'Fixed dorsal-main camera: {len(tracked)} meshes, scale {camera_data.ortho_scale:.3f}', flush=True)
 
 for pose in poses:
@@ -125,6 +131,7 @@ for pose in poses:
     print(f"PREVIEW_FRAME {pose['index'] + 1:03d}/{len(poses)} d={pose['deployment']:.2f}", flush=True)
 report = {key: value for key, value in review.items() if key != 'poses'}
 report.update({'poseSha256': hashlib.sha256(poses_path.read_bytes()).hexdigest(),
+               'view': args.view,
                'frameCount': len(poses), 'width': args.width, 'height': args.height,
                'cameraLocation': list(camera.location), 'cameraRotation': list(camera.rotation_euler),
                'cameraOrthoScale': camera_data.ortho_scale,

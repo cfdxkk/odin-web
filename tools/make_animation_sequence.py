@@ -31,7 +31,8 @@ if version_numbers >= (0, 8, 3):
               (34, '外装甲让位完成'), (45, '侧炮就位，等待共同抬升'),
               (60, '炮管与护罩同步抬升'), (75, '同步抬升与三管伸长'),
               (90, '抬升与伸长接近终点'), (100, 'SCM／战斗模式')]
-card_w, image_h, caption_h, header_h = 800, 533, 75, 104
+card_w, caption_h, header_h = 800, 75, 104
+image_h = round(card_w * manifest['height'] / manifest['width'])
 card_h = image_h + caption_h
 canvas = Image.new('RGB', (4 * card_w, header_h + 3 * card_h), '#0a111b')
 draw = ImageDraw.Draw(canvas)

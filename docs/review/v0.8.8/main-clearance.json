@@ -1,0 +1,10 @@
+{
+  "asset": "odin_articulated_v0.8.8.blend",
+  "assetSha256": "a9ef5f969e58e83def808fd3e1f920c83caaa82a5146b9e1a814cdedbe7a626e",
+  "rigSha256": "48061d128ed980de18504cf11c83b8ec4690dd687bb83cb0f2586eb13793bbf8",
+  "samples": 101,
+  "testedPairsPerPose": 30,
+  "collisionPoses": 0,
+  "pairs": {},
+  "collisions": []
+}

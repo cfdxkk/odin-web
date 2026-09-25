@@ -1,0 +1,28 @@
+{
+  "source": "assets\\blender\\odin_articulated_v0.8.8.blend",
+  "blendSha256": "a9ef5f969e58e83def808fd3e1f920c83caaa82a5146b9e1a814cdedbe7a626e",
+  "poseSource": "work/preview-v0.8.8/poses.json",
+  "poseSha256": "8c355cfae7919fd4803730fce0392a4ebffdb0849c3f9e34ff7d9bf73b21cc63",
+  "poseBlendSha256": "a9ef5f969e58e83def808fd3e1f920c83caaa82a5146b9e1a814cdedbe7a626e",
+  "candidateOnly": false,
+  "deployment": 1.0,
+  "reference": "work/reference-assets/main-0.00.png",
+  "view": "Approximate RSI direction, bow lower-left; no mirrored geometry or image",
+  "cameraLocation": [
+    -4.0,
+    6.380000114440918,
+    4.46999979019165
+  ],
+  "cameraRotation": [
+    1.0124163627624512,
+    3.883525945269639e-09,
+    -2.4668517112731934
+  ],
+  "cameraOrthoScale": 1.75,
+  "width": 1280,
+  "height": 720,
+  "file": "open-official-direction.png",
+  "sha256": "d6710309d53053e3c2c894484e70288cab900f8bbf7c88d265b82c0463c6534a",
+  "geometryHidden": false,
+  "blendSaved": false
+}

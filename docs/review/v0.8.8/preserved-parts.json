@@ -1,0 +1,17 @@
+{
+  "baseline": "0.8.6",
+  "candidate": "0.8.8",
+  "baselineBlendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "candidateBlendSha256": "a9ef5f969e58e83def808fd3e1f920c83caaa82a5146b9e1a814cdedbe7a626e",
+  "scope": "Every object except three dorsal forward armor joints and descendants, and the revised holo.001 receiving strip. Includes aft flaps, all ventral armor, all bore/shroud geometry, secondary/PDC, bridge armor and stern mechanisms.",
+  "objectsCompared": 376,
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "originalSource": {
+    "path": "D:\\\u661f\u9645\u516c\u6c11\u76f8\u5173\\Odin\\Odin \u5efa\u6a21\\odin.blend",
+    "sha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+    "unchanged": true
+  },
+  "passed": true
+}

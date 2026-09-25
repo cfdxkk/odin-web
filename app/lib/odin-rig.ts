@@ -68,7 +68,9 @@ export function createOdinRig(root: THREE.Object3D) {
           const clearance = data.clearanceLift as [number, number, number]
           const slide = data.slideVector as [number, number, number]
           // Release the close-fitting aft scarf before crossing its hinged lip.
-          const seamRelease = Number(data.seamReleaseVector?.[1] || 0) * ease(.10, .20, d)
+          const earlyRelease = Number(data.earlySeamReleaseFraction || 0)
+          const seamRelease = Number(data.seamReleaseVector?.[1] || 0) * (
+            earlyRelease * ease(0, .06, d) + (1 - earlyRelease) * ease(.10, .20, d))
           pose(name, v(slide[0] * travel, slide[1] * travel + seamRelease, clearance[2] * liftOff * (1 - settle) + slide[2] * settle))
         }
         // The aft fillers fold out and down about the sloped fixed hull lip.
