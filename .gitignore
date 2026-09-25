@@ -4,5 +4,6 @@ node_modules/
 dist/
 work/
 *.log
+*.blend1
 .env
 .DS_Store

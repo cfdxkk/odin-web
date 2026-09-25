@@ -1,0 +1,15 @@
+{
+  "version": "0.8.5",
+  "url": "http://127.0.0.1:4173/",
+  "viewport": [1265, 712],
+  "quality": "high",
+  "checks": [
+    "Production-generated Nuxt page loads current versioned GLB",
+    "SCM/free exploration shows separate five-piece main armor and red interior",
+    "NAV/free exploration closes armor without the former long red exterior rim",
+    "Explicit film pause remains active through free mode and NAV switching",
+    "NAV exhaust and other visible ship systems still render"
+  ],
+  "consoleWarningsAndErrors": [],
+  "productionSiteReplaced": false
+}

@@ -1,0 +1,1400 @@
+{
+  "schema": 1,
+  "source": "odin_articulated_v0.8.8.blend",
+  "sourceSha256": "a9ef5f969e58e83def808fd3e1f920c83caaa82a5146b9e1a814cdedbe7a626e",
+  "measurementSpace": "Odin_Asset source coordinates",
+  "readOnly": true,
+  "expectedRibs": 28,
+  "measuredRibs": 28,
+  "method": "Actual mesh SVD cap plane, actual triangulated face normals, and two true perimeter long-edge endpoint chords; no generator metadata.",
+  "selection": "Un-beveled outward cap polygons with normalized source-space normal Z > 0.1; one boundary loop and two long perimeter chains required.",
+  "thresholds": {
+    "maxPlaneDeviation": 0.0001,
+    "maxEdgeDeviation": 0.0001,
+    "maxTriangleNormalAngleDegrees": 0.02
+  },
+  "missingObjects": [],
+  "errors": [],
+  "ribs": [
+    {
+      "name": "Hatch_Dorsal_Port_Rib_00",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.456479549407959,
+        117.22406005859375,
+        45.93237018585205
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042172825014,
+        0.040540708635432465,
+        0.6276935031484064
+      ],
+      "maxPlaneDeviation": 2.78195758429689e-07,
+      "rmsPlaneDeviation": 2.745727017162603e-07,
+      "maxTriangleNormalAngleDegrees": 1.698988104306101e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.808185909194677,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.179998981341942,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_01",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.513015270233154,
+        119.9492416381836,
+        45.686341285705566
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042584592825,
+        0.0405397121356279,
+        0.6276935165105129
+      ],
+      "maxPlaneDeviation": 5.478411919668247e-07,
+      "rmsPlaneDeviation": 5.476629286033604e-07,
+      "maxTriangleNormalAngleDegrees": 3.3936831226167035e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.172616309002809,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.163392121027712,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_02",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.509707927703857,
+        122.6744155883789,
+        45.51442909240723
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042192494757,
+        0.0405403585634011,
+        0.6276935233222214
+      ],
+      "maxPlaneDeviation": 5.1037964965416904e-08,
+      "rmsPlaneDeviation": 5.102133342740498e-08,
+      "maxTriangleNormalAngleDegrees": 3.1945284701301985e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.156009448688502,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.146782292711602,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_03",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.50640082359314,
+        125.39959716796875,
+        45.3425178527832
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042434718934,
+        0.0405401574968417,
+        0.6276935063086319
+      ],
+      "maxPlaneDeviation": 2.3638043566975853e-07,
+      "rmsPlaneDeviation": 2.3630332106209328e-07,
+      "maxTriangleNormalAngleDegrees": 1.463916852406315e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.139402588374239,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.130176031505028,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_04",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.503093481063843,
+        128.12477111816406,
+        45.17060661315918
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042779607917,
+        0.04054015488528695,
+        0.6276934637624778
+      ],
+      "maxPlaneDeviation": 2.3625415312977793e-07,
+      "rmsPlaneDeviation": 2.361769886964775e-07,
+      "maxTriangleNormalAngleDegrees": 1.463916852406315e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.122795728060018,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.113569171190756,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_05",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.499786138534546,
+        130.8499526977539,
+        44.99869346618652
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042161250232,
+        0.040539827103331816,
+        0.627693561516661
+      ],
+      "maxPlaneDeviation": 2.3651937164359538e-07,
+      "rmsPlaneDeviation": 2.3644203150499511e-07,
+      "maxTriangleNormalAngleDegrees": 1.463916852406315e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.106185899743892,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.096959342874738,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_06",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.496478796005249,
+        133.57513427734375,
+        44.8267822265625
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042401302853,
+        0.04054015774987296,
+        0.6276935104309022
+      ],
+      "maxPlaneDeviation": 2.3639295365640578e-07,
+      "rmsPlaneDeviation": 2.3631556147231124e-07,
+      "maxTriangleNormalAngleDegrees": 1.4688877218970437e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.089579039429625,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.080352482560418,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_07",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.493171691894531,
+        136.30030822753906,
+        44.65487098693848
+      ],
+      "fittedPlaneNormal": [
+        -0.777404251834769,
+        0.040540356096000374,
+        0.627693483124393
+      ],
+      "maxPlaneDeviation": 5.091865507012017e-08,
+      "rmsPlaneDeviation": 5.0901966158653067e-08,
+      "maxTriangleNormalAngleDegrees": 3.1945284701301985e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 14.072972778223052,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 14.063745622246142,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_08",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -6.253149032592773,
+        139.0254898071289,
+        44.77613162994385
+      ],
+      "fittedPlaneNormal": [
+        -0.7774041883737532,
+        0.04054053586204387,
+        0.627693550111011
+      ],
+      "maxPlaneDeviation": 4.384770475596156e-07,
+      "rmsPlaneDeviation": 4.2131761313097844e-07,
+      "maxTriangleNormalAngleDegrees": 2.8432072521862283e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.85172477306917,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 12.744538024674736,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_09",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -5.875236749649048,
+        141.75067138671875,
+        45.068172454833984
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042227432523,
+        0.04053994738116806,
+        0.6276935455517219
+      ],
+      "maxPlaneDeviation": 4.505048227798625e-07,
+      "rmsPlaneDeviation": 4.336763688148304e-07,
+      "maxTriangleNormalAngleDegrees": 2.9203551901600882e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 12.5678654930115,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 11.609961147349413,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_10",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -5.520413875579834,
+        144.47584533691406,
+        45.33161640167236
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042390324684,
+        0.040540782983626844,
+        0.6276934714089538
+      ],
+      "maxPlaneDeviation": 3.6047210416612074e-07,
+      "rmsPlaneDeviation": 3.4566743771696714e-07,
+      "maxTriangleNormalAngleDegrees": 2.3505925099591037e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 11.433288016578398,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 10.473120954293153,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_11",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -5.1595776081085205,
+        147.20101928710938,
+        45.60250759124756
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042001336099,
+        0.04053989860878604,
+        0.6276935767039609
+      ],
+      "maxPlaneDeviation": 7.505414729713777e-07,
+      "rmsPlaneDeviation": 7.176311254402204e-07,
+      "maxTriangleNormalAngleDegrees": 4.929017975519678e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 10.259017327697107,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 9.337680217262989,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_12",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -4.788495779037476,
+        149.92620849609375,
+        45.88608646392822
+      ],
+      "fittedPlaneNormal": [
+        -0.7774042096969516,
+        0.040539982122670404,
+        0.6276935594658846
+      ],
+      "maxPlaneDeviation": 4.210806832105618e-07,
+      "rmsPlaneDeviation": 4.024325922466401e-07,
+      "maxTriangleNormalAngleDegrees": 2.774435956405637e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 9.02005881651165,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 8.201696749692584,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Port_Rib_13",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        -4.424118161201477,
+        152.65138244628906,
+        46.16136360168457
+      ],
+      "fittedPlaneNormal": [
+        -0.7774043060198242,
+        0.04054042643057221,
+        0.6276934114730399
+      ],
+      "maxPlaneDeviation": 1.936635074528681e-08,
+      "rmsPlaneDeviation": 1.8572764486459857e-08,
+      "maxTriangleNormalAngleDegrees": 1.2074182697257333e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 7.77027115324712,
+          "maxChordDeviation": 4.440892098500626e-16,
+          "rmsChordDeviation": 3.1401849173675503e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 7.119230236576492,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_00",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.551236391067505,
+        117.22406005859375,
+        46.030638694763184
+      ],
+      "fittedPlaneNormal": [
+        0.7775137428278162,
+        0.043552192024266856,
+        0.627356028331411
+      ],
+      "maxPlaneDeviation": 6.4703762348017335e-09,
+      "rmsPlaneDeviation": 6.3917616739338676e-09,
+      "maxTriangleNormalAngleDegrees": 0.0,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.900080588013292,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.560216912275209,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_01",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.597414493560791,
+        119.9492416381836,
+        45.78421878814697
+      ],
+      "fittedPlaneNormal": [
+        0.7775136211167049,
+        0.04355231878557353,
+        0.627356170374046
+      ],
+      "maxPlaneDeviation": 1.1474456229620955e-07,
+      "rmsPlaneDeviation": 1.1470649640206202e-07,
+      "maxTriangleNormalAngleDegrees": 7.244509618354405e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.900401117296973,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.90963124163057,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_02",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.588789463043213,
+        122.6744155883789,
+        45.60572147369385
+      ],
+      "fittedPlaneNormal": [
+        0.7775136551971271,
+        0.043552316001569835,
+        0.6273561283297567
+      ],
+      "maxPlaneDeviation": 1.1486948947592168e-07,
+      "rmsPlaneDeviation": 1.1483138439725125e-07,
+      "maxTriangleNormalAngleDegrees": 7.244509618354405e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.900724016515264,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.909954140848837,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_03",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.580164194107056,
+        125.39959716796875,
+        45.42722415924072
+      ],
+      "fittedPlaneNormal": [
+        0.7775136456900633,
+        0.04355211764439604,
+        0.6273561538826535
+      ],
+      "maxPlaneDeviation": 7.062541218516571e-08,
+      "rmsPlaneDeviation": 7.060198814588226e-08,
+      "maxTriangleNormalAngleDegrees": 4.353408482428142e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.901048113456888,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.910277638928797,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_04",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.5715391635894775,
+        128.12477111816406,
+        45.24872398376465
+      ],
+      "fittedPlaneNormal": [
+        0.7775136037005189,
+        0.04355276377866546,
+        0.6273561610663214
+      ],
+      "maxPlaneDeviation": 5.277927850322328e-07,
+      "rmsPlaneDeviation": 5.27617764979643e-07,
+      "maxTriangleNormalAngleDegrees": 3.3121576136195755e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.901371012675181,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.910597569351056,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_05",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.56291389465332,
+        130.8499526977539,
+        45.07022666931152
+      ],
+      "fittedPlaneNormal": [
+        0.7775136331343572,
+        0.04355240443106667,
+        0.6273561495342855
+      ],
+      "maxPlaneDeviation": 5.278561454602482e-07,
+      "rmsPlaneDeviation": 5.276811087565729e-07,
+      "maxTriangleNormalAngleDegrees": 3.313257815481381e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.901694211324322,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.910920768000139,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_06",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.554288625717163,
+        133.57513427734375,
+        44.89172840118408
+      ],
+      "fittedPlaneNormal": [
+        0.7775137143454396,
+        0.04355211203597309,
+        0.627356069183972
+      ],
+      "maxPlaneDeviation": 7.037375615581709e-08,
+      "rmsPlaneDeviation": 7.035041636834967e-08,
+      "maxTriangleNormalAngleDegrees": 4.353408482428142e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.902017409973475,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.911246935445414,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_07",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.545663595199585,
+        136.30030822753906,
+        44.71323013305664
+      ],
+      "fittedPlaneNormal": [
+        0.7775136320368949,
+        0.0435529605976096,
+        0.6273561122839078
+      ],
+      "maxPlaneDeviation": 4.836272822217325e-07,
+      "rmsPlaneDeviation": 4.834668071368476e-07,
+      "maxTriangleNormalAngleDegrees": 3.034201511929683e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 13.90233763982644,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.911570732956172,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_08",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        6.300323009490967,
+        139.0254898071289,
+        44.828104972839355
+      ],
+      "fittedPlaneNormal": [
+        0.7775136300020163,
+        0.04355180232637701,
+        0.6273561952154548
+      ],
+      "maxPlaneDeviation": 3.454334196462128e-08,
+      "rmsPlaneDeviation": 3.3177028777276616e-08,
+      "maxTriangleNormalAngleDegrees": 1.9090959104164224e-06,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 12.599525789169457,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 13.70716967073759,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_09",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        5.91709303855896,
+        141.75067138671875,
+        45.11387348175049
+      ],
+      "fittedPlaneNormal": [
+        0.7775136770812098,
+        0.043552766684058386,
+        0.6273560699202808
+      ],
+      "maxPlaneDeviation": 5.576519419570047e-07,
+      "rmsPlaneDeviation": 5.366026449103704e-07,
+      "maxTriangleNormalAngleDegrees": 3.3883091158838745e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 11.481424506283943,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 12.439717712157911,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_10",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        5.556951999664307,
+        144.47584533691406,
+        45.371026039123535
+      ],
+      "fittedPlaneNormal": [
+        0.7775135940504032,
+        0.043553122081138596,
+        0.6273561481517577
+      ],
+      "maxPlaneDeviation": 3.5104169882060887e-07,
+      "rmsPlaneDeviation": 3.3647959599024543e-07,
+      "maxTriangleNormalAngleDegrees": 2.134434115628997e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 10.361048632726744,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 11.321613460476124,
+          "maxChordDeviation": 8.881784197001252e-16,
+          "rmsChordDeviation": 6.280369834735101e-16
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_11",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        5.190798044204712,
+        147.20101928710938,
+        45.63563060760498
+      ],
+      "fittedPlaneNormal": [
+        0.7775136163804247,
+        0.04355266583411321,
+        0.6273561521510538
+      ],
+      "maxPlaneDeviation": 4.5821674810042623e-07,
+      "rmsPlaneDeviation": 4.379328932333779e-07,
+      "maxTriangleNormalAngleDegrees": 2.790155266088344e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 9.242080521775028,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 10.163797586504387,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_12",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        4.814398288726807,
+        149.92620849609375,
+        45.912933349609375
+      ],
+      "fittedPlaneNormal": [
+        0.7775137217099041,
+        0.04355195887013752,
+        0.6273560706898338
+      ],
+      "maxPlaneDeviation": 2.225534643240934e-07,
+      "rmsPlaneDeviation": 2.1260881351650272e-07,
+      "maxTriangleNormalAngleDegrees": 1.3660378340025536e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 8.122569979129773,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 8.941267475454547,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Hatch_Dorsal_Starboard_Rib_13",
+      "meshVertices": 8,
+      "meshPolygons": 8,
+      "capPolygonIds": [
+        0,
+        1
+      ],
+      "capVertexCount": 4,
+      "fittedPlanePoint": [
+        4.444702982902527,
+        152.65138244628906,
+        46.18192768096924
+      ],
+      "fittedPlaneNormal": [
+        0.7775136361391798,
+        0.04355290651942567,
+        0.627356110954011
+      ],
+      "maxPlaneDeviation": 5.570218328809773e-07,
+      "rmsPlaneDeviation": 5.340067166322237e-07,
+      "maxTriangleNormalAngleDegrees": 3.465942462776385e-05,
+      "longEdges": [
+        {
+          "vertexIds": [
+            2,
+            3
+          ],
+          "chordLength": 7.056590933971234,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        },
+        {
+          "vertexIds": [
+            0,
+            1
+          ],
+          "chordLength": 7.70790197531107,
+          "maxChordDeviation": 0.0,
+          "rmsChordDeviation": 0.0
+        }
+      ],
+      "checks": {
+        "plane": true,
+        "longEdges": true,
+        "triangleNormals": true
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "maxPlaneDeviation": 7.505414729713777e-07,
+    "maxLongEdgeDeviation": 8.881784197001252e-16,
+    "maxTriangleNormalAngleDegrees": 4.929017975519678e-05,
+    "failedRibs": []
+  },
+  "passed": true,
+  "sourceUnchanged": true
+}

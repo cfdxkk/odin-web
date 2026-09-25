@@ -1,0 +1,184 @@
+{
+  "revision": "0.8.2",
+  "fixedHullEdited": false,
+  "baselinePose": "docs/review/v0.8.2/baseline-v081-closed-pose.json",
+  "baselinePoseSha256": "cf62630fc968d5a06b454bcef79c4a73ecd4ec39cd832ce58d54e1c479661f0f",
+  "leaves": {
+    "Hatch_Dorsal_Aft_Port": {
+      "outerPlane": [
+        1.6099128886437513,
+        -0.19631806559801276,
+        79.41943713185992
+      ],
+      "planeAnchors": [
+        [
+          -14.358924865722656,
+          75.5359115600586,
+          41.4737548828125
+        ],
+        [
+          -8.824953079223633,
+          112.7169189453125,
+          43.08366394042969
+        ],
+        [
+          -11.370088577270508,
+          112.7169189453125,
+          38.9862174987793
+        ]
+      ],
+      "maximumPlanarityError": 4.708766937255859e-06,
+      "constantNormalThickness": 0.025,
+      "upperDistanceRange": [
+        0.04080292209982872,
+        0.07319106161594391
+      ],
+      "outerDistanceRange": [
+        0.03200000897049904,
+        0.049362365156412125
+      ],
+      "hullClosedPairs": 0,
+      "shroudClosedPairs": 0,
+      "sweepAngles": 131,
+      "openingAngleDegrees": -130.0,
+      "hingeUnchanged": true,
+      "upperEdgeFitIterations": 5,
+      "upperEdgeTargetGap": 0.043,
+      "upperEdgeMotionReliefMax": 0.05537185653702712,
+      "upperEdgeMaximumInPlaneChange": 0.22652060228202558,
+      "sweep": []
+    },
+    "Hatch_Dorsal_Aft_Starboard": {
+      "outerPlane": [
+        -1.7377776788766786,
+        -0.21533507060268164,
+        83.0168093344163
+      ],
+      "planeAnchors": [
+        [
+          14.545719146728516,
+          75.5359115600586,
+          41.47405242919922
+        ],
+        [
+          9.012982368469238,
+          112.7169189453125,
+          43.08234405517578
+        ],
+        [
+          11.370088577270508,
+          112.7169189453125,
+          38.9862174987793
+        ]
+      ],
+      "maximumPlanarityError": 4.6193599700927734e-06,
+      "constantNormalThickness": 0.025,
+      "upperDistanceRange": [
+        0.040249053388834,
+        0.06015617027878761
+      ],
+      "outerDistanceRange": [
+        0.03200001269578934,
+        0.056471023708581924
+      ],
+      "hullClosedPairs": 0,
+      "shroudClosedPairs": 0,
+      "sweepAngles": 131,
+      "openingAngleDegrees": 130.0,
+      "hingeUnchanged": true,
+      "upperEdgeFitIterations": 3,
+      "upperEdgeTargetGap": 0.043,
+      "upperEdgeMotionReliefMax": 0.033590372603328186,
+      "upperEdgeMaximumInPlaneChange": 0.2490027232063083,
+      "sweep": []
+    },
+    "Hatch_Ventral_Aft_Port": {
+      "outerPlane": [
+        -2.5577508471655896,
+        0.4248747079087451,
+        -102.95202182314456
+      ],
+      "planeAnchors": [
+        [
+          -14.446060180664062,
+          26.487905502319336,
+          -54.748558044433594
+        ],
+        [
+          -8.911253929138184,
+          63.66741180419922,
+          -53.10858154296875
+        ],
+        [
+          -10.239607810974121,
+          63.66741180419922,
+          -49.71098327636719
+        ]
+      ],
+      "maximumPlanarityError": 2.205371856689453e-06,
+      "constantNormalThickness": 0.025,
+      "upperDistanceRange": [
+        0.04193135350942612,
+        0.11338625103235245
+      ],
+      "outerDistanceRange": [
+        0.03200004994869232,
+        0.05289124697446823
+      ],
+      "hullClosedPairs": 0,
+      "shroudClosedPairs": 0,
+      "sweepAngles": 131,
+      "openingAngleDegrees": 130.0,
+      "hingeUnchanged": true,
+      "upperEdgeFitIterations": 6,
+      "upperEdgeTargetGap": 0.043,
+      "upperEdgeMotionReliefMax": 0.07771177382636109,
+      "upperEdgeMaximumInPlaneChange": 0.34650765838578335,
+      "sweep": []
+    },
+    "Hatch_Ventral_Aft_Starboard": {
+      "outerPlane": [
+        2.581654132724095,
+        0.4284743406127254,
+        -103.42596139036556
+      ],
+      "planeAnchors": [
+        [
+          14.459057807922363,
+          26.487905502319336,
+          -54.748287200927734
+        ],
+        [
+          8.923043251037598,
+          63.66741180419922,
+          -53.10989761352539
+        ],
+        [
+          10.239607810974121,
+          63.66741180419922,
+          -49.71098327636719
+        ]
+      ],
+      "maximumPlanarityError": 1.7881393432617188e-06,
+      "constantNormalThickness": 0.025,
+      "upperDistanceRange": [
+        0.04178206995129585,
+        0.11503991484642029
+      ],
+      "outerDistanceRange": [
+        0.032000038772821426,
+        0.05358709394931793
+      ],
+      "hullClosedPairs": 0,
+      "shroudClosedPairs": 0,
+      "sweepAngles": 131,
+      "openingAngleDegrees": -130.0,
+      "hingeUnchanged": true,
+      "upperEdgeFitIterations": 6,
+      "upperEdgeTargetGap": 0.043,
+      "upperEdgeMotionReliefMax": 0.07806191430519246,
+      "upperEdgeMaximumInPlaneChange": 0.3409578980201411,
+      "sweep": []
+    }
+  }
+}

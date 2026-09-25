@@ -1,0 +1,10 @@
+{
+  "baseline": "0.8.5",
+  "candidate": "0.8.6",
+  "scope": "Every object outside moving main-battery armor leaves. Includes exact main bore/shroud geometry, static joints, fixed hull mesh and materials, secondary/PDC, bridge and stern mechanisms.",
+  "objectsCompared": 335,
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "passed": true
+}

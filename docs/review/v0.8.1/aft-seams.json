@@ -1,0 +1,190 @@
+{
+  "revision": "0.8.1",
+  "fixedHullEdited": false,
+  "leaves": {
+    "Hatch_Dorsal_Aft_Port": {
+      "rows": 373,
+      "hingeEdge": [
+        [
+          -15.028362274169922,
+          75.53589630126953,
+          41.05361557006836
+        ],
+        [
+          -12.793990135192871,
+          112.71690368652344,
+          39.23640060424805
+        ]
+      ],
+      "angleDegrees": -130,
+      "upperSeamNominal": 0.04301162633521314,
+      "hullLipNominal": 0.045,
+      "upperStart": [
+        -14.358924865722656,
+        75.53589630126953,
+        41.473751068115234
+      ],
+      "upperEnd": [
+        -8.824953079223633,
+        112.71690368652344,
+        43.08366012573242
+      ],
+      "hullCollisionAngles": [],
+      "maxLocalHullFitCorrection": 0.016,
+      "actualUpperSurfaceDistanceRange": [
+        0.04287636652588844,
+        0.04307807236909866
+      ],
+      "actualOuterSurfaceDistanceRange": [
+        0.027003221213817596,
+        0.042329348623752594
+      ],
+      "closedShroudIntersections": {
+        "odin.005": 0,
+        "odin.006": 0,
+        "odin.007": 0,
+        "odin.008": 0
+      },
+      "closedShroudHitY": {},
+      "closedShroudSweepIntersections": []
+    },
+    "Hatch_Dorsal_Aft_Starboard": {
+      "rows": 373,
+      "hingeEdge": [
+        [
+          15.028362274169922,
+          75.53589630126953,
+          41.05361557006836
+        ],
+        [
+          12.793990135192871,
+          112.71690368652344,
+          39.23640060424805
+        ]
+      ],
+      "angleDegrees": 130,
+      "upperSeamNominal": 0.04301162633521314,
+      "hullLipNominal": 0.045,
+      "upperStart": [
+        14.545719146728516,
+        75.53589630126953,
+        41.47404861450195
+      ],
+      "upperEnd": [
+        9.012982368469238,
+        112.71690368652344,
+        43.082340240478516
+      ],
+      "hullCollisionAngles": [],
+      "maxLocalHullFitCorrection": 0,
+      "actualUpperSurfaceDistanceRange": [
+        0.04293408617377281,
+        0.04305959865450859
+      ],
+      "actualOuterSurfaceDistanceRange": [
+        0.027003221213817596,
+        0.042329348623752594
+      ],
+      "closedShroudIntersections": {
+        "odin.005": 0,
+        "odin.006": 0,
+        "odin.007": 0,
+        "odin.008": 0
+      },
+      "closedShroudHitY": {},
+      "closedShroudSweepIntersections": []
+    },
+    "Hatch_Ventral_Aft_Port": {
+      "rows": 373,
+      "hingeEdge": [
+        [
+          -16.424007415771484,
+          26.487899780273438,
+          -54.27115249633789
+        ],
+        [
+          -14.294271469116211,
+          63.66740417480469,
+          -49.01848220825195
+        ]
+      ],
+      "angleDegrees": 130,
+      "upperSeamNominal": 0.04301162633521314,
+      "hullLipNominal": 0.045,
+      "upperStart": [
+        -14.446060180664062,
+        26.487899780273438,
+        -54.748558044433594
+      ],
+      "upperEnd": [
+        -8.911253929138184,
+        63.66740417480469,
+        -53.10858154296875
+      ],
+      "hullCollisionAngles": [],
+      "maxLocalHullFitCorrection": 0.12800000000000006,
+      "actualUpperSurfaceDistanceRange": [
+        0.042851757258176804,
+        0.04315968230366707
+      ],
+      "actualOuterSurfaceDistanceRange": [
+        0.037936631590127945,
+        0.041208237409591675
+      ],
+      "closedShroudIntersections": {
+        "odin.013": 0,
+        "odin.014": 0,
+        "odin.015": 0,
+        "odin.016": 0
+      },
+      "closedShroudHitY": {},
+      "closedShroudSweepIntersections": []
+    },
+    "Hatch_Ventral_Aft_Starboard": {
+      "rows": 373,
+      "hingeEdge": [
+        [
+          16.424007415771484,
+          26.487899780273438,
+          -54.27115249633789
+        ],
+        [
+          14.294271469116211,
+          63.66740417480469,
+          -49.01848602294922
+        ]
+      ],
+      "angleDegrees": -130,
+      "upperSeamNominal": 0.04301162633521314,
+      "hullLipNominal": 0.045,
+      "upperStart": [
+        14.459057807922363,
+        26.487899780273438,
+        -54.748287200927734
+      ],
+      "upperEnd": [
+        8.923043251037598,
+        63.66740417480469,
+        -53.10989761352539
+      ],
+      "hullCollisionAngles": [],
+      "maxLocalHullFitCorrection": 0.12800000000000006,
+      "actualUpperSurfaceDistanceRange": [
+        0.042914386838674545,
+        0.04308471083641052
+      ],
+      "actualOuterSurfaceDistanceRange": [
+        0.037936702370643616,
+        0.0412069708108902
+      ],
+      "closedShroudIntersections": {
+        "odin.013": 0,
+        "odin.014": 0,
+        "odin.015": 0,
+        "odin.016": 0
+      },
+      "closedShroudHitY": {},
+      "closedShroudSweepIntersections": []
+    }
+  }
+}

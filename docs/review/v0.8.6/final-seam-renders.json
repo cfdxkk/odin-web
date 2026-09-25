@@ -1,0 +1,102 @@
+{
+  "assetVersion": "0.8.6",
+  "glbSha256": "3f4b53f10d9b4043f3a995976c78ab5e3a8ab2d16515cdd236bf8441fc9e22da",
+  "rigSha256": "c1c0818b205975b85770d152ddafc7c6cfaa79c4b3ed1b201c55d34a549b3007",
+  "blendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "candidateOnly": false,
+  "renderedBlendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "source": "Direct full renders of actual JS poses; closer view uses a separately positioned camera; no image crop, edits or hidden geometry; editable source not saved",
+  "poseSha256": "ac9389fac6541658ab88f48141c91b7becfe9108be4769fe179cd347a96a58a1",
+  "renders": [
+    {
+      "file": "final-closed-full.png",
+      "deployment": 0.0,
+      "width": 1920,
+      "height": 1280,
+      "cameraLocation": [
+        4.088761806488037,
+        6.228761196136475,
+        5.58022928237915
+      ],
+      "cameraRotation": [
+        0.9078301787376404,
+        8.123834049911238e-08,
+        2.4668517112731934
+      ],
+      "cameraOrthoScale": 1.5499999523162842,
+      "sha256": "409bda5da65de02e73ef61a95f01fb1131c42f9c4e3dd7e547f20fa1052e3aeb"
+    },
+    {
+      "file": "final-closed-edge.png",
+      "deployment": 0.0,
+      "width": 1920,
+      "height": 1280,
+      "cameraLocation": [
+        4.114999771118164,
+        6.380000114440918,
+        5.389999866485596
+      ],
+      "cameraRotation": [
+        0.9078301787376404,
+        5.596376695393701e-08,
+        2.4668517112731934
+      ],
+      "cameraOrthoScale": 0.800000011920929,
+      "sha256": "28bf6e5b9692281b215a8e23f4c86fc8351fad2148943817f049f1b1c276c283"
+    },
+    {
+      "file": "final-half-open.png",
+      "deployment": 0.5,
+      "width": 1920,
+      "height": 1280,
+      "cameraLocation": [
+        4.088761806488037,
+        6.228761196136475,
+        5.58022928237915
+      ],
+      "cameraRotation": [
+        0.9078301787376404,
+        8.123834049911238e-08,
+        2.4668517112731934
+      ],
+      "cameraOrthoScale": 1.5499999523162842,
+      "sha256": "4db7cd285fece9e00fc9e845cc24d24fee6d79fc9855fac3e8802f0a7858c4dd"
+    },
+    {
+      "file": "final-front-interior.png",
+      "deployment": 0.62,
+      "width": 1920,
+      "height": 1280,
+      "cameraLocation": [
+        4.088761806488037,
+        6.228761196136475,
+        5.58022928237915
+      ],
+      "cameraRotation": [
+        0.9078301787376404,
+        8.123834049911238e-08,
+        2.4668517112731934
+      ],
+      "cameraOrthoScale": 1.5499999523162842,
+      "sha256": "c7322729fbfbf337d70bf1bf73f27de8433ec3be50167f03b1856592c377d207"
+    },
+    {
+      "file": "final-open-full.png",
+      "deployment": 1.0,
+      "width": 1920,
+      "height": 1280,
+      "cameraLocation": [
+        4.088761806488037,
+        6.228761196136475,
+        5.58022928237915
+      ],
+      "cameraRotation": [
+        0.9078301787376404,
+        8.123834049911238e-08,
+        2.4668517112731934
+      ],
+      "cameraOrthoScale": 1.5499999523162842,
+      "sha256": "5abcfd9096b628e8834dad988b14f7a62856adcb973e901be555aaca45ddd3e6"
+    }
+  ]
+}

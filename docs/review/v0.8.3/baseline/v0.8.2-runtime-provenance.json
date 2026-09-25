@@ -1,0 +1,11 @@
+{
+  "tag": "v0.8.2-rc.1",
+  "commit": "e19266d61e97ed3a0bf047bd5d17960ddd472bba",
+  "files": {
+    "app/lib/odin-rig.ts": "c022b0e4e7925a35e6a95f10f71c55c8706cc828b2710cb9c6649c2dc2d5eb17",
+    "public/models/odin.glb": "d385f4f1df6e667c567c932ffabe4acb08902fc4a95bcccf0c348d6e5806f7cd",
+    "work/rig-review/clearance-poses.json": "5491787b55ac6862db26477972fef35480445623d9c1bb65499063ca5db5df30",
+    "assets/blender/odin_articulated_v0.8.2.blend": "f4966666520201f933611305ebdffee1fae553dc0bfc233d663e59ac6b7cacb1"
+  },
+  "samples": 101
+}

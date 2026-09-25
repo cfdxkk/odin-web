@@ -1,0 +1,418 @@
+[
+  {
+    "deployment": 0.0,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 0.502814,
+    "borePoint": [
+      0.09318539500236511,
+      114.56256103515625,
+      49.805423736572266
+    ],
+    "coverPoint": [
+      0.09307914972305298,
+      114.59559631347656,
+      50.307151794433594
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.0,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 0.573104,
+    "borePoint": [
+      0.0067032575607299805,
+      65.74871826171875,
+      -59.62910461425781
+    ],
+    "coverPoint": [
+      0.006698873825371265,
+      65.83818054199219,
+      -60.19518280029297
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.34,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 0.502814,
+    "borePoint": [
+      0.09318539500236511,
+      114.56256103515625,
+      49.805423736572266
+    ],
+    "coverPoint": [
+      0.09307914972305298,
+      114.59559631347656,
+      50.307151794433594
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.34,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 0.573104,
+    "borePoint": [
+      0.0067032575607299805,
+      65.74871826171875,
+      -59.62910461425781
+    ],
+    "coverPoint": [
+      0.006698873825371265,
+      65.83818054199219,
+      -60.19518280029297
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.36,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 0.502814,
+    "borePoint": [
+      0.09318539500236511,
+      114.56256103515625,
+      49.805423736572266
+    ],
+    "coverPoint": [
+      0.09307914972305298,
+      114.59559631347656,
+      50.307151794433594
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.36,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 0.573104,
+    "borePoint": [
+      0.0067032575607299805,
+      65.74871826171875,
+      -59.62910461425781
+    ],
+    "coverPoint": [
+      0.006698873825371265,
+      65.83818054199219,
+      -60.19518280029297
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.4,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 1.087121,
+    "borePoint": [
+      0.09318539500236511,
+      114.38367462158203,
+      50.802581787109375
+    ],
+    "coverPoint": [
+      0.09318539500236511,
+      114.4120864868164,
+      51.88933181762695
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.4,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 1.160903,
+    "borePoint": [
+      0.0067032575607299805,
+      65.41362762451172,
+      -60.64817810058594
+    ],
+    "coverPoint": [
+      0.006698840297758579,
+      65.54499816894531,
+      -61.8016242980957
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.45,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 2.212109,
+    "borePoint": [
+      0.09318539500236511,
+      113.57550048828125,
+      53.32047653198242
+    ],
+    "coverPoint": [
+      0.09318539500236511,
+      113.40056610107422,
+      55.525657653808594
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.45,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 2.256708,
+    "borePoint": [
+      0.0067032575607299805,
+      64.93930053710938,
+      -63.19711685180664
+    ],
+    "coverPoint": [
+      0.006698795594274998,
+      64.95758819580078,
+      -65.45375061035156
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.5,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 3.271815,
+    "borePoint": [
+      0.09318539500236511,
+      114.14205932617188,
+      53.60087203979492
+    ],
+    "coverPoint": [
+      0.09318539500236511,
+      113.74224853515625,
+      56.848167419433594
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.5,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 3.230964,
+    "borePoint": [
+      0.0067032575607299805,
+      65.6419906616211,
+      -63.500465393066406
+    ],
+    "coverPoint": [
+      0.006698862183839083,
+      65.52816009521484,
+      -66.72942352294922
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.55,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 3.902859,
+    "borePoint": [
+      0.09318539500236511,
+      114.42134857177734,
+      52.653263092041016
+    ],
+    "coverPoint": [
+      0.08536052703857422,
+      113.92997741699219,
+      56.52505874633789
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.55,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 3.764027,
+    "borePoint": [
+      0.006703192833811045,
+      66.2651138305664,
+      -62.66709899902344
+    ],
+    "coverPoint": [
+      0.006831109523773193,
+      66.11846923828125,
+      -66.42826843261719
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.6,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 3.718436,
+    "borePoint": [
+      0.09318539500236511,
+      114.67813873291016,
+      52.63572311401367
+    ],
+    "coverPoint": [
+      0.08536052703857422,
+      114.2099838256836,
+      56.324562072753906
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.6,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 3.506959,
+    "borePoint": [
+      0.006703108549118042,
+      66.55811309814453,
+      -62.79292297363281
+    ],
+    "coverPoint": [
+      0.014555037021636963,
+      66.4214859008789,
+      -66.29721069335938
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.62,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 3.33012,
+    "borePoint": [
+      0.09318539500236511,
+      114.77336120605469,
+      52.9815559387207
+    ],
+    "coverPoint": [
+      0.08536052703857422,
+      114.35409545898438,
+      56.2851676940918
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.62,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 3.102361,
+    "borePoint": [
+      0.006703088991343975,
+      66.70023345947266,
+      -63.199195861816406
+    ],
+    "coverPoint": [
+      0.006831109523773193,
+      66.5793685913086,
+      -66.29920196533203
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.66,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 2.600873,
+    "borePoint": [
+      0.09318539500236511,
+      115.0047378540039,
+      53.69594955444336
+    ],
+    "coverPoint": [
+      0.09272930026054382,
+      114.67728424072266,
+      56.276126861572266
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.66,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 2.363748,
+    "borePoint": [
+      0.006703073624521494,
+      67.02723693847656,
+      -64.02788543701172
+    ],
+    "coverPoint": [
+      0.006698906421661377,
+      66.93515014648438,
+      -66.38983917236328
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.75,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 1.313191,
+    "borePoint": [
+      0.09318539500236511,
+      115.60415649414062,
+      55.29131317138672
+    ],
+    "coverPoint": [
+      0.09296369552612305,
+      115.43882751464844,
+      56.59405517578125
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.75,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 1.083579,
+    "borePoint": [
+      0.006703064776957035,
+      67.82738494873047,
+      -65.89005279541016
+    ],
+    "coverPoint": [
+      0.007155865430831909,
+      67.78517150878906,
+      -66.97280883789062
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.93,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 0.228341,
+    "borePoint": [
+      0.09318539500236511,
+      116.29508209228516,
+      57.278743743896484
+    ],
+    "coverPoint": [
+      0.09307914972305298,
+      116.2663345336914,
+      57.50526809692383
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 0.93,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 5.4e-05,
+    "borePoint": [
+      0.006703041959553957,
+      68.72520446777344,
+      -68.22209930419922
+    ],
+    "coverPoint": [
+      0.006698906421661377,
+      68.72520446777344,
+      -68.22215270996094
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 1.0,
+    "bank": "Dorsal",
+    "sampledSurfaceGap": 0.228341,
+    "borePoint": [
+      0.09318539500236511,
+      116.29508209228516,
+      57.278743743896484
+    ],
+    "coverPoint": [
+      0.09307914972305298,
+      116.2663345336914,
+      57.50526809692383
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  },
+  {
+    "deployment": 1.0,
+    "bank": "Ventral",
+    "sampledSurfaceGap": 5.4e-05,
+    "borePoint": [
+      0.006703041959553957,
+      68.72520446777344,
+      -68.22209930419922
+    ],
+    "coverPoint": [
+      0.006698906421661377,
+      68.72520446777344,
+      -68.22215270996094
+    ],
+    "method": "Bidirectional vertex-to-triangle nearest distance; upper bound on exact minimum"
+  }
+]

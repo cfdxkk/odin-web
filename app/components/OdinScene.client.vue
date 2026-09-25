@@ -27,9 +27,9 @@ onMounted(async () => {
 watch(() => props.explore, value => experience?.setExplore(value))
 watch(() => props.lowPower, () => experience?.resize())
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
-defineExpose({ seek: (time: number) => experience?.seek(time), reset: () => experience?.reset() })
+defineExpose({ seek: (time: number) => experience?.seek(time) })
 </script>
 
 <template>
-  <canvas ref="canvas" class="odin-canvas" :class="{ interactive: explore }" aria-label="奥丁战列巡洋舰实时三维展示；自由探索模式下可拖动旋转、滚轮缩放" />
+  <canvas ref="canvas" class="odin-canvas" :class="{ interactive: explore }" aria-label="奥丁战列巡洋舰实时三维展示；自由探索模式下可左键拖动旋转、右键拖动平移、滚轮缩放" />
 </template>

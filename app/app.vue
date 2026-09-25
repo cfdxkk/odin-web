@@ -1,35 +1,49 @@
 <script setup lang="ts">
-const viewer = ref<{ seek: (t: number) => void; reset: () => void }>()
-const ready = ref(false), progress = ref(0), playing = ref(true), explore = ref(false), deployed = ref(true), lowPower = ref(false)
+import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
+const viewer = ref<{ seek: (t: number) => void }>()
+const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
+const playback = ref({ userPaused: false, scrubbing: false })
+const playing = computed(() => isPlaying(playback.value))
+const togglePlayback = () => { playback.value = nextPlayback(playback.value, 'toggle') }
+const beginScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-start') }
+const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end') }
 const filmTime = ref(0), error = ref(''), showAbout = ref(false)
 const aboutDialog = ref<HTMLDialogElement>()
 watch(showAbout, value => { if (value) aboutDialog.value?.showModal(); else aboutDialog.value?.close() })
-const chapters = [
-  { name: '初见', english: 'THE REVEAL', time: 0, caption: '于静默中，显露锋芒。' },
-  { name: '武备', english: 'HIDDEN POWER', time: 11, caption: '锋芒，藏于装甲之下。' },
-  { name: '推进', english: 'INTO THE VOID', time: 21, caption: '让庞然之躯，驶向深空。' },
-  { name: '远航', english: 'THE ALLFATHER', time: 31, caption: '一艘战舰，一片战场。' },
-]
-const chapterIndex = computed(() => filmTime.value < 11 ? 0 : filmTime.value < 21 ? 1 : filmTime.value < 31 ? 2 : 3)
+const chapters = MODES
+const chapterIndex = computed(() => filmTime.value < MODES[1].time ? 0 : filmTime.value < MODES[2].time ? 1 : 2)
 const currentChapter = computed(() => chapters[chapterIndex.value]!)
-const clock = computed(() => `00:${String(Math.floor(filmTime.value)).padStart(2, '0')}`)
-function chooseChapter(index: number) { explore.value = false; viewer.value?.seek(chapters[index]!.time); playing.value = true }
-function toggleExplore() { explore.value = !explore.value }
+const formatTime = (t: number) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t % 60)).padStart(2, '0')}`
+const clock = computed(() => formatTime(filmTime.value))
+function chooseChapter(index: number) { explore.value = false; viewer.value?.seek(chapters[index]!.time) }
+function toggleExplore() {
+  if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).mode === 'scm'
+  explore.value = !explore.value
+}
 function scrub(event: Event) {
-  playing.value = false
   viewer.value?.seek(Number((event.target as HTMLInputElement).value))
 }
+function scrubKey(event: KeyboardEvent) { if (/^(Arrow|Home|End|Page)/.test(event.key)) beginScrub() }
 function keyboard(event: KeyboardEvent) {
   const element = event.target as HTMLElement
   if (/INPUT|BUTTON|A|TEXTAREA|SELECT/.test(element.tagName) || showAbout.value) return
-  if (event.code === 'Space') { event.preventDefault(); if (ready.value && !explore.value) playing.value = !playing.value }
-  if (event.key.toLowerCase() === 'r') { explore.value = false; viewer.value?.seek(0) }
+  if (event.code === 'Space') { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
+  if (event.key.toLowerCase() === 'r' && !explore.value) viewer.value?.seek(0)
 }
 onMounted(() => {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) playing.value = false
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) playback.value.userPaused = true
+  lowPower.value = window.innerWidth < 700
   window.addEventListener('keydown', keyboard)
+  window.addEventListener('pointerup', endScrub)
+  window.addEventListener('pointercancel', endScrub)
+  window.addEventListener('blur', endScrub)
 })
-onBeforeUnmount(() => window.removeEventListener('keydown', keyboard))
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', keyboard)
+  window.removeEventListener('pointerup', endScrub)
+  window.removeEventListener('pointercancel', endScrub)
+  window.removeEventListener('blur', endScrub)
+})
 </script>
 
 <template>
@@ -63,14 +77,14 @@ onBeforeUnmount(() => window.removeEventListener('keydown', keyboard))
 
         <div v-if="ready" class="viewer-actions">
           <button class="explore-button" :class="{ selected: explore }" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5M4 16.5l8-4 8 4" /></svg>{{ explore ? '返回电影视角' : '自由探索' }}<span>↗</span></button>
-          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>拖动旋转 · 滚轮缩放</span><button :aria-pressed="deployed" @click="deployed = !deployed">{{ deployed ? '收拢武备' : '展开武备' }}</button><button @click="viewer?.reset()">复位视角</button></div></Transition>
+          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>左键旋转 · 右键平移 · 滚轮缩放</span><span class="explore-mode">{{ deployed ? 'SCM/战斗模式' : 'NAV/航行模式' }}</span><button @click="deployed = !deployed">{{ deployed ? '切换为 NAV/航行模式' : '切换为 SCM/战斗模式' }}</button></div></Transition>
         </div>
 
         <div class="hero-bottom">
           <div class="shot-caption"><span class="eyebrow">{{ explore ? 'YOUR PERSPECTIVE' : `0${chapterIndex + 1} / ${currentChapter.english}` }}</span><p>{{ explore ? '从你的视角，发现奥丁。' : currentChapter.caption }}</p></div>
           <div class="playback" :class="{ dimmed: explore }">
-            <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="playing = !playing"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ 00:40</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
-            <input class="timeline" type="range" min="0" max="39.99" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / 40 * 100}%` }" @pointerdown="playing = false" @input="scrub" />
+            <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="togglePlayback"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
+            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
             <div class="chapter-buttons"><button v-for="(chapter, index) in chapters" :key="chapter.name" :disabled="!ready" :class="{ active: !explore && chapterIndex === index }" @click="chooseChapter(index)"><span>0{{ index + 1 }}</span>{{ chapter.name }}</button></div>
           </div>
         </div>
@@ -87,7 +101,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', keyboard))
       <section class="concept-section" aria-label="奥丁官方概念艺术"><img src="/images/odin-battle.webp" alt="奥丁战列巡洋舰在行星轨道交战的官方概念艺术" loading="lazy" /><div class="concept-shade" /><div class="concept-caption"><p class="eyebrow">ANVIL AEROSPACE</p><h2>THE ALLFATHER<br />OF WAR.</h2><span>官方概念艺术 / Cloud Imperium Games</span></div><a href="#top" class="concept-link" @click="chooseChapter(0)">重返奥丁 <span>↑</span></a></section>
     </main>
 
-    <footer class="site-footer"><a class="footer-wordmark" href="#top">ODIN<span>FAN ART PROJECT</span></a><p>本网站为独立粉丝艺术作品，与 Cloud Imperium Games 无隶属关系。<br />Star Citizen、Anvil、Odin 及官方概念艺术的权利归各自权利人所有。</p><button @click="showAbout = true">创作与来源 ↗</button></footer>
+    <footer class="site-footer"><a class="footer-wordmark" href="#top">ODIN<span>FAN ART PROJECT</span></a><p>本网站为独立粉丝艺术作品，与 Cloud Imperium Games 无隶属关系。<br />Star Citizen、Anvil、Odin 及官方概念艺术的权利归各自权利人所有。</p><a class="community-mark" href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" alt="Star Citizen — Made by the Community，星际公民社区制作" width="112" height="112" /></a><button @click="showAbout = true">创作与来源 ↗</button></footer>
 
     <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" aria-label="创作与来源" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" aria-label="关闭创作说明" @click="showAbout = false">×</button><p class="eyebrow">THE ART OF ODIN</p><h2>一次属于粉丝的<br />奥丁视觉创作。</h2><p>基于提供的奥丁模型，整理舰体、补充外观细节，并以光影、镜头与机械运动重新呈现它的力量。</p><p>场景在浏览器中实时渲染。舰船旋转、武备展开、推进器光效与镜头运动均由 Nuxt 中的 JavaScript 驱动。</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">动画灵感 / Space Tech <span>↗</span></a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">官方开发者展示 / Star Citizen Live <span>↗</span></a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">舰船概念与资料 / RSI <span>↗</span></a></div><small>粉丝艺术外观模型，非官方生产级模型。</small></section></dialog></Teleport>
   </div>

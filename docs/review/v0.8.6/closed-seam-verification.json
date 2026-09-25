@@ -1,0 +1,433 @@
+{
+  "revision": "0.8.6",
+  "blendSha256": "25e46353b858967e064b6af5c0ba406a127eae186cfad058f960ef02377133aa",
+  "sourceImage": "final-closed-edge.png",
+  "sourceImageSha256": "28bf6e5b9692281b215a8e23f4c86fc8351fad2148943817f049f1b1c276c283",
+  "camera": {
+    "file": "final-closed-edge.png",
+    "deployment": 0.0,
+    "width": 1920,
+    "height": 1280,
+    "cameraLocation": [
+      4.114999771118164,
+      6.380000114440918,
+      5.389999866485596
+    ],
+    "cameraRotation": [
+      0.9078301787376404,
+      5.596376695393701e-08,
+      2.4668517112731934
+    ],
+    "cameraOrthoScale": 0.800000011920929,
+    "sha256": "28bf6e5b9692281b215a8e23f4c86fc8351fad2148943817f049f1b1c276c283"
+  },
+  "closedPoseSource": "work/preview-v0.8.6/poses.json deployment=0 from final exported GLB",
+  "poseSha256": "ac9389fac6541658ab88f48141c91b7becfe9108be4769fe179cd347a96a58a1",
+  "glbSha256": "3f4b53f10d9b4043f3a995976c78ab5e3a8ab2d16515cdd236bf8441fc9e22da",
+  "rigSha256": "c1c0818b205975b85770d152ddafc7c6cfaa79c4b3ed1b201c55d34a549b3007",
+  "renderManifest": "final-seam-renders.json",
+  "scope": "Repeat 7 original aft and 10 visible nose-tip defect pixels; inspect rendered pixels in a 3px band around all previously measured fractional entries on candidate6 actual edge. Normal mechanical assembly seams are accepted.",
+  "pixelRule": "R>=G+6, R>=B+4, R>=1.25*G",
+  "targetedRayGroups": {
+    "oldAft": [
+      {
+        "pixel": [
+          510,
+          292
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 328,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.757555961608887,
+          108.34069061279297,
+          39.411293029785156
+        ],
+        "normal": [
+          0.8523170351982117,
+          0.1046723797917366,
+          0.5124444961547852
+        ]
+      },
+      {
+        "pixel": [
+          530,
+          307
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 340,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.66510009765625,
+          109.55918884277344,
+          39.316184997558594
+        ],
+        "normal": [
+          0.8523198962211609,
+          0.1046428233385086,
+          0.512445867061615
+        ]
+      },
+      {
+        "pixel": [
+          550,
+          321
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 352,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.55600357055664,
+          110.75669860839844,
+          39.25306701660156
+        ],
+        "normal": [
+          0.852318286895752,
+          0.10466140508651733,
+          0.5124447345733643
+        ]
+      },
+      {
+        "pixel": [
+          570,
+          336
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 364,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.46356201171875,
+          111.9751205444336,
+          39.1579704284668
+        ],
+        "normal": [
+          0.8523181080818176,
+          0.10466019064188004,
+          0.5124452114105225
+        ]
+      },
+      {
+        "pixel": [
+          590,
+          351
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 376,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.371124267578125,
+          113.193603515625,
+          39.06284713745117
+        ],
+        "normal": [
+          0.8523162603378296,
+          0.10467928647994995,
+          0.5124443769454956
+        ]
+      },
+      {
+        "pixel": [
+          610,
+          367
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 389,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.29538345336914,
+          114.43292236328125,
+          38.935707092285156
+        ],
+        "normal": [
+          0.852319598197937,
+          0.10464509576559067,
+          0.5124456882476807
+        ]
+      },
+      {
+        "pixel": [
+          630,
+          382
+        ],
+        "object": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+        "face": 401,
+        "material": "Odin_Paint_Light",
+        "point": [
+          11.20294189453125,
+          115.65129852294922,
+          38.84061050415039
+        ],
+        "normal": [
+          0.8523167967796326,
+          0.10466764122247696,
+          0.512445867061615
+        ]
+      }
+    ],
+    "noseTip": [
+      {
+        "pixel": [
+          1536,
+          737
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 629,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.9674720764160156,
+          165.78651428222656,
+          46.62641525268555
+        ],
+        "normal": [
+          0.9646292924880981,
+          0.24354349076747894,
+          0.10088017582893372
+        ]
+      },
+      {
+        "pixel": [
+          1539,
+          738
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 624,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.9269981384277344,
+          165.93597412109375,
+          46.644954681396484
+        ],
+        "normal": [
+          0.95900559425354,
+          0.26430702209472656,
+          0.10222521424293518
+        ]
+      },
+      {
+        "pixel": [
+          1551,
+          729
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 668,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.5655593872070312,
+          166.28457641601562,
+          47.157005310058594
+        ],
+        "normal": [
+          0.9656792879104614,
+          0.08778209984302521,
+          0.24445433914661407
+        ]
+      },
+      {
+        "pixel": [
+          1554,
+          731
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 669,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.549488067626953,
+          166.46456909179688,
+          47.1532096862793
+        ],
+        "normal": [
+          0.9594548940658569,
+          0.08930644392967224,
+          0.26734012365341187
+        ]
+      },
+      {
+        "pixel": [
+          1557,
+          733
+        ],
+        "object": "holo.001",
+        "face": 161027,
+        "material": "Odin_Turret_Interior_DeepRed",
+        "point": [
+          -8.712738037109375,
+          152.5869140625,
+          33.0916748046875
+        ],
+        "normal": [
+          0.9937665462493896,
+          -0.04393058642745018,
+          0.10246039927005768
+        ]
+      },
+      {
+        "pixel": [
+          1560,
+          734
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 671,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.5051193237304688,
+          166.809326171875,
+          47.18323516845703
+        ],
+        "normal": [
+          0.9034765362739563,
+          0.09972745180130005,
+          0.41687485575675964
+        ]
+      },
+      {
+        "pixel": [
+          1563,
+          736
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 672,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.4902114868164062,
+          166.9907989501953,
+          47.18079376220703
+        ],
+        "normal": [
+          0.8847554326057434,
+          0.08493684977293015,
+          0.45825058221817017
+        ]
+      },
+      {
+        "pixel": [
+          1566,
+          738
+        ],
+        "object": "holo.001",
+        "face": 161027,
+        "material": "Odin_Turret_Interior_DeepRed",
+        "point": [
+          -8.69781494140625,
+          153.20579528808594,
+          33.21202087402344
+        ],
+        "normal": [
+          0.9937665462493896,
+          -0.04393058642745018,
+          0.10246039927005768
+        ]
+      },
+      {
+        "pixel": [
+          1569,
+          739
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 675,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.4472692012786865,
+          167.33729553222656,
+          47.21254348754883
+        ],
+        "normal": [
+          0.8652604222297668,
+          0.05831057205796242,
+          0.49791985750198364
+        ]
+      },
+      {
+        "pixel": [
+          1572,
+          740
+        ],
+        "object": "Hatch_Dorsal_Nose_Wedge",
+        "face": 210,
+        "material": "Odin_Paint_Light",
+        "point": [
+          2.4166793823242188,
+          167.49913024902344,
+          47.24343490600586
+        ],
+        "normal": [
+          0.6108022928237915,
+          0.013450918719172478,
+          0.7916688919067383
+        ]
+      }
+    ]
+  },
+  "pixelGroups": {
+    "Hatch_Dorsal_Aft_Starboard_GapFiller": {
+      "inspectedPixelCount": 924,
+      "redPixelCount": 1,
+      "components": [
+        {
+          "pixelCount": 1,
+          "bbox": [
+            648,
+            396,
+            648,
+            396
+          ]
+        }
+      ],
+      "redPixels": [
+        [
+          648,
+          396,
+          47,
+          35,
+          36
+        ]
+      ]
+    },
+    "Hatch_Dorsal_Starboard_FittedSkin": {
+      "inspectedPixelCount": 268,
+      "redPixelCount": 1,
+      "components": [
+        {
+          "pixelCount": 1,
+          "bbox": [
+            648,
+            396,
+            648,
+            396
+          ]
+        }
+      ],
+      "redPixels": [
+        [
+          648,
+          396,
+          47,
+          35,
+          36
+        ]
+      ]
+    },
+    "Hatch_Dorsal_Nose_Wedge": {
+      "inspectedPixelCount": 5098,
+      "redPixelCount": 0,
+      "components": [],
+      "redPixels": []
+    }
+  },
+  "limits": [
+    "This does not assert all mathematical seam rays are opaque.",
+    "This is a close fixed-camera rendered closure check, not a global all-view proof."
+  ],
+  "targetedRaySummary": {
+    "oldAft": {
+      "rayCount": 7,
+      "greySurfaceHits": 7,
+      "interiorHits": 0
+    },
+    "noseTip": {
+      "rayCount": 10,
+      "greySurfaceHits": 8,
+      "interiorHits": 2
+    }
+  },
+  "assessment": "The continuous aft and nose red openings are removed; remaining isolated subpixel/one-pixel assembly-seam samples are recorded and accepted."
+}

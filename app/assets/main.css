@@ -17,3 +17,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 @media(min-width:651px){.hero{height:100svh;min-height:700px}.hero-bottom{bottom:93px}}
 @media(max-width:650px){.hero{height:100svh;min-height:800px;max-height:none}}
+.community-mark{display:block;flex:0 0 112px;opacity:1}.community-mark img{display:block;width:112px;height:112px;object-fit:contain}.site-footer{gap:28px}.chapter-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{touch-action:none}

@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 140,
-  "triangles": 753527,
+  "meshCount": 129,
+  "triangles": 2460321,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -110,19 +110,41 @@
     }
   ],
   "completion": [
-    "Restored opposite-side housing",
-    "Finished retractable gun hatch geometry",
-    "Rebuilt PBR materials from original packed wear texture",
-    "Added physical engine cores and nozzle collars",
-    "Added bridge glazing and navigation lights",
-    "Added hull registration markings",
-    "Preserved all active Odin hull and turret geometry; excluded Perseus and hidden backups"
+    "Five-piece main bay armor: two polygonal forward skins, two independent gap fillers hinging outward 130 degrees along the inclined hull lip; intact fixed hull and fitted serrated seams, and the serrated fore-end cap that lifts then slides forward; dark red inward-facing armor surfaces",
+    "Main guns wait until all five armor pieces clear their travel corridor",
+    "Synchronized three-bore main-barrel telescopic tubes, measured center-bore axes",
+    "Six original axial shutter half-banks",
+    "Parallel quad gun slides and short gunner-pod travel",
+    "Recovered front bridge armor separated from the hull",
+    "Original hidden aft door and frame restored",
+    "Original-style gray charcoal and orange albedo with 2K wear maps",
+    "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
+    "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained",
+    "Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat",
+    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained"
   ],
   "webOptimization": {
-    "batchedMeshes": 18,
-    "highTriangles": 753527,
-    "liteTriangles": 256217,
-    "highBytes": 11185772,
-    "liteBytes": 7957360
-  }
+    "batchedMeshes": 129,
+    "highTriangles": 2460321,
+    "liteTriangles": 899999,
+    "highBytes": 17740424,
+    "liteBytes": 7934096,
+    "highTextureResolution": 2048,
+    "highPositionQuantization": 18
+  },
+  "version": "0.8.8",
+  "articulatedSource": "assets/blender/odin_articulated_v0.8.8.blend",
+  "bridgeArmorSlats": 45,
+  "rigSystems": [
+    "main",
+    "main-hatch",
+    "main-bore-carriage",
+    "main-telescope",
+    "secondary",
+    "axial-shutter",
+    "defense",
+    "pdc",
+    "bridge-armor",
+    "stern-door"
+  ]
 }

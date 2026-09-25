@@ -1,0 +1,538 @@
+{
+  "baseline": "assets\\blender\\odin_articulated_v0.8.0.blend",
+  "baselineSha256": "52b479bf7a0a9e5446e588c0fa77c5be3d1da59b623c98ec643ed8c6ec8b9e61",
+  "candidate": "assets\\blender\\odin_articulated_v0.8.1.blend",
+  "candidateSha256": "c179c6ed3c74f71f1bdbaa8d2f99be3960904087ba1d23fb0dd15df35ff77ecb",
+  "scope": "Every object except Hatch_*; root version property intentionally excluded",
+  "objectsCompared": 325,
+  "meshesCompared": 200,
+  "staticJointsCompared": 124,
+  "jointSystems": {
+    "secondary": [
+      "Axial_Bow_Barrel",
+      "Axial_Bow_Mount",
+      "Axial_Keel_Barrel",
+      "Axial_Keel_Mount",
+      "Axial_Stern_Barrel",
+      "Axial_Stern_Mount",
+      "SideBattery_1_Port",
+      "SideBattery_1_Starboard",
+      "SideBattery_2_Port",
+      "SideBattery_2_Starboard",
+      "SideBattery_3_Port",
+      "SideBattery_3_Starboard",
+      "SideBattery_4_Port",
+      "SideBattery_4_Starboard"
+    ],
+    "axial-shutter": [
+      "Axial_Bow_Shutter_Port",
+      "Axial_Bow_Shutter_Starboard",
+      "Axial_Keel_Shutter_Port",
+      "Axial_Keel_Shutter_Starboard",
+      "Axial_Stern_Shutter_Port",
+      "Axial_Stern_Shutter_Starboard"
+    ],
+    "bridge-armor": [
+      "BridgeArmor_Front_00",
+      "BridgeArmor_Front_01",
+      "BridgeArmor_Front_02",
+      "BridgeArmor_Front_03",
+      "BridgeArmor_Front_04",
+      "BridgeArmor_Front_05",
+      "BridgeArmor_Front_06",
+      "BridgeArmor_Front_07",
+      "BridgeArmor_Front_08",
+      "BridgeArmor_Front_09",
+      "BridgeArmor_Front_10",
+      "BridgeArmor_Front_11",
+      "BridgeArmor_Front_12",
+      "BridgeArmor_Front_13",
+      "BridgeArmor_Front_14",
+      "BridgeArmor_RearLower_16",
+      "BridgeArmor_RearLower_17",
+      "BridgeArmor_RearLower_18",
+      "BridgeArmor_RearLower_19",
+      "BridgeArmor_RearLower_20",
+      "BridgeArmor_RearLower_21",
+      "BridgeArmor_RearLower_22",
+      "BridgeArmor_RearLower_23",
+      "BridgeArmor_RearLower_38",
+      "BridgeArmor_RearLower_39",
+      "BridgeArmor_RearLower_40",
+      "BridgeArmor_RearLower_41",
+      "BridgeArmor_RearLower_42",
+      "BridgeArmor_RearLower_43",
+      "BridgeArmor_RearLower_44",
+      "BridgeArmor_RearUpper_08",
+      "BridgeArmor_RearUpper_09",
+      "BridgeArmor_RearUpper_10",
+      "BridgeArmor_RearUpper_11",
+      "BridgeArmor_RearUpper_12",
+      "BridgeArmor_RearUpper_13",
+      "BridgeArmor_RearUpper_14",
+      "BridgeArmor_RearUpper_15",
+      "BridgeArmor_RearUpper_31",
+      "BridgeArmor_RearUpper_32",
+      "BridgeArmor_RearUpper_33",
+      "BridgeArmor_RearUpper_34",
+      "BridgeArmor_RearUpper_35",
+      "BridgeArmor_RearUpper_36",
+      "BridgeArmor_RearUpper_37"
+    ],
+    "defense": [
+      "DefenseRail_Aft_Port",
+      "DefenseRail_Aft_Starboard",
+      "DefenseRail_Forward_Port",
+      "DefenseRail_Forward_Starboard"
+    ],
+    "pdc": [
+      "Defense_01_Carriage",
+      "Defense_01_Elevation",
+      "Defense_01_Yaw",
+      "Defense_02_Carriage",
+      "Defense_02_Elevation",
+      "Defense_02_Yaw",
+      "Defense_03_Carriage",
+      "Defense_03_Elevation",
+      "Defense_03_Yaw",
+      "Defense_04_Carriage",
+      "Defense_04_Elevation",
+      "Defense_04_Yaw",
+      "Defense_05_Carriage",
+      "Defense_05_Elevation",
+      "Defense_05_Yaw",
+      "Defense_06_Carriage",
+      "Defense_06_Elevation",
+      "Defense_06_Yaw",
+      "Defense_07_Carriage",
+      "Defense_07_Elevation",
+      "Defense_07_Yaw",
+      "Defense_08_Carriage",
+      "Defense_08_Elevation",
+      "Defense_08_Yaw",
+      "PDC_Port_Arm_0",
+      "PDC_Port_Arm_1",
+      "PDC_Port_Arm_2",
+      "PDC_Port_Arm_3",
+      "PDC_Port_Carriage",
+      "PDC_Port_Gimbal",
+      "PDC_Starboard_Arm_0",
+      "PDC_Starboard_Arm_1",
+      "PDC_Starboard_Arm_2",
+      "PDC_Starboard_Arm_3",
+      "PDC_Starboard_Carriage",
+      "PDC_Starboard_Gimbal"
+    ],
+    "main": [
+      "Main_Dorsal_Barrels",
+      "Main_Dorsal_Housing",
+      "Main_Dorsal_Mount",
+      "Main_Dorsal_Shroud_Center",
+      "Main_Dorsal_Shroud_Port",
+      "Main_Dorsal_Shroud_Starboard",
+      "Main_Ventral_Barrels",
+      "Main_Ventral_Housing",
+      "Main_Ventral_Mount",
+      "Main_Ventral_Shroud_Center",
+      "Main_Ventral_Shroud_Port",
+      "Main_Ventral_Shroud_Starboard"
+    ],
+    "main-telescope": [
+      "Main_Dorsal_Tube_Center",
+      "Main_Dorsal_Tube_Port",
+      "Main_Dorsal_Tube_Starboard",
+      "Main_Ventral_Tube_Center",
+      "Main_Ventral_Tube_Port",
+      "Main_Ventral_Tube_Starboard"
+    ],
+    "stern-door": [
+      "SternHangarDoor"
+    ]
+  },
+  "removedObjects": [],
+  "addedObjects": [],
+  "changedObjects": [],
+  "inactiveRotationStorageDifferences": [
+    {
+      "object": "Axial_Bow_Shutter_Port",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6920531988143921,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071067690849304,
+        0.0,
+        -0.6920531988143921,
+        0.14512881636619568
+      ]
+    },
+    {
+      "object": "Axial_Bow_Shutter_Starboard",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6920531988143921,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071067690849304,
+        0.0,
+        0.6920531988143921,
+        -0.14512881636619568
+      ]
+    },
+    {
+      "object": "Axial_Keel_Shutter_Port",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6654385924339294,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071068286895752,
+        0.0,
+        0.6654385924339294,
+        -0.2391476184129715
+      ]
+    },
+    {
+      "object": "Axial_Keel_Shutter_Starboard",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6654385924339294,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071068286895752,
+        0.0,
+        -0.6654385924339294,
+        0.2391476184129715
+      ]
+    },
+    {
+      "object": "Axial_Stern_Shutter_Port",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6654384732246399,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071067690849304,
+        0.0,
+        -0.6654384732246399,
+        -0.23914796113967896
+      ]
+    },
+    {
+      "object": "Axial_Stern_Shutter_Starboard",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.6654384732246399,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.7071067690849304,
+        0.0,
+        0.6654384732246399,
+        0.23914796113967896
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_00",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_01",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_02",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_03",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_04",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_05",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_06",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_07",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_08",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_09",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_10",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_11",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_12",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_13",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "object": "BridgeArmor_Front_14",
+      "field": "rotationQuaternion",
+      "mode": "XYZ",
+      "maxDifference": 0.4617486596107483,
+      "before": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "after": [
+        0.8870108723640442,
+        -0.4617486596107483,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "maxJointOrObjectLocationDifference": 0.0,
+  "maxWorldMatrixDifference": 0.0,
+  "passed": true
+}

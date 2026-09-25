@@ -1,0 +1,286 @@
+{
+  "sourceBlend": "odin_articulated_v0.8.2.blend",
+  "sourceBlendSha256": "f4966666520201f933611305ebdffee1fae553dc0bfc233d663e59ac6b7cacb1",
+  "posesSha256": "5491787b55ac6862db26477972fef35480445623d9c1bb65499063ca5db5df30",
+  "deployment": 1,
+  "coordinateSpace": "Corresponding cover mesh local coordinates",
+  "pairs": {
+    "Main_Dorsal_CarrierMesh_Port|odin.006": {
+      "bank": "Dorsal",
+      "physicalBoreRole": "Port",
+      "moving": "Main_Dorsal_CarrierMesh_Port",
+      "target": "odin.006",
+      "movingGeometry": {
+        "sha256": "4d42bfc587cedf4392b84050303e7d9f6bf5b8db03b51ff9320cd335305a7e64",
+        "vertices": 7894,
+        "triangles": 15482
+      },
+      "targetGeometry": {
+        "sha256": "92148e5e7f74dac36179e17ccbfb5a0dd5a895db6eb509adc81177c61161a0fc",
+        "vertices": 2145,
+        "triangles": 4302
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -5.960464477539063e-08
+        ],
+        [
+          0.0,
+          1.0,
+          -1.4901161193847656e-08,
+          2.743210792541504
+        ],
+        [
+          0.0,
+          1.4901161193847656e-08,
+          1.0,
+          -0.5327796936035156
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": []
+    },
+    "Main_Dorsal_CarrierMesh_Center|odin.007": {
+      "bank": "Dorsal",
+      "physicalBoreRole": "Center",
+      "moving": "Main_Dorsal_CarrierMesh_Center",
+      "target": "odin.007",
+      "movingGeometry": {
+        "sha256": "37fee7bc0f74d7325022ab07aba3901590a1f097410d705c292df5e0a11ebe9f",
+        "vertices": 7832,
+        "triangles": 15373
+      },
+      "targetGeometry": {
+        "sha256": "6a9ef477240565b16cf272b17d439c83611619eacdfe0c16bb962d37b62ac8fe",
+        "vertices": 3453,
+        "triangles": 6902
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -2.9802322387695312e-08
+        ],
+        [
+          0.0,
+          1.0,
+          -1.4901161193847656e-08,
+          2.764458656311035
+        ],
+        [
+          0.0,
+          1.4901161193847656e-08,
+          1.0,
+          -0.5381698608398438
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": []
+    },
+    "Main_Dorsal_CarrierMesh_Starboard|odin.008": {
+      "bank": "Dorsal",
+      "physicalBoreRole": "Starboard",
+      "moving": "Main_Dorsal_CarrierMesh_Starboard",
+      "target": "odin.008",
+      "movingGeometry": {
+        "sha256": "342b1c629a1103f7fbb01636ee5e9d0df61b9bf56357a57288137ac59fea1054",
+        "vertices": 7846,
+        "triangles": 15394
+      },
+      "targetGeometry": {
+        "sha256": "0ce090a438873d7eeb757b85529b3e686e54eb2260c7d7e0e9fe5a2104fe1ce4",
+        "vertices": 3007,
+        "triangles": 6012
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -2.980232238769531e-07
+        ],
+        [
+          0.0,
+          1.0,
+          -1.4901161193847656e-08,
+          2.743210792541504
+        ],
+        [
+          0.0,
+          1.4901161193847656e-08,
+          1.0,
+          -0.5327796936035156
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": []
+    },
+    "Main_Ventral_CarrierMesh_Port|odin.016": {
+      "bank": "Ventral",
+      "physicalBoreRole": "Port",
+      "moving": "Main_Ventral_CarrierMesh_Port",
+      "target": "odin.016",
+      "movingGeometry": {
+        "sha256": "1ebe7a78d15ea35efb99a5c55c943468703cd6dd48058013faa64ed5a973db5e",
+        "vertices": 7846,
+        "triangles": 15394
+      },
+      "targetGeometry": {
+        "sha256": "ccc060491447b6d8edbc2b8ef9d1a16ccb11fd6318a0c42dd310f18750ba28a2",
+        "vertices": 3004,
+        "triangles": 6006
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.6987323760986328e-06
+        ],
+        [
+          0.0,
+          1.0,
+          1.4901161193847656e-08,
+          2.990839958190918
+        ],
+        [
+          0.0,
+          -1.4901161193847656e-08,
+          1.0,
+          0.6228628158569336
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": []
+    },
+    "Main_Ventral_CarrierMesh_Center|odin.015": {
+      "bank": "Ventral",
+      "physicalBoreRole": "Center",
+      "moving": "Main_Ventral_CarrierMesh_Center",
+      "target": "odin.015",
+      "movingGeometry": {
+        "sha256": "d1791e5e61c248a2782cfc7409fc0ed51cf9a4b1ac91c503e36e6d4d6bae7495",
+        "vertices": 7832,
+        "triangles": 15373
+      },
+      "targetGeometry": {
+        "sha256": "2c52261e9c8ede7142ae738cb33b688279a52012bb26cc02e2d37b10bb8ffe17",
+        "vertices": 3453,
+        "triangles": 6902
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          4.500150680541992e-06
+        ],
+        [
+          0.0,
+          1.0,
+          1.4901161193847656e-08,
+          2.576613426208496
+        ],
+        [
+          0.0,
+          -1.4901161193847656e-08,
+          1.0,
+          0.5256795883178711
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": [
+        {
+          "moving": "Main_Ventral_CarrierMesh_Center",
+          "target": "odin.015",
+          "trianglePairs": 33,
+          "intersectionBounds": [
+            [
+              -0.39943,
+              36.75558,
+              1.8836
+            ],
+            [
+              -0.38985,
+              36.81573,
+              1.89305
+            ]
+          ],
+          "boundsMethod": "triangle-edge intersection"
+        }
+      ]
+    },
+    "Main_Ventral_CarrierMesh_Starboard|odin.014": {
+      "bank": "Ventral",
+      "physicalBoreRole": "Starboard",
+      "moving": "Main_Ventral_CarrierMesh_Starboard",
+      "target": "odin.014",
+      "movingGeometry": {
+        "sha256": "046d13a895d6f33b3b340b26743045b193c73308be8eb7894a1c4a792c1eb5b9",
+        "vertices": 7894,
+        "triangles": 15482
+      },
+      "targetGeometry": {
+        "sha256": "9188f6415899712bbf712849a0dc2ed754cae27c66820a98dd05e441c92c5254",
+        "vertices": 2145,
+        "triangles": 4302
+      },
+      "movingToCoverMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          1.6987323760986328e-06
+        ],
+        [
+          0.0,
+          1.0,
+          1.4901161193847656e-08,
+          2.990839958190918
+        ],
+        [
+          0.0,
+          -1.4901161193847656e-08,
+          1.0,
+          0.6228628158569336
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "contacts": []
+    }
+  }
+}

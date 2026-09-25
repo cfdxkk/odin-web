@@ -1,0 +1,14 @@
+{
+  "version": "0.8.3-candidate",
+  "baseline": "docs/review/v0.8.3/baseline/v0.8.2-clearance-poses.json",
+  "baselineSha256": "5491787b55ac6862db26477972fef35480445623d9c1bb65499063ca5db5df30",
+  "rigSha256": "c1c0818b205975b85770d152ddafc7c6cfaa79c4b3ed1b201c55d34a549b3007",
+  "glbSha256": "74171433b1e2a98c4ee8776cf10e8b907664fae05875177f0ad1c87b395a7257",
+  "samples": 101,
+  "unchangedSystemJointComparisons": 11716,
+  "maxUnchangedPositionError": 0,
+  "maxUnchangedQuaternionComponentError": 0,
+  "mainDeployedJointCount": 24,
+  "maxMainDeployedWorldMatrixError": 1.1102230246251565e-16,
+  "passed": true
+}

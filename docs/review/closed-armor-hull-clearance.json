@@ -1,0 +1,56 @@
+{
+  "asset": "odin_articulated_v0.7.0.blend",
+  "assetSha256": "c94abf5450daa5939e2b2098775b00742b2d97a82ef330cef12c440ac62444d9",
+  "pairs": [
+    {
+      "armor": "Hatch_Dorsal_Port_FittedSkin",
+      "hull": "holo.001",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Dorsal_Starboard_FittedSkin",
+      "hull": "holo.001",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Dorsal_Nose_Wedge",
+      "hull": "holo.001",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Dorsal_Aft_Port_GapFiller",
+      "hull": "holo.001",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Dorsal_Aft_Starboard_GapFiller",
+      "hull": "holo.001",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Ventral_Port_FittedSkin",
+      "hull": "holo.013",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Ventral_Starboard_FittedSkin",
+      "hull": "holo.013",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Ventral_Nose_Wedge",
+      "hull": "holo.013",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Ventral_Aft_Port_GapFiller",
+      "hull": "holo.013",
+      "triangleIntersections": 0
+    },
+    {
+      "armor": "Hatch_Ventral_Aft_Starboard_GapFiller",
+      "hull": "holo.013",
+      "triangleIntersections": 0
+    }
+  ]
+}

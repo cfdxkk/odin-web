@@ -1,0 +1,21 @@
+{
+  "scope": "Previously marked rear-edge gap, same physical camera and dimensions; not an all-seams visibility proof",
+  "roi": [
+    763,
+    269,
+    811,
+    335
+  ],
+  "results": [
+    {
+      "file": "work/v088-review/native-plane-candidate2-official.png",
+      "sha256": "ebfc8758476b8e3136bf0478997ee5eb70896c4659e3d7d09b0bb02cdec449c1",
+      "redPixels": 98
+    },
+    {
+      "file": "docs/review/v0.8.8/closed-official-direction.png",
+      "sha256": "8143b4a941c116fdc1820a45dbe12afa61f5d3a8471ebe8d165b057b3cf1f411",
+      "redPixels": 8
+    }
+  ]
+}
