@@ -390,7 +390,7 @@ test('stowed outer bores nest just below their covers without the former deep dr
   })
 })
 
-test('the main mechanism preserves every deployed world transform and leaves other systems unchanged', () => {
+test('the main mechanism preserves its approved deployed world transforms and hull armor behavior', () => {
   const baseline = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.8.3/baseline/v0.8.2-clearance-poses.json', import.meta.url), 'utf8'))
   assert.equal(baseline.length, 101)
   const { root, nodes, rig } = loadRig()
@@ -400,7 +400,7 @@ test('the main mechanism preserves every deployed world transform and leaves oth
   for (const pose of baseline) {
     rig.apply(pose.deployment, 20)
     for (const expected of pose.joints) {
-      if (expected.name.startsWith('Main_')) continue
+      if (/^(Main_|SideBattery_|Axial_|Defense|PDC_|BridgeArmor_)/.test(expected.name)) continue
       const actual = staticNodes.get(expected.name)
       assert.ok(actual, `Missing unchanged system joint ${expected.name}`)
       // v0.8.10 fits the aft axes to the real material attachment edges.
@@ -429,6 +429,7 @@ test('the main mechanism preserves every deployed world transform and leaves oth
   const referenceNodes = new Map(reference.nodes.map(node => [node.name, node]))
   for (const joint of baseline.at(-1).joints) {
     const object = referenceNodes.get(joint.name)
+    if (!object) continue
     object.position.fromArray(joint.position)
     object.quaternion.fromArray(joint.quaternion)
   }
@@ -445,33 +446,75 @@ test('the original front bridge shields actually open', () => {
   assert.ok(armor.children.some(n => n.type === 'Object3D'), 'Shield joint must carry exported geometry')
 })
 
-test('only twin and quad secondary mounts scan after deployment', () => {
+test('all eleven single batteries stay fixed in SCM; only real twin and quad mounts scan', () => {
   const { root, nodes, rig } = loadRig()
-  const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|Defense_)/.test(n.name))
+  const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|SideBattery_)/.test(n.name))
   rig.apply(1, 0)
   const original = fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()])
-  const twin = root.getObjectByName('SideBattery_1_Port').quaternion.clone()
+  const twin = root.getObjectByName('Defense_01_Yaw').quaternion.clone()
   const quad = root.getObjectByName('PDC_Starboard_Gimbal').quaternion.clone()
   rig.apply(1, 10)
   assert.deepEqual(fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), original)
-  assert.ok(twin.angleTo(root.getObjectByName('SideBattery_1_Port').quaternion) > .02)
+  assert.ok(twin.angleTo(root.getObjectByName('Defense_01_Yaw').quaternion) > .02)
   assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) > .005)
   rig.apply(.9, 10)
   assert.ok(root.getObjectByName('PDC_Starboard_Gimbal').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
 })
 
-test('bridge-side twin barrels aim slightly above the hull with distinct headings', () => {
+test('all eight actual twin batteries, including the lower starboard bridge pair, point above the horizon', () => {
   const { root, rig } = loadRig()
   rig.apply(1, 20)
-  for (const side of ['Port', 'Starboard']) {
-    const headings = [2, 4].map(index => {
-      const gun = root.getObjectByName(`SideBattery_${index}_${side}`)
-      const direction = new THREE.Vector3(...gun.userData.sourceBoreDirection).applyQuaternion(gun.quaternion).normalize()
+  for (const indices of [[1, 2], [3, 4], [5, 6], [7, 8]]) {
+    const headings = indices.map(index => {
+      const gun = root.getObjectByName(`Defense_${String(index).padStart(2, '0')}_Elevation`)
+      const [x,y,z] = gun.userData.sourceBoreDirectionModel
+      const direction = new THREE.Vector3(x,z,-y).applyQuaternion(gun.getWorldQuaternion(new THREE.Quaternion())).normalize()
       const elevation = THREE.MathUtils.radToDeg(Math.asin(direction.y))
       assert.ok(elevation > 4 && elevation < 8, `Actual barrel elevation ${elevation}`)
       return Math.atan2(direction.x, -direction.z)
     })
     assert.ok(Math.abs(headings[1] - headings[0]) > .2, 'Twin headings must be visibly staggered')
+  }
+})
+
+test('every single barrel pitches in its own vertical plane about a forward trunnion', () => {
+  const { nodes, rig } = loadRig()
+  const singles = nodes.filter(n => n.userData.singleBattery)
+  assert.equal(singles.length, 11)
+  for (const gun of singles) {
+    assert.ok(gun.userData.trunnionAdvance >= 5, `${gun.name} keeps the old deep trunnion`)
+    const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
+    const original = map(gun.userData.sourceBoreDirectionModel).normalize()
+    const normal = map(gun.userData.outwardNormal).normalize()
+    const transverse = original.clone().cross(normal).normalize()
+    for (let i = 0; i <= 100; i++) {
+      rig.apply(i / 100, 0)
+      const direction = original.clone().applyQuaternion(gun.quaternion)
+      assert.ok(Math.abs(direction.dot(transverse)) < 1e-6, `${gun.name} yaws out of its elevation plane`)
+      if (i > 40) assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
+    }
+    assert.ok(nodes.filter(n => n.userData.barrelJoint === gun.name).length >= 2, `${gun.name} has no complete armor pair`)
+  }
+})
+
+test('the four aft hull gates descend before twin carriages move and close after their return', () => {
+  const { root, rig } = loadRig()
+  for (let i = 5; i <= 8; i++) {
+    const prefix = `Defense_${String(i).padStart(2, '0')}`
+    const gate = root.getObjectByName(prefix + '_NotchGate'), carriage = root.getObjectByName(prefix + '_Carriage')
+    assert.equal(gate.parent.name, 'Odin_Asset')
+    rig.apply(0, 0)
+    const closed = gate.position.clone(), parked = carriage.position.clone()
+    rig.apply(.22, 0)
+    assert.ok(closed.y - gate.position.y > 4, 'Gate must clear the notch before the carriage leaves')
+    assert.ok(carriage.position.distanceTo(parked) < 1e-6)
+    const open = gate.position.clone()
+    for (const d of [.3, .5, .8, 1, .6, .25]) {
+      rig.apply(d, 0)
+      assert.ok(gate.position.distanceTo(open) < 1e-6)
+    }
+    rig.apply(0, 0)
+    assert.ok(gate.position.distanceTo(closed) < 1e-6)
   }
 })
 

@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 129,
-  "triangles": 2509142,
+  "meshCount": 197,
+  "triangles": 2458939,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -121,19 +121,24 @@
     "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
     "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained",
     "Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat",
-    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained"
+    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained",
+    "Eleven elevation-only singles with forward trunnions and seventy fitted triangular shutter leaves",
+    "Eight twin gun elevations measured from their actual bores, four independent aft hull notch gates",
+    "Eight stationary quad root armor assemblies with shorter sliding tubes",
+    "Recovered rear bridge shield faces, separate glazing and roof tracks; warm charcoal bridge and tea-gold windows",
+    "Main bay stationary corner receivers follow the adjacent exterior hull plane"
   ],
   "webOptimization": {
-    "batchedMeshes": 129,
-    "highTriangles": 2509142,
-    "liteTriangles": 914302,
-    "highBytes": 18327496,
-    "liteBytes": 8218272,
+    "batchedMeshes": 197,
+    "highTriangles": 2458939,
+    "liteTriangles": 858314,
+    "highBytes": 18299168,
+    "liteBytes": 7766396,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.8.11",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.11.blend",
+  "version": "0.9.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.9.0.blend",
   "bridgeArmorSlats": 45,
   "rigSystems": [
     "main",
@@ -145,6 +150,8 @@
     "defense",
     "pdc",
     "bridge-armor",
-    "stern-door"
+    "stern-door",
+    "single-shutter",
+    "defense-gate"
   ]
 }

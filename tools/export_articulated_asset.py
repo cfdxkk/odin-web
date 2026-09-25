@@ -33,4 +33,7 @@ d['completion']=['Five-piece main bay armor: two polygonal forward skins, two in
 d['completion']=list(dict.fromkeys(d['completion']))
 d['completion'] += ['Aft armor leaves are single inclined planes with constant thickness and fitted edges', 'Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained']
 d['completion'] += ['Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat', 'Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained']
+if version=='0.9.0':
+ d['rigSystems'] += ['single-shutter','defense-gate']
+ d['completion'] += ['Eleven elevation-only singles with forward trunnions and seventy fitted triangular shutter leaves', 'Eight twin gun elevations measured from their actual bores, four independent aft hull notch gates', 'Eight stationary quad root armor assemblies with shorter sliding tubes', 'Recovered rear bridge shield faces, separate glazing and roof tracks; warm charcoal bridge and tea-gold windows', 'Main bay stationary corner receivers follow the adjacent exterior hull plane']
 manifest.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf8');print('EXPORTED',d['webOptimization'],flush=True)

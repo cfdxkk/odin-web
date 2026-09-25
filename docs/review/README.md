@@ -1,4 +1,8 @@
-# Articulation review — v0.7.0
+# Articulation review
+
+当前候选：[v0.9.0 副炮、舰桥及主炮固定船壳接缝](v0.9.0/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
+
+## Archived review — v0.7.0
 
 `main-armor-parts.png` identifies the five pieces: red and pink are the two long side skins, black and yellow are the independent gap fillers below the rotating gun shrouds, and green is the short wedge at their forward end. The two aft pieces now occupy the missing region marked in the user's close-up, rather than being cut out of the neighboring hull surface. Both main-battery hull meshes are restored from v0.5, and the farther foredeck stays fixed. Review colors are not saved to the asset.
 
