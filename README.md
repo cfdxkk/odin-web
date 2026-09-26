@@ -33,7 +33,7 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前待审核模型：[`assets/blender/odin_articulated_v0.11.1.blend`](assets/blender/odin_articulated_v0.11.1.blend)。本轮按要求仅运行 localhost，并保留 GitHub 候选分支、PR 和标签。打开 `/?review=secondary` 可逐座查看单联装、双联装、四联装与舰桥的真实 JS 动画，切换侧视、俯视或拖动进度。详见 [v0.11.1 审核记录](docs/review/v0.11.1/README.md)。
+当前待审核模型：[`assets/blender/odin_articulated_v0.11.6.blend`](assets/blender/odin_articulated_v0.11.6.blend)。本轮撤销舰桥下方新增的红色细线，保留灰色涂装区域和颜色；舰艏单联装炮塔暂不修改。打开 `/?review=secondary` 可逐座查看单联装、双联装、四联装与舰桥的真实 JS 动画，切换侧视、俯视或拖动进度。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
 
 每座主炮井保留五块独立护甲。两块长板先微量脱开齿口，再沿短导轨向外、向下平移，停留在船壳外侧；后段两块三角补片沿斜置铰链外翻约 130°；前端短盖沿原船壳的锯齿轮廓贴合，微抬后向船艏滑动。内侧使用深红色，外侧保留原灰色材质。v0.10.0 保持十片护甲的外表面和边界不变，向内加厚至原来的 2.1 倍，并让隐藏的固定接收面为厚边让位。
 

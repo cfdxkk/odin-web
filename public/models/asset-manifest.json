@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 175,
-  "triangles": 2422165,
+  "triangles": 2421597,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -136,19 +136,20 @@
     "Side batteries 2 and 4 and all axial singles have smooth exterior armor, red inner reinforcements and physical contact-edge hinges; side 2 and 4 do not translate fore or aft",
     "The keel single retains its separate final diagonal inboard stroke after all armor is stowed",
     "Aft defense twins 5–8 retain their former lateral travel and lower the complete carriage during final stow",
-    "Bridge hull armor has a neutral cement-gray finish and thin red stripes on sloping sidewalls"
+    "Bridge hull armor has a neutral cement-gray finish",
+    "The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette"
   ],
   "webOptimization": {
     "batchedMeshes": 175,
-    "highTriangles": 2422165,
-    "liteTriangles": 854526,
-    "highBytes": 18478136,
-    "liteBytes": 7876212,
+    "highTriangles": 2421597,
+    "liteTriangles": 854355,
+    "highBytes": 18381684,
+    "liteBytes": 7852332,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.5",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.5.blend",
+  "version": "0.11.6",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.6.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

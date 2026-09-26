@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.4.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.6.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.6 removes only the six red pinstripe meshes added beneath the bridge in v0.11.5. The cement-gray material colors and their assigned hull faces are identical to v0.11.5. The bow single-gun geometry and animation are unchanged pending further direction.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.5.blend --python tools/revert_bridge_pinstripe_v0116.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.6.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.4 lowers groups 2–4 on the four vertical flank mounts to the original front-receiver crown and flattens the first plate to the same height. The closed plates and their physical contact edges follow a continuous straight plan-view line. A small fixed triangle closes each lower nose seam using vertices from the original lower inner-slot panel. [Four-mount, four-angle review](../../docs/review/v0.11.4/README.md) includes the geometry audit and 101-pose clearance sweep.
 
