@@ -544,7 +544,7 @@ test('flank rear cradle seats only after folding and carries gun plus groups 3 a
   for (const carriage of nodes.filter(n=>n.userData.system==='side-battery-carriage')) {
     const name=carriage.userData.battery, gun=root.getObjectByName(name)
     const carried=nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup>=3)
-    assert.ok(carriage.userData.originalOuterPedestalVertices>2000,'The complete source outer pedestal must travel with the rear cradle')
+    assert.ok(carriage.userData.originalOuterPedestalVertices>2000,'The source rear pedestal must travel with the cradle')
     assert.equal(carried.length,4);assert.equal(gun.parent,carriage)
     for(const leaf of carried)assert.equal(leaf.parent,carriage)
     for(const fixed of nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup===2))assert.equal(fixed.parent.name,'Odin_Asset')
@@ -558,6 +558,23 @@ test('flank rear cradle seats only after folding and carries gun plus groups 3 a
       rig.apply(i/100,0);root.updateMatrixWorld(true)
       ;[gun,...carried].forEach((n,k)=>assertMatrixClose(relativeMatrix(n,carriage),relatives[k],`${n.name} slips on the closing cradle`))
     }
+  }
+})
+
+test('four flank bores remain centered and stow parallel to their own slots', () => {
+  const {root,nodes,rig}=loadRig(),asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for(const gun of nodes.filter(n=>n.userData.sideBatteryMechanism && n.userData.singleBattery)) {
+    const axis=map(gun.userData.slotAxisModel).normalize()
+    const normal=map(gun.userData.outwardNormal).normalize(),transverse=axis.clone().cross(normal).normalize()
+    const origin=map(gun.userData.slotOriginModel)
+    for(const d of [0,.14,.24,.67,.8,1,.4,0]) {
+      rig.apply(d,0);root.updateMatrixWorld(true)
+      const [a,b]=gun.userData.boreAxisPointsLocal.map(p=>asset.worldToLocal(gun.localToWorld(map(p))))
+      for(const p of [a,b])assert.ok(Math.abs(p.clone().sub(origin).dot(transverse))<.0001,`${gun.name} leaves the slot center plane at ${d}`)
+      if(d<=.67)assert.ok(b.clone().sub(a).normalize().distanceTo(axis)<.00001,`${gun.name} folds inward past parallel`)
+    }
+    assert.equal(gun.userData.stowSink,0)
   }
 })
 
@@ -579,7 +596,9 @@ test('flank inclined edges meet after the complete carriage seats', () => {
     // Pick the long edges of the sloping section on each end geometrically.
     const endA=p.slice(0,3),endB=p.slice(3).reverse()
     const edge=q=>q[1].distanceTo(q[0])>q[2].distanceTo(q[1])?q[1].clone().sub(q[0]):q[2].clone().sub(q[1])
-    assert.ok(Math.abs(edge(endA).normalize().dot(edge(endB).normalize()))<.9,'The first leaf must have unequal end slopes')
+    // The aft end is fitted to its shallower hull receiver, so the required
+    // trapezoid is unequal-ended without imposing the old guessed 26° angle.
+    assert.ok(Math.abs(edge(endA).normalize().dot(edge(endB).normalize()))<Math.cos(Math.PI/36),'The first leaf must have visibly unequal end slopes')
   }
 })
 

@@ -1,10 +1,21 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.0.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.1.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.1 limits the moving rear pedestal to the marked assembly, keeping the deep bay floor and transitions fixed. All four bores are centered, stow parallel to their slots and use recalibrated rear pivots. Local transition/nose openings are closed; the nose surface continues the original lower inner-slot plane. All inner grate stiffeners are red. The aft first sliders return inward/down onto the original lower slot rim, closing the end gaps.
+
+Reproduce the current correction from the committed v0.11.0 baseline:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/revise_side_batteries_v0111.py
+blender -b assets/blender/odin_articulated_v0.11.1.blend --python tools/export_articulated_asset.py
+```
+
+See [v0.11.1 review](../../docs/review/v0.11.1/README.md).
 
 Version 0.11 changes only vertical flank batteries 1 and 3 on both sides. Their first cover pair lifts then slides; three existing detailed pairs fold about measured inner-edge hinges. Matching inclined seams, an unequal-ended trapezoid first pair, inner-only grates and smooth outer skins follow the review references. The complete original rear pedestal, trough, barrel, trunnion and groups 3/4 move rigidly together. Only the indicated triangular bay gaps receive infill.
 
-Reconstruct the latest model from v0.10.0, in order:
+Reconstruct the earlier v0.11.0 baseline from v0.10.0, in order:
 
 ```powershell
 blender -b assets/blender/odin_articulated_v0.10.0.blend --python tools/revise_side_batteries_v0110.py
