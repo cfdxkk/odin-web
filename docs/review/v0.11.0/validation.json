@@ -1,0 +1,31 @@
+{
+  "version": "0.11.0",
+  "reviewTag": "v0.11.0-rc.1",
+  "scope": [
+    "SideBattery_1_Port",
+    "SideBattery_1_Starboard",
+    "SideBattery_3_Port",
+    "SideBattery_3_Starboard"
+  ],
+  "checks": {
+    "npm test": "33 passed",
+    "npm run verify:asset": "high and lite passed, zero clips",
+    "npm run generate": "passed",
+    "browser": "four flank endpoints, 14% and 40% intermediate poses, main upper/lower, quad, defense and bridge; no console errors"
+  },
+  "hashes": {
+    "assets/blender/odin_articulated_v0.11.0.blend": "0d8e84bebb522ec64acdd05746b6375a2a4cfcee547d7d7d2490b16e3b41c2b5",
+    "public/models/odin.glb": "d8c0694f995629160400db0fe70a2fb345d1363d8047fef5fb0eb951a7a1f134",
+    "public/models/odin-lite.glb": "d0a4c86577f51e6f8622a51ff080a35a62d51597a5bc3d9c1de106e99f6e5132",
+    "app/lib/odin-rig.ts": "829438f54dafad4fe994fe94f220f08d3ad91c55462d333eb9d2adf25fd141e8"
+  },
+  "geometry": {
+    "batchedMeshes": 175,
+    "highTriangles": 2440233,
+    "liteTriangles": 873212,
+    "highBytes": 18582552,
+    "liteBytes": 8155516,
+    "highTextureResolution": 2048,
+    "highPositionQuantization": 18
+  }
+}

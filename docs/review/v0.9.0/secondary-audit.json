@@ -1,0 +1,32 @@
+{
+  "samples": 21,
+  "bridgeSamplesWithContacts": 0,
+  "singleCoverContacts": [
+    {
+      "deployment": 0,
+      "mounts": [
+        "Axial_Keel_Barrel",
+        "SideBattery_2_Port",
+        "SideBattery_2_Starboard",
+        "SideBattery_4_Port",
+        "SideBattery_4_Starboard"
+      ]
+    },
+    {
+      "deployment": 0.05,
+      "mounts": [
+        "Axial_Keel_Barrel",
+        "SideBattery_2_Port",
+        "SideBattery_2_Starboard",
+        "SideBattery_4_Port",
+        "SideBattery_4_Starboard"
+      ]
+    }
+  ],
+  "notes": "The contact diagnostic includes embedded source bearings. This is not a whole-ship collision certification.",
+  "files": {
+    "assets\\blender\\odin_articulated_v0.9.0.blend": "0747a93a106c9db6c800622cf0cb02368302e322a91f97c7df15395cce402352",
+    "public\\models\\odin.glb": "43c16ff40dc299c3ca482840c20430ae5bd7f6b7afccd606d7a2d65512589ee1",
+    "app\\lib\\odin-rig.ts": "b56eccfe80b783f919edee6ce9e8ca407d445fecd467ce28453ef1e225ff1902"
+  }
+}
