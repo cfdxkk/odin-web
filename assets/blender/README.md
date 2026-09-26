@@ -1,8 +1,17 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.2.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.3.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
 
-Version 0.11.2 seats the actual smooth exterior of all four vertical flank batteries on the measured lower inner-slot facet and rail. Both first armor halves meet the original front rim directly; the raised folded return from v0.11.1 is removed. The red inner grates follow the refitted shells, and the centered guns settle deeper in NAV so they clear the lower roof. The first sliders lift farther before advancing, clearing the hull after their initial seal releases.
+Version 0.11.3 restores the accepted flat crowns on all four vertical flank mounts while retaining the original inner-rail and front-rim fit of their lower armor edges. Each of the 24 folding leaves now pivots on the actual armor-to-slot contact edge. Its 150-degree fold clears the fixed triangular fairings. The red grate detail remains recessed beneath the smooth exterior. The [four-mount, four-angle review](../../docs/review/v0.11.3/README.md) includes the measured contact-edge audit.
+
+Reproduce this revision from the committed v0.11.2 asset:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.2.blend --python tools/refit_flank_armor_v0113.py
+blender -b assets/blender/odin_articulated_v0.11.3.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.2 seats the lower edges of all four vertical flank batteries on the measured inner-slot rail. Both first armor halves meet the original front rim directly; the raised folded return from v0.11.1 is removed. The red inner grates follow the shells, and the centered guns settle deeper in NAV. Version 0.11.3 raises the crowns back to the accepted hull trend.
 
 Reproduce the current correction from the committed v0.11.1 baseline:
 

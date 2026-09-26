@@ -535,7 +535,7 @@ test('four flank first pairs lift before sliding and retain finite flat crowns',
     rig.apply(1,0);const position=leaf.position.clone(),open=leaf.quaternion.clone()
     rig.apply(0,0)
     assert.ok(leaf.position.distanceTo(position)<1e-6,'The hinge stays on its attachment rail')
-    assert.ok(Math.abs(leaf.quaternion.angleTo(open)-Math.PI)<1e-6)
+    assert.ok(Math.abs(leaf.quaternion.angleTo(open)-Math.PI*5/6)<1e-6)
   }
 })
 

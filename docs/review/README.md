@@ -1,6 +1,6 @@
 # Articulation review
 
-当前候选：[v0.10.0 七片单联装护罩、后耳轴与舰桥雷达](v0.10.0/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
+当前候选：[v0.11.3 侧舷四座炮塔装甲贴合与接触边转轴](v0.11.3/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
 
 ## Archived review — v0.7.0
 
