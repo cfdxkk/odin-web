@@ -33,7 +33,10 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
   }
 }
 assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 66, 'Three side covers per side on eleven single batteries')
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 11)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 7)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-front-slider').length, 8)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage').length, 4)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'pdc-hull-petal').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'defense-gate').length, 4)

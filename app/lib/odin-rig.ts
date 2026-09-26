@@ -128,8 +128,21 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - leafOpen)))
       }
       if (data.singleBattery && data.hingeAxisModel) {
-        const seating = v(...data.outwardNormal as [number, number, number]).multiplyScalar(-Number(data.stowSink || 0) * (1 - singleLift))
-        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.pitchDegrees)) * singleLift))
+        const gunLift = data.sideBatteryMechanism ? ease(.67, .96, d) : singleLift
+        const seating = v(...data.outwardNormal as [number, number, number]).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
+        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.pitchDegrees)) * gunLift))
+      }
+      if (data.system === 'side-front-slider') {
+        // This pair is authored CLOSED: lift off its seal, then slide forward.
+        pose(name, v(...data.liftVector as [number, number, number]).multiplyScalar(ease(0, .07, d))
+          .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.08, .24, d))))
+      }
+      if (data.system === 'side-battery-carriage') {
+        // Closing first folds the leaves, then lifts the complete rear cradle
+        // and advances it until groups 3/4 seat against stationary group 2.
+        const closing = 1 - d
+        pose(name, v(...data.liftVector as [number, number, number]).multiplyScalar(ease(.76, .86, closing))
+          .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.87, 1, closing))))
       }
       if (data.system === 'single-front-cap') {
         // Recovered source caps are authored in their deployed location.

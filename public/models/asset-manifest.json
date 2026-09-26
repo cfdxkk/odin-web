@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 167,
-  "triangles": 2441471,
+  "meshCount": 175,
+  "triangles": 2440233,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -120,23 +120,27 @@
     "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained",
     "Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat",
     "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained",
-    "Eleven rear-trunnion single batteries with their original seven covers animated per mount; source front cap pose is the deployed endpoint",
     "Fixed bridge with rectangular flush tea-gold glazing, airflow-aligned antennas with UV-painted bands, faceted radome and four truss-mounted capsule radars",
     "Short upper capsule trusses attach to the original projecting bridge tab; rear capsule trusses extend diagonally aft",
     "Eight independent quad aperture petals, narrowed support forks and deeper aft twin stow",
-    "All ten main battery armor plates reinforced inward while preserving accepted outer contours"
+    "All ten main battery armor plates reinforced inward while preserving accepted outer contours",
+    "Four vertical flank singles (port/starboard 1 and 3): eight armor halves in four groups; first pair lifts then slides forward; original vented leaves close around physical inner edges with a flat ridge",
+    "Complete rear flank cradle, barrel and groups 3/4 lift then advance together on closing; upper sloping and axial singles retain their prior mechanisms",
+    "Legacy flank tip wings removed; aft first-pair parking is allowed inside the hull as requested",
+    "Matching inclined seams between groups 2/3 and unequal-ended trapezoid first sliders",
+    "Original grate detail stays inside continuous smooth hull-painted skins; only the local triangular bay gaps receive mirrored infill"
   ],
   "webOptimization": {
-    "batchedMeshes": 167,
-    "highTriangles": 2441471,
-    "liteTriangles": 874682,
-    "highBytes": 18286604,
-    "liteBytes": 8010488,
+    "batchedMeshes": 175,
+    "highTriangles": 2440233,
+    "liteTriangles": 873212,
+    "highBytes": 18582552,
+    "liteBytes": 8155516,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.10.0",
-  "articulatedSource": "assets/blender/odin_articulated_v0.10.0.blend",
+  "version": "0.11.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.0.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
@@ -150,6 +154,9 @@
     "single-shutter",
     "single-front-cap",
     "defense-gate",
-    "pdc-hull-petal"
+    "pdc-hull-petal",
+    "side-front-slider",
+    "side-battery-leaf",
+    "side-battery-carriage"
   ]
 }

@@ -490,10 +490,11 @@ test('every single barrel pitches in its own vertical plane about the rear breec
       rig.apply(i / 100, 0)
       const direction = original.clone().applyQuaternion(gun.quaternion)
       assert.ok(Math.abs(direction.dot(transverse)) < 1e-6, `${gun.name} yaws out of its elevation plane`)
-      if (i > 40) assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
+      if (i > (gun.userData.sideBatteryMechanism ? 67 : 40)) assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
     }
     assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, 6, `${gun.name} requires three leaves per side`)
-    assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, 1, `${gun.name} requires an independent front cap`)
+    if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
+    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, 1, `${gun.name} requires an independent front cap`)
   }
 })
 
@@ -511,6 +512,90 @@ test('original single covers keep their source open pose and stagger root-first'
     const panels = leaves.filter(n => n.name.includes('_Shutter_Port_')).sort((a,b)=>a.userData.panelIndex-b.userData.panelIndex)
     assert.ok(panels[0].userData.openEnd < panels[1].userData.openEnd && panels[1].userData.openEnd < panels[2].userData.openEnd)
     assert.ok(panels[0].userData.openEnd-panels[0].userData.openStart < panels[2].userData.openEnd-panels[2].userData.openStart)
+  }
+})
+
+test('four flank first pairs lift before sliding and retain finite flat crowns', () => {
+  const { nodes, rig } = loadRig()
+  const sliders = nodes.filter(n => n.userData.system === 'side-front-slider')
+  assert.equal(sliders.length, 8)
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for (const slider of sliders) {
+    rig.apply(0,0); const closed=slider.position.clone(), rotation=slider.quaternion.clone()
+    rig.apply(.07,0)
+    assert.ok(slider.position.clone().sub(closed).distanceTo(map(slider.userData.liftVector))<1e-6)
+    rig.apply(.24,0)
+    assert.ok(slider.position.clone().sub(closed).distanceTo(map(slider.userData.liftVector).add(map(slider.userData.slideVector)))<1e-6)
+    assert.ok(slider.quaternion.angleTo(rotation)<1e-7)
+    assert.equal(slider.userData.allowHullParkingIntersection, slider.name.includes('Battery_3_'))
+  }
+  for (const leaf of nodes.filter(n=>n.userData.system==='side-battery-leaf')) {
+    assert.equal(leaf.userData.physicalHinge,true)
+    assert.ok(leaf.userData.ridgeHalfWidth>.1)
+    rig.apply(1,0);const position=leaf.position.clone(),open=leaf.quaternion.clone()
+    rig.apply(0,0)
+    assert.ok(leaf.position.distanceTo(position)<1e-6,'The hinge stays on its attachment rail')
+    assert.ok(Math.abs(leaf.quaternion.angleTo(open)-Math.PI)<1e-6)
+  }
+})
+
+test('flank rear cradle seats only after folding and carries gun plus groups 3 and 4 rigidly', () => {
+  const { root,nodes,rig }=loadRig(), map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for (const carriage of nodes.filter(n=>n.userData.system==='side-battery-carriage')) {
+    const name=carriage.userData.battery, gun=root.getObjectByName(name)
+    const carried=nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup>=3)
+    assert.ok(carriage.userData.originalOuterPedestalVertices>2000,'The complete source outer pedestal must travel with the rear cradle')
+    assert.equal(carried.length,4);assert.equal(gun.parent,carriage)
+    for(const leaf of carried)assert.equal(leaf.parent,carriage)
+    for(const fixed of nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup===2))assert.equal(fixed.parent.name,'Odin_Asset')
+    rig.apply(.24,0);root.updateMatrixWorld(true)
+    const origin=carriage.position.clone(), relatives=[gun,...carried].map(n=>relativeMatrix(n,carriage))
+    rig.apply(.14,0);root.updateMatrixWorld(true)
+    assert.ok(carriage.position.clone().sub(origin).distanceTo(map(carriage.userData.liftVector))<1e-6,'Finish lift before forward seating')
+    rig.apply(0,0);root.updateMatrixWorld(true)
+    assert.ok(carriage.position.clone().sub(origin).distanceTo(map(carriage.userData.liftVector).add(map(carriage.userData.slideVector)))<1e-6)
+    for(let i=0;i<=24;i++) {
+      rig.apply(i/100,0);root.updateMatrixWorld(true)
+      ;[gun,...carried].forEach((n,k)=>assertMatrixClose(relativeMatrix(n,carriage),relatives[k],`${n.name} slips on the closing cradle`))
+    }
+  }
+})
+
+test('flank inclined edges meet after the complete carriage seats', () => {
+  const {root,nodes,rig}=loadRig(), asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  rig.apply(0,0);root.updateMatrixWorld(true)
+  for(const second of nodes.filter(n=>n.userData.system==='side-battery-leaf' && n.userData.armorGroup===2)) {
+    const third=root.getObjectByName(second.name.replace('_02','_01'))
+    const points=n=>n.userData.seamEdgeLocal.map(p=>asset.worldToLocal(n.localToWorld(map(p))))
+    const a=points(second),b=points(third),axis=map(second.userData.hingeAxisModel).normalize()
+    for(let i=0;i<2;i++)assert.ok(Math.abs(a[i].distanceTo(b[i])-.026)<.0001,`${second.name} leaves an open carriage seam`)
+    assert.ok(Math.abs(a[1].clone().sub(a[0]).dot(axis))>.8,'The butt seam must be inclined rather than square-cut')
+    assert.ok(a[1].clone().sub(a[0]).normalize().dot(b[1].clone().sub(b[0]).normalize())>.99999,'Mating edges stay parallel')
+  }
+  for(const slider of nodes.filter(n=>n.userData.system==='side-front-slider')) {
+    const p=slider.userData.closedOutlineModel.map(v=>new THREE.Vector3(...v))
+    // Both flat-ridge returns and both sloping corners are in this outline.
+    // Pick the long edges of the sloping section on each end geometrically.
+    const endA=p.slice(0,3),endB=p.slice(3).reverse()
+    const edge=q=>q[1].distanceTo(q[0])>q[2].distanceTo(q[1])?q[1].clone().sub(q[0]):q[2].clone().sub(q[1])
+    assert.ok(Math.abs(edge(endA).normalize().dot(edge(endB).normalize()))<.9,'The first leaf must have unequal end slopes')
+  }
+})
+
+test('closed flank leaves have equal lengths and straight seams across the flat crown', () => {
+  const {root,nodes,rig}=loadRig(),asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  rig.apply(0,0);root.updateMatrixWorld(true)
+  for(const leaf of nodes.filter(n=>n.userData.system==='side-battery-leaf' && n.name.includes('_Shutter_Port_'))) {
+    const paired=root.getObjectByName(leaf.name.replace('_Shutter_Port_','_Shutter_Starboard_'))
+    const [lo,hi]=leaf.userData.closedLongitudinalRange
+    assert.ok(Math.abs(hi-lo-8.70)<1e-6,'Groups 2, 3 and 4 must expose the same length')
+    for(let end=0;end<2;end++) {
+      const points=[leaf,paired].flatMap(n=>n.userData.crownSeamsLocal[end].map(p=>asset.worldToLocal(n.localToWorld(map(p)))))
+      const direction=points[3].clone().sub(points[0]).normalize()
+      for(const p of points)assert.ok(p.clone().sub(points[0]).cross(direction).length()<.0001,'The crown seam must be one straight line across both halves')
+    }
   }
 })
 
