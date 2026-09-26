@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 129,
-  "triangles": 2509142,
+  "meshCount": 167,
+  "triangles": 2441471,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -113,38 +113,43 @@
     "Five-piece main bay armor: two polygonal forward skins, two independent gap fillers hinging outward 130 degrees along the inclined hull lip; intact fixed hull and fitted serrated seams, and the serrated fore-end cap that lifts then slides forward; dark red inward-facing armor surfaces",
     "Main guns wait until all five armor pieces clear their travel corridor",
     "Synchronized three-bore main-barrel telescopic tubes, measured center-bore axes",
-    "Six original axial shutter half-banks",
     "Parallel quad gun slides and short gunner-pod travel",
-    "Recovered front bridge armor separated from the hull",
     "Original hidden aft door and frame restored",
     "Original-style gray charcoal and orange albedo with 2K wear maps",
     "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
     "Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained",
     "Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat",
-    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained"
+    "Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained",
+    "Eleven rear-trunnion single batteries with their original seven covers animated per mount; source front cap pose is the deployed endpoint",
+    "Fixed bridge with rectangular flush tea-gold glazing, airflow-aligned antennas with UV-painted bands, faceted radome and four truss-mounted capsule radars",
+    "Short upper capsule trusses attach to the original projecting bridge tab; rear capsule trusses extend diagonally aft",
+    "Eight independent quad aperture petals, narrowed support forks and deeper aft twin stow",
+    "All ten main battery armor plates reinforced inward while preserving accepted outer contours"
   ],
   "webOptimization": {
-    "batchedMeshes": 129,
-    "highTriangles": 2509142,
-    "liteTriangles": 914302,
-    "highBytes": 18327496,
-    "liteBytes": 8218272,
+    "batchedMeshes": 167,
+    "highTriangles": 2441471,
+    "liteTriangles": 874682,
+    "highBytes": 18286604,
+    "liteBytes": 8010488,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.8.11",
-  "articulatedSource": "assets/blender/odin_articulated_v0.8.11.blend",
-  "bridgeArmorSlats": 45,
+  "version": "0.10.0",
+  "articulatedSource": "assets/blender/odin_articulated_v0.10.0.blend",
+  "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
     "main-hatch",
     "main-bore-carriage",
     "main-telescope",
     "secondary",
-    "axial-shutter",
     "defense",
     "pdc",
-    "bridge-armor",
-    "stern-door"
+    "stern-door",
+    "single-shutter",
+    "single-front-cap",
+    "defense-gate",
+    "pdc-hull-petal"
   ]
 }

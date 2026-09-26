@@ -33,4 +33,12 @@ d['completion']=['Five-piece main bay armor: two polygonal forward skins, two in
 d['completion']=list(dict.fromkeys(d['completion']))
 d['completion'] += ['Aft armor leaves are single inclined planes with constant thickness and fitted edges', 'Independent complete bore carriages retain a high center bore beneath its top cover while the outer bores stow lower and inward; original deployed geometry retained']
 d['completion'] += ['Each complete main bore follows its physical shroud rigidly; side bores finish nesting only after the covers seat', 'Deep-red main turret bearing drums, housing cavity faces and all inward armor surfaces; existing gray exterior retained']
+if version=='0.9.0':
+ d['rigSystems'] += ['single-shutter','defense-gate']
+ d['completion'] += ['Eleven elevation-only singles with forward trunnions and seventy fitted triangular shutter leaves', 'Eight twin gun elevations measured from their actual bores, four independent aft hull notch gates', 'Eight stationary quad root armor assemblies with shorter sliding tubes', 'Recovered rear bridge shield faces, separate glazing and roof tracks; warm charcoal bridge and tea-gold windows', 'Main bay stationary corner receivers follow the adjacent exterior hull plane']
+if version=='0.10.0':
+ d['bridgeArmorSlats']=0
+ d['rigSystems']=[v for v in d['rigSystems']if v not in ['bridge-armor','axial-shutter']]+['single-shutter','single-front-cap','defense-gate','pdc-hull-petal']
+ d['completion']=[v for v in d['completion']if 'bridge armor'not in v and 'axial shutter'not in v]
+ d['completion'] += ['Eleven rear-trunnion single batteries with their original seven covers animated per mount; source front cap pose is the deployed endpoint', 'Fixed bridge with rectangular flush tea-gold glazing, airflow-aligned antennas with UV-painted bands, faceted radome and four truss-mounted capsule radars', 'Short upper capsule trusses attach to the original projecting bridge tab; rear capsule trusses extend diagonally aft', 'Eight independent quad aperture petals, narrowed support forks and deeper aft twin stow', 'All ten main battery armor plates reinforced inward while preserving accepted outer contours']
 manifest.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf8');print('EXPORTED',d['webOptimization'],flush=True)
