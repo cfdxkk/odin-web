@@ -652,28 +652,50 @@ test('aft twin guides retract just behind the gun and sink with its carriage', (
     const rail = root.getObjectByName(`DefenseRail_Aft_${side}`)
     assert.equal(gate.parent.name, 'Odin_Asset')
     assert.equal(rail.parent.name, 'Odin_Asset')
-    assert.ok(carriage.userData.finalStowInward >= 4)
-    assert.ok(carriage.userData.finalStowDrop >= 3)
+    assert.equal(carriage.userData.finalStowInward, 2.3)
+    assert.equal(carriage.userData.finalStowDrop, 7.5)
     assert.equal(rail.userData.finalStowDrop, carriage.userData.finalStowDrop)
     assert.equal(rail.userData.finalStowInward, carriage.userData.finalStowInward)
     assert.ok(rail.userData.retractLag > 0 && rail.userData.retractLag <= .03)
+    assert.equal(rail.userData.sinkStart, .40)
+    assert.equal(carriage.userData.sinkStart, .40)
     rig.apply(0, 0)
     root.updateMatrixWorld(true)
     const shut = gate.position.clone(), parked = carriage.position.clone(), parkedRail = rail.position.clone()
     const turretBounds = boundsOf(carriage), gateBounds = boundsOf(gate)
-    if (carriage.userData.side > 0) assert.ok(turretBounds.max.x + .005 < gateBounds.min.x,
-      `${prefix} must retain lateral clearance inside its closed hull gate`)
-    else assert.ok(turretBounds.min.x > gateBounds.max.x + .005,
-      `${prefix} must retain lateral clearance inside its closed hull gate`)
-    assert.ok(turretBounds.max.y + .005 < gateBounds.max.y,
-      `${prefix} must settle below its closed gate with vertical clearance`)
+    assert.ok(turretBounds.max.y + .005 < gateBounds.min.y,
+      `${prefix} must settle below its closed hull gate before moving to the requested outboard line`)
     rig.apply(.20, 0)
     const onset = carriage.position.clone(), onsetRail = rail.position.clone(), open = gate.position.clone()
     assert.ok(shut.y - open.y > 4, 'Gate must clear before the final combined stroke')
-    assert.ok(Math.abs(onset.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6)
-    assert.ok(Math.abs(onsetRail.y - parkedRail.y - Number(rail.userData.finalStowDrop)) < 1e-6)
     rig.apply(1, 0)
     const deployed = carriage.position.clone(), deployedRail = rail.position.clone()
+    assert.ok(onset.y > parked.y && onset.y < deployed.y,
+      'Gun is already descending at 20% without reaching the parked level')
+    assert.ok(onsetRail.y > parkedRail.y && onsetRail.y < deployedRail.y,
+      'Shared rail descends on the same interval')
+    assert.ok(Math.abs(deployed.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6)
+    assert.ok(Math.abs(deployedRail.y - parkedRail.y - Number(rail.userData.finalStowDrop)) < 1e-6)
+    for (const d of [.40, .47, .55, .68, .8, 1]) {
+      rig.apply(d, 0)
+      assert.ok(Math.abs(carriage.position.y - deployed.y) < 1e-6,
+        'Aft gun cannot have a separate late upward lift')
+      assert.ok(Math.abs(rail.position.y - deployedRail.y) < 1e-6,
+        'Support rail remains at deployed height after 40%')
+    }
+    let previousHeight = deployed.y
+    for (let step = 39; step >= 5; step--) {
+      const d = step / 100
+      rig.apply(d, 0)
+      const gunHeight = carriage.position.y
+      const gunProgress = (gunHeight - parked.y) / (deployed.y - parked.y)
+      const railProgress = (rail.position.y - parkedRail.y) / (deployedRail.y - parkedRail.y)
+      assert.ok(gunHeight <= previousHeight + 1e-6, 'Aft gun must descend monotonically')
+      assert.ok(previousHeight - gunHeight < .33, 'Aft gun must descend gently enough to clear the opening')
+      assert.ok(Math.abs(gunProgress - railProgress) < 1e-6,
+        'Gun and support rail must share the same descent progress')
+      previousHeight = gunHeight
+    }
     assert.ok(Math.abs(onset.x - parked.x) > .1 && Math.abs(onset.x - parked.x) < Math.abs(deployed.x - parked.x) * .25,
       'At 20%, the turret still has its final inward travel remaining')
     assert.ok(Math.abs(onsetRail.x - parkedRail.x) > Math.abs(onset.x - parked.x),

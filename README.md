@@ -33,7 +33,7 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前待审核模型：[`assets/blender/odin_articulated_v0.11.8.blend`](assets/blender/odin_articulated_v0.11.8.blend)。本轮让后四座双联装副炮的长导轨与下方托架向内收至与炮塔相同的终点，收进速度略慢于炮塔，但不再大幅落后而穿出炮塔玻璃；托架与炮塔的下沉仍同步。保留此前的舰桥灰色涂装；舰艏单联装炮塔暂不修改。打开 `/?review=secondary` 可逐座查看真实 JS 动画，切换侧视、俯视或拖动进度。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
+当前待审核模型：[`assets/blender/odin_articulated_v0.11.9.blend`](assets/blender/odin_articulated_v0.11.9.blend)。本轮取消后四座双联装副炮收放末段的额外抬升；收起时从进度 40% 开始缓慢下沉，炮塔、长导轨和托架同步。完全收起位置比上一版向外约 2.7 模型单位，对齐参考图蓝线。托架内收仍略慢于炮塔，但终点一致。保留此前的舰桥灰色涂装；舰艏单联装炮塔暂不修改。打开 `/?review=secondary` 可逐座查看真实 JS 动画，切换侧视、俯视或拖动进度。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
 
 每座主炮井保留五块独立护甲。两块长板先微量脱开齿口，再沿短导轨向外、向下平移，停留在船壳外侧；后段两块三角补片沿斜置铰链外翻约 130°；前端短盖沿原船壳的锯齿轮廓贴合，微抬后向船艏滑动。内侧使用深红色，外侧保留原灰色材质。v0.10.0 保持十片护甲的外表面和边界不变，向内加厚至原来的 2.1 倍，并让隐藏的固定接收面为厚边让位。
 

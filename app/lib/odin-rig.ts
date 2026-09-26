@@ -162,13 +162,12 @@ export function createOdinRig(root: THREE.Object3D) {
     // has completely closed. The other axial turrets have no such stroke.
     const keelCarriage = ease(.02, .20, d)
     pose('Axial_Keel_Mount', v(0, 14.270 * keelCarriage, -6.135 * keelCarriage))
-    // The aft twins complete 80% of their inward travel first. During the
-    // remaining 20%, their gun carriages keep retracting while both the guns
-    // and the shared support rails sink on the same curve. The hull gates
-    // close only after that combined stroke has seated completely.
+    // The aft twins begin descending at 40% while still retracting. Their
+    // former late ring lift is removed entirely. Rails follow the same slow
+    // vertical curve; hull gates close only after the assembly seats at 5%.
     const aftFinal = ease(.05, .20, d)
     const aftCarriage = .2 * aftFinal + .8 * ease(.20, .52, d)
-    const aftSink = 1 - aftFinal
+    const aftSink = 1 - ease(.05, .40, d)
     const gate = ease(0, .05, d), carriage = ease(.24, .52, d), ring = ease(.47, .68, d), gun = ease(.65, .94, d)
     for (let i = 5; i <= 8; i++) {
       const name = `Defense_${String(i).padStart(2, '0')}_NotchGate`, data = joints.get(name)?.object.userData
@@ -196,7 +195,7 @@ export function createOdinRig(root: THREE.Object3D) {
       const finalSink = forward ? 0 : Number(data?.finalStowDrop || 0) * aftSink
       pose(prefix + '_Carriage', forward
         ? v(sign * 9.781 * carriage, 2.079 * carriage, 2 * ring)
-        : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, 2 * ring - finalSink))
+        : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, -finalSink))
       const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
       const scan = Math.sin(time * .10 + i * .7) * 3 * aim
       pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gun + scan))

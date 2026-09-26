@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.8.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.9.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.9 removes the separate late vertical lift from aft twin batteries 5–8. The gun carriages and their shared guides/support rails begin a single eased descent at 40% of deployment and seat before hull gates close. Their common inboard endpoint moves 2.7 source units outward from v0.11.8, matching the reviewer's blue-line target; the final drop increases to keep the closed gates clear. The guides retain their small inboard lag. The original geometry is unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.8.blend --python tools/retime_aft_twins_v0119.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.9.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.8 gives the two shared aft twin support rails, including their long guides and lower brackets, the same inboard parked endpoint as the gun carriages. A small bounded lag lets the rails retract slightly more slowly than the guns without leaving them protruding through the turret glazing. The rails and carriages still sink together during the last fifth of travel. Geometry and the previously approved bridge paint remain unchanged.
 
