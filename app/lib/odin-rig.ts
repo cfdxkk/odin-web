@@ -65,7 +65,7 @@ export function createOdinRig(root: THREE.Object3D) {
         // First lift just clear of the serrated lip, then ease outboard and
         // down to the exposed resting position. The rigid skin never rotates.
         if (data?.clearanceLift && data?.slideVector) {
-          const liftOff = ease(0, .14, covers), travel = ease(.10, 1, covers)
+          const liftOff = ease(0, Number(data.clearancePhaseEnd || .14), covers), travel = ease(.10, 1, covers)
           const settle = travel * travel
           const clearance = data.clearanceLift as [number, number, number]
           const slide = data.slideVector as [number, number, number]
@@ -118,63 +118,97 @@ export function createOdinRig(root: THREE.Object3D) {
       localMatrix.copy(object.parent!.matrixWorld).invert().multiply(shroud.matrixWorld).multiply(targetMatrix)
       localMatrix.decompose(object.position, object.quaternion, rigidScale)
     }
-    const axialShutters = ease(.08, .35, d)
-    for (const station of ['Bow', 'Stern', 'Keel']) for (const leaf of ['Port', 'Starboard']) {
-      const name = `Axial_${station}_Shutter_${leaf}`, data = joints.get(name)?.object.userData
-      if (data?.hingeAxis) pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...data.hingeAxis as [number, number, number]).normalize(), rad(Number(data.openingSign) * 90 * (1 - axialShutters))))
-    }
-    const axial = ease(.38, .84, d)
-    pose('Axial_Bow_Barrel', v(0, .432 * axial, -.399 * axial - 5.2 * (1 - axial)), rotation(21 * axial, 0, 0))
-    pose('Axial_Stern_Barrel', v(0, -.276 * axial, -.505 * axial - 5.2 * (1 - axial)), rotation(-21 * axial, 0, 0))
-    pose('Axial_Keel_Mount', v(0, 14.270 * lift, -6.135 * lift))
-    pose('Axial_Keel_Barrel', v(0, -.386 * axial, .444 * axial + 5.2 * (1 - axial)), rotation(21 * axial, 0, 0))
-    for (let index = 0; index < 4; index++) {
-      const unfold = ease(.16 + index * .025, .77 + index * .025, d)
-      for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
-        const name = `SideBattery_${index + 1}_${side}`
-        const data = joints.get(name)?.object.userData.deployQuaternion
-        if (!data) continue
-        const scan = Math.sin(time * .11 + index * .85 + sign) * 5 * aim
-        const turn = identity.clone().slerp(new THREE.Quaternion(...data as [number, number, number, number]), unfold)
-        pose(name, v(0, 0, 0), rotation(0, 0, scan).multiply(turn))
+    // Eleven singles: one physical pitch axis per bore, no yaw or idle scan.
+    // Every pair of vented skins closes into the channel's triangular cap.
+    const singleLift = ease(.39, .84, d)
+    joints.forEach(({ object }, name) => {
+      const data = object.userData
+      if (data.barrelJoint && data.hingeAxisModel) {
+        const leafOpen = ease(Number(data.openStart ?? .02), Number(data.openEnd ?? .30), d)
+        pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - leafOpen)))
       }
+      if (data.singleBattery && data.hingeAxisModel) {
+        const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift
+        const seatAxis = (data.stowDirectionModel || data.outwardNormal) as [number, number, number]
+        const seating = v(...seatAxis).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
+        const restLift = Number(data.restLiftDegrees || 0)
+        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(restLift * (1 - gunLift) + Number(data.pitchDegrees) * gunLift)))
+      }
+      if (data.system === 'side-front-slider') {
+        // This pair is authored CLOSED: lift off its seal, then slide forward.
+        pose(name, v(...data.liftVector as [number, number, number]).multiplyScalar(ease(0, .07, d))
+          .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.08, .24, d))))
+      }
+      if (data.system === 'side-battery-carriage') {
+        // Closing first folds the leaves, then lifts the complete rear cradle
+        // and advances it until groups 3/4 seat against stationary group 2.
+        const closing = 1 - d
+        pose(name, v(...data.liftVector as [number, number, number]).multiplyScalar(ease(.76, .86, closing))
+          .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.87, 1, closing))))
+      }
+      if (data.system === 'single-front-cap') {
+        // Recovered source caps are authored in their deployed location.
+        // NAV seats them against the folding leaves; SCM returns to source.
+        const slide = ease(Number(data.slideStart ?? .09), Number(data.slideEnd ?? .23), d)
+        const settle = ease(Number(data.settleStart ?? .24), Number(data.settleEnd ?? .36), d)
+        pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - slide : slide)
+          .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
+      }
+      if (data.system === 'pdc-hull-petal') {
+        pose(name, v(...data.stowVector as [number, number, number]).multiplyScalar(1 - ease(.03, .14, d)))
+      }
+    })
+    // The keel turret has a final diagonal inboard stroke after its armor
+    // has completely closed. The other axial turrets have no such stroke.
+    const keelCarriage = ease(.02, .20, d)
+    pose('Axial_Keel_Mount', v(0, 14.270 * keelCarriage, -6.135 * keelCarriage))
+    // The aft twins complete 80% of their inward travel first. During the
+    // remaining 20%, their gun carriages keep retracting while both the guns
+    // and the shared support rails sink on the same curve. The hull gates
+    // close only after that combined stroke has seated completely.
+    const aftFinal = ease(.05, .20, d)
+    const aftCarriage = .2 * aftFinal + .8 * ease(.20, .52, d)
+    const aftSink = 1 - aftFinal
+    const gate = ease(0, .05, d), carriage = ease(.24, .52, d), ring = ease(.47, .68, d), gun = ease(.65, .94, d)
+    for (let i = 5; i <= 8; i++) {
+      const name = `Defense_${String(i).padStart(2, '0')}_NotchGate`, data = joints.get(name)?.object.userData
+      if (data?.slideVector) pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(gate).add(v(...data.releaseVector as [number, number, number]).multiplyScalar(ease(0, .04, d))))
     }
-    const carriage = ease(.06, .37, d), ring = ease(.31, .60, d), gun = ease(.57, .91, d)
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
-      pose(`DefenseRail_${station}_${side}`, v(sign * (station === 'Forward' ? 9.781 : 9.903) * carriage, (station === 'Forward' ? 2.079 : -1.392) * carriage, 0))
+      const name = `DefenseRail_${station}_${side}`
+      const drop = station === 'Aft' ? Number(joints.get(name)?.object.userData.finalStowDrop || 0) * aftSink : 0
+      pose(name, station === 'Aft'
+        ? v(sign * 9.903 * aftCarriage, -1.392 * aftCarriage, -drop)
+        : v(sign * 9.781 * carriage, 2.079 * carriage, 0))
     }
     for (let i = 0; i < 8; i++) {
       const prefix = `Defense_${String(i + 1).padStart(2, '0')}`, data = joints.get(prefix + '_Carriage')?.object.userData
       const sign = Number(data?.side || 1), forward = i < 4
-      pose(prefix + '_Carriage', v(sign * (forward ? 9.781 : 9.903) * carriage, (forward ? 2.079 : -1.392) * carriage, 2 * ring))
-      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * 35 * gun))
-      const axis = joints.get(prefix + '_Elevation')?.object.userData.hingeAxis
-      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(...axis as [number, number, number]), rad(25 * gun)))
+      const inward = forward ? 0 : Number(data?.finalStowInward || 0)
+      const finalSink = forward ? 0 : Number(data?.finalStowDrop || 0) * aftSink
+      pose(prefix + '_Carriage', forward
+        ? v(sign * 9.781 * carriage, 2.079 * carriage, 2 * ring)
+        : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, 2 * ring - finalSink))
+      const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
+      const scan = Math.sin(time * .10 + i * .7) * 3 * aim
+      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gun + scan))
+      const elevation = joints.get(prefix + '_Elevation')?.object.userData
+      const axis = elevation?.hingeAxisModel
+      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...axis as [number, number, number]).normalize(), rad(Number(elevation.pitchDegrees)) * gun))
     }
     // The RSI tower-quad clip shows parallel gun rails, not a 180-degree flip.
     // A short pod travel precedes the longer gun slide; yaw begins only in SCM.
     const pdcOut = ease(.10, .40, d), pdcArms = ease(.36, .88, d)
     for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
-      pose(`PDC_${side}_Carriage`, v(sign * (12 + 8 * pdcOut), 0, 0))
+      pose(`PDC_${side}_Carriage`, v(sign * (18 + 2 * pdcOut), 0, 0))
       pose(`PDC_${side}_Gimbal`, v(0, 0, 0), rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const armOpen = ease(.36 + (i >= 2 ? .025 : 0), .86 + (i >= 2 ? .025 : 0), d)
-        pose(`PDC_${side}_Arm_${i}`, v(-sign * 20 * (1 - armOpen), 0, 0))
+        const travel = Number(joints.get(`PDC_${side}_Arm_${i}`)?.object.userData.stowTravel || 13.5)
+        pose(`PDC_${side}_Arm_${i}`, v(-sign * travel * (1 - armOpen), 0, 0))
       }
     }
-    // Existing bridge louvers follow the roof guide before rotating into place.
-    const shield = ease(.04, .56, d)
-    joints.forEach(({ object }, name) => {
-      if (!name.startsWith('BridgeArmor_')) return
-      const bank = object.userData.bank
-      if (bank === 'Front') {
-        const slide = ease(0, .50, shield), fold = ease(.25, 1, shield)
-        pose(name, v(0, -5 * (1 - slide), 1.50 * (1 - fold)), rotation(-55 * (1 - fold), 0, 0))
-      }
-      if (bank === 'RearUpper') pose(name, v(0, -.32 * shield, 0), rotation(-82 * shield, 0, 0))
-      if (bank === 'RearLower') pose(name, v(0, -.24 * shield, 0), rotation(77 * shield, 0, 0))
-    })
-    return { joints: joints.size, deployment: d, covers, barrels, pdcArms, shield }
+    return { joints: joints.size, deployment: d, covers, barrels, pdcArms }
   }
   // Capture the unchanged fully deployed attachment once. The ventral source
   // cover names are mirrored relative to their physical port/starboard bores.
