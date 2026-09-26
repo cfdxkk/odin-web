@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 175,
-  "triangles": 2440521,
+  "triangles": 2440585,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -133,19 +133,21 @@
     "Four centered single bores stow parallel to their channels with calibrated rear pivots; local transition and nose openings closed; interior stiffeners painted red",
     "Fixed nose infill continues the original lower inner-slot nose plane without the former triangular depression",
     "All four vertical flank mounts have smooth armor lower edges seated on the original inner rail; the first pair meets the original front lip without an outboard folded return",
-    "Armor crowns return to their accepted flat top line while the lower edges retain their measured source-rail fit; all twenty-four hinged leaves rotate around their actual armor-to-slot contact edges"
+    "All four vertical flank armor crowns sit at their source front-receiver height, removing the first plate ramp and aligning the closed top-view line",
+    "All eight vertical flank armor outer edges follow one straight plan-view rail per side, with their contact hinges rebaked on that rail",
+    "The eight front triangular seams are closed on the original lower nose panel rather than the upper fairing"
   ],
   "webOptimization": {
     "batchedMeshes": 175,
-    "highTriangles": 2440521,
-    "liteTriangles": 873332,
-    "highBytes": 18618260,
-    "liteBytes": 8179048,
+    "highTriangles": 2440585,
+    "liteTriangles": 873343,
+    "highBytes": 18619620,
+    "liteBytes": 8179668,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.3",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.3.blend",
+  "version": "0.11.4",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.4.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

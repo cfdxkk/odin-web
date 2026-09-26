@@ -36,24 +36,26 @@ d['completion'] += ['Each complete main bore follows its physical shroud rigidly
 if version=='0.9.0':
  d['rigSystems'] += ['single-shutter','defense-gate']
  d['completion'] += ['Eleven elevation-only singles with forward trunnions and seventy fitted triangular shutter leaves', 'Eight twin gun elevations measured from their actual bores, four independent aft hull notch gates', 'Eight stationary quad root armor assemblies with shorter sliding tubes', 'Recovered rear bridge shield faces, separate glazing and roof tracks; warm charcoal bridge and tea-gold windows', 'Main bay stationary corner receivers follow the adjacent exterior hull plane']
-if version in ['0.10.0','0.11.0','0.11.1','0.11.2','0.11.3']:
+if version in ['0.10.0','0.11.0','0.11.1','0.11.2','0.11.3','0.11.4']:
  d['bridgeArmorSlats']=0
  d['rigSystems']=[v for v in d['rigSystems']if v not in ['bridge-armor','axial-shutter']]+['single-shutter','single-front-cap','defense-gate','pdc-hull-petal']
  d['completion']=[v for v in d['completion']if 'bridge armor'not in v and 'axial shutter'not in v]
  d['completion'] += ['Eleven rear-trunnion single batteries with their original seven covers animated per mount; source front cap pose is the deployed endpoint', 'Fixed bridge with rectangular flush tea-gold glazing, airflow-aligned antennas with UV-painted bands, faceted radome and four truss-mounted capsule radars', 'Short upper capsule trusses attach to the original projecting bridge tab; rear capsule trusses extend diagonally aft', 'Eight independent quad aperture petals, narrowed support forks and deeper aft twin stow', 'All ten main battery armor plates reinforced inward while preserving accepted outer contours']
-if version in ['0.11.0','0.11.1','0.11.2','0.11.3']:
+if version in ['0.11.0','0.11.1','0.11.2','0.11.3','0.11.4']:
  d['rigSystems']+=['side-front-slider','side-battery-leaf','side-battery-carriage']
  d['completion']=[v for v in d['completion']if not v.startswith('Eleven rear-trunnion')]
  d['completion']+=['Four vertical flank singles (port/starboard 1 and 3): eight armor halves in four groups; first pair lifts then slides forward; original vented leaves close around physical inner edges with a flat ridge', 'Complete rear flank cradle, barrel and groups 3/4 lift then advance together on closing; upper sloping and axial singles retain their prior mechanisms', 'Legacy flank tip wings removed; aft first-pair parking is allowed inside the hull as requested']
  d['completion']+=['Matching inclined seams between groups 2/3 and unequal-ended trapezoid first sliders', 'Original grate detail stays inside continuous smooth hull-painted skins; only the local triangular bay gaps receive mirrored infill']
-if version in ['0.11.1','0.11.2','0.11.3']:
+if version in ['0.11.1','0.11.2','0.11.3','0.11.4']:
  d['completion']+=['Fixed bay floors and transitions remain on the hull; only the rear pedestal, gun, bearings and groups 3/4 translate', 'Four centered single bores stow parallel to their channels with calibrated rear pivots; local transition and nose openings closed; interior stiffeners painted red']
  d['completion']+=['Fixed nose infill continues the original lower inner-slot nose plane without the former triangular depression']
  d['completion']+=['Aft first armor pair returns inward/down onto the original lower slot rim; leading contours remain clear of the larger outer hull surround']
-if version in ['0.11.2','0.11.3']:
+if version in ['0.11.2','0.11.3','0.11.4']:
  d['completion']=[v for v in d['completion'] if not v.startswith('Aft first armor pair returns')]
  d['completion']+=['All four vertical flank mounts have smooth armor lower edges seated on the original inner rail; the first pair meets the original front lip without an outboard folded return']
 if version=='0.11.3':
  d['completion']+=['Armor crowns return to their accepted flat top line while the lower edges retain their measured source-rail fit; all twenty-four hinged leaves rotate around their actual armor-to-slot contact edges']
+if version=='0.11.4':
+ d['completion']+=['All four vertical flank armor crowns sit at their source front-receiver height, removing the first plate ramp and aligning the closed top-view line', 'All eight vertical flank armor outer edges follow one straight plan-view rail per side, with their contact hinges rebaked on that rail', 'The eight front triangular seams are closed on the original lower nose panel rather than the upper fairing']
 d['completion']=list(dict.fromkeys(d['completion']))
 manifest.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf8');print('EXPORTED',d['webOptimization'],flush=True)

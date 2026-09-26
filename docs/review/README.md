@@ -1,6 +1,6 @@
 # Articulation review
 
-当前候选：[v0.11.3 侧舷四座炮塔装甲贴合与接触边转轴](v0.11.3/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
+当前候选：[v0.11.4 侧舷四座炮塔闭合直线与下层鼻端补片](v0.11.4/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
 
 ## Archived review — v0.7.0
 

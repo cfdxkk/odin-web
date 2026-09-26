@@ -1,6 +1,15 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.3.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.4.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.4 lowers groups 2–4 on the four vertical flank mounts to the original front-receiver crown and flattens the first plate to the same height. The closed plates and their physical contact edges follow a continuous straight plan-view line. A small fixed triangle closes each lower nose seam using vertices from the original lower inner-slot panel. [Four-mount, four-angle review](../../docs/review/v0.11.4/README.md) includes the geometry audit and 101-pose clearance sweep.
+
+Reproduce this revision from the committed v0.11.3 asset:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.3.blend --python tools/refine_flank_contour_v0114.py
+blender -b assets/blender/odin_articulated_v0.11.4.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.3 restores the accepted flat crowns on all four vertical flank mounts while retaining the original inner-rail and front-rim fit of their lower armor edges. Each of the 24 folding leaves now pivots on the actual armor-to-slot contact edge. Its 150-degree fold clears the fixed triangular fairings. The red grate detail remains recessed beneath the smooth exterior. The [four-mount, four-angle review](../../docs/review/v0.11.3/README.md) includes the measured contact-edge audit.
 
