@@ -1,0 +1,135 @@
+{
+  "singleCovers": {
+    "mounts": 11,
+    "sideLeaves": 66,
+    "frontCaps": 11,
+    "geometry": "Original source panels, native relief and thickness retained",
+    "sourcePose": "Deployed"
+  },
+  "lowerGlass": {
+    "planeError": 1.3668469591721077e-06,
+    "planeNormal": [
+      -1.9944656060033594e-07,
+      0.9934183955192566,
+      0.11454171687364578
+    ],
+    "planeDistance": -16.458816259385685,
+    "bounds": [
+      [
+        -3.4200000762939453,
+        -27.570993423461914,
+        80.48999786376953
+      ],
+      [
+        3.4200000762939453,
+        -25.84840202331543,
+        95.43000030517578
+      ]
+    ]
+  },
+  "bridge": {
+    "armorJoints": 0,
+    "radomeTriangles": 320,
+    "capsules": 4,
+    "mountedPanelAntennas": 4,
+    "antennaStripe": "Continuous embedded UV texture; no stripe geometry",
+    "radarMounts": {
+      "Port": {
+        "rearBoomAnchor": [
+          -19.5,
+          -77.5,
+          105.80000305175781
+        ],
+        "rearCapsule": [
+          -25.299999237060547,
+          -85.30000305175781,
+          104.80667114257812
+        ],
+        "bridgeBoomAnchor": [
+          -0.43882957100868225,
+          -52.0,
+          123.0999984741211
+        ],
+        "bridgeCapsule": [
+          -6.5,
+          -52.0,
+          122.5
+        ]
+      },
+      "Starboard": {
+        "rearBoomAnchor": [
+          19.5,
+          -77.5,
+          105.80000305175781
+        ],
+        "rearCapsule": [
+          25.299999237060547,
+          -85.30000305175781,
+          104.80667114257812
+        ],
+        "bridgeBoomAnchor": [
+          0.43882957100868225,
+          -52.0,
+          123.0999984741211
+        ],
+        "bridgeCapsule": [
+          6.5,
+          -52.0,
+          122.5
+        ]
+      }
+    }
+  },
+  "mainArmor": {
+    "Hatch_Dorsal_Port_FittedSkin": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.4081206021557549,
+      "thicknessAfter": 0.8570537004772969
+    },
+    "Hatch_Dorsal_Starboard_FittedSkin": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.4081206021557549,
+      "thicknessAfter": 0.8570537004772969
+    },
+    "Hatch_Dorsal_Nose_Wedge": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.25,
+      "thicknessAfter": 0.5250015236060422
+    },
+    "Hatch_Ventral_Port_FittedSkin": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.18000030242709078,
+      "thicknessAfter": 0.3780021696545635
+    },
+    "Hatch_Ventral_Starboard_FittedSkin": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.18000030242709078,
+      "thicknessAfter": 0.3780021696545635
+    },
+    "Hatch_Ventral_Nose_Wedge": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.05500030464662363,
+      "thicknessAfter": 0.1155014055724408
+    },
+    "Hatch_Dorsal_Aft_Port_GapFiller": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.20447248350588654,
+      "thicknessAfter": 0.4293911187444932
+    },
+    "Hatch_Dorsal_Aft_Starboard_GapFiller": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.20017395007102004,
+      "thicknessAfter": 0.4203646614050348
+    },
+    "Hatch_Ventral_Aft_Port_GapFiller": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.13416372564137782,
+      "thicknessAfter": 0.28174408528288947
+    },
+    "Hatch_Ventral_Aft_Starboard_GapFiller": {
+      "outerVertexError": 0.0,
+      "thicknessBefore": 0.1341643886250691,
+      "thicknessAfter": 0.2817451413821814
+    }
+  }
+}
