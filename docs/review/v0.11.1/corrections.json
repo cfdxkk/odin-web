@@ -1,0 +1,160 @@
+{
+  "SideBattery_1_Starboard": {
+    "fixedObjects": [
+      "SideBattery_1_Starboard_FixedBayFloor",
+      "SideBattery_1_Starboard_Shutter_Port_01_Skin_FixedTroughReturn",
+      "SideBattery_1_Starboard_Shutter_Starboard_01_Skin_FixedTroughReturn"
+    ],
+    "boreCorrectionDegrees": 0.5004584192140008,
+    "boreTransverseOffset": -1.5402425937048516e-16,
+    "boreRestAxis": [
+      -0.2917732835960306,
+      0.956487506964722,
+      3.4829088823033727e-08
+    ],
+    "rearTrunnion": [
+      80.91409811479497,
+      61.19270491972284,
+      4.180835693126236
+    ],
+    "normalSeatCorrection": 1.7019708661842956,
+    "muzzleRingSamples": 248,
+    "restParallelToSlot": true,
+    "aftSliderReceiverFit": {}
+  },
+  "SideBattery_1_Port": {
+    "fixedObjects": [
+      "SideBattery_1_Port_FixedBayFloor",
+      "SideBattery_1_Port_Shutter_Port_01_Skin_FixedTroughReturn",
+      "SideBattery_1_Port_Shutter_Starboard_01_Skin_FixedTroughReturn"
+    ],
+    "boreCorrectionDegrees": 0.5004584192140008,
+    "boreTransverseOffset": -5.58368353994771e-17,
+    "boreRestAxis": [
+      0.2917732835960306,
+      0.956487506964722,
+      3.4829088823033727e-08
+    ],
+    "rearTrunnion": [
+      -80.9140993942633,
+      61.19269386592873,
+      4.180835708669832
+    ],
+    "normalSeatCorrection": 1.7019890805722389,
+    "muzzleRingSamples": 248,
+    "restParallelToSlot": true,
+    "aftSliderReceiverFit": {}
+  },
+  "SideBattery_3_Starboard": {
+    "fixedObjects": [
+      "SideBattery_3_Starboard_FixedBayFloor",
+      "SideBattery_3_Starboard_Shutter_Port_01_Skin_FixedTroughReturn",
+      "SideBattery_3_Starboard_Shutter_Starboard_01_Skin_FixedTroughReturn"
+    ],
+    "boreCorrectionDegrees": 13.203295250579078,
+    "boreTransverseOffset": -2.8731982257664468e-15,
+    "boreRestAxis": [
+      -0.11520168785138339,
+      0.9933421218876147,
+      5.9496670771536696e-08
+    ],
+    "rearTrunnion": [
+      63.72009093283106,
+      -23.10172711830283,
+      -28.836905796696087
+    ],
+    "normalSeatCorrection": -0.7099280172786528,
+    "muzzleRingSamples": 269,
+    "restParallelToSlot": true,
+    "aftSliderReceiverFit": {
+      "Port": {
+        "frontEdgeRake": 1.4809336962013477,
+        "outerEnd": 18.871970221072996,
+        "receiverCrown": [
+          -0.4271098589629857,
+          22.567370426876796,
+          2.6055174542305766
+        ],
+        "receiverOuter": [
+          -2.4688791206386123,
+          19.543645527393213,
+          -0.32285304748722154
+        ],
+        "receiverLayer": "lower inner slot rim",
+        "endReturnGauge": 0.12
+      },
+      "Starboard": {
+        "frontEdgeRake": 1.4809286208741272,
+        "outerEnd": 18.86959559147398,
+        "receiverCrown": [
+          0.42549786808619683,
+          22.567370376149473,
+          2.605519104489087
+        ],
+        "receiverOuter": [
+          2.467274291217367,
+          19.54364523370852,
+          -0.322843493352399
+        ],
+        "receiverLayer": "lower inner slot rim",
+        "endReturnGauge": 0.12
+      }
+    }
+  },
+  "SideBattery_3_Port": {
+    "fixedObjects": [
+      "SideBattery_3_Port_FixedBayFloor",
+      "SideBattery_3_Port_Shutter_Port_01_Skin_FixedTroughReturn",
+      "SideBattery_3_Port_Shutter_Starboard_01_Skin_FixedTroughReturn"
+    ],
+    "boreCorrectionDegrees": 13.203295250579078,
+    "boreTransverseOffset": 2.1596340599560194e-15,
+    "boreRestAxis": [
+      0.11520168785138339,
+      0.9933421218876147,
+      5.9496670771536696e-08
+    ],
+    "rearTrunnion": [
+      -63.7198223344343,
+      -23.10175738387697,
+      -28.83690574728287
+    ],
+    "normalSeatCorrection": -0.7099783916592877,
+    "muzzleRingSamples": 270,
+    "restParallelToSlot": true,
+    "aftSliderReceiverFit": {
+      "Port": {
+        "frontEdgeRake": 1.480929997882118,
+        "outerEnd": 18.869594654759965,
+        "receiverCrown": [
+          -0.4254995572772575,
+          22.56737037614947,
+          2.605520723282201
+        ],
+        "receiverOuter": [
+          -2.4672740819105554,
+          19.543645233708517,
+          -0.3228431982701938
+        ],
+        "receiverLayer": "lower inner slot rim",
+        "endReturnGauge": 0.12
+      },
+      "Starboard": {
+        "frontEdgeRake": 1.4809323191832746,
+        "outerEnd": 18.87197115559892,
+        "receiverCrown": [
+          0.42710816977281574,
+          22.567370426876792,
+          2.6055196257809183
+        ],
+        "receiverOuter": [
+          2.4688793299505805,
+          19.54364552739321,
+          -0.3228495522293831
+        ],
+        "receiverLayer": "lower inner slot rim",
+        "endReturnGauge": 0.12
+      }
+    }
+  }
+}

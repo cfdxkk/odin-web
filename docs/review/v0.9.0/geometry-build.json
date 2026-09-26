@@ -1,0 +1,418 @@
+{
+  "singleBatteries": {
+    "SideBattery_1_Port": {
+      "trunnion": [
+        -77.56246948242188,
+        70.1882553100586,
+        4.284143924713135
+      ],
+      "axis": [
+        -0.08371715247631073,
+        0.03066868893802166,
+        0.9960175156593323
+      ],
+      "covers": [
+        "SideBattery_1_Port_Shutter_Port_00",
+        "SideBattery_1_Port_Shutter_Starboard_00",
+        "SideBattery_1_Port_Shutter_Port_01",
+        "SideBattery_1_Port_Shutter_Starboard_01",
+        "SideBattery_1_Port_Shutter_Port_02",
+        "SideBattery_1_Port_Shutter_Starboard_02",
+        "SideBattery_1_Port_Shutter_Port_03",
+        "SideBattery_1_Port_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1528
+    },
+    "SideBattery_1_Starboard": {
+      "trunnion": [
+        77.56246948242188,
+        70.1882553100586,
+        4.284146308898926
+      ],
+      "axis": [
+        -0.0837172418832779,
+        -0.030668407678604126,
+        -0.9960175156593323
+      ],
+      "covers": [
+        "SideBattery_1_Starboard_Shutter_Port_00",
+        "SideBattery_1_Starboard_Shutter_Starboard_00",
+        "SideBattery_1_Starboard_Shutter_Port_01",
+        "SideBattery_1_Starboard_Shutter_Starboard_01",
+        "SideBattery_1_Starboard_Shutter_Port_02",
+        "SideBattery_1_Starboard_Shutter_Starboard_02",
+        "SideBattery_1_Starboard_Shutter_Port_03",
+        "SideBattery_1_Starboard_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1528
+    },
+    "SideBattery_2_Port": {
+      "trunnion": [
+        -57.402339935302734,
+        1.8272333145141602,
+        32.07054901123047
+      ],
+      "axis": [
+        0.937582790851593,
+        -0.10127885639667511,
+        0.3326875865459442
+      ],
+      "covers": [
+        "SideBattery_2_Port_Shutter_Port_00",
+        "SideBattery_2_Port_Shutter_Starboard_00",
+        "SideBattery_2_Port_Shutter_Port_01",
+        "SideBattery_2_Port_Shutter_Starboard_01",
+        "SideBattery_2_Port_Shutter_Port_02",
+        "SideBattery_2_Port_Shutter_Starboard_02",
+        "SideBattery_2_Port_Shutter_Port_03",
+        "SideBattery_2_Port_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1619
+    },
+    "SideBattery_2_Starboard": {
+      "trunnion": [
+        57.402339935302734,
+        1.8272333145141602,
+        32.07054901123047
+      ],
+      "axis": [
+        0.9375828504562378,
+        0.1012788638472557,
+        -0.3326876163482666
+      ],
+      "covers": [
+        "SideBattery_2_Starboard_Shutter_Port_00",
+        "SideBattery_2_Starboard_Shutter_Starboard_00",
+        "SideBattery_2_Starboard_Shutter_Port_01",
+        "SideBattery_2_Starboard_Shutter_Starboard_01",
+        "SideBattery_2_Starboard_Shutter_Port_02",
+        "SideBattery_2_Starboard_Shutter_Starboard_02",
+        "SideBattery_2_Starboard_Shutter_Port_03",
+        "SideBattery_2_Starboard_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1619
+    },
+    "SideBattery_3_Port": {
+      "trunnion": [
+        -61.98337936401367,
+        -13.368664741516113,
+        -28.704734802246094
+      ],
+      "axis": [
+        -0.08766888827085495,
+        0.016385121271014214,
+        0.9960149526596069
+      ],
+      "covers": [
+        "SideBattery_3_Port_Shutter_Port_00",
+        "SideBattery_3_Port_Shutter_Starboard_00",
+        "SideBattery_3_Port_Shutter_Port_01",
+        "SideBattery_3_Port_Shutter_Starboard_01",
+        "SideBattery_3_Port_Shutter_Port_02",
+        "SideBattery_3_Port_Shutter_Starboard_02",
+        "SideBattery_3_Port_Shutter_Port_03",
+        "SideBattery_3_Port_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1509
+    },
+    "SideBattery_3_Starboard": {
+      "trunnion": [
+        61.98337936401367,
+        -13.368664741516113,
+        -28.70473289489746
+      ],
+      "axis": [
+        -0.08766890317201614,
+        -0.01638500578701496,
+        -0.9960149526596069
+      ],
+      "covers": [
+        "SideBattery_3_Starboard_Shutter_Port_00",
+        "SideBattery_3_Starboard_Shutter_Starboard_00",
+        "SideBattery_3_Starboard_Shutter_Port_01",
+        "SideBattery_3_Starboard_Shutter_Starboard_01",
+        "SideBattery_3_Starboard_Shutter_Port_02",
+        "SideBattery_3_Starboard_Shutter_Starboard_02",
+        "SideBattery_3_Starboard_Shutter_Port_03",
+        "SideBattery_3_Starboard_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1509
+    },
+    "SideBattery_4_Port": {
+      "trunnion": [
+        -62.41800308227539,
+        -186.56622314453125,
+        31.992977142333984
+      ],
+      "axis": [
+        0.8973862528800964,
+        0.3896108567714691,
+        0.20712649822235107
+      ],
+      "covers": [
+        "SideBattery_4_Port_Shutter_Port_00",
+        "SideBattery_4_Port_Shutter_Starboard_00",
+        "SideBattery_4_Port_Shutter_Port_01",
+        "SideBattery_4_Port_Shutter_Starboard_01",
+        "SideBattery_4_Port_Shutter_Port_02",
+        "SideBattery_4_Port_Shutter_Starboard_02",
+        "SideBattery_4_Port_Shutter_Port_03",
+        "SideBattery_4_Port_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1633
+    },
+    "SideBattery_4_Starboard": {
+      "trunnion": [
+        62.41800308227539,
+        -186.56622314453125,
+        31.992977142333984
+      ],
+      "axis": [
+        0.8973862528800964,
+        -0.38961079716682434,
+        -0.20712651312351227
+      ],
+      "covers": [
+        "SideBattery_4_Starboard_Shutter_Port_00",
+        "SideBattery_4_Starboard_Shutter_Starboard_00",
+        "SideBattery_4_Starboard_Shutter_Port_01",
+        "SideBattery_4_Starboard_Shutter_Starboard_01",
+        "SideBattery_4_Starboard_Shutter_Port_02",
+        "SideBattery_4_Starboard_Shutter_Starboard_02",
+        "SideBattery_4_Starboard_Shutter_Port_03",
+        "SideBattery_4_Starboard_Shutter_Starboard_03"
+      ],
+      "sourceCoverVertices": 1633
+    },
+    "Axial_Bow_Barrel": {
+      "trunnion": [
+        -0.0018676300533115864,
+        246.22592163085938,
+        43.28474044799805
+      ],
+      "axis": [
+        1.0,
+        0.0002534106024540961,
+        -0.0
+      ],
+      "covers": [
+        "Axial_Bow_Shutter_Port",
+        "Axial_Bow_Shutter_Starboard"
+      ]
+    },
+    "Axial_Stern_Barrel": {
+      "trunnion": [
+        0.0018774231430143118,
+        -238.076171875,
+        58.10136032104492
+      ],
+      "axis": [
+        -0.9999999403953552,
+        -0.000261401932220906,
+        0.0
+      ],
+      "covers": [
+        "Axial_Stern_Shutter_Port",
+        "Axial_Stern_Shutter_Starboard"
+      ]
+    },
+    "Axial_Keel_Barrel": {
+      "trunnion": [
+        -0.0018722455715760589,
+        -42.37842559814453,
+        -62.192771911621094
+      ],
+      "axis": [
+        0.9999998807907104,
+        -0.0002611984091345221,
+        0.0
+      ],
+      "covers": [
+        "Axial_Keel_Shutter_Port",
+        "Axial_Keel_Shutter_Starboard"
+      ]
+    }
+  },
+  "quads": {
+    "PDC_Port_Arm_0": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Port_Arm_1": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Port_Arm_2": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Port_Arm_3": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Starboard_Arm_0": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Starboard_Arm_1": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Starboard_Arm_2": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    },
+    "PDC_Starboard_Arm_3": {
+      "staticRootVertices": 759,
+      "slidingVertices": 100,
+      "stowTravel": 13.5
+    }
+  },
+  "twins": {
+    "Defense_01": {
+      "bore": [
+        -0.9777712821960449,
+        0.20923230051994324,
+        -0.013607693836092949
+      ],
+      "axis": [
+        0.20925168693065643,
+        0.9778618216514587,
+        -0.0
+      ],
+      "pitchDegrees": 6.77968748934539
+    },
+    "Defense_02": {
+      "bore": [
+        -0.9777712821960449,
+        0.20923231542110443,
+        -0.0136076919734478
+      ],
+      "axis": [
+        0.20925170183181763,
+        0.9778618216514587,
+        -0.0
+      ],
+      "pitchDegrees": 6.779687382613802
+    },
+    "Defense_03": {
+      "bore": [
+        0.9777712821960449,
+        0.20923230051994324,
+        -0.013607600703835487
+      ],
+      "axis": [
+        0.20925168693065643,
+        -0.9778618216514587,
+        0.0
+      ],
+      "pitchDegrees": 6.779682152765996
+    },
+    "Defense_04": {
+      "bore": [
+        0.9777712821960449,
+        0.20923231542110443,
+        -0.013607598841190338
+      ],
+      "axis": [
+        0.20925170183181763,
+        -0.9778618216514587,
+        0.0
+      ],
+      "pitchDegrees": 6.779682046034408
+    },
+    "Defense_05": {
+      "bore": [
+        0.9899847507476807,
+        -0.1405169814825058,
+        -0.013607669621706009
+      ],
+      "axis": [
+        -0.14052999019622803,
+        -0.9900764226913452,
+        0.0
+      ],
+      "pitchDegrees": 6.779686101834747,
+      "gate": "Defense_05_NotchGate"
+    },
+    "Defense_06": {
+      "bore": [
+        0.9899847507476807,
+        -0.140516996383667,
+        -0.013607669621706009
+      ],
+      "axis": [
+        -0.14053000509738922,
+        -0.9900764226913452,
+        0.0
+      ],
+      "pitchDegrees": 6.779686101834747,
+      "gate": "Defense_06_NotchGate"
+    },
+    "Defense_07": {
+      "bore": [
+        -0.9903661608695984,
+        -0.13780330121517181,
+        -0.013607663102447987
+      ],
+      "axis": [
+        -0.13781607151031494,
+        0.9904578924179077,
+        0.0
+      ],
+      "pitchDegrees": 6.779685728274189,
+      "gate": "Defense_07_NotchGate"
+    },
+    "Defense_08": {
+      "bore": [
+        -0.9903661608695984,
+        -0.13780328631401062,
+        -0.013607668690383434
+      ],
+      "axis": [
+        -0.13781605660915375,
+        0.9904578924179077,
+        0.0
+      ],
+      "pitchDegrees": 6.779686048468953,
+      "gate": "Defense_08_NotchGate"
+    }
+  },
+  "bridge": {
+    "frontShields": 15,
+    "rearShields": 30,
+    "frontParkLift": 1.4,
+    "frontParkPitch": 127,
+    "glass": "warm gold / tea tint",
+    "towerPalette": [
+      0.34,
+      0.327,
+      0.307
+    ]
+  },
+  "mainHullCorners": {
+    "Port": {
+      "exteriorPlane": [
+        1.310733795166017,
+        -0.1238784790039063,
+        69.80176544189456
+      ],
+      "vertices": 134
+    },
+    "Starboard": {
+      "exteriorPlane": [
+        -1.3107299804687504,
+        -0.1238784790039063,
+        69.80171203613283
+      ],
+      "vertices": 135
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "unchangedObjects": 508,
+  "changedOutsideScope": [],
+  "mounts": {
+    "SideBattery_1_Starboard": {
+      "Port": {
+        "sourcePlane": [
+          1.4313340438920383,
+          0.001881542093844446,
+          3.4380172083206704
+        ],
+        "actualFrontRimError": 1.0800124791446507e-05,
+        "maximumRoofPlaneError": 0.0011119995623889989,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+            "vertices": 311,
+            "minimumRoofClearance": 0.40300554282031165
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+            "vertices": 231,
+            "minimumRoofClearance": 0.4030055563227808
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+            "vertices": 196,
+            "minimumRoofClearance": 0.4033169733527022
+          }
+        ]
+      },
+      "Starboard": {
+        "sourcePlane": [
+          -1.4313562362844685,
+          0.0018816614032984569,
+          3.435761206345634
+        ],
+        "actualFrontRimError": 1.0800124791054912e-05,
+        "maximumRoofPlaneError": 0.001113205562143768,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_00_Skin",
+            "vertices": 312,
+            "minimumRoofClearance": 0.40300732387569305
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_01_Skin",
+            "vertices": 229,
+            "minimumRoofClearance": 0.40300557229288314
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_02_Skin",
+            "vertices": 202,
+            "minimumRoofClearance": 0.4030081928951428
+          }
+        ]
+      }
+    },
+    "SideBattery_1_Port": {
+      "Port": {
+        "sourcePlane": [
+          1.4313527528416723,
+          0.0018816583259869124,
+          3.4357569563995205
+        ],
+        "actualFrontRimError": 1.0800124789288738e-05,
+        "maximumRoofPlaneError": 0.0011132037415834406,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_00_Skin",
+            "vertices": 312,
+            "minimumRoofClearance": 0.40300828979583725
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_01_Skin",
+            "vertices": 229,
+            "minimumRoofClearance": 0.40300596826344837
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_02_Skin",
+            "vertices": 202,
+            "minimumRoofClearance": 0.40300943399092226
+          }
+        ]
+      },
+      "Starboard": {
+        "sourcePlane": [
+          -1.431337527273639,
+          0.0018815451709260356,
+          3.4380236879473203
+        ],
+        "actualFrontRimError": 1.0800124790956972e-05,
+        "maximumRoofPlaneError": 0.0011120013809601814,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_00_Skin",
+            "vertices": 311,
+            "minimumRoofClearance": 0.4030087447312156
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_01_Skin",
+            "vertices": 231,
+            "minimumRoofClearance": 0.4030071344818702
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_02_Skin",
+            "vertices": 196,
+            "minimumRoofClearance": 0.403310956802565
+          }
+        ]
+      }
+    },
+    "SideBattery_3_Starboard": {
+      "Port": {
+        "sourcePlane": [
+          1.4327642429923804,
+          0.0016429170250843728,
+          3.1803888708965604
+        ],
+        "actualFrontRimError": 7.160723346098895e-15,
+        "maximumRoofPlaneError": 0.00197121796852473,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_00_Skin",
+            "vertices": 302,
+            "minimumRoofClearance": 0.4028720789590261
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_01_Skin",
+            "vertices": 228,
+            "minimumRoofClearance": 0.4028719461166026
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_02_Skin",
+            "vertices": 198,
+            "minimumRoofClearance": 0.4036426896924814
+          }
+        ]
+      },
+      "Starboard": {
+        "sourcePlane": [
+          -1.4327551143606607,
+          0.0016430695907442283,
+          3.178073591131029
+        ],
+        "actualFrontRimError": 0.0,
+        "maximumRoofPlaneError": 0.0019712056130287148,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_00_Skin",
+            "vertices": 296,
+            "minimumRoofClearance": 0.4028739014438184
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_01_Skin",
+            "vertices": 226,
+            "minimumRoofClearance": 0.40286906957546975
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_02_Skin",
+            "vertices": 206,
+            "minimumRoofClearance": 0.40287435026288576
+          }
+        ]
+      }
+    },
+    "SideBattery_3_Port": {
+      "Port": {
+        "sourcePlane": [
+          1.4327570935261216,
+          0.001643071116951722,
+          3.1780784378128133
+        ],
+        "actualFrontRimError": 0.0,
+        "maximumRoofPlaneError": 0.0019712074440327854,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_00_Skin",
+            "vertices": 296,
+            "minimumRoofClearance": 0.4028709375447299
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_01_Skin",
+            "vertices": 226,
+            "minimumRoofClearance": 0.4028705986171759
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_02_Skin",
+            "vertices": 206,
+            "minimumRoofClearance": 0.40287280547615456
+          }
+        ]
+      },
+      "Starboard": {
+        "sourcePlane": [
+          -1.4327622638136368,
+          0.0016429154990126038,
+          3.1803878113516437
+        ],
+        "actualFrontRimError": 3.580361673049448e-15,
+        "maximumRoofPlaneError": 0.001971216137499343,
+        "redInnerGrates": [
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_00_Skin",
+            "vertices": 302,
+            "minimumRoofClearance": 0.40287193871681204
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_01_Skin",
+            "vertices": 228,
+            "minimumRoofClearance": 0.4028713796325287
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_02_Skin",
+            "vertices": 198,
+            "minimumRoofClearance": 0.4036486977409841
+          }
+        ]
+      }
+    }
+  },
+  "originalSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e"
+}
