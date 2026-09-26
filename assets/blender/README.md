@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.6.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.7.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.7 adjusts only aft twin secondary batteries 5–8. Each carriage has 5.0 more source units of inward travel and sinks 4.0 units in total; both shared aft support rails sink by the same amount. The last 20% of retraction and the sink happen together in the browser rig, and the hull gates close only after both are seated. Geometry and the previously approved bridge paint remain unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.6.blend --python tools/revise_aft_defense_stow_v0117.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.7.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.6 removes only the six red pinstripe meshes added beneath the bridge in v0.11.5. The cement-gray material colors and their assigned hull faces are identical to v0.11.5. The bow single-gun geometry and animation are unchanged pending further direction.
 

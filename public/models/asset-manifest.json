@@ -135,21 +135,21 @@
     "All four vertical flank mounts have smooth armor lower edges seated on the original inner rail; the first pair meets the original front lip without an outboard folded return",
     "Side batteries 2 and 4 and all axial singles have smooth exterior armor, red inner reinforcements and physical contact-edge hinges; side 2 and 4 do not translate fore or aft",
     "The keel single retains its separate final diagonal inboard stroke after all armor is stowed",
-    "Aft defense twins 5–8 retain their former lateral travel and lower the complete carriage during final stow",
     "Bridge hull armor has a neutral cement-gray finish",
-    "The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette"
+    "The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette",
+    "Aft defense twins 5–8 keep retracting during the final 20% while the gun carriage and shared support rail sink together; the deeper inboard parked position clears the closed hull gates"
   ],
   "webOptimization": {
     "batchedMeshes": 175,
     "highTriangles": 2421597,
     "liteTriangles": 854355,
-    "highBytes": 18381684,
-    "liteBytes": 7852332,
+    "highBytes": 18381892,
+    "liteBytes": 7852540,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.6",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.6.blend",
+  "version": "0.11.7",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.7.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

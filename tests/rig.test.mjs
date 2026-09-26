@@ -635,27 +635,63 @@ test('each source nose cap returns to its original deployed seat after sliding a
   }
 })
 
-test('the four aft hull gates descend before twin carriages move and close after their return', () => {
-  const { root, rig } = loadRig()
+test('aft twins and their support rails retract and sink together before hull gates close', () => {
+  const { root, meshBounds, rig } = loadRig()
+  const boundsOf = object => {
+    const box = new THREE.Box3()
+    object.traverse(child => {
+      const bounds = meshBounds.get(child)
+      if (bounds) box.union(bounds.clone().applyMatrix4(child.matrixWorld))
+    })
+    return box
+  }
   for (let i = 5; i <= 8; i++) {
     const prefix = `Defense_${String(i).padStart(2, '0')}`
     const gate = root.getObjectByName(prefix + '_NotchGate'), carriage = root.getObjectByName(prefix + '_Carriage')
+    const side = carriage.userData.side < 0 ? 'Port' : 'Starboard'
+    const rail = root.getObjectByName(`DefenseRail_Aft_${side}`)
     assert.equal(gate.parent.name, 'Odin_Asset')
+    assert.equal(rail.parent.name, 'Odin_Asset')
+    assert.ok(carriage.userData.finalStowInward >= 4)
+    assert.ok(carriage.userData.finalStowDrop >= 3)
+    assert.equal(rail.userData.finalStowDrop, carriage.userData.finalStowDrop)
     rig.apply(0, 0)
-    const closed = gate.position.clone(), parked = carriage.position.clone()
-    rig.apply(.22, 0)
-    assert.ok(closed.y - gate.position.y > 4, 'Gate must clear the notch before the carriage leaves')
-    assert.ok(Math.abs(carriage.position.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6,
-      'The complete aft carriage sinks only in the last 20% of stow')
-    assert.ok(Math.abs(carriage.position.x - parked.x) < 1e-6 && Math.abs(carriage.position.z - parked.z) < 1e-6,
-      'The aft carriage retains its original lateral parking distance')
-    const open = gate.position.clone()
+    root.updateMatrixWorld(true)
+    const shut = gate.position.clone(), parked = carriage.position.clone(), parkedRail = rail.position.clone()
+    const turretBounds = boundsOf(carriage), gateBounds = boundsOf(gate)
+    if (carriage.userData.side > 0) assert.ok(turretBounds.max.x + .005 < gateBounds.min.x,
+      `${prefix} must retain lateral clearance inside its closed hull gate`)
+    else assert.ok(turretBounds.min.x > gateBounds.max.x + .005,
+      `${prefix} must retain lateral clearance inside its closed hull gate`)
+    assert.ok(turretBounds.max.y + .005 < gateBounds.max.y,
+      `${prefix} must settle below its closed gate with vertical clearance`)
+    rig.apply(.20, 0)
+    const onset = carriage.position.clone(), onsetRail = rail.position.clone(), open = gate.position.clone()
+    assert.ok(shut.y - open.y > 4, 'Gate must clear before the final combined stroke')
+    assert.ok(Math.abs(onset.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6)
+    assert.ok(Math.abs(onsetRail.y - parkedRail.y - Number(rail.userData.finalStowDrop)) < 1e-6)
+    rig.apply(1, 0)
+    const deployed = carriage.position.clone(), deployedRail = rail.position.clone()
+    assert.ok(Math.abs(onset.x - parked.x) > .1 && Math.abs(onset.x - parked.x) < Math.abs(deployed.x - parked.x) * .25,
+      'At 20%, the turret still has its final inward travel remaining')
+    assert.ok(Math.abs(onsetRail.x - parkedRail.x) > .1 && Math.abs(onsetRail.x - parkedRail.x) < Math.abs(deployedRail.x - parkedRail.x) * .25)
+    rig.apply(.10, 0)
+    assert.ok(carriage.position.y < onset.y && carriage.position.y > parked.y,
+      'Turret sinks while its inward travel is still underway')
+    assert.ok(rail.position.y < onsetRail.y && rail.position.y > parkedRail.y,
+      'Shared support rail sinks with the turret')
+    assert.ok(Math.abs(carriage.position.x - parked.x) < Math.abs(onset.x - parked.x))
+    assert.ok(Math.abs(rail.position.x - parkedRail.x) < Math.abs(onsetRail.x - parkedRail.x))
+    rig.apply(.05, 0)
+    assert.ok(carriage.position.distanceTo(parked) < 1e-6 && rail.position.distanceTo(parkedRail) < 1e-6,
+      'The full carriage and bracket are parked before the gate shuts')
+    assert.ok(gate.position.distanceTo(open) < 1e-6)
     for (const d of [.3, .5, .8, 1, .6, .25]) {
       rig.apply(d, 0)
       assert.ok(gate.position.distanceTo(open) < 1e-6)
     }
     rig.apply(0, 0)
-    assert.ok(gate.position.distanceTo(closed) < 1e-6)
+    assert.ok(gate.position.distanceTo(shut) < 1e-6)
   }
 })
 
