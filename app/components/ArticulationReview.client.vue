@@ -21,8 +21,12 @@ const shots: Shot[] = [
   { name: '舰桥 · 前部', point: [0,-27,128], view: [1,2,.5], width: .66 },
   { name: '舰桥 · 后部', point: [0,-43,128], view: [1,-2,.5], width: .7 },
   { name: '主炮 · 船体接缝', point: [11.5,117,40], view: [2,0,.2], width: .25 },
+  { name: '舰桥 · 雷达与桁架', point: [0,-50,119], view: [1,-1,.55], width: 1.05 },
+  { name: '舰桥 · 下层玻璃', point: [0,-24,91], view: [1,3,.4], width: .4 },
+  { name: '主炮 · 上方五块护甲', point: [0,124,45], view: [1,1,.8], width: 1.2 },
+  { name: '主炮 · 下方五块护甲', point: [0,76,-56], view: [1,1,-.8], width: 1.2 },
 ]
-const canvas = ref<HTMLCanvasElement>(), selected = ref(6), angle = ref('斜视')
+const canvas = ref<HTMLCanvasElement>(), selected = ref(4), angle = ref('斜视')
 const deployment = ref(0), playing = ref(false), loading = ref(0), ready = ref(false), error = ref('')
 let focus: (() => void) | undefined, cleanup: (() => void) | undefined, disposed = false, cycle = 0
 watch([selected,angle], () => focus?.())
@@ -68,7 +72,7 @@ onMounted(async () => {
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.9.0',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.10.0',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -90,7 +94,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.9.0</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.10.0</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>

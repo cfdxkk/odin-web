@@ -1,6 +1,6 @@
 # Articulation review
 
-当前候选：[v0.9.0 副炮、舰桥及主炮固定船壳接缝](v0.9.0/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
+当前候选：[v0.10.0 七片单联装护罩、后耳轴与舰桥雷达](v0.10.0/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
 
 ## Archived review — v0.7.0
 
