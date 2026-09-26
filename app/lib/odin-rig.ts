@@ -176,9 +176,17 @@ export function createOdinRig(root: THREE.Object3D) {
     }
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const name = `DefenseRail_${station}_${side}`
-      const drop = station === 'Aft' ? Number(joints.get(name)?.object.userData.finalStowDrop || 0) * aftSink : 0
+      const railData = joints.get(name)?.object.userData
+      const drop = station === 'Aft' ? Number(railData?.finalStowDrop || 0) * aftSink : 0
+      // The long guides and lower brackets retract a little behind the gun,
+      // but travel to the same inboard seat. The former shorter travel left
+      // them protruding through the turret glazing during the stroke.
+      const aftRailInboard = station === 'Aft'
+        ? aftCarriage + Number(railData?.retractLag || 0) * Math.sin(Math.PI * aftCarriage)
+        : 0
+      const aftRailExtra = Number(railData?.finalStowInward || 0)
       pose(name, station === 'Aft'
-        ? v(sign * 9.903 * aftCarriage, -1.392 * aftCarriage, -drop)
+        ? v(sign * ((9.903 + aftRailExtra) * aftRailInboard - aftRailExtra), -1.392 * aftRailInboard, -drop)
         : v(sign * 9.781 * carriage, 2.079 * carriage, 0))
     }
     for (let i = 0; i < 8; i++) {

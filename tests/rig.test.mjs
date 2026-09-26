@@ -635,7 +635,7 @@ test('each source nose cap returns to its original deployed seat after sliding a
   }
 })
 
-test('aft twins and their support rails retract and sink together before hull gates close', () => {
+test('aft twin guides retract just behind the gun and sink with its carriage', () => {
   const { root, meshBounds, rig } = loadRig()
   const boundsOf = object => {
     const box = new THREE.Box3()
@@ -655,6 +655,8 @@ test('aft twins and their support rails retract and sink together before hull ga
     assert.ok(carriage.userData.finalStowInward >= 4)
     assert.ok(carriage.userData.finalStowDrop >= 3)
     assert.equal(rail.userData.finalStowDrop, carriage.userData.finalStowDrop)
+    assert.equal(rail.userData.finalStowInward, carriage.userData.finalStowInward)
+    assert.ok(rail.userData.retractLag > 0 && rail.userData.retractLag <= .03)
     rig.apply(0, 0)
     root.updateMatrixWorld(true)
     const shut = gate.position.clone(), parked = carriage.position.clone(), parkedRail = rail.position.clone()
@@ -674,14 +676,26 @@ test('aft twins and their support rails retract and sink together before hull ga
     const deployed = carriage.position.clone(), deployedRail = rail.position.clone()
     assert.ok(Math.abs(onset.x - parked.x) > .1 && Math.abs(onset.x - parked.x) < Math.abs(deployed.x - parked.x) * .25,
       'At 20%, the turret still has its final inward travel remaining')
-    assert.ok(Math.abs(onsetRail.x - parkedRail.x) > .1 && Math.abs(onsetRail.x - parkedRail.x) < Math.abs(deployedRail.x - parkedRail.x) * .25)
+    assert.ok(Math.abs(onsetRail.x - parkedRail.x) > Math.abs(onset.x - parked.x),
+      'The rail remains only slightly behind the gun at the beginning of the final fifth')
+    for (let step = 1; step < 20; step++) {
+      rig.apply(step / 20, 0)
+      const railFraction = Math.abs((rail.position.x - parkedRail.x) / (deployedRail.x - parkedRail.x))
+      const gunFraction = Math.abs((carriage.position.x - parked.x) / (deployed.x - parked.x))
+      assert.ok(railFraction >= gunFraction - 1e-6,
+        'The rail must retract slightly more slowly than the gun')
+      assert.ok(railFraction - gunFraction <= .026,
+        'The rail may only lag by a small amount through the glazing')
+    }
+    rig.apply(.20, 0)
     rig.apply(.10, 0)
     assert.ok(carriage.position.y < onset.y && carriage.position.y > parked.y,
       'Turret sinks while its inward travel is still underway')
     assert.ok(rail.position.y < onsetRail.y && rail.position.y > parkedRail.y,
       'Shared support rail sinks with the turret')
     assert.ok(Math.abs(carriage.position.x - parked.x) < Math.abs(onset.x - parked.x))
-    assert.ok(Math.abs(rail.position.x - parkedRail.x) < Math.abs(onsetRail.x - parkedRail.x))
+    assert.ok(Math.abs(rail.position.x - parkedRail.x) < Math.abs(onsetRail.x - parkedRail.x),
+      'Long guides continue retracting with the gun until both reach the same inboard seat')
     rig.apply(.05, 0)
     assert.ok(carriage.position.distanceTo(parked) < 1e-6 && rail.position.distanceTo(parkedRail) < 1e-6,
       'The full carriage and bracket are parked before the gate shuts')

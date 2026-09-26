@@ -73,7 +73,7 @@ onMounted(async () => {
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.7-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.8-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -95,7 +95,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.7</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.8</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>
