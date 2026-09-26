@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.10.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.11.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.11 extends the existing cement-gray bridge finish across the connected aft dorsal spine, bridge-side apron, fore upper fairing and the small exposed central fore-deck wedge inside the marked upper-superstructure area. It reuses the exact existing bridge armor and trim materials. The surrounding outer hull, turrets, vertical torpedo launchers, radars, glazing and other separate equipment retain their materials. Geometry and articulation are unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.10.blend --python tools/extend_bridge_paint_v01111.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.11.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.10 restores the aft twin gun carriages and shared guide rails to their original four-unit final sink. Their outward parked correction, 40% sink onset and slight guide retraction lag remain. Direct triangle-overlap checks on all four closed gates found no intersection at this depth; the previous deeper sink came from an overly conservative axis-aligned bounding-box estimate.
 
