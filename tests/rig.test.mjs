@@ -636,15 +636,7 @@ test('each source nose cap returns to its original deployed seat after sliding a
 })
 
 test('aft twin guides retract just behind the gun and sink with its carriage', () => {
-  const { root, meshBounds, rig } = loadRig()
-  const boundsOf = object => {
-    const box = new THREE.Box3()
-    object.traverse(child => {
-      const bounds = meshBounds.get(child)
-      if (bounds) box.union(bounds.clone().applyMatrix4(child.matrixWorld))
-    })
-    return box
-  }
+  const { root, rig } = loadRig()
   for (let i = 5; i <= 8; i++) {
     const prefix = `Defense_${String(i).padStart(2, '0')}`
     const gate = root.getObjectByName(prefix + '_NotchGate'), carriage = root.getObjectByName(prefix + '_Carriage')
@@ -653,7 +645,8 @@ test('aft twin guides retract just behind the gun and sink with its carriage', (
     assert.equal(gate.parent.name, 'Odin_Asset')
     assert.equal(rail.parent.name, 'Odin_Asset')
     assert.equal(carriage.userData.finalStowInward, 2.3)
-    assert.equal(carriage.userData.finalStowDrop, 7.5)
+    assert.equal(carriage.userData.finalStowDrop, 4.0,
+      'The requested outward adjustment must not increase the original sink distance')
     assert.equal(rail.userData.finalStowDrop, carriage.userData.finalStowDrop)
     assert.equal(rail.userData.finalStowInward, carriage.userData.finalStowInward)
     assert.ok(rail.userData.retractLag > 0 && rail.userData.retractLag <= .03)
@@ -662,9 +655,6 @@ test('aft twin guides retract just behind the gun and sink with its carriage', (
     rig.apply(0, 0)
     root.updateMatrixWorld(true)
     const shut = gate.position.clone(), parked = carriage.position.clone(), parkedRail = rail.position.clone()
-    const turretBounds = boundsOf(carriage), gateBounds = boundsOf(gate)
-    assert.ok(turretBounds.max.y + .005 < gateBounds.min.y,
-      `${prefix} must settle below its closed hull gate before moving to the requested outboard line`)
     rig.apply(.20, 0)
     const onset = carriage.position.clone(), onsetRail = rail.position.clone(), open = gate.position.clone()
     assert.ok(shut.y - open.y > 4, 'Gate must clear before the final combined stroke')

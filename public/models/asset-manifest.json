@@ -138,19 +138,19 @@
     "Bridge hull armor has a neutral cement-gray finish",
     "The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette",
     "Long aft twin guides and lower support brackets reach the same inboard seat as the gun bodies with a small bounded lag, avoiding protrusion through the turret glazing; their vertical sink remains synchronized",
-    "Aft twin gun carriages and shared rails begin one slow descent at 40% instead of a late turret lift, and park 2.7 source units farther outboard at a deeper closed-gate-safe level"
+    "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored"
   ],
   "webOptimization": {
     "batchedMeshes": 175,
     "highTriangles": 2421597,
     "liteTriangles": 854355,
-    "highBytes": 18382184,
-    "liteBytes": 7852832,
+    "highBytes": 18382200,
+    "liteBytes": 7852848,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.9",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.9.blend",
+  "version": "0.11.10",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.10.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
