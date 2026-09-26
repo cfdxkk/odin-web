@@ -1,6 +1,31 @@
 # Editable Odin asset
 
-`odin_articulated_v0.7.0.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.2.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.2 seats the actual smooth exterior of all four vertical flank batteries on the measured lower inner-slot facet and rail. Both first armor halves meet the original front rim directly; the raised folded return from v0.11.1 is removed. The red inner grates follow the refitted shells, and the centered guns settle deeper in NAV so they clear the lower roof. The first sliders lift farther before advancing, clearing the hull after their initial seal releases.
+
+Reproduce the current correction from the committed v0.11.1 baseline:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.1.blend --python tools/refit_flank_armor_v0112.py
+blender -b assets/blender/odin_articulated_v0.11.2.blend --python tools/export_articulated_asset.py
+```
+
+See [v0.11.2 review](../../docs/review/v0.11.2/README.md). The [v0.11.1 review](../../docs/review/v0.11.1/README.md) records the previous pedestal and bore correction.
+
+Version 0.11 changes only vertical flank batteries 1 and 3 on both sides. Their first cover pair lifts then slides; three existing detailed pairs fold about measured inner-edge hinges. Matching inclined seams, an unequal-ended trapezoid first pair, inner-only grates and smooth outer skins follow the review references. The complete original rear pedestal, trough, barrel, trunnion and groups 3/4 move rigidly together. Only the indicated triangular bay gaps receive infill.
+
+Reconstruct the earlier v0.11.0 baseline from v0.10.0, in order:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.10.0.blend --python tools/revise_side_batteries_v0110.py
+blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/refine_side_edges_v0110.py
+blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/export_articulated_asset.py
+```
+
+The refinement script is run once after a fresh base build. See [v0.11 review](../../docs/review/v0.11.0/README.md) for validation.
+
+Historical v0.7 main-battery reconstruction:
 
 Each main battery has five independently translated armor pieces: two forward leaves, two narrow fillers below the rotating gun shrouds, and the short fore-end cap. Version 0.7 restores the complete `holo.001` and `holo.013` hull meshes from v0.5. The aft fillers are new thin shells spanning the gap between the shroud toes and fixed hull lips; no fixed-hull faces are cut out. Their reconstruction data and the main-leaf seams use measured closed-pose boundaries in `tools/main_armor_v07_boundaries.json`. The dorsal leaves follow the existing serrated lip; the ventral source lip has its own faceted profile rather than a mirrored copy of those teeth.
 
