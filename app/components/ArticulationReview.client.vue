@@ -20,6 +20,7 @@ const shots: Shot[] = [
   ...([[ -22,-36,53],[-28,-64,53],[22,-36,53],[28,-64,53],[21,-179,43],[14,-221,43],[-21,-179,43],[-14,-221,43]]).map((p,i) => ({ name: `双联装 · ${i+1}${i>=4?' / 船壳盖板':''}`, point: p as [number,number,number], view: [Math.sign(p[0]!)*1.5,1,.6] as [number,number,number], width: .5 })),
   { name: '舰桥 · 前部', point: [0,-27,128], view: [1,2,.5], width: .66 },
   { name: '舰桥 · 后部', point: [0,-43,128], view: [1,-2,.5], width: .7 },
+  { name: '舰桥 · 底部涂装', point: [0,-82,68], view: [2,1,.35], width: 1.65 },
   { name: '主炮 · 船体接缝', point: [11.5,117,40], view: [2,0,.2], width: .25 },
   { name: '舰桥 · 雷达与桁架', point: [0,-50,119], view: [1,-1,.55], width: 1.05 },
   { name: '舰桥 · 下层玻璃', point: [0,-24,91], view: [1,3,.4], width: .4 },
@@ -72,7 +73,7 @@ onMounted(async () => {
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.4-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.5-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -94,7 +95,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.4</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.5</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>

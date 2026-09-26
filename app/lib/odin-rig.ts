@@ -128,9 +128,11 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - leafOpen)))
       }
       if (data.singleBattery && data.hingeAxisModel) {
-        const gunLift = data.sideBatteryMechanism ? ease(.67, .96, d) : singleLift
-        const seating = v(...data.outwardNormal as [number, number, number]).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
-        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.pitchDegrees)) * gunLift))
+        const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift
+        const seatAxis = (data.stowDirectionModel || data.outwardNormal) as [number, number, number]
+        const seating = v(...seatAxis).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
+        const restLift = Number(data.restLiftDegrees || 0)
+        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(restLift * (1 - gunLift) + Number(data.pitchDegrees) * gunLift)))
       }
       if (data.system === 'side-front-slider') {
         // This pair is authored CLOSED: lift off its seal, then slide forward.
@@ -147,7 +149,8 @@ export function createOdinRig(root: THREE.Object3D) {
       if (data.system === 'single-front-cap') {
         // Recovered source caps are authored in their deployed location.
         // NAV seats them against the folding leaves; SCM returns to source.
-        const slide = ease(.09, .23, d), settle = ease(.24, .36, d)
+        const slide = ease(Number(data.slideStart ?? .09), Number(data.slideEnd ?? .23), d)
+        const settle = ease(Number(data.settleStart ?? .24), Number(data.settleEnd ?? .36), d)
         pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - slide : slide)
           .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
       }
@@ -155,7 +158,9 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(...data.stowVector as [number, number, number]).multiplyScalar(1 - ease(.03, .14, d)))
       }
     })
-    const keelCarriage = ease(.04, .32, d)
+    // The keel turret has a final diagonal inboard stroke after its armor
+    // has completely closed. The other axial turrets have no such stroke.
+    const keelCarriage = ease(.02, .20, d)
     pose('Axial_Keel_Mount', v(0, 14.270 * keelCarriage, -6.135 * keelCarriage))
     const gate = ease(.02, .22, d), carriage = ease(.24, .52, d), ring = ease(.47, .68, d), gun = ease(.65, .94, d)
     for (let i = 5; i <= 8; i++) {
@@ -168,7 +173,10 @@ export function createOdinRig(root: THREE.Object3D) {
     for (let i = 0; i < 8; i++) {
       const prefix = `Defense_${String(i + 1).padStart(2, '0')}`, data = joints.get(prefix + '_Carriage')?.object.userData
       const sign = Number(data?.side || 1), forward = i < 4
-      const parked = data?.extraStowVector ? v(...data.extraStowVector as [number, number, number]).multiplyScalar(1 - carriage) : v(0, 0, 0)
+      // Aft twins retain their original lateral reach. Their complete
+      // carriage drops into the pocket only in the final fifth of stow.
+      const finalSink = i >= 4 ? Number(data?.finalStowDrop || 0) * (1 - ease(.02, .20, d)) : 0
+      const parked = v(0, 0, -finalSink)
       pose(prefix + '_Carriage', v(sign * (forward ? 9.781 : 9.903) * carriage, (forward ? 2.079 : -1.392) * carriage, 2 * ring).add(parked))
       const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
       const scan = Math.sin(time * .10 + i * .7) * 3 * aim

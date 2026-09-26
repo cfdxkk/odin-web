@@ -490,7 +490,8 @@ test('every single barrel pitches in its own vertical plane about the rear breec
       rig.apply(i / 100, 0)
       const direction = original.clone().applyQuaternion(gun.quaternion)
       assert.ok(Math.abs(direction.dot(transverse)) < 1e-6, `${gun.name} yaws out of its elevation plane`)
-      if (i > (gun.userData.sideBatteryMechanism ? 67 : 40)) assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
+      if (i > ((gun.userData.sideBatteryMechanism || gun.userData.stagedSingleBattery) ? 67 : 40))
+        assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
     }
     assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, 6, `${gun.name} requires three leaves per side`)
     if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
@@ -625,7 +626,7 @@ test('each source nose cap returns to its original deployed seat after sliding a
     assert.equal(cap.userData.sourceOpenPose, true)
     const deployed = cap.position.clone()
     rig.apply(0,0);const origin=cap.position.clone(),orientation=cap.quaternion.clone()
-    rig.apply(.23,0);const slid=cap.position.clone().sub(origin)
+    rig.apply(Number(cap.userData.slideEnd ?? .23),0);const slid=cap.position.clone().sub(origin)
     assert.ok(slid.distanceTo(map(cap.userData.slideVector).negate())<1e-6)
     rig.apply(1,0);const complete=cap.position.clone().sub(origin)
     assert.ok(complete.distanceTo(map(cap.userData.slideVector).add(map(cap.userData.settleVector)).negate())<1e-6)
@@ -644,7 +645,10 @@ test('the four aft hull gates descend before twin carriages move and close after
     const closed = gate.position.clone(), parked = carriage.position.clone()
     rig.apply(.22, 0)
     assert.ok(closed.y - gate.position.y > 4, 'Gate must clear the notch before the carriage leaves')
-    assert.ok(carriage.position.distanceTo(parked) < 1e-6)
+    assert.ok(Math.abs(carriage.position.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6,
+      'The complete aft carriage sinks only in the last 20% of stow')
+    assert.ok(Math.abs(carriage.position.x - parked.x) < 1e-6 && Math.abs(carriage.position.z - parked.z) < 1e-6,
+      'The aft carriage retains its original lateral parking distance')
     const open = gate.position.clone()
     for (const d of [.3, .5, .8, 1, .6, .25]) {
       rig.apply(d, 0)
@@ -652,6 +656,42 @@ test('the four aft hull gates descend before twin carriages move and close after
     }
     rig.apply(0, 0)
     assert.ok(gate.position.distanceTo(closed) < 1e-6)
+  }
+})
+
+test('keel battery moves diagonally inward only after every armor leaf has closed', () => {
+  const { root, rig } = loadRig()
+  const mount = root.getObjectByName('Axial_Keel_Mount')
+  const covers = [root.getObjectByName('Axial_Keel_FrontCap'),
+    ...['Port','Starboard'].flatMap(side => [0,1,2].map(i => root.getObjectByName(`Axial_Keel_Shutter_${side}_${String(i).padStart(2,'0')}`)))]
+  rig.apply(.22, 0)
+  const outside = mount.position.clone()
+  const closed = covers.map(o => ({ position: o.position.clone(), rotation: o.quaternion.clone() }))
+  rig.apply(.20, 0)
+  assert.ok(mount.position.distanceTo(outside) < 1e-6, 'Keel retreat starts after the armor has seated')
+  for (const d of [.15, .10, .02, 0]) {
+    rig.apply(d, 0)
+    covers.forEach((o,i) => {
+      assert.ok(o.position.distanceTo(closed[i].position) < 1e-6, 'Keel armor is already closed during the final retreat')
+      assert.ok(o.quaternion.angleTo(closed[i].rotation) < 1e-6)
+    })
+  }
+  assert.ok(Math.abs(mount.position.y - outside.y - 6.135) < 1e-6, 'Keel mount rises into the hull')
+  assert.ok(Math.abs(mount.position.z - outside.z - 14.270) < 1e-6, 'Keel mount retains the diagonal travel')
+})
+
+test('side batteries 2 and 4 seat across the hull without fore-aft translation', () => {
+  const { root, rig } = loadRig()
+  for (const i of [2,4]) for (const side of ['Port','Starboard']) {
+    const gun = root.getObjectByName(`SideBattery_${i}_${side}`)
+    const axis = gun.userData.stowDirectionModel
+    assert.ok(axis && Math.abs(axis[1]) < 1e-8)
+    rig.apply(0, 0)
+    const foreAft = gun.position.z
+    for (const d of [.4,.75,1]) {
+      rig.apply(d, 0)
+      assert.ok(Math.abs(gun.position.z - foreAft) < 1e-6)
+    }
   }
 })
 
