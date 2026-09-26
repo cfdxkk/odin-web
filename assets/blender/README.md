@@ -1,17 +1,17 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.1.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.2.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
 
-Version 0.11.1 limits the moving rear pedestal to the marked assembly, keeping the deep bay floor and transitions fixed. All four bores are centered, stow parallel to their slots and use recalibrated rear pivots. Local transition/nose openings are closed; the nose surface continues the original lower inner-slot plane. All inner grate stiffeners are red. The aft first sliders return inward/down onto the original lower slot rim, closing the end gaps.
+Version 0.11.2 seats the actual smooth exterior of all four vertical flank batteries on the measured lower inner-slot facet and rail. Both first armor halves meet the original front rim directly; the raised folded return from v0.11.1 is removed. The red inner grates follow the refitted shells, and the centered guns settle deeper in NAV so they clear the lower roof. The first sliders lift farther before advancing, clearing the hull after their initial seal releases.
 
-Reproduce the current correction from the committed v0.11.0 baseline:
+Reproduce the current correction from the committed v0.11.1 baseline:
 
 ```powershell
-blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/revise_side_batteries_v0111.py
-blender -b assets/blender/odin_articulated_v0.11.1.blend --python tools/export_articulated_asset.py
+blender -b assets/blender/odin_articulated_v0.11.1.blend --python tools/refit_flank_armor_v0112.py
+blender -b assets/blender/odin_articulated_v0.11.2.blend --python tools/export_articulated_asset.py
 ```
 
-See [v0.11.1 review](../../docs/review/v0.11.1/README.md).
+See [v0.11.2 review](../../docs/review/v0.11.2/README.md). The [v0.11.1 review](../../docs/review/v0.11.1/README.md) records the previous pedestal and bore correction.
 
 Version 0.11 changes only vertical flank batteries 1 and 3 on both sides. Their first cover pair lifts then slides; three existing detailed pairs fold about measured inner-edge hinges. Matching inclined seams, an unequal-ended trapezoid first pair, inner-only grates and smooth outer skins follow the review references. The complete original rear pedestal, trough, barrel, trunnion and groups 3/4 move rigidly together. Only the indicated triangular bay gaps receive infill.
 

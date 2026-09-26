@@ -574,7 +574,7 @@ test('four flank bores remain centered and stow parallel to their own slots', ()
       for(const p of [a,b])assert.ok(Math.abs(p.clone().sub(origin).dot(transverse))<.0001,`${gun.name} leaves the slot center plane at ${d}`)
       if(d<=.67)assert.ok(b.clone().sub(a).normalize().distanceTo(axis)<.00001,`${gun.name} folds inward past parallel`)
     }
-    assert.equal(gun.userData.stowSink,0)
+    assert.equal(gun.userData.stowSink,1.8, 'The centered bore settles behind the re-fitted inner slot roof in NAV')
   }
 })
 

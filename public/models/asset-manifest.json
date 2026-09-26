@@ -132,19 +132,19 @@
     "Fixed bay floors and transitions remain on the hull; only the rear pedestal, gun, bearings and groups 3/4 translate",
     "Four centered single bores stow parallel to their channels with calibrated rear pivots; local transition and nose openings closed; interior stiffeners painted red",
     "Fixed nose infill continues the original lower inner-slot nose plane without the former triangular depression",
-    "Aft first armor pair returns inward/down onto the original lower slot rim; leading contours remain clear of the larger outer hull surround"
+    "All four vertical flank mounts have smooth armor exteriors seated directly on the measured lower inner slot facet; the first pair follows the original long rail and front lip without an outboard folded return"
   ],
   "webOptimization": {
     "batchedMeshes": 175,
     "highTriangles": 2440521,
     "liteTriangles": 873332,
-    "highBytes": 18600336,
-    "liteBytes": 8161124,
+    "highBytes": 18609072,
+    "liteBytes": 8169860,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.1",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.1.blend",
+  "version": "0.11.2",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.2.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
