@@ -133,7 +133,10 @@ export function createOdinRig(root: THREE.Object3D) {
       const data = object.userData
       if (data.barrelJoint && data.hingeAxisModel) {
         const leafOpen = ease(Number(data.openStart ?? .02), Number(data.openEnd ?? .30), d)
-        pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - leafOpen)))
+        const closed = Number(data.closedAngleDegrees)
+        const openingTravel = Number(data.openingTravelDegrees ?? Math.abs(closed))
+        const angle = closed - Math.sign(closed) * openingTravel * leafOpen
+        pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(angle)))
       }
       if (data.singleBattery && data.hingeAxisModel) {
         if (name === 'Axial_Bow_Barrel' && bowRestWeb) {

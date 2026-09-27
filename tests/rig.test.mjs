@@ -544,8 +544,12 @@ test('stern barrel follows its own original odin.blend keyframes', () => {
   rig.apply(.65, 0)
   root.updateMatrixWorld(true)
   assertMatrixClose(barrel.matrixWorld, closedJoint, 'Stern gun must stay lowered until all armor clears')
-  assert.ok(root.getObjectByName('Axial_Stern_Shutter_Port_02').quaternion.angleTo(new THREE.Quaternion()) < 1e-6,
-    'The last stern leaf must be fully open before the original gun action begins')
+  const lastLeaf = root.getObjectByName('Axial_Stern_Shutter_Port_02')
+  const lastAxis = fromBlender(lastLeaf.userData.hingeAxisModel).normalize()
+  const lastStop = new THREE.Quaternion().setFromAxisAngle(lastAxis,
+    THREE.MathUtils.degToRad(lastLeaf.userData.closedAngleDegrees - lastLeaf.userData.openingTravelDegrees))
+  assert.ok(lastLeaf.quaternion.angleTo(lastStop) < 1e-6,
+    'The last stern leaf must reach its reduced open stop before the original gun action begins')
   for (const sample of samples) {
     rig.apply(.66 + (sample.frame - 11) / 100, 0)
     root.updateMatrixWorld(true)
@@ -579,16 +583,21 @@ test('stern bore rests at its original odin.blend position, not only its relativ
   assert.ok(actual.min.distanceTo(sourceMin) < .0001, `Stern bore minimum differs from source: ${actual.min.distanceTo(sourceMin)}`)
   assert.ok(actual.max.distanceTo(sourceMax) < .0001, `Stern bore maximum differs from source: ${actual.max.distanceTo(sourceMax)}`)
   const asset = root.getObjectByName('Odin_Asset')
-  assert.ok(asset.userData.sternSourceShoulderFaces >= 100, 'Original stern shoulder is restored beneath the new armor')
-  assert.equal(asset.userData.sternOriginalFrontPlateFaces, 8, 'Stern foremost plate uses its eight original source faces')
+  assert.equal(asset.userData.sternRemovedDuplicateShoulderFaces, 818, 'Duplicate vented stern leaves are removed')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalShoulder'), undefined, 'The duplicate static vented armor is absent')
+  assert.equal(asset.userData.sternOriginalFrontPlateFaces, 66, 'Stern foremost plate uses the disconnected original armor shell')
+  assert.equal(asset.userData.sternRemovedWrongTriangularCapFaces, 8, 'The mistaken hull triangles no longer act as the plate')
   const cap = root.getObjectByName('Axial_Stern_FrontCap')
   assert.equal(cap.userData.sourceObject, 'holo.001')
   assert.equal(cap.children.filter(child => meshBounds.has(child)).length, 1, 'The original stern plate replaces both generated skins')
-  assert.equal(cap.children[0].userData.sourceFaceCount, 8)
-  assert.ok(asset.userData.sternOriginalForwardHullFaces >= 30,
-    'The fixed hull ahead of the original plate is restored from source faces')
+  assert.equal(cap.children[0].userData.sourceFaceCount, 66)
+  assert.equal(asset.userData.sternOriginalForwardHullFaces, 0,
+    'The duplicate recovered stern hull is removed after separating the source armor')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalForwardHull'), undefined)
+  assert.equal(asset.userData.sternRestoredFixedNoseRoofFaces, 8,
+    'The original fixed roof is restored after the incorrect moving mesh is removed')
   const bowCap = root.getObjectByName('Axial_Bow_FrontCap')
-  assert.ok(new THREE.Vector3(...bowCap.userData.additionalOpenTravelModel).length() > 3,
+  assert.ok(new THREE.Vector3(...bowCap.userData.additionalOpenTravelModel).length() > 3.9,
     'Bow cap clears the original bore along the deck incline')
 })
 
@@ -668,13 +677,18 @@ test('bow front cap crown continues the last hinged leaf as one side-view line',
   }
 })
 
-test('stern front plate uses the forward source roof rather than the redundant rear substitute', () => {
+test('stern front plate uses the original deployed armor rather than the fixed nose roof', () => {
   const { root } = loadRig()
   const cap = root.getObjectByName('Axial_Stern_FrontCap')
-  const [lower, upper] = cap.userData.originalClosedBounds
-  assert.ok(lower[1] > 25 && upper[1] < 34, 'The foremost source panel stays at the green-marked nose position')
-  assert.ok(cap.userData.originalOpenBounds[0][1] > lower[1] + 5, 'The existing panel parks farther forward when opened')
-  assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 foremost source roof')
+  const [openLow, openHigh] = cap.userData.originalOpenBounds
+  const [closedLow, closedHigh] = cap.userData.originalClosedBounds
+  assert.ok(openLow[1] > 18.4 && openLow[1] < 18.6 && openHigh[1] > 26.8 && openHigh[1] < 27.0,
+    'The original movable plate retains its deployed source position')
+  assert.ok(Math.abs(closedLow[1] - 10.51) < .06 && Math.abs(closedHigh[1] - 18.94) < .06,
+    'The plate returns to the last shutter seam when stowed')
+  assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 disconnected 66-face armor shell')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalNoseRoof'), undefined,
+    'The stationary source roof is merged into the fixed asset during export')
 })
 
 test('bow and stern close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
@@ -696,6 +710,7 @@ test('bow and stern close six flank-derived leaves muzzle-first, then seat one c
         assert.equal(leaf.parent.name, 'Odin_Asset', 'Axial plates keep fixed hull pivots')
         assert.ok(leaf.userData.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_Port_'))
         assert.equal(leaf.userData.closedAngleDegrees, side === 'Port' ? 150 : -150)
+        if (station === 'Stern') assert.equal(leaf.userData.openingTravelDegrees, 95)
       }
       assert.equal(ordered[0].userData.shorterBreechTrapezoid, true)
       for (let index = 0; index < 2; index++) {
@@ -717,7 +732,15 @@ test('bow and stern close six flank-derived leaves muzzle-first, then seat one c
     assert.ok(pair[0].quaternion.angleTo(new THREE.Quaternion()) < pair[1].quaternion.angleTo(new THREE.Quaternion()),
       `${station} muzzle-end leaf should be farther through its closing stroke`)
     rig.apply(1, 0)
-    for (const leaf of leaves) assert.ok(leaf.quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
+    for (const leaf of leaves) {
+      const axis = new THREE.Vector3(...leaf.userData.hingeAxisModel)
+      const webAxis = new THREE.Vector3(axis.x, axis.z, -axis.y).normalize()
+      const closed = leaf.userData.closedAngleDegrees
+      const travel = leaf.userData.openingTravelDegrees ?? Math.abs(closed)
+      const expected = new THREE.Quaternion().setFromAxisAngle(webAxis,
+        THREE.MathUtils.degToRad(closed - Math.sign(closed) * travel))
+      assert.ok(leaf.quaternion.angleTo(expected) < 1e-6)
+    }
   }
 })
 
@@ -752,7 +775,11 @@ test('original single covers keep their source open pose and stagger root-first'
     for (const leaf of leaves) {
       assert.ok(Math.abs(leaf.userData.armorThickness-cap.userData.armorThickness)<1e-6)
       assert.equal(leaf.userData.sourceGeometry, true, 'Use the existing source cover')
-      assert.ok(leaf.quaternion.angleTo(sourceRotations.get(leaf.name))<1e-7, 'SCM must stop at the original open position')
+      if (leaf.userData.openingTravelDegrees) {
+        assert.equal(leaf.userData.openingTravelDegrees, 95, 'Stern aperture stays clear of the aft hull')
+      } else {
+        assert.ok(leaf.quaternion.angleTo(sourceRotations.get(leaf.name))<1e-7, 'SCM must stop at the original open position')
+      }
     }
     const panels = leaves.filter(n => n.name.includes('_Shutter_Port_')).sort((a,b)=>a.userData.panelIndex-b.userData.panelIndex)
     assert.ok(panels[0].userData.openEnd < panels[1].userData.openEnd && panels[1].userData.openEnd < panels[2].userData.openEnd)
