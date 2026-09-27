@@ -139,20 +139,22 @@
     "The existing cement-gray bridge material now covers the aft dorsal spine, bridge-side apron, fore upper fairing and central fore-deck wedge while keeping equipment and the surrounding outer hull separate",
     "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored",
     "Unrequested bow shoulder skins removed; the bow turret and receiver retain source geometry and the accepted rigid receiver position",
-    "The original odin.blend bow gun location and Euler keyframes (frames 30–56) are reproduced in Nuxt; the stern gun remains unchanged",
-    "Bow and stern singles each have six flank-derived contact-edge hinged armor shutters and one translating front cap; the muzzle-end shutters close first after the gun lowers, and neither turret mount translates after closure"
+    "The original odin.blend bow gun location and Euler keyframes (frames 30–56) are reproduced in Nuxt",
+    "Bow and stern singles each have six flank-derived contact-edge hinged armor shutters and one translating front cap; the muzzle-end shutters close first after the gun lowers, and neither turret mount translates after closure",
+    "The original odin.blend stern gun location and Euler keyframes (frames 11–37) are reproduced in Nuxt; both source gun meshes remain unchanged",
+    "Bow and stern armor crowns and breech trapezoids meet their existing turret housings; the nose cap lifts before translating forward"
   ],
   "webOptimization": {
     "batchedMeshes": 176,
     "highTriangles": 2396788,
     "liteTriangles": 850827,
-    "highBytes": 18399680,
-    "liteBytes": 7931020,
+    "highBytes": 18400708,
+    "liteBytes": 7932048,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.16",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.16.blend",
+  "version": "0.11.17",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.17.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

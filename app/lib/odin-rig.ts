@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
+import { sternSourceMotion } from './stern-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -25,6 +26,9 @@ export function createOdinRig(root: THREE.Object3D) {
   const bowJoint = joints.get('Axial_Bow_Barrel')?.object
   const bowMount = joints.get('Axial_Bow_Mount')?.object
   const bowRestWeb = bowJoint && bowMount ? bowJoint.position.clone().add(bowMount.position) : undefined
+  const sternJoint = joints.get('Axial_Stern_Barrel')?.object
+  const sternMount = joints.get('Axial_Stern_Mount')?.object
+  const sternRestWeb = sternJoint && sternMount ? sternJoint.position.clone().add(sternMount.position) : undefined
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
     // All five armor pieces clear the bore corridor before any gun movement.
@@ -134,6 +138,9 @@ export function createOdinRig(root: THREE.Object3D) {
       if (data.singleBattery && data.hingeAxisModel) {
         if (name === 'Axial_Bow_Barrel' && bowRestWeb) {
           const { move, turn } = bowSourceMotion(d, bowRestWeb)
+          pose(name, move, turn)
+        } else if (name === 'Axial_Stern_Barrel' && sternRestWeb) {
+          const { move, turn } = sternSourceMotion(d, sternRestWeb)
           pose(name, move, turn)
         } else {
           const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift

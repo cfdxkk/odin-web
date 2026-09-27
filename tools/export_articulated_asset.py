@@ -36,55 +36,57 @@ d['completion'] += ['Each complete main bore follows its physical shroud rigidly
 if version=='0.9.0':
  d['rigSystems'] += ['single-shutter','defense-gate']
  d['completion'] += ['Eleven elevation-only singles with forward trunnions and seventy fitted triangular shutter leaves', 'Eight twin gun elevations measured from their actual bores, four independent aft hull notch gates', 'Eight stationary quad root armor assemblies with shorter sliding tubes', 'Recovered rear bridge shield faces, separate glazing and roof tracks; warm charcoal bridge and tea-gold windows', 'Main bay stationary corner receivers follow the adjacent exterior hull plane']
-if version in ['0.10.0','0.11.0','0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.10.0','0.11.0','0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['bridgeArmorSlats']=0
  d['rigSystems']=[v for v in d['rigSystems']if v not in ['bridge-armor','axial-shutter']]+['single-shutter','single-front-cap','defense-gate','pdc-hull-petal']
  d['completion']=[v for v in d['completion']if 'bridge armor'not in v and 'axial shutter'not in v]
  d['completion'] += ['Eleven rear-trunnion single batteries with their original seven covers animated per mount; source front cap pose is the deployed endpoint', 'Fixed bridge with rectangular flush tea-gold glazing, airflow-aligned antennas with UV-painted bands, faceted radome and four truss-mounted capsule radars', 'Short upper capsule trusses attach to the original projecting bridge tab; rear capsule trusses extend diagonally aft', 'Eight independent quad aperture petals, narrowed support forks and deeper aft twin stow', 'All ten main battery armor plates reinforced inward while preserving accepted outer contours']
-if version in ['0.11.0','0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.0','0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['rigSystems']+=['side-front-slider','side-battery-leaf','side-battery-carriage']
  d['completion']=[v for v in d['completion']if not v.startswith('Eleven rear-trunnion')]
  d['completion']+=['Four vertical flank singles (port/starboard 1 and 3): eight armor halves in four groups; first pair lifts then slides forward; original vented leaves close around physical inner edges with a flat ridge', 'Complete rear flank cradle, barrel and groups 3/4 lift then advance together on closing; upper sloping and axial singles retain their prior mechanisms', 'Legacy flank tip wings removed; aft first-pair parking is allowed inside the hull as requested']
  d['completion']+=['Matching inclined seams between groups 2/3 and unequal-ended trapezoid first sliders', 'Original grate detail stays inside continuous smooth hull-painted skins; only the local triangular bay gaps receive mirrored infill']
-if version in ['0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.1','0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']+=['Fixed bay floors and transitions remain on the hull; only the rear pedestal, gun, bearings and groups 3/4 translate', 'Four centered single bores stow parallel to their channels with calibrated rear pivots; local transition and nose openings closed; interior stiffeners painted red']
  d['completion']+=['Fixed nose infill continues the original lower inner-slot nose plane without the former triangular depression']
  d['completion']+=['Aft first armor pair returns inward/down onto the original lower slot rim; leading contours remain clear of the larger outer hull surround']
-if version in ['0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.2','0.11.3','0.11.4','0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']=[v for v in d['completion'] if not v.startswith('Aft first armor pair returns')]
  d['completion']+=['All four vertical flank mounts have smooth armor lower edges seated on the original inner rail; the first pair meets the original front lip without an outboard folded return']
 if version=='0.11.3':
  d['completion']+=['Armor crowns return to their accepted flat top line while the lower edges retain their measured source-rail fit; all twenty-four hinged leaves rotate around their actual armor-to-slot contact edges']
 if version=='0.11.4':
  d['completion']+=['All four vertical flank armor crowns sit at their source front-receiver height, removing the first plate ramp and aligning the closed top-view line', 'All eight vertical flank armor outer edges follow one straight plan-view rail per side, with their contact hinges rebaked on that rail', 'The eight front triangular seams are closed on the original lower nose panel rather than the upper fairing']
-if version in ['0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.5','0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']+=['Side batteries 2 and 4 and all axial singles have smooth exterior armor, red inner reinforcements and physical contact-edge hinges; side 2 and 4 do not translate fore or aft', 'The keel single retains its separate final diagonal inboard stroke after all armor is stowed', 'Bridge hull armor has a neutral cement-gray finish']
  if version in ['0.11.5','0.11.6']:
   d['completion']+=['Aft defense twins 5–8 retain their former lateral travel and lower the complete carriage during final stow']
 if version=='0.11.5':
  d['completion']+=['Thin red pinstripes run along the sloping bridge-base sidewalls']
-if version in ['0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.6','0.11.7','0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']+=['The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette']
 if version in ['0.11.7','0.11.8']:
  d['completion']+=['Aft defense twins 5–8 keep retracting during the final 20% while the gun carriage and shared support rail sink together; the deeper inboard parked position clears the closed hull gates']
-if version in ['0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.8','0.11.9','0.11.10','0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']+=['Long aft twin guides and lower support brackets reach the same inboard seat as the gun bodies with a small bounded lag, avoiding protrusion through the turret glazing; their vertical sink remains synchronized']
 if version=='0.11.9':
  d['completion']+=['Aft twin gun carriages and shared rails begin one slow descent at 40% instead of a late turret lift, and park 2.7 source units farther outboard at a deeper closed-gate-safe level']
 if version=='0.11.10':
  d['completion']+=['Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored']
-if version in ['0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.11','0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']+=['The existing cement-gray bridge material now covers the aft dorsal spine, bridge-side apron, fore upper fairing and central fore-deck wedge while keeping equipment and the surrounding outer hull separate', 'Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored']
-if version in ['0.11.12','0.11.13','0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.12','0.11.13','0.11.14','0.11.15','0.11.16','0.11.17']:
  d['rigSystems']+=['bow-receiver']
  d['completion']=[item for item in d['completion'] if 'all axial singles' not in item and 'Eleven rear-trunnion single batteries' not in item]
  d['completion']+=['Only the bow single turret is restored from untouched odin.blend geometry; its source receiver, six side skirts and fifteen brackets move rigidly toward the turret seam without deformation, while the existing bow gun pivot, web rotation timing and stern remain unchanged']
-if version in ['0.11.14','0.11.15','0.11.16']:
+if version in ['0.11.14','0.11.15','0.11.16','0.11.17']:
  d['completion']=[item for item in d['completion'] if 'Only the bow single turret is restored' not in item]
- d['completion']+=['Unrequested bow shoulder skins removed; the bow turret and receiver retain source geometry and the accepted rigid receiver position', 'The original odin.blend bow gun location and Euler keyframes (frames 30–56) are reproduced in Nuxt; the stern gun remains unchanged']
-if version in ['0.11.15','0.11.16']:
+ d['completion']+=['Unrequested bow shoulder skins removed; the bow turret and receiver retain source geometry and the accepted rigid receiver position', 'The original odin.blend bow gun location and Euler keyframes (frames 30–56) are reproduced in Nuxt']
+if version in ['0.11.15','0.11.16','0.11.17']:
  d['completion']=[item for item in d['completion'] if 'upper sloping and axial singles retain their prior mechanisms' not in item]
  d['completion']+=['Bow and stern singles each have six flank-derived contact-edge hinged armor shutters and one translating front cap; the muzzle-end shutters close first after the gun lowers, and neither turret mount translates after closure']
+if version=='0.11.17':
+ d['completion']+=['The original odin.blend stern gun location and Euler keyframes (frames 11–37) are reproduced in Nuxt; both source gun meshes remain unchanged', 'Bow and stern armor crowns and breech trapezoids meet their existing turret housings; the nose cap lifts before translating forward']
 if version=='0.11.13':
  d['rigSystems']+=['bow-receiver-seam']
  d['completion']+=['Mirrored stationary bow shoulder skins join the untouched turret housing and rigid source receiver along the full diagonal seam without changing the original barrel motion']

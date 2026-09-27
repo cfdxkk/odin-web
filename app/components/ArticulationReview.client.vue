@@ -61,7 +61,7 @@ onMounted(async () => {
   }
   focus=()=>{
     const shot=shots[selected.value]!, p=map(shot.point).multiplyScalar(.01)
-    const offset=angle.value==='侧视'?[Math.sign(shot.view[0])||1,0,0]:angle.value==='俯视'?[0,0,shot.point[2]<0?-1:1]:shot.view
+    const offset=angle.value==='侧视'?[Math.sign(shot.view[0])||1,0,0]:angle.value==='俯视'?[0,0,shot.point[2]<0?-1:1]:angle.value==='正视'?[0,shot.point[1]<0?-1:1,0]:shot.view
     camera.up.set(0,1,0)
     if(angle.value==='俯视')camera.up.set(0,0,-1)
     camera.position.copy(p).add(map(offset).normalize().multiplyScalar(2))
@@ -74,7 +74,7 @@ onMounted(async () => {
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.16-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.17-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -96,10 +96,10 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.16</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.17</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
-      <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>
+      <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视','正视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>
       <div class="review-play"><button :disabled="!ready" @click="playing=!playing">{{playing?'暂停':'播放展开 / 收回'}}</button><button :disabled="!ready" @click="seek(0)">NAV / 完全收起</button><button :disabled="!ready" @click="seek(1)">SCM / 完全展开</button><output>{{Math.round(deployment*100)}}%</output></div>
       <input type="range" min="0" max="1" step="0.001" :value="deployment" aria-label="武备展开进度" :disabled="!ready" @input="scrub" />
       <p>左键旋转 · 右键平移 · 滚轮缩放</p>
