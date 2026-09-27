@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.13.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.14.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.14 restores the v0.11.12 bow geometry, removing the two unrequested v0.11.13 shoulder skins. The bow receiver keeps its accepted rigid position, and no turret, receiver, hull or gun vertices are changed. In Nuxt, only the bow gun now follows the original `odin.blend` `odin.002` location and Euler animation at frames 30–56, including its original rotation path. The stern gun and every other mount retain their previous motion. The [source-motion samples](../../tests/fixtures/bow-source-motion-v01114.json) were recorded directly from the unchanged original file and checked against the web rig.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/restore_bow_source_motion_v01114.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.14.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.13 closes the bow turret-to-receiver diagonal gap with two stationary shoulder skins. The skins use the actual unchanged edge coordinates of the restored turret housing and rigid receiver; the receiver's v0.11.12 position and all original gun motion remain unchanged. The fairing is separate geometry under `Axial_Bow_SeamFairing`, so no source vertices are stretched or reshaped. Check the closed, intermediate and deployed bow views, including both oblique sides, in the articulation review.
 

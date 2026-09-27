@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { ease } from './odin-motion.ts'
+import { bowSourceMotion } from './bow-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -21,6 +22,9 @@ export function createOdinRig(root: THREE.Object3D) {
     joint.object.position.copy(joint.position).add(move)
     joint.object.quaternion.copy(turn).multiply(joint.quaternion)
   }
+  const bowJoint = joints.get('Axial_Bow_Barrel')?.object
+  const bowMount = joints.get('Axial_Bow_Mount')?.object
+  const bowRestWeb = bowJoint && bowMount ? bowJoint.position.clone().add(bowMount.position) : undefined
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
     // All five armor pieces clear the bore corridor before any gun movement.
@@ -128,11 +132,16 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(Number(data.closedAngleDegrees)) * (1 - leafOpen)))
       }
       if (data.singleBattery && data.hingeAxisModel) {
-        const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift
-        const seatAxis = (data.stowDirectionModel || data.outwardNormal) as [number, number, number]
-        const seating = v(...seatAxis).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
-        const restLift = Number(data.restLiftDegrees || 0)
-        pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(restLift * (1 - gunLift) + Number(data.pitchDegrees) * gunLift)))
+        if (name === 'Axial_Bow_Barrel' && bowRestWeb) {
+          const { move, turn } = bowSourceMotion(d, bowRestWeb)
+          pose(name, move, turn)
+        } else {
+          const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift
+          const seatAxis = (data.stowDirectionModel || data.outwardNormal) as [number, number, number]
+          const seating = v(...seatAxis).multiplyScalar(-Number(data.stowSink || 0) * (1 - gunLift))
+          const restLift = Number(data.restLiftDegrees || 0)
+          pose(name, seating, new THREE.Quaternion().setFromAxisAngle(v(...data.hingeAxisModel as [number, number, number]).normalize(), rad(restLift * (1 - gunLift) + Number(data.pitchDegrees) * gunLift)))
+        }
       }
       if (data.system === 'side-front-slider') {
         // This pair is authored CLOSED: lift off its seal, then slide forward.

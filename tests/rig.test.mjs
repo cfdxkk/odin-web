@@ -76,7 +76,7 @@ test('all five main armor pieces clear before the barrels or armored cradle move
   assert.ok(mount.position.distanceTo(first.mount) > .2, 'Armored cradle rises and advances')
   for (let d = 0; d <= 1; d += .01) {
     rig.apply(d, 0)
-    if (d < .35) assert.ok(root.getObjectByName('Axial_Bow_Barrel').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
+    if (d <= .30) assert.ok(root.getObjectByName('Axial_Bow_Barrel').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
   }
 })
 
@@ -476,11 +476,12 @@ test('all eight actual twin batteries, including the lower starboard bridge pair
   }
 })
 
-test('every single barrel pitches in its own vertical plane about the rear breech', () => {
+test('other single barrels retain their existing rear-breech pitch', () => {
   const { nodes, rig } = loadRig()
   const singles = nodes.filter(n => n.userData.singleBattery)
   assert.equal(singles.length, 11)
   for (const gun of singles) {
+    if (gun.name === 'Axial_Bow_Barrel') continue // The bow follows odin.blend's separate location/Euler action.
     assert.equal(gun.userData.trunnionAdvance, 0, `${gun.name} must use the marked rear trunnion`)
     const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
     const original = map(gun.userData.sourceBoreDirectionModel).normalize()
@@ -498,6 +499,37 @@ test('every single barrel pitches in its own vertical plane about the rear breec
     if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
     else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, gun.name === 'Axial_Bow_Barrel' ? 0 : 1, `${gun.name} retains the requested front cap state`)
   }
+})
+
+test('bow barrel follows the original odin.blend keyframes without reshaping its mesh', () => {
+  const { root, rig } = loadRig()
+  const samples = JSON.parse(fs.readFileSync(new URL('./fixtures/bow-source-motion-v01114.json', import.meta.url)))
+  const barrel = root.getObjectByName('Axial_Bow_Barrel')
+  const receiver = root.getObjectByName('Axial_Bow_SourceReceiver')
+  rig.apply(0, 0)
+  root.updateMatrixWorld(true)
+  const closedJoint = barrel.matrixWorld.clone()
+  const closedReceiver = receiver.matrixWorld.clone()
+  const fromBlender = ([x, y, z]) => new THREE.Vector3(x, z, -y).multiplyScalar(.01)
+  for (const sample of samples) {
+    rig.apply(sample.frame / 100, 0)
+    root.updateMatrixWorld(true)
+    const delta = barrel.matrixWorld.clone().multiply(closedJoint.clone().invert())
+    for (const index of ['0', '100']) {
+      const start = fromBlender(samples[0].vertices[index])
+      const expected = fromBlender(sample.vertices[index])
+      const actual = start.applyMatrix4(delta)
+      assert.ok(actual.distanceTo(expected) < .00001,
+        `Bow source vertex ${index} differs from odin.blend at frame ${sample.frame}: ${actual.distanceTo(expected)}`)
+    }
+    assertMatrixClose(receiver.matrixWorld, closedReceiver, `Bow receiver moves at source frame ${sample.frame}`)
+  }
+  rig.apply(.56, 0)
+  root.updateMatrixWorld(true)
+  const deployedSource = barrel.matrixWorld.clone()
+  rig.apply(1, 0)
+  root.updateMatrixWorld(true)
+  assertMatrixClose(barrel.matrixWorld, deployedSource, 'Bow remains at source frame 56 after deployment')
 })
 
 test('original single covers keep their source open pose and stagger root-first', () => {
