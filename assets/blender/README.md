@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.12.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.13.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.13 closes the bow turret-to-receiver diagonal gap with two stationary shoulder skins. The skins use the actual unchanged edge coordinates of the restored turret housing and rigid receiver; the receiver's v0.11.12 position and all original gun motion remain unchanged. The fairing is separate geometry under `Axial_Bow_SeamFairing`, so no source vertices are stretched or reshaped. Check the closed, intermediate and deployed bow views, including both oblique sides, in the articulation review.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/close_bow_receiver_seam_v01113.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.13.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.12 restores the bow single-gun mesh, housing, receiver shell, six side skirts and fifteen internal braces from the untouched `odin.blend`. It removes only the later bow shutter and front-cap reconstruction. The complete source receiver is translated rigidly 3.45 model units toward the bow and 0.55 units upward, lowering it from the preceding preview so the raised rear corner follows the stationary turret's descending edge. No receiver or surrounding hull vertices are deformed. The bow gun's web rotation timeline and all stern, keel, flank, main, defense and PDC mounts are unchanged. This revision establishes the bow slot location before the armor is rebuilt.
 

@@ -33,7 +33,7 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前待审核模型：[`assets/blender/odin_articulated_v0.11.12.blend`](assets/blender/odin_articulated_v0.11.12.blend)。舰艏单联装炮塔的炮管、炮根装甲和炮塔壳体已从原始 `odin.blend` 恢复；先前新增的舰艏装甲片暂时移除。原始舰艏炮管槽连同侧缘与内部支撑只作整体平移，较上一预览略微降低，让靠炮塔的凸起落在炮塔下斜边的延长线上；槽体与船壳都未拉伸变形。舰艉与其他炮塔不改，网页炮管旋转也不改。打开 `/?review=secondary` 可查看舰艏收起、展开和中间姿态。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
+当前待审核模型：[`assets/blender/odin_articulated_v0.11.13.blend`](assets/blender/odin_articulated_v0.11.13.blend)。舰艏单联装炮塔的炮管、炮根装甲和炮塔壳体已从原始 `odin.blend` 恢复，原始炮管槽保持刚性。此次在炮塔下沿与槽体后端之间增设左右对称的固定灰色接合面，盖住斜视角可见的整段斜向缝；原槽体、船壳、炮塔和炮管网格均未拉伸变形。舰艉与其他炮塔不改，网页炮管旋转也不改。打开 `/?review=secondary` 可查看舰艏收起、展开和中间姿态。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
 
 每座主炮井保留五块独立护甲。两块长板先微量脱开齿口，再沿短导轨向外、向下平移，停留在船壳外侧；后段两块三角补片沿斜置铰链外翻约 130°；前端短盖沿原船壳的锯齿轮廓贴合，微抬后向船艏滑动。内侧使用深红色，外侧保留原灰色材质。v0.10.0 保持十片护甲的外表面和边界不变，向内加厚至原来的 2.1 倍，并让隐藏的固定接收面为厚边让位。
 

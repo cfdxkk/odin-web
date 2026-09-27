@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 169,
-  "triangles": 2393162,
+  "meshCount": 170,
+  "triangles": 2393174,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -139,19 +139,20 @@
     "Long aft twin guides and lower support brackets reach the same inboard seat as the gun bodies with a small bounded lag, avoiding protrusion through the turret glazing; their vertical sink remains synchronized",
     "The existing cement-gray bridge material now covers the aft dorsal spine, bridge-side apron, fore upper fairing and central fore-deck wedge while keeping equipment and the surrounding outer hull separate",
     "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored",
-    "Only the bow single turret is restored from untouched odin.blend geometry; its source receiver, six side skirts and fifteen brackets move rigidly toward the turret seam without deformation, while the existing bow gun pivot, web rotation timing and stern remain unchanged"
+    "Only the bow single turret is restored from untouched odin.blend geometry; its source receiver, six side skirts and fifteen brackets move rigidly toward the turret seam without deformation, while the existing bow gun pivot, web rotation timing and stern remain unchanged",
+    "Mirrored stationary bow shoulder skins join the untouched turret housing and rigid source receiver along the full diagonal seam without changing the original barrel motion"
   ],
   "webOptimization": {
-    "batchedMeshes": 169,
-    "highTriangles": 2393162,
-    "liteTriangles": 847201,
-    "highBytes": 18307184,
-    "liteBytes": 7838524,
+    "batchedMeshes": 170,
+    "highTriangles": 2393174,
+    "liteTriangles": 847213,
+    "highBytes": 18308484,
+    "liteBytes": 7839824,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.12",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.12.blend",
+  "version": "0.11.13",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.13.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
@@ -169,6 +170,7 @@
     "side-front-slider",
     "side-battery-leaf",
     "side-battery-carriage",
-    "bow-receiver"
+    "bow-receiver",
+    "bow-receiver-seam"
   ]
 }
