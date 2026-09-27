@@ -493,9 +493,10 @@ test('every single barrel pitches in its own vertical plane about the rear breec
       if (i > ((gun.userData.sideBatteryMechanism || gun.userData.stagedSingleBattery) ? 67 : 40))
         assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
     }
-    assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, 6, `${gun.name} requires three leaves per side`)
+    const leafCount = gun.name === 'Axial_Bow_Barrel' ? 0 : 6
+    assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, leafCount, `${gun.name} retains the requested armor state`)
     if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
-    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, 1, `${gun.name} requires an independent front cap`)
+    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, gun.name === 'Axial_Bow_Barrel' ? 0 : 1, `${gun.name} retains the requested front cap state`)
   }
 })
 

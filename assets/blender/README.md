@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.11.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.12.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.12 restores the bow single-gun mesh, housing, receiver shell, six side skirts and fifteen internal braces from the untouched `odin.blend`. It removes only the later bow shutter and front-cap reconstruction. The complete source receiver is translated rigidly 3.45 model units toward the bow and 0.55 units upward, lowering it from the preceding preview so the raised rear corner follows the stationary turret's descending edge. No receiver or surrounding hull vertices are deformed. The bow gun's web rotation timeline and all stern, keel, flank, main, defense and PDC mounts are unchanged. This revision establishes the bow slot location before the armor is rebuilt.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.11.blend --python tools/relocate_original_bow_v01112.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.11 extends the existing cement-gray bridge finish across the connected aft dorsal spine, bridge-side apron, fore upper fairing and the small exposed central fore-deck wedge inside the marked upper-superstructure area. It reuses the exact existing bridge armor and trim materials. The surrounding outer hull, turrets, vertical torpedo launchers, radars, glazing and other separate equipment retain their materials. Geometry and articulation are unchanged.
 

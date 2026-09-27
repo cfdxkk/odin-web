@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 175,
-  "triangles": 2421597,
+  "meshCount": 169,
+  "triangles": 2393162,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -133,25 +133,25 @@
     "Four centered single bores stow parallel to their channels with calibrated rear pivots; local transition and nose openings closed; interior stiffeners painted red",
     "Fixed nose infill continues the original lower inner-slot nose plane without the former triangular depression",
     "All four vertical flank mounts have smooth armor lower edges seated on the original inner rail; the first pair meets the original front lip without an outboard folded return",
-    "Side batteries 2 and 4 and all axial singles have smooth exterior armor, red inner reinforcements and physical contact-edge hinges; side 2 and 4 do not translate fore or aft",
     "The keel single retains its separate final diagonal inboard stroke after all armor is stowed",
     "Bridge hull armor has a neutral cement-gray finish",
     "The added bridge-base pinstripes are removed without changing the cement-gray paint area or palette",
     "Long aft twin guides and lower support brackets reach the same inboard seat as the gun bodies with a small bounded lag, avoiding protrusion through the turret glazing; their vertical sink remains synchronized",
     "The existing cement-gray bridge material now covers the aft dorsal spine, bridge-side apron, fore upper fairing and central fore-deck wedge while keeping equipment and the surrounding outer hull separate",
-    "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored"
+    "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored",
+    "Only the bow single turret is restored from untouched odin.blend geometry; its source receiver, six side skirts and fifteen brackets move rigidly toward the turret seam without deformation, while the existing bow gun pivot, web rotation timing and stern remain unchanged"
   ],
   "webOptimization": {
-    "batchedMeshes": 175,
-    "highTriangles": 2421597,
-    "liteTriangles": 854355,
-    "highBytes": 18389360,
-    "liteBytes": 7858812,
+    "batchedMeshes": 169,
+    "highTriangles": 2393162,
+    "liteTriangles": 847201,
+    "highBytes": 18307184,
+    "liteBytes": 7838524,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.11",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.11.blend",
+  "version": "0.11.12",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.12.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
@@ -168,6 +168,7 @@
     "pdc-hull-petal",
     "side-front-slider",
     "side-battery-leaf",
-    "side-battery-carriage"
+    "side-battery-carriage",
+    "bow-receiver"
   ]
 }
