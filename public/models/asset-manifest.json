@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 176,
-  "triangles": 2396788,
+  "triangles": 2398221,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -140,21 +140,24 @@
     "Aft twin carriages and shared rails retain their 40% descent onset and 2.7-unit outward correction, with the original four-unit sink restored",
     "Unrequested bow shoulder skins removed; the bow turret and receiver retain source geometry and the accepted rigid receiver position",
     "The original odin.blend bow gun location and Euler keyframes (frames 30–56) are reproduced in Nuxt",
-    "Bow and stern singles each have six flank-derived contact-edge hinged armor shutters and one translating front cap; the muzzle-end shutters close first after the gun lowers, and neither turret mount translates after closure",
-    "The original odin.blend stern gun location and Euler keyframes (frames 11–37) are reproduced in Nuxt; both source gun meshes remain unchanged",
-    "Bow and stern armor crowns and breech trapezoids meet their existing turret housings; the nose cap lifts before translating forward"
+    "The original odin.blend stern gun location and Euler keyframes (frames 11–37) are reproduced in Nuxt; source barrel actions remain unchanged",
+    "Bow and stern armor crowns and breech trapezoids meet their existing turret housings; the nose cap lifts before translating forward",
+    "The redundant rear substitute is removed; the stern moving nose cover uses the eight original odin.blend roof faces at the farther-forward source position",
+    "Stern bore static geometry is aligned point-for-point to the original odin.blend closed pose without changing its action",
+    "The original stern trough shoulder and fixed forward hull are restored without reshaping their source faces",
+    "Bow front cap parks farther forward and lower along its existing incline, clearing the untouched source bore action"
   ],
   "webOptimization": {
     "batchedMeshes": 176,
-    "highTriangles": 2396788,
-    "liteTriangles": 850827,
-    "highBytes": 18400708,
-    "liteBytes": 7932048,
+    "highTriangles": 2398221,
+    "liteTriangles": 851451,
+    "highBytes": 18418820,
+    "liteBytes": 7941412,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.17",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.17.blend",
+  "version": "0.11.18",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.18.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

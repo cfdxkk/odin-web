@@ -567,6 +567,31 @@ test('stern barrel follows its own original odin.blend keyframes', () => {
   assertMatrixClose(barrel.matrixWorld, deployedSource, 'Stern remains at source frame 37 after deployment')
 })
 
+test('stern bore rests at its original odin.blend position, not only its relative action', () => {
+  const { root, rig, meshBounds } = loadRig()
+  const bore = root.getObjectByName('odin.026')
+  assert.ok(bore && meshBounds.has(bore), 'Source stern bore geometry is present')
+  rig.apply(0, 0)
+  root.updateMatrixWorld(true)
+  const actual = meshBounds.get(bore).clone().applyMatrix4(bore.matrixWorld)
+  const sourceMin = new THREE.Vector3(-1.6288986206054688, 45.74752426147461, 231.1075897216797).multiplyScalar(.01)
+  const sourceMax = new THREE.Vector3(1.6260801553726196, 63.05480194091797, 274.32647705078125).multiplyScalar(.01)
+  assert.ok(actual.min.distanceTo(sourceMin) < .0001, `Stern bore minimum differs from source: ${actual.min.distanceTo(sourceMin)}`)
+  assert.ok(actual.max.distanceTo(sourceMax) < .0001, `Stern bore maximum differs from source: ${actual.max.distanceTo(sourceMax)}`)
+  const asset = root.getObjectByName('Odin_Asset')
+  assert.ok(asset.userData.sternSourceShoulderFaces >= 100, 'Original stern shoulder is restored beneath the new armor')
+  assert.equal(asset.userData.sternOriginalFrontPlateFaces, 8, 'Stern foremost plate uses its eight original source faces')
+  const cap = root.getObjectByName('Axial_Stern_FrontCap')
+  assert.equal(cap.userData.sourceObject, 'holo.001')
+  assert.equal(cap.children.filter(child => meshBounds.has(child)).length, 1, 'The original stern plate replaces both generated skins')
+  assert.equal(cap.children[0].userData.sourceFaceCount, 8)
+  assert.ok(asset.userData.sternOriginalForwardHullFaces >= 30,
+    'The fixed hull ahead of the original plate is restored from source faces')
+  const bowCap = root.getObjectByName('Axial_Bow_FrontCap')
+  assert.ok(new THREE.Vector3(...bowCap.userData.additionalOpenTravelModel).length() > 3,
+    'Bow cap clears the original bore along the deck incline')
+})
+
 test('axial front caps lift clear before translating toward the muzzle', () => {
   const { root, rig } = loadRig()
   const map = ([x, y, z]) => new THREE.Vector3(x, z, -y)
@@ -614,10 +639,10 @@ test('axial armor crowns follow the raised hull line and the breech trapezoids m
   }
 })
 
-test('axial front cap crowns continue the last hinged leaf as one side-view line', () => {
+test('bow front cap crown continues the last hinged leaf as one side-view line', () => {
   const { root } = loadRig()
   const frames = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url)))
-  for (const station of ['Bow', 'Stern']) {
+  for (const station of ['Bow']) {
     const prefix = `Axial_${station}`
     const frame = frames[prefix]
     const origin = new THREE.Vector3(...frame.frameOrigin)
@@ -641,6 +666,15 @@ test('axial front cap crowns continue the last hinged leaf as one side-view line
         `${station} front cap crown point ${index} bends away from the leaf line`)
     }
   }
+})
+
+test('stern front plate uses the forward source roof rather than the redundant rear substitute', () => {
+  const { root } = loadRig()
+  const cap = root.getObjectByName('Axial_Stern_FrontCap')
+  const [lower, upper] = cap.userData.originalClosedBounds
+  assert.ok(lower[1] > 25 && upper[1] < 34, 'The foremost source panel stays at the green-marked nose position')
+  assert.ok(cap.userData.originalOpenBounds[0][1] > lower[1] + 5, 'The existing panel parks farther forward when opened')
+  assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 foremost source roof')
 })
 
 test('bow and stern close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
