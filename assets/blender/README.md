@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.14.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.15.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.15 fits copies of the accepted SideBattery 1 flank armor meshes to the bow and stern single-gun slots. Each axial gun now has three hinged panels per side and one front assembly. The short, trapezoidal breech pair ends against the gun-root armor. The original gun, receiver, hull and mount meshes are untouched; the bow retains the original `odin.blend` gun motion and the stern retains its prior gun motion. The front plate translates after the side panels close, and neither axial mount gains a final translation. The exporter stores only static pivots; Nuxt animates all seven pieces.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.14.blend --python tools/fit_axial_from_flank_v01115.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.15.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.14 restores the v0.11.12 bow geometry, removing the two unrequested v0.11.13 shoulder skins. The bow receiver keeps its accepted rigid position, and no turret, receiver, hull or gun vertices are changed. In Nuxt, only the bow gun now follows the original `odin.blend` `odin.002` location and Euler animation at frames 30–56, including its original rotation path. The stern gun and every other mount retain their previous motion. The [source-motion samples](../../tests/fixtures/bow-source-motion-v01114.json) were recorded directly from the unchanged original file and checked against the web rig.
 

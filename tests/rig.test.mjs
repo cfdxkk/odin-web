@@ -494,10 +494,9 @@ test('other single barrels retain their existing rear-breech pitch', () => {
       if (i > ((gun.userData.sideBatteryMechanism || gun.userData.stagedSingleBattery) ? 67 : 40))
         assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
     }
-    const leafCount = gun.name === 'Axial_Bow_Barrel' ? 0 : 6
-    assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, leafCount, `${gun.name} retains the requested armor state`)
+    assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, 6, `${gun.name} retains six folding leaves`)
     if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
-    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, gun.name === 'Axial_Bow_Barrel' ? 0 : 1, `${gun.name} retains the requested front cap state`)
+    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, 1, `${gun.name} retains one front cap`)
   }
 })
 
@@ -530,6 +529,50 @@ test('bow barrel follows the original odin.blend keyframes without reshaping its
   rig.apply(1, 0)
   root.updateMatrixWorld(true)
   assertMatrixClose(barrel.matrixWorld, deployedSource, 'Bow remains at source frame 56 after deployment')
+})
+
+test('bow and stern close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
+  const { root, nodes, rig } = loadRig()
+  for (const station of ['Bow', 'Stern']) {
+    const prefix = `Axial_${station}`
+    const mount = root.getObjectByName(prefix + '_Mount')
+    const leaves = nodes.filter(node => node.userData.barrelJoint === prefix + '_Barrel')
+    const cap = root.getObjectByName(prefix + '_FrontCap')
+    assert.equal(leaves.length, 6)
+    assert.equal(cap.userData.system, 'single-front-cap')
+    assert.equal(cap.userData.onePieceNoseAssembly, true)
+    rig.apply(0, 0)
+    root.updateMatrixWorld(true)
+    const originalMount = mount.matrixWorld.clone()
+    for (const side of ['Port', 'Starboard']) {
+      const ordered = [0, 1, 2].map(index => root.getObjectByName(`${prefix}_Shutter_${side}_${String(index).padStart(2, '0')}`))
+      for (const leaf of ordered) {
+        assert.equal(leaf.parent.name, 'Odin_Asset', 'Axial plates keep fixed hull pivots')
+        assert.ok(leaf.userData.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_Port_'))
+        assert.equal(leaf.userData.closedAngleDegrees, side === 'Port' ? 150 : -150)
+      }
+      assert.equal(ordered[0].userData.shorterBreechTrapezoid, true)
+      for (let index = 0; index < 2; index++) {
+        const end = ordered[index].userData.closedEndEdgesModel[1]
+        const start = ordered[index+1].userData.closedEndEdgesModel[0]
+        for (let corner = 0; corner < 2; corner++)
+          assert.ok(new THREE.Vector3(...end[corner]).distanceTo(new THREE.Vector3(...start[corner])) < .055,
+            `${station} ${side} armor has an open longitudinal seam`)
+      }
+    }
+    for (const progress of [0, .1, .2, .3, .4, .55, .7, 1]) {
+      rig.apply(progress, 0)
+      root.updateMatrixWorld(true)
+      assertMatrixClose(mount.matrixWorld, originalMount, `${station} turret translates after its armor closes`)
+    }
+    const early = station === 'Bow' ? .18 : .40
+    rig.apply(early, 0)
+    const pair = [0, 2].map(index => root.getObjectByName(`${prefix}_Shutter_Port_${String(index).padStart(2, '0')}`))
+    assert.ok(pair[0].quaternion.angleTo(new THREE.Quaternion()) < pair[1].quaternion.angleTo(new THREE.Quaternion()),
+      `${station} muzzle-end leaf should be farther through its closing stroke`)
+    rig.apply(1, 0)
+    for (const leaf of leaves) assert.ok(leaf.quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
+  }
 })
 
 test('original single covers keep their source open pose and stagger root-first', () => {

@@ -12,8 +12,7 @@ assert.equal(asset.animations?.length || 0, 0, 'All animation must remain in Nux
 assert.equal(asset.cameras?.length || 0, 0, 'No Blender camera exported')
 assert.ok(!asset.nodes.some(n => /perseus/i.test(n.name)), 'Other ships excluded')
 const names = new Set(asset.nodes.map(n => n.name))
-for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Center', 'Main_Ventral_Tube_Center', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_SourceReceiver', 'Axial_Stern_Shutter_Starboard_02', 'Axial_Keel_Shutter_Port_01', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
-assert.ok(![...names].some(name => name.startsWith('Axial_Bow_Shutter_') || name.startsWith('Axial_Bow_FrontCap')), 'Bow is restored before rebuilding its armor')
+for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Center', 'Main_Ventral_Tube_Center', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_SourceReceiver', 'Axial_Bow_Shutter_Port_00', 'Axial_Bow_FrontCap', 'Axial_Stern_Shutter_Starboard_02', 'Axial_Stern_FrontCap', 'Axial_Keel_Shutter_Port_01', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
 assert.deepEqual(asset.nodes.find(n => n.name === 'Axial_Bow_SourceReceiver').extras.receiverShiftModel.map(x => +x.toFixed(2)), [0, 3.45, 0.55], 'Only the source bow receiver moves rigidly to the turret edge')
 assert.ok(!('rearShoulderLiftModel' in asset.nodes.find(n => n.name === 'Axial_Bow_SourceReceiver').extras), 'Source bow receiver geometry must remain undeformed')
 assert.ok(![...names].some(name => name.startsWith('Axial_Bow_SeamFairing')), 'Reject the unrequested added bow shoulder geometry')
@@ -36,8 +35,19 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
     } else assert.ok(vector(plate.extras.liftVector) && plate.extras.sourceObject, `${plate.name} has an independent short fore-end cap`)
   }
 }
-assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 60, 'All other single-battery shutter joints remain')
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 6)
+assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 66, 'All eleven single-battery shutter pairs remain')
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 7)
+for (const station of ['Bow', 'Stern']) {
+  const prefix = `Axial_${station}`
+  const leaves = asset.nodes.filter(n => n.extras?.barrelJoint === `${prefix}_Barrel`)
+  assert.equal(leaves.length, 6, `${station} has six folding plates`)
+  assert.equal(asset.nodes.filter(n => n.extras?.barrel === `${prefix}_Barrel` && n.extras?.system === 'single-front-cap').length, 1, `${station} has one front plate`)
+  for (const leaf of leaves) {
+    assert.equal(leaf.extras.physicalHinge, true, `${leaf.name} hinges on the shell edge`)
+    assert.ok(leaf.extras.armorTemplate?.startsWith('SideBattery_1_Starboard_Shutter_Port_'), `${leaf.name} derives from the accepted flank armor`)
+    assert.ok(leaf.children?.some(i => asset.nodes[i].mesh !== undefined), `${leaf.name} contains fitted flank geometry`)
+  }
+}
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-front-slider').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage').length, 4)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
