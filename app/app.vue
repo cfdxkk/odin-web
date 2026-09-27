@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
 const viewer = ref<{ seek: (t: number) => void }>()
+const reviewMode = ref(false)
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const playback = ref({ userPaused: false, scrubbing: false })
 const playing = computed(() => isPlaying(playback.value))
@@ -31,6 +32,7 @@ function keyboard(event: KeyboardEvent) {
   if (event.key.toLowerCase() === 'r' && !explore.value) viewer.value?.seek(0)
 }
 onMounted(() => {
+  reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) playback.value.userPaused = true
   lowPower.value = window.innerWidth < 700
   window.addEventListener('keydown', keyboard)
@@ -47,7 +49,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="site-shell">
+  <ClientOnly v-if="reviewMode"><ArticulationReview /></ClientOnly>
+  <div v-else class="site-shell">
     <header class="site-header">
       <a href="#top" class="brand" aria-label="ODIN 首页"><img src="/favicon.svg" alt="" /><span>ODIN<span class="brand-sub">ANVIL / FAN ART</span></span></a>
       <nav aria-label="主导航"><a href="#top" class="nav-current">舰船展示</a><a href="#dossier">舰船档案</a><button @click="showAbout = true">关于创作</button></nav>
