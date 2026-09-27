@@ -1,6 +1,120 @@
 # Editable Odin asset
 
-`odin_articulated_v0.7.0.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.15.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.15 fits copies of the accepted SideBattery 1 flank armor meshes to the bow and stern single-gun slots. Each axial gun now has three hinged panels per side and one front assembly. The short, trapezoidal breech pair ends against the gun-root armor. The original gun, receiver, hull and mount meshes are untouched; the bow retains the original `odin.blend` gun motion and the stern retains its prior gun motion. The front plate translates after the side panels close, and neither axial mount gains a final translation. The exporter stores only static pivots; Nuxt animates all seven pieces.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.14.blend --python tools/fit_axial_from_flank_v01115.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.15.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.14 restores the v0.11.12 bow geometry, removing the two unrequested v0.11.13 shoulder skins. The bow receiver keeps its accepted rigid position, and no turret, receiver, hull or gun vertices are changed. In Nuxt, only the bow gun now follows the original `odin.blend` `odin.002` location and Euler animation at frames 30–56, including its original rotation path. The stern gun and every other mount retain their previous motion. The [source-motion samples](../../tests/fixtures/bow-source-motion-v01114.json) were recorded directly from the unchanged original file and checked against the web rig.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/restore_bow_source_motion_v01114.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.14.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.13 closes the bow turret-to-receiver diagonal gap with two stationary shoulder skins. The skins use the actual unchanged edge coordinates of the restored turret housing and rigid receiver; the receiver's v0.11.12 position and all original gun motion remain unchanged. The fairing is separate geometry under `Axial_Bow_SeamFairing`, so no source vertices are stretched or reshaped. Check the closed, intermediate and deployed bow views, including both oblique sides, in the articulation review.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/close_bow_receiver_seam_v01113.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.13.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.12 restores the bow single-gun mesh, housing, receiver shell, six side skirts and fifteen internal braces from the untouched `odin.blend`. It removes only the later bow shutter and front-cap reconstruction. The complete source receiver is translated rigidly 3.45 model units toward the bow and 0.55 units upward, lowering it from the preceding preview so the raised rear corner follows the stationary turret's descending edge. No receiver or surrounding hull vertices are deformed. The bow gun's web rotation timeline and all stern, keel, flank, main, defense and PDC mounts are unchanged. This revision establishes the bow slot location before the armor is rebuilt.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.11.blend --python tools/relocate_original_bow_v01112.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.12.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.11 extends the existing cement-gray bridge finish across the connected aft dorsal spine, bridge-side apron, fore upper fairing and the small exposed central fore-deck wedge inside the marked upper-superstructure area. It reuses the exact existing bridge armor and trim materials. The surrounding outer hull, turrets, vertical torpedo launchers, radars, glazing and other separate equipment retain their materials. Geometry and articulation are unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.10.blend --python tools/extend_bridge_paint_v01111.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.11.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.10 restores the aft twin gun carriages and shared guide rails to their original four-unit final sink. Their outward parked correction, 40% sink onset and slight guide retraction lag remain. Direct triangle-overlap checks on all four closed gates found no intersection at this depth; the previous deeper sink came from an overly conservative axis-aligned bounding-box estimate.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.9.blend --python tools/restore_aft_drop_v01110.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.10.blend --python tools/export_articulated_asset.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.10.blend --python tools/verify_aft_gate_clearance.py
+```
+
+Version 0.11.9 removes the separate late vertical lift from aft twin batteries 5–8. The gun carriages and their shared guides/support rails begin a single eased descent at 40% of deployment and seat before hull gates close. Their common inboard endpoint moves 2.7 source units outward from v0.11.8, matching the reviewer's blue-line target; the final drop increases to keep the closed gates clear. The guides retain their small inboard lag. The original geometry is unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.8.blend --python tools/retime_aft_twins_v0119.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.9.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.8 gives the two shared aft twin support rails, including their long guides and lower brackets, the same inboard parked endpoint as the gun carriages. A small bounded lag lets the rails retract slightly more slowly than the guns without leaving them protruding through the turret glazing. The rails and carriages still sink together during the last fifth of travel. Geometry and the previously approved bridge paint remain unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.7.blend --python tools/fit_aft_defense_rail_v0118.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.8.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.7 adjusts only aft twin secondary batteries 5–8. Each carriage has 5.0 more source units of inward travel and sinks 4.0 units in total; both shared aft support rails sink by the same amount. The last 20% of retraction and the sink happen together in the browser rig, and the hull gates close only after both are seated. Geometry and the previously approved bridge paint remain unchanged.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.6.blend --python tools/revise_aft_defense_stow_v0117.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.7.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.6 removes only the six red pinstripe meshes added beneath the bridge in v0.11.5. The cement-gray material colors and their assigned hull faces are identical to v0.11.5. The bow single-gun geometry and animation are unchanged pending further direction.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.5.blend --python tools/revert_bridge_pinstripe_v0116.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.6.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.4 lowers groups 2–4 on the four vertical flank mounts to the original front-receiver crown and flattens the first plate to the same height. The closed plates and their physical contact edges follow a continuous straight plan-view line. A small fixed triangle closes each lower nose seam using vertices from the original lower inner-slot panel. [Four-mount, four-angle review](../../docs/review/v0.11.4/README.md) includes the geometry audit and 101-pose clearance sweep.
+
+Reproduce this revision from the committed v0.11.3 asset:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.3.blend --python tools/refine_flank_contour_v0114.py
+blender -b assets/blender/odin_articulated_v0.11.4.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.3 restores the accepted flat crowns on all four vertical flank mounts while retaining the original inner-rail and front-rim fit of their lower armor edges. Each of the 24 folding leaves now pivots on the actual armor-to-slot contact edge. Its 150-degree fold clears the fixed triangular fairings. The red grate detail remains recessed beneath the smooth exterior. The [four-mount, four-angle review](../../docs/review/v0.11.3/README.md) includes the measured contact-edge audit.
+
+Reproduce this revision from the committed v0.11.2 asset:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.2.blend --python tools/refit_flank_armor_v0113.py
+blender -b assets/blender/odin_articulated_v0.11.3.blend --python tools/export_articulated_asset.py
+```
+
+Version 0.11.2 seats the lower edges of all four vertical flank batteries on the measured inner-slot rail. Both first armor halves meet the original front rim directly; the raised folded return from v0.11.1 is removed. The red inner grates follow the shells, and the centered guns settle deeper in NAV. Version 0.11.3 raises the crowns back to the accepted hull trend.
+
+Reproduce the current correction from the committed v0.11.1 baseline:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.11.1.blend --python tools/refit_flank_armor_v0112.py
+blender -b assets/blender/odin_articulated_v0.11.2.blend --python tools/export_articulated_asset.py
+```
+
+See [v0.11.2 review](../../docs/review/v0.11.2/README.md). The [v0.11.1 review](../../docs/review/v0.11.1/README.md) records the previous pedestal and bore correction.
+
+Version 0.11 changes only vertical flank batteries 1 and 3 on both sides. Their first cover pair lifts then slides; three existing detailed pairs fold about measured inner-edge hinges. Matching inclined seams, an unequal-ended trapezoid first pair, inner-only grates and smooth outer skins follow the review references. The complete original rear pedestal, trough, barrel, trunnion and groups 3/4 move rigidly together. Only the indicated triangular bay gaps receive infill.
+
+Reconstruct the earlier v0.11.0 baseline from v0.10.0, in order:
+
+```powershell
+blender -b assets/blender/odin_articulated_v0.10.0.blend --python tools/revise_side_batteries_v0110.py
+blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/refine_side_edges_v0110.py
+blender -b assets/blender/odin_articulated_v0.11.0.blend --python tools/export_articulated_asset.py
+```
+
+The refinement script is run once after a fresh base build. See [v0.11 review](../../docs/review/v0.11.0/README.md) for validation.
+
+Historical v0.7 main-battery reconstruction:
 
 Each main battery has five independently translated armor pieces: two forward leaves, two narrow fillers below the rotating gun shrouds, and the short fore-end cap. Version 0.7 restores the complete `holo.001` and `holo.013` hull meshes from v0.5. The aft fillers are new thin shells spanning the gap between the shroud toes and fixed hull lips; no fixed-hull faces are cut out. Their reconstruction data and the main-leaf seams use measured closed-pose boundaries in `tools/main_armor_v07_boundaries.json`. The dorsal leaves follow the existing serrated lip; the ventral source lip has its own faceted profile rather than a mirrored copy of those teeth.
 

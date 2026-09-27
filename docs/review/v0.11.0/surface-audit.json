@@ -1,0 +1,149 @@
+{
+  "innerDetailLeaves": [
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Port_00",
+      "detailVertices": 311,
+      "minimumInsideOuterFace": 0.24999772372842755,
+      "outerEdgeOverhang": -0.03999973420148928
+    },
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Starboard_00",
+      "detailVertices": 312,
+      "minimumInsideOuterFace": 0.24999739560141787,
+      "outerEdgeOverhang": -0.039999709321697274
+    },
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Port_01",
+      "detailVertices": 231,
+      "minimumInsideOuterFace": 0.24999737303540304,
+      "outerEdgeOverhang": -0.039999785202292415
+    },
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Starboard_01",
+      "detailVertices": 229,
+      "minimumInsideOuterFace": 0.24999744158251375,
+      "outerEdgeOverhang": -0.039999759608357
+    },
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Port_02",
+      "detailVertices": 196,
+      "minimumInsideOuterFace": 0.2501872857980206,
+      "outerEdgeOverhang": -0.039999793177224685
+    },
+    {
+      "leaf": "SideBattery_1_Starboard_Shutter_Starboard_02",
+      "detailVertices": 202,
+      "minimumInsideOuterFace": 0.24999846859870786,
+      "outerEdgeOverhang": -0.0399997374651937
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Port_00",
+      "detailVertices": 312,
+      "minimumInsideOuterFace": 0.24999805527709135,
+      "outerEdgeOverhang": -0.039999988156084854
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Starboard_00",
+      "detailVertices": 311,
+      "minimumInsideOuterFace": 0.24999782278632898,
+      "outerEdgeOverhang": -0.03999985553731156
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Port_01",
+      "detailVertices": 229,
+      "minimumInsideOuterFace": 0.24999731796095692,
+      "outerEdgeOverhang": -0.040000021982744105
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Starboard_01",
+      "detailVertices": 231,
+      "minimumInsideOuterFace": 0.24999685282673653,
+      "outerEdgeOverhang": -0.03999984566238712
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Port_02",
+      "detailVertices": 202,
+      "minimumInsideOuterFace": 0.24999818716855343,
+      "outerEdgeOverhang": -0.040000033985811534
+    },
+    {
+      "leaf": "SideBattery_1_Port_Shutter_Starboard_02",
+      "detailVertices": 196,
+      "minimumInsideOuterFace": 0.2501829379959405,
+      "outerEdgeOverhang": -0.03999986685647139
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Port_00",
+      "detailVertices": 302,
+      "minimumInsideOuterFace": 0.24999909440400214,
+      "outerEdgeOverhang": -0.03999902870519367
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Starboard_00",
+      "detailVertices": 296,
+      "minimumInsideOuterFace": 0.2499992272394189,
+      "outerEdgeOverhang": -0.03999904429508838
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Port_01",
+      "detailVertices": 228,
+      "minimumInsideOuterFace": 0.2499980938550187,
+      "outerEdgeOverhang": -0.03999906018555199
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Starboard_01",
+      "detailVertices": 226,
+      "minimumInsideOuterFace": 0.24999738731349005,
+      "outerEdgeOverhang": -0.03999903241508429
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Port_02",
+      "detailVertices": 198,
+      "minimumInsideOuterFace": 0.2504780313848351,
+      "outerEdgeOverhang": -0.03999900754237373
+    },
+    {
+      "leaf": "SideBattery_3_Starboard_Shutter_Starboard_02",
+      "detailVertices": 206,
+      "minimumInsideOuterFace": 0.24999891059169763,
+      "outerEdgeOverhang": -0.039999030136540714
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Port_00",
+      "detailVertices": 296,
+      "minimumInsideOuterFace": 0.24999801478418796,
+      "outerEdgeOverhang": -0.03999902650722875
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Starboard_00",
+      "detailVertices": 302,
+      "minimumInsideOuterFace": 0.24999822819606332,
+      "outerEdgeOverhang": -0.03999905043484686
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Port_01",
+      "detailVertices": 226,
+      "minimumInsideOuterFace": 0.24999744037729024,
+      "outerEdgeOverhang": -0.03999905400020509
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Starboard_01",
+      "detailVertices": 228,
+      "minimumInsideOuterFace": 0.2499982410473662,
+      "outerEdgeOverhang": -0.039999022921933136
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Port_02",
+      "detailVertices": 206,
+      "minimumInsideOuterFace": 0.24999917220498946,
+      "outerEdgeOverhang": -0.03999901995084354
+    },
+    {
+      "leaf": "SideBattery_3_Port_Shutter_Starboard_02",
+      "detailVertices": 198,
+      "minimumInsideOuterFace": 0.2504788295297745,
+      "outerEdgeOverhang": -0.03999900683323787
+    }
+  ],
+  "localTriangularInfill": 8
+}

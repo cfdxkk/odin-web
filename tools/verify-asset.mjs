@@ -12,7 +12,10 @@ assert.equal(asset.animations?.length || 0, 0, 'All animation must remain in Nux
 assert.equal(asset.cameras?.length || 0, 0, 'No Blender camera exported')
 assert.ok(!asset.nodes.some(n => /perseus/i.test(n.name)), 'Other ships excluded')
 const names = new Set(asset.nodes.map(n => n.name))
-for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Center', 'Main_Ventral_Tube_Center', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_Shutter_Port', 'Axial_Stern_Shutter_Starboard', 'Axial_Keel_Shutter_Port', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
+for (const name of ['Odin_Asset', 'Main_Dorsal_Barrels', 'Main_Ventral_Barrels', 'Hatch_Dorsal_Port', 'Hatch_Ventral_Starboard', 'Main_Dorsal_Tube_Port', 'Main_Dorsal_Tube_Center', 'Main_Ventral_Tube_Center', 'Main_Ventral_Tube_Starboard', 'Axial_Bow_SourceReceiver', 'Axial_Bow_Shutter_Port_00', 'Axial_Bow_FrontCap', 'Axial_Stern_Shutter_Starboard_02', 'Axial_Stern_FrontCap', 'Axial_Keel_Shutter_Port_01', 'PDC_Port_Arm_0', 'PDC_Starboard_Arm_3', 'PDC_Port_Gimbal', 'PDC_Starboard_Gimbal', 'Defense_08_Elevation', 'SternHangarDoor']) assert.ok(names.has(name), `Required part ${name}`)
+assert.deepEqual(asset.nodes.find(n => n.name === 'Axial_Bow_SourceReceiver').extras.receiverShiftModel.map(x => +x.toFixed(2)), [0, 3.45, 0.55], 'Only the source bow receiver moves rigidly to the turret edge')
+assert.ok(!('rearShoulderLiftModel' in asset.nodes.find(n => n.name === 'Axial_Bow_SourceReceiver').extras), 'Source bow receiver geometry must remain undeformed')
+assert.ok(![...names].some(name => name.startsWith('Axial_Bow_SeamFairing')), 'Reject the unrequested added bow shoulder geometry')
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'main-hatch' && n.extras?.staticJoint).length, 10, 'Five articulated main armor plates per battery')
 const vector = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite)
 for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) {
@@ -32,7 +35,26 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
     } else assert.ok(vector(plate.extras.liftVector) && plate.extras.sourceObject, `${plate.name} has an independent short fore-end cap`)
   }
 }
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'axial-shutter' && n.extras?.staticJoint).length, 6, 'Original shutters on all three axial batteries')
+assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 66, 'All eleven single-battery shutter pairs remain')
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 7)
+for (const station of ['Bow', 'Stern']) {
+  const prefix = `Axial_${station}`
+  const leaves = asset.nodes.filter(n => n.extras?.barrelJoint === `${prefix}_Barrel`)
+  assert.equal(leaves.length, 6, `${station} has six folding plates`)
+  assert.equal(asset.nodes.filter(n => n.extras?.barrel === `${prefix}_Barrel` && n.extras?.system === 'single-front-cap').length, 1, `${station} has one front plate`)
+  for (const leaf of leaves) {
+    assert.equal(leaf.extras.physicalHinge, true, `${leaf.name} hinges on the shell edge`)
+    assert.ok(leaf.extras.armorTemplate?.startsWith('SideBattery_1_Starboard_Shutter_Port_'), `${leaf.name} derives from the accepted flank armor`)
+    assert.ok(leaf.children?.some(i => asset.nodes[i].mesh !== undefined), `${leaf.name} contains fitted flank geometry`)
+  }
+}
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-front-slider').length, 8)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage').length, 4)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'pdc-hull-petal').length, 8)
+assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'defense-gate').length, 4)
+for (const side of ['Port', 'Starboard']) assert.equal(asset.nodes.find(n => n.name === `PDC_${side}_Gimbal`).extras.fixedRootArmorPieces, 4)
 const tubes = asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint)
 const carriages = asset.nodes.filter(n => n.extras?.system === 'main-bore-carriage' && n.extras?.staticJoint)
 assert.equal(carriages.length, 6, 'Three independently positioned complete bore carriages per battery')
@@ -54,7 +76,7 @@ for (const tube of tubes) {
 }
 const stern = asset.nodes.find(n => n.name === 'SternHangarDoor')
 assert.ok(stern.children.some(index => asset.nodes[index].mesh !== undefined), 'Aft door contains actual visible geometry')
-assert.equal(asset.nodes.filter(n => n.extras?.system === 'bridge-armor' && n.extras?.staticJoint).length, 45, '45 articulated bridge armor slats')
+assert.equal(asset.nodes.filter(n => n.extras?.system === 'bridge-armor' || n.name.startsWith('BridgeArmor_')).length, 0, 'Bridge armor removed; fixed windows retained')
 assert.equal(asset.nodes.filter(n => /^SideBattery_\d_(Port|Starboard)$/.test(n.name)).length, 8, 'Eight independently mirrored secondary batteries')
 assert.ok(asset.materials.some(m => m.normalTexture), 'Source tangent normals preserved')
 // Named empties alone are insufficient: they used to exist but all had origin (0,0,0).
@@ -77,6 +99,12 @@ for (let i = 0; i < 13; i++) {
 }
 assert.ok(asset.images?.length > 0 && asset.images.every(i => i.bufferView !== undefined), 'Textures embedded for portable loading')
 assert.ok(asset.materials?.length > 0, 'PBR materials present')
+const paintIndex = asset.materials.findIndex(m => m.name === 'Odin_Antenna_Painted_Wrap')
+assert.ok(paintIndex >= 0, 'Antenna paint material is present')
+const paintTexture = asset.materials[paintIndex].pbrMetallicRoughness.baseColorTexture
+assert.ok(paintTexture, 'The antenna band is an embedded texture')
+const paintedPrimitives = asset.meshes.flatMap(m => m.primitives).filter(p => p.material === paintIndex)
+assert.ok(paintedPrimitives.length > 0 && paintedPrimitives.every(p => p.attributes[`TEXCOORD_${paintTexture.texCoord || 0}`] !== undefined), 'The batched antennas retain the UV channel used by their wraparound band')
 assert.ok(file.length < 25 * 1024 * 1024, 'Desktop asset fits the static host 25 MiB per-file budget')
 console.log(JSON.stringify({ model, valid: true, sizeMB: +(file.length / 1024 / 1024).toFixed(2), meshes: asset.meshes.length, materials: asset.materials.length, embeddedTextures: asset.images.length, animationClips: 0 }, null, 2))
 }
