@@ -33,7 +33,7 @@ npm run generate
 
 源文件：`../Odin 建模/odin.blend`，未覆盖。
 
-当前待审核模型：[`assets/blender/odin_articulated_v0.11.15.blend`](assets/blender/odin_articulated_v0.11.15.blend)。舰艏和舰艉单联装炮塔各有七块装甲：从已完成的侧舷装甲复制并贴合的左右六块翻板，以及一块前盖。炮管沿用原有动作，装甲收起后炮塔本体不平移。打开 `/?review=secondary` 可查看两端炮塔的收起、展开和中间姿态。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
+当前待审核模型：[`assets/blender/odin_articulated_v0.11.16.blend`](assets/blender/odin_articulated_v0.11.16.blend)。舰艏和舰艉单联装炮塔各有七块装甲：从已完成的侧舷装甲复制并贴合的左右六块翻板，以及一块前盖。舰艏七个装甲关节已随原始炮管槽的刚性位移向前、向上对齐；装甲网格和炮管动作不变。打开 `/?review=secondary` 可查看两端炮塔的收起、展开和中间姿态。编辑源文件和复现命令见 [Blender 资产说明](assets/blender/README.md)。
 
 每座主炮井保留五块独立护甲。两块长板先微量脱开齿口，再沿短导轨向外、向下平移，停留在船壳外侧；后段两块三角补片沿斜置铰链外翻约 130°；前端短盖沿原船壳的锯齿轮廓贴合，微抬后向船艏滑动。内侧使用深红色，外侧保留原灰色材质。v0.10.0 保持十片护甲的外表面和边界不变，向内加厚至原来的 2.1 倍，并让隐藏的固定接收面为厚边让位。
 

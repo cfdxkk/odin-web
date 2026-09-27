@@ -575,6 +575,28 @@ test('bow and stern close six flank-derived leaves muzzle-first, then seat one c
   }
 })
 
+test('bow armor pivots and nose cap share the relocated original receiver datum', () => {
+  const { root } = loadRig()
+  const frame = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url))).Axial_Bow
+  const shift = root.getObjectByName('Axial_Bow_SourceReceiver').userData.receiverShiftModel
+  const modelPoint = ([x, y, z]) => frame.frameOrigin.map((value, row) =>
+    value + frame.frameAxes[row][0] * x + frame.frameAxes[row][1] * y + frame.frameAxes[row][2] * z + shift[row])
+  const browserPoint = ([x, y, z]) => new THREE.Vector3(x, z, -y)
+  const segments = [-16.25, -6.525, 1.90]
+  for (const side of ['Port', 'Starboard']) for (let index = 0; index < 3; index++) {
+    const leaf = root.getObjectByName(`Axial_Bow_Shutter_${side}_${String(index).padStart(2, '0')}`)
+    const expected = modelPoint([side === 'Port' ? -2.46 : 2.46, segments[index], 2.49])
+    assert.ok(leaf.position.distanceTo(browserPoint(expected)) < .0002, `${leaf.name} pivot missed the receiver lip`)
+    assert.ok(browserPoint(leaf.userData.hingeEdgeModel[0]).distanceTo(leaf.position) < .0002,
+      `${leaf.name} recorded hinge edge missed its physical pivot`)
+    assert.deepEqual(leaf.userData.receiverDatumShiftModel.map(x => +x.toFixed(2)), [0, 3.45, .55])
+  }
+  const cap = root.getObjectByName('Axial_Bow_FrontCap')
+  assert.ok(cap.position.distanceTo(browserPoint(modelPoint([0, 15.57, 5.07]))) < .0002,
+    'Bow front plate missed the translated receiver datum')
+  assert.deepEqual(cap.userData.receiverDatumShiftModel.map(x => +x.toFixed(2)), [0, 3.45, .55])
+})
+
 test('original single covers keep their source open pose and stagger root-first', () => {
   const { nodes, rig } = loadRig()
   const sourceRotations = new Map(nodes.map(n => [n.name, n.quaternion.clone()]))

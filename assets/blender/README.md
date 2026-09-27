@@ -1,6 +1,13 @@
 # Editable Odin asset
 
-`odin_articulated_v0.11.15.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+`odin_articulated_v0.11.16.blend` is the current editable exterior model. The original `odin.blend` and earlier versioned copies remain unchanged. It contains geometry, PBR textures and named static joints, with no animation actions.
+
+Version 0.11.16 translates only the seven bow armor joints by the exact rigid receiver relocation established in v0.11.12: 3.45 model units forward and 0.55 upward. Their unchanged flank-derived meshes, hinge axes and front-cap travel now share the receiver's contact datum. The stern, original gun rotations, turret housing and hull are untouched. The joint metadata for hinge edges and closed seams is translated with the joints.
+
+```powershell
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.15.blend --python tools/align_bow_armor_v01116.py
+& 'D:\software\Blender\software\blender.exe' -b assets/blender/odin_articulated_v0.11.16.blend --python tools/export_articulated_asset.py
+```
 
 Version 0.11.15 fits copies of the accepted SideBattery 1 flank armor meshes to the bow and stern single-gun slots. Each axial gun now has three hinged panels per side and one front assembly. The short, trapezoidal breech pair ends against the gun-root armor. The original gun, receiver, hull and mount meshes are untouched; the bow retains the original `odin.blend` gun motion and the stern retains its prior gun motion. The front plate translates after the side panels close, and neither axial mount gains a final translation. The exporter stores only static pivots; Nuxt animates all seven pieces.
 
