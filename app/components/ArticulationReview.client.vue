@@ -43,6 +43,9 @@ onMounted(async () => {
   const camera=new THREE.OrthographicCamera(-1,1,1,-1,.001,50)
   const controls=new OrbitControls(camera,el); controls.enableDamping=true; controls.dampingFactor=.08; controls.minZoom=.15; controls.maxZoom=12
   controls.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN}
+  let needsRender=true, renderedFrames=0
+  const stopRenderWatch=watch([deployment,playing],()=>{needsRender=true})
+  controls.addEventListener('change',()=>{needsRender=true})
   const pmrem=new THREE.PMREMGenerator(renderer), room=new RoomEnvironment(), env=pmrem.fromScene(room,.15)
   scene.environment=env.texture; scene.environmentIntensity=.38; room.dispose();pmrem.dispose()
   scene.add(new THREE.HemisphereLight(0xc9d1da,0x45434a,.8))
@@ -56,6 +59,7 @@ onMounted(async () => {
   function resize() {
     const box=el.getBoundingClientRect(), w=box.width, h=box.height
     renderer.setSize(w,h,false)
+    needsRender=true
     const width=shots[selected.value]!.width
     camera.left=-width/2;camera.right=width/2;camera.top=width*h/w/2;camera.bottom=-camera.top;camera.updateProjectionMatrix()
   }
@@ -68,13 +72,13 @@ onMounted(async () => {
     controls.target.copy(p);camera.zoom=1;camera.lookAt(p);controls.update();resize()
   }
   cleanup=()=>{
-    cancelAnimationFrame(frame);observer?.disconnect();controls.dispose();draco.dispose();env.dispose()
+    cancelAnimationFrame(frame);stopRenderWatch();observer?.disconnect();controls.dispose();draco.dispose();env.dispose()
     const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>()
     scene.traverse(o=>{if(o instanceof THREE.Mesh){geometries.add(o.geometry);(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m))}})
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.22-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.23-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -82,10 +86,13 @@ onMounted(async () => {
     observer=new ResizeObserver(resize);observer.observe(el);focus();ready.value=true
     function render(now: number) {
       frame=requestAnimationFrame(render);const dt=Math.min((now-previous)/1000,.05);previous=now
-      if(document.hidden)return
+      if(document.hidden){needsRender=true;return}
       if(playing.value){elapsed+=dt;cycle=(cycle+dt)%8;deployment.value=cycle<3?cycle/3:cycle<4?1:cycle<7?1-(cycle-4)/3:0}
-      rig.apply(deployment.value,elapsed);controls.update();renderer.render(scene,camera)
+      controls.update()
+      if(!needsRender&&!playing.value)return
+      rig.apply(deployment.value,elapsed);renderer.render(scene,camera);needsRender=false
       el.dataset.ready='true';el.dataset.deployment=deployment.value.toFixed(3);el.dataset.station=shots[selected.value]!.name;el.dataset.joints=String(rig.jointCount)
+      el.dataset.renderedFrames=String(++renderedFrames)
     }
     frame=requestAnimationFrame(render)
   }catch(e){error.value=e instanceof Error?e.message:String(e);cleanup()}
@@ -96,7 +103,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.22</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.23</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视','正视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>

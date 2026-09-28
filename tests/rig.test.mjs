@@ -709,10 +709,14 @@ test('stern and keel source nose shells fit the full shutter and fixed receiver 
     const rear = cap.userData.closedRearProfileModel.map(local)
     const leaf = root.getObjectByName(`Axial_${station}_Shutter_Starboard_02`)
     const [outside, center] = leaf.userData.closedEndEdgesModel[1].map(local)
-    for (const [actual, expected] of [[rear[0], center], [rear[2], outside]]) {
+    const [crownStart,crownHeight,crownRake] = cap.userData.closedCrownLineLocal
+    for (const p of [fore[0],rear[0],center]) assert.ok(
+      Math.abs(p[2] - crownHeight - crownRake * (p[1] - crownStart)) < .0001,
+      'The nose crown and shutter crown must continue the same straight line')
+    for (const [actual, expected, rise] of [[rear[0], center, .02*crownRake], [rear[2], outside, 0]]) {
       assert.ok(Math.abs(actual[0] - Math.abs(expected[0])) < .0001)
       assert.ok(Math.abs(actual[1] - expected[1] - .02) < .0001)
-      assert.ok(Math.abs(actual[2] - expected[2]) < .0001)
+      assert.ok(Math.abs(actual[2] - expected[2] - rise) < .0001)
     }
     const [closedLow, closedHigh] = cap.userData.originalClosedBounds
     assert.ok(Math.abs(2 * closedHigh[0] - (station === 'Stern' ? 4.92 : 4.596)) < .01,
@@ -1069,6 +1073,46 @@ test('side batteries 2 and 4 seat across the hull without fore-aft translation',
     for (const d of [.4,.75,1]) {
       rig.apply(d, 0)
       assert.ok(Math.abs(gun.position.z - foreAft) < 1e-6)
+    }
+  }
+})
+
+test('side singles 2 and 4 release their fitted source nose before folding six flank leaves', () => {
+  const { root, nodes, rig } = loadRig()
+  const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
+  for (const i of [2,4]) for (const side of ['Port','Starboard']) {
+    const prefix = `SideBattery_${i}_${side}`
+    const gun = root.getObjectByName(prefix), cap = root.getObjectByName(prefix + '_FrontCap')
+    const leaves = nodes.filter(n => n.userData.barrelJoint === prefix)
+    assert.equal(leaves.length, 6)
+    assert.equal(cap.userData.armorAnimationTemplate, 'Axial_Stern_FrontCap')
+    rig.apply(0,0)
+    root.updateMatrixWorld(true)
+    const closedCap = cap.position.clone(), closedGun = gun.matrix.clone()
+    const closedLeaves = leaves.map(n => n.quaternion.clone())
+    rig.apply(.08,0)
+    const lifted = cap.position.clone(), lift = lifted.clone().sub(closedCap)
+    assert.ok(Math.abs(lift.length() - .6) < 1e-6)
+    assert.ok(lift.dot(map(gun.userData.outwardNormal).normalize()) > .599,
+      'Release the cap outward from the slot before advancing it')
+    rig.apply(.25,0)
+    assert.ok(cap.position.distanceTo(lifted) > 7.8)
+    leaves.forEach((leaf,k) => assert.ok(leaf.quaternion.angleTo(closedLeaves[k]) < 1e-6,
+      'Nose must clear before any side leaf folds'))
+    rig.apply(.64,0)
+    root.updateMatrixWorld(true)
+    assertMatrixClose(gun.matrix, closedGun, 'The original barrel waits for cover clearance')
+    for (let k=0;k<leaves.length;k++) {
+      const leaf = leaves[k]
+      assert.ok(leaf.userData.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_'))
+      assert.ok(Math.abs(leaf.quaternion.angleTo(closedLeaves[k]) - THREE.MathUtils.degToRad(95)) < 1e-6)
+      const index = leaf.userData.panelIndex
+      if (index < 2) {
+        const next = root.getObjectByName(leaf.name.replace(`_${String(index).padStart(2,'0')}`,`_${String(index+1).padStart(2,'0')}`))
+        leaf.userData.closedEndEdgesModel[1].forEach((p,e) => assert.ok(
+          map(p).distanceTo(map(next.userData.closedEndEdgesModel[0][e])) < .0001,
+          'Closed full-width seams remain continuous'))
+      }
     }
   }
 })

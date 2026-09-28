@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 176,
-  "triangles": 2396512,
+  "triangles": 2402184,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -132,19 +132,22 @@
     "Keel inward armor surfaces, supports and bore channel use deep-red paint",
     "Stern and keel source nose shells retain their topology and curled edges while their full rear profiles match the adjacent shutters and their full leading diagonals match the original fixed receivers",
     "All stern and keel shutter crowns share continuous widths, crown planes and narrow center seams; the rear edges meet their unchanged gun-root housings",
-    "Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat, original barrel actions and all 187 joint transforms remain unchanged"
+    "Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat and original barrel actions remain unchanged",
+    "Stern and keel crown lines continue across all six shutters and the original nose cover to the unchanged fixed receiver",
+    "Port and starboard side singles 2 and 4 use six accepted flank-derived vented leaves with red inner skins and their own original fitted nose cap; the cap lifts before advancing, shutters sweep 95 degrees before the unchanged barrel action starts",
+    "Only the 24 side single cover contact hinges are re-fitted; all other 163 joint transforms and every gun and fixed hull mesh remain unchanged"
   ],
   "webOptimization": {
     "batchedMeshes": 176,
-    "highTriangles": 2396512,
-    "liteTriangles": 851520,
-    "highBytes": 18539588,
-    "liteBytes": 8042556,
+    "highTriangles": 2402184,
+    "liteTriangles": 856709,
+    "highBytes": 18695308,
+    "liteBytes": 8194220,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.22",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.22.blend",
+  "version": "0.11.23",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.23.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
