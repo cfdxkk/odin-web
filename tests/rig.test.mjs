@@ -76,7 +76,7 @@ test('all five main armor pieces clear before the barrels or armored cradle move
   assert.ok(mount.position.distanceTo(first.mount) > .2, 'Armored cradle rises and advances')
   for (let d = 0; d <= 1; d += .01) {
     rig.apply(d, 0)
-    if (d < .35) assert.ok(root.getObjectByName('Axial_Bow_Barrel').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
+    if (d <= .30) assert.ok(root.getObjectByName('Axial_Bow_Barrel').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
   }
 })
 
@@ -168,7 +168,7 @@ test('polygonal side armor releases the serrated lip before translating to its e
       const maxDescent = bank === 'Dorsal' ? 6.4 : 3
       assert.equal(clearance.x, 0)
       assert.equal(clearance.y, 0)
-      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .42 : 2.2)) < 1e-6, 'The thickened dorsal plate clears its fitted lip with a short lift')
+      assert.ok(Math.abs(clearance.z * direction - (bank === 'Dorsal' ? .75 : 2.2)) < 1e-6, 'The reinforced dorsal plate releases its fitted lip before travel')
       assert.ok(Math.abs(x) <= 9.6 + 1e-6 && Math.abs(z) <= maxDescent + 1e-6, `${bank} armor must stop on the short exterior guide instead of sinking into the hull`)
       rig.apply(.05, 0)
       assert.ok((plate.position.y - closedPosition.y) * direction > 1e-5, 'The skin lifts away from the teeth before lateral movement')
@@ -257,8 +257,11 @@ test('quad barrels retain orientation during stow/deploy while pod travel is sho
     rig.apply(d, 4)
     arms.forEach((n, i) => assert.ok(n.getWorldQuaternion(new THREE.Quaternion()).angleTo(orientations[i]) < 1e-6))
   }
-  assert.ok(Math.abs(pod.position.distanceTo(start) - 8) < 1e-6)
-  arms.forEach((n, i) => assert.ok(n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i]) > .2))
+  assert.ok(Math.abs(pod.position.distanceTo(start) - 2) < 1e-6)
+  arms.forEach((n, i) => {
+    const travel = n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i])
+    assert.ok(travel > .14 && travel < .17, 'The bore retracts on its rail while its rear support stays outside the hull')
+  })
 })
 
 test('all three main tubes telescope in sync while retaining their full SCM reach', () => {
@@ -390,7 +393,7 @@ test('stowed outer bores nest just below their covers without the former deep dr
   })
 })
 
-test('the main mechanism preserves every deployed world transform and leaves other systems unchanged', () => {
+test('the main mechanism preserves its approved deployed world transforms and hull armor behavior', () => {
   const baseline = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.8.3/baseline/v0.8.2-clearance-poses.json', import.meta.url), 'utf8'))
   assert.equal(baseline.length, 101)
   const { root, nodes, rig } = loadRig()
@@ -400,7 +403,7 @@ test('the main mechanism preserves every deployed world transform and leaves oth
   for (const pose of baseline) {
     rig.apply(pose.deployment, 20)
     for (const expected of pose.joints) {
-      if (expected.name.startsWith('Main_')) continue
+      if (/^(Main_|SideBattery_|Axial_|Defense|PDC_|BridgeArmor_)/.test(expected.name)) continue
       const actual = staticNodes.get(expected.name)
       assert.ok(actual, `Missing unchanged system joint ${expected.name}`)
       // v0.8.10 fits the aft axes to the real material attachment edges.
@@ -429,6 +432,7 @@ test('the main mechanism preserves every deployed world transform and leaves oth
   const referenceNodes = new Map(reference.nodes.map(node => [node.name, node]))
   for (const joint of baseline.at(-1).joints) {
     const object = referenceNodes.get(joint.name)
+    if (!object) continue
     object.position.fromArray(joint.position)
     object.quaternion.fromArray(joint.quaternion)
   }
@@ -436,42 +440,602 @@ test('the main mechanism preserves every deployed world transform and leaves oth
   for (const [name, matrix] of deployed) assertMatrixClose(matrix, referenceNodes.get(name).matrixWorld, `${name} changed the approved fully deployed position`, 1e-7)
 })
 
-test('the original front bridge shields actually open', () => {
-  const { root, rig } = loadRig()
-  rig.apply(0, 0)
-  const armor = root.getObjectByName('BridgeArmor_Front_00'), original = armor.quaternion.clone()
-  rig.apply(1, 0)
-  assert.ok(armor.quaternion.angleTo(original) > .7)
-  assert.ok(armor.children.some(n => n.type === 'Object3D'), 'Shield joint must carry exported geometry')
+test('the fixed bridge has no remaining armor mechanism', () => {
+  const { nodes } = loadRig()
+  assert.equal(nodes.filter(n => n.name.startsWith('BridgeArmor_') || n.userData.system === 'bridge-armor').length, 0)
 })
 
-test('only twin and quad secondary mounts scan after deployment', () => {
+test('all eleven single batteries stay fixed in SCM; only real twin and quad mounts scan', () => {
   const { root, nodes, rig } = loadRig()
-  const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|Defense_)/.test(n.name))
+  const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|SideBattery_)/.test(n.name))
   rig.apply(1, 0)
   const original = fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()])
-  const twin = root.getObjectByName('SideBattery_1_Port').quaternion.clone()
+  const twin = root.getObjectByName('Defense_01_Yaw').quaternion.clone()
   const quad = root.getObjectByName('PDC_Starboard_Gimbal').quaternion.clone()
   rig.apply(1, 10)
   assert.deepEqual(fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), original)
-  assert.ok(twin.angleTo(root.getObjectByName('SideBattery_1_Port').quaternion) > .02)
+  assert.ok(twin.angleTo(root.getObjectByName('Defense_01_Yaw').quaternion) > .02)
   assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) > .005)
   rig.apply(.9, 10)
   assert.ok(root.getObjectByName('PDC_Starboard_Gimbal').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
 })
 
-test('bridge-side twin barrels aim slightly above the hull with distinct headings', () => {
+test('all eight actual twin batteries, including the lower starboard bridge pair, point above the horizon', () => {
   const { root, rig } = loadRig()
   rig.apply(1, 20)
-  for (const side of ['Port', 'Starboard']) {
-    const headings = [2, 4].map(index => {
-      const gun = root.getObjectByName(`SideBattery_${index}_${side}`)
-      const direction = new THREE.Vector3(...gun.userData.sourceBoreDirection).applyQuaternion(gun.quaternion).normalize()
+  for (const indices of [[1, 2], [3, 4], [5, 6], [7, 8]]) {
+    const headings = indices.map(index => {
+      const gun = root.getObjectByName(`Defense_${String(index).padStart(2, '0')}_Elevation`)
+      const [x,y,z] = gun.userData.sourceBoreDirectionModel
+      const direction = new THREE.Vector3(x,z,-y).applyQuaternion(gun.getWorldQuaternion(new THREE.Quaternion())).normalize()
       const elevation = THREE.MathUtils.radToDeg(Math.asin(direction.y))
       assert.ok(elevation > 4 && elevation < 8, `Actual barrel elevation ${elevation}`)
       return Math.atan2(direction.x, -direction.z)
     })
     assert.ok(Math.abs(headings[1] - headings[0]) > .2, 'Twin headings must be visibly staggered')
+  }
+})
+
+test('other single barrels retain their existing rear-breech pitch', () => {
+  const { nodes, rig } = loadRig()
+  const singles = nodes.filter(n => n.userData.singleBattery)
+  assert.equal(singles.length, 11)
+  for (const gun of singles) {
+    if (['Axial_Bow_Barrel', 'Axial_Stern_Barrel'].includes(gun.name)) continue // Both axial guns follow their own original location/Euler actions.
+    assert.equal(gun.userData.trunnionAdvance, 0, `${gun.name} must use the marked rear trunnion`)
+    const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
+    const original = map(gun.userData.sourceBoreDirectionModel).normalize()
+    const normal = map(gun.userData.outwardNormal).normalize()
+    const transverse = original.clone().cross(normal).normalize()
+    for (let i = 0; i <= 100; i++) {
+      rig.apply(i / 100, 0)
+      const direction = original.clone().applyQuaternion(gun.quaternion)
+      assert.ok(Math.abs(direction.dot(transverse)) < 1e-6, `${gun.name} yaws out of its elevation plane`)
+      if (i > ((gun.userData.sideBatteryMechanism || gun.userData.stagedSingleBattery) ? 67 : 40))
+        assert.ok(direction.dot(normal) > original.dot(normal), `${gun.name} elevates into the hull`)
+    }
+    assert.equal(nodes.filter(n => n.userData.barrelJoint === gun.name).length, 6, `${gun.name} retains six folding leaves`)
+    if (gun.userData.sideBatteryMechanism) assert.equal(nodes.filter(n => n.userData.battery === gun.name && n.userData.system === 'side-front-slider').length, 2, `${gun.name} requires paired first-group sliders`)
+    else assert.equal(nodes.filter(n => n.userData.barrel === gun.name).length, 1, `${gun.name} retains one front cap`)
+  }
+})
+
+test('bow barrel follows the original odin.blend keyframes without reshaping its mesh', () => {
+  const { root, rig } = loadRig()
+  const samples = JSON.parse(fs.readFileSync(new URL('./fixtures/bow-source-motion-v01114.json', import.meta.url)))
+  const barrel = root.getObjectByName('Axial_Bow_Barrel')
+  const receiver = root.getObjectByName('Axial_Bow_SourceReceiver')
+  rig.apply(0, 0)
+  root.updateMatrixWorld(true)
+  const closedJoint = barrel.matrixWorld.clone()
+  const closedReceiver = receiver.matrixWorld.clone()
+  const fromBlender = ([x, y, z]) => new THREE.Vector3(x, z, -y).multiplyScalar(.01)
+  for (const sample of samples) {
+    rig.apply(sample.frame / 100, 0)
+    root.updateMatrixWorld(true)
+    const delta = barrel.matrixWorld.clone().multiply(closedJoint.clone().invert())
+    for (const index of ['0', '100']) {
+      const start = fromBlender(samples[0].vertices[index])
+      const expected = fromBlender(sample.vertices[index])
+      const actual = start.applyMatrix4(delta)
+      assert.ok(actual.distanceTo(expected) < .00001,
+        `Bow source vertex ${index} differs from odin.blend at frame ${sample.frame}: ${actual.distanceTo(expected)}`)
+    }
+    assertMatrixClose(receiver.matrixWorld, closedReceiver, `Bow receiver moves at source frame ${sample.frame}`)
+  }
+  rig.apply(.56, 0)
+  root.updateMatrixWorld(true)
+  const deployedSource = barrel.matrixWorld.clone()
+  rig.apply(1, 0)
+  root.updateMatrixWorld(true)
+  assertMatrixClose(barrel.matrixWorld, deployedSource, 'Bow remains at source frame 56 after deployment')
+})
+
+test('stern barrel follows its own original odin.blend keyframes', () => {
+  const { root, rig } = loadRig()
+  const samples = JSON.parse(fs.readFileSync(new URL('./fixtures/stern-source-motion-v01117.json', import.meta.url)))
+  const barrel = root.getObjectByName('Axial_Stern_Barrel')
+  const receiver = root.getObjectByName('Axial_Stern_Mount')
+  rig.apply(0, 0)
+  root.updateMatrixWorld(true)
+  const closedJoint = barrel.matrixWorld.clone()
+  const closedReceiver = receiver.matrixWorld.clone()
+  const fromBlender = ([x, y, z]) => new THREE.Vector3(x, z, -y).multiplyScalar(.01)
+  rig.apply(.65, 0)
+  root.updateMatrixWorld(true)
+  assertMatrixClose(barrel.matrixWorld, closedJoint, 'Stern gun must stay lowered until all armor clears')
+  const lastLeaf = root.getObjectByName('Axial_Stern_Shutter_Port_02')
+  const lastAxis = fromBlender(lastLeaf.userData.hingeAxisModel).normalize()
+  const lastStop = new THREE.Quaternion().setFromAxisAngle(lastAxis,
+    THREE.MathUtils.degToRad(lastLeaf.userData.closedAngleDegrees - lastLeaf.userData.openingTravelDegrees))
+  assert.ok(lastLeaf.quaternion.angleTo(lastStop) < 1e-6,
+    'The last stern leaf must reach its reduced open stop before the original gun action begins')
+  for (const sample of samples) {
+    rig.apply(.66 + (sample.frame - 11) / 100, 0)
+    root.updateMatrixWorld(true)
+    const delta = barrel.matrixWorld.clone().multiply(closedJoint.clone().invert())
+    for (const index of ['0', '100']) {
+      const start = fromBlender(samples[0].vertices[index])
+      const expected = fromBlender(sample.vertices[index])
+      const actual = start.applyMatrix4(delta)
+      assert.ok(actual.distanceTo(expected) < .00001,
+        `Stern source vertex ${index} differs from odin.blend at frame ${sample.frame}: ${actual.distanceTo(expected)}`)
+    }
+    assertMatrixClose(receiver.matrixWorld, closedReceiver, `Stern mount moves at source frame ${sample.frame}`)
+  }
+  rig.apply(.92, 0)
+  root.updateMatrixWorld(true)
+  const deployedSource = barrel.matrixWorld.clone()
+  rig.apply(1, 0)
+  root.updateMatrixWorld(true)
+  assertMatrixClose(barrel.matrixWorld, deployedSource, 'Stern remains at source frame 37 after deployment')
+})
+
+test('stern bore rests at its original odin.blend position, not only its relative action', () => {
+  const { root, rig, meshBounds } = loadRig()
+  const bore = root.getObjectByName('odin.026')
+  assert.ok(bore && meshBounds.has(bore), 'Source stern bore geometry is present')
+  rig.apply(0, 0)
+  root.updateMatrixWorld(true)
+  const actual = meshBounds.get(bore).clone().applyMatrix4(bore.matrixWorld)
+  const sourceMin = new THREE.Vector3(-1.6288986206054688, 45.74752426147461, 231.1075897216797).multiplyScalar(.01)
+  const sourceMax = new THREE.Vector3(1.6260801553726196, 63.05480194091797, 274.32647705078125).multiplyScalar(.01)
+  assert.ok(actual.min.distanceTo(sourceMin) < .0001, `Stern bore minimum differs from source: ${actual.min.distanceTo(sourceMin)}`)
+  assert.ok(actual.max.distanceTo(sourceMax) < .0001, `Stern bore maximum differs from source: ${actual.max.distanceTo(sourceMax)}`)
+  const asset = root.getObjectByName('Odin_Asset')
+  assert.equal(asset.userData.sternRemovedDuplicateShoulderFaces, 818, 'Duplicate vented stern leaves are removed')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalShoulder'), undefined, 'The duplicate static vented armor is absent')
+  assert.equal(asset.userData.sternOriginalFrontPlateFaces, 66, 'Stern foremost plate uses the disconnected original armor shell')
+  assert.equal(asset.userData.sternRemovedWrongTriangularCapFaces, 8, 'The mistaken hull triangles no longer act as the plate')
+  const cap = root.getObjectByName('Axial_Stern_FrontCap')
+  assert.equal(cap.userData.sourceObject, 'holo.001')
+  assert.equal(cap.children.filter(child => meshBounds.has(child)).length, 1, 'The original stern plate replaces both generated skins')
+  assert.equal(cap.children[0].userData.sourceFaceCount, 66)
+  assert.equal(asset.userData.sternOriginalForwardHullFaces, 0,
+    'The duplicate recovered stern hull is removed after separating the source armor')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalForwardHull'), undefined)
+  assert.equal(asset.userData.sternRestoredFixedNoseRoofFaces, 8,
+    'The original fixed roof is restored after the incorrect moving mesh is removed')
+  const bowCap = root.getObjectByName('Axial_Bow_FrontCap')
+  assert.ok(new THREE.Vector3(...bowCap.userData.additionalOpenTravelModel).length() > 3.9,
+    'Bow cap clears the original bore along the deck incline')
+})
+
+test('axial front caps lift clear before translating toward the muzzle', () => {
+  const { root, rig } = loadRig()
+  const map = ([x, y, z]) => new THREE.Vector3(x, z, -y)
+  for (const station of ['Bow', 'Stern']) {
+    const cap = root.getObjectByName(`Axial_${station}_FrontCap`)
+    rig.apply(0, 0)
+    const closed = cap.position.clone()
+    const rise = map(cap.userData.settleVector).negate()
+    const forward = map(cap.userData.slideVector).negate()
+    assert.ok(rise.y > 0, `${station} cap must lift upward`)
+    rig.apply(cap.userData.settleEnd, 0)
+    assert.ok(cap.position.distanceTo(closed.clone().add(rise)) < 1e-6,
+      `${station} cap should finish lifting before sliding`)
+    rig.apply(cap.userData.slideEnd, 0)
+    assert.ok(cap.position.distanceTo(closed.clone().add(rise).add(forward)) < 1e-6,
+      `${station} cap should finish its forward translation after lifting`)
+  }
+})
+
+test('axial armor crowns follow the raised hull line and the breech trapezoids meet the gun roots', () => {
+  const { root } = loadRig()
+  const frames = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url)))
+  for (const station of ['Bow', 'Stern']) {
+    const prefix = `Axial_${station}`
+    const frame = frames[prefix]
+    const shift = station === 'Bow' ? root.getObjectByName('Axial_Bow_SourceReceiver').userData.receiverShiftModel : [0, 0, 0]
+    const origin = new THREE.Vector3(...frame.frameOrigin).add(new THREE.Vector3(...shift))
+    const along = new THREE.Vector3(...frame.frameAxes.map(row => row[1]))
+    const normal = new THREE.Vector3(...frame.frameAxes.map(row => row[2]))
+    const coordinates = point => {
+      const delta = new THREE.Vector3(...point).sub(origin)
+      return { y: delta.dot(along), z: delta.dot(normal) }
+    }
+    const breech = root.getObjectByName(`${prefix}_Shutter_Port_00`).userData.closedEndEdgesModel[0]
+    const muzzle = root.getObjectByName(`${prefix}_Shutter_Port_02`).userData.closedEndEdgesModel[1]
+    const outer = coordinates(breech[0]), inner = coordinates(breech[1])
+    const tip = coordinates(muzzle[1])
+    const rearTrim = inner.y - outer.y
+    assert.ok(station === 'Bow' ? rearTrim > 1.25 && rearTrim < 1.45 : rearTrim > .65 && rearTrim < 1,
+      `${station} rear panel should remain trapezoidal without the old 2.80-unit gap`)
+    if (station === 'Bow') assert.ok(inner.z > 5.3 && inner.z < 5.45,
+      'Bow crown must sit on the marked lower hull silhouette')
+    else assert.ok(inner.z > 5.2, `${station} crown still follows the low blue line`)
+    assert.ok(tip.z > inner.z + .18, `${station} roof does not carry its raised line toward the cap`)
+  }
+})
+
+test('bow front cap fits between the last hinged leaf and the raised receiver lip', () => {
+  const { root } = loadRig()
+  const frames = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url)))
+  for (const station of ['Bow']) {
+    const prefix = `Axial_${station}`
+    const frame = frames[prefix]
+    const origin = new THREE.Vector3(...frame.frameOrigin)
+      .add(new THREE.Vector3(...(station === 'Bow'
+        ? root.getObjectByName('Axial_Bow_SourceReceiver').userData.receiverShiftModel
+        : [0, 0, 0])))
+    const along = new THREE.Vector3(...frame.frameAxes.map(row => row[1]))
+    const normal = new THREE.Vector3(...frame.frameAxes.map(row => row[2]))
+    const yz = point => {
+      const delta = new THREE.Vector3(...point).sub(origin)
+      return { y: delta.dot(along), z: delta.dot(normal) }
+    }
+    const leaf = root.getObjectByName(`${prefix}_Shutter_Port_02`)
+    const front = yz(leaf.userData.closedEndEdgesModel[1][1])
+    const cap = root.getObjectByName(`${prefix}_FrontCap`)
+    const rear = yz(cap.userData.closedCrownLineModel[0])
+    assert.ok(Math.abs(rear.y - front.y) < .025 && Math.abs(rear.z - front.z) < .025,
+      'Shortening the front plate must preserve the accepted last-leaf seam')
+    const receiver = cap.userData.receiverForeSeamLocal[2]
+    const tip = yz(cap.userData.closedCrownLineModel.at(-1))
+    assert.ok(Math.abs(tip.y - receiver[1] + .02) < .0001 && Math.abs(tip.z - receiver[2]) < .0001,
+      'The leading crown must meet the unchanged receiver lip rather than extend beyond it')
+    const slope = (tip.z - rear.z) / (tip.y - rear.y)
+    for (const [index, point] of cap.userData.closedCrownLineModel.entries()) {
+      const crown = yz(point)
+      assert.ok(Math.abs(crown.z - rear.z - slope * (crown.y - rear.y)) < .025,
+        `${station} front cap crown point ${index} bends between its two fitted seams`)
+    }
+    assert.ok(cap.userData.closedLengthLocal > 9.3 && cap.userData.closedLengthLocal < 9.7,
+      'The bow front plate must fit the receiver opening instead of retaining its old 12-unit length')
+  }
+})
+
+test('stern front plate uses the original deployed armor rather than the fixed nose roof', () => {
+  const { root } = loadRig()
+  const cap = root.getObjectByName('Axial_Stern_FrontCap')
+  const [openLow, openHigh] = cap.userData.originalOpenBounds
+  const [closedLow, closedHigh] = cap.userData.originalClosedBounds
+  assert.ok(openLow[1] > 18.4 && openLow[1] < 18.6 && openHigh[1] > 26.8 && openHigh[1] < 27.0,
+    'The original movable plate retains its deployed source position')
+  assert.ok(Math.abs(closedLow[1] - 10.51) < .06 && Math.abs(closedHigh[1] - 18.94) < .06,
+    'The plate returns to the last shutter seam when stowed')
+  assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 disconnected 66-face armor shell')
+  assert.equal(root.getObjectByName('Axial_Stern_OriginalNoseRoof'), undefined,
+    'The stationary source roof is merged into the fixed asset during export')
+})
+
+test('bow and stern close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
+  const { root, nodes, rig } = loadRig()
+  for (const station of ['Bow', 'Stern']) {
+    const prefix = `Axial_${station}`
+    const mount = root.getObjectByName(prefix + '_Mount')
+    const leaves = nodes.filter(node => node.userData.barrelJoint === prefix + '_Barrel')
+    const cap = root.getObjectByName(prefix + '_FrontCap')
+    assert.equal(leaves.length, 6)
+    assert.equal(cap.userData.system, 'single-front-cap')
+    assert.equal(cap.userData.onePieceNoseAssembly, true)
+    rig.apply(0, 0)
+    root.updateMatrixWorld(true)
+    const originalMount = mount.matrixWorld.clone()
+    for (const side of ['Port', 'Starboard']) {
+      const ordered = [0, 1, 2].map(index => root.getObjectByName(`${prefix}_Shutter_${side}_${String(index).padStart(2, '0')}`))
+      for (const leaf of ordered) {
+        assert.equal(leaf.parent.name, 'Odin_Asset', 'Axial plates keep fixed hull pivots')
+        assert.ok(leaf.userData.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_Port_'))
+        assert.equal(leaf.userData.closedAngleDegrees, side === 'Port' ? 150 : -150)
+        if (station === 'Stern') assert.equal(leaf.userData.openingTravelDegrees, 95)
+      }
+      assert.equal(ordered[0].userData.shorterBreechTrapezoid, true)
+      for (let index = 0; index < 2; index++) {
+        const end = ordered[index].userData.closedEndEdgesModel[1]
+        const start = ordered[index+1].userData.closedEndEdgesModel[0]
+        for (let corner = 0; corner < 2; corner++)
+          assert.ok(new THREE.Vector3(...end[corner]).distanceTo(new THREE.Vector3(...start[corner])) < .055,
+            `${station} ${side} armor has an open longitudinal seam`)
+      }
+    }
+    for (const progress of [0, .1, .2, .3, .4, .55, .7, 1]) {
+      rig.apply(progress, 0)
+      root.updateMatrixWorld(true)
+      assertMatrixClose(mount.matrixWorld, originalMount, `${station} turret translates after its armor closes`)
+    }
+    const early = station === 'Bow' ? .18 : .40
+    rig.apply(early, 0)
+    const pair = [0, 2].map(index => root.getObjectByName(`${prefix}_Shutter_Port_${String(index).padStart(2, '0')}`))
+    assert.ok(pair[0].quaternion.angleTo(new THREE.Quaternion()) < pair[1].quaternion.angleTo(new THREE.Quaternion()),
+      `${station} muzzle-end leaf should be farther through its closing stroke`)
+    rig.apply(1, 0)
+    for (const leaf of leaves) {
+      const axis = new THREE.Vector3(...leaf.userData.hingeAxisModel)
+      const webAxis = new THREE.Vector3(axis.x, axis.z, -axis.y).normalize()
+      const closed = leaf.userData.closedAngleDegrees
+      const travel = leaf.userData.openingTravelDegrees ?? Math.abs(closed)
+      const expected = new THREE.Quaternion().setFromAxisAngle(webAxis,
+        THREE.MathUtils.degToRad(closed - Math.sign(closed) * travel))
+      assert.ok(leaf.quaternion.angleTo(expected) < 1e-6)
+    }
+  }
+})
+
+test('bow armor pivots and nose cap share the relocated original receiver datum', () => {
+  const { root } = loadRig()
+  const frame = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url))).Axial_Bow
+  const shift = root.getObjectByName('Axial_Bow_SourceReceiver').userData.receiverShiftModel
+  const modelPoint = ([x, y, z]) => frame.frameOrigin.map((value, row) =>
+    value + frame.frameAxes[row][0] * x + frame.frameAxes[row][1] * y + frame.frameAxes[row][2] * z + shift[row])
+  const browserPoint = ([x, y, z]) => new THREE.Vector3(x, z, -y)
+  const segments = [-16.25, -6.525, 1.90]
+  for (const side of ['Port', 'Starboard']) for (let index = 0; index < 3; index++) {
+    const leaf = root.getObjectByName(`Axial_Bow_Shutter_${side}_${String(index).padStart(2, '0')}`)
+    const expected = modelPoint([side === 'Port' ? -2.46 : 2.46, segments[index], 2.49])
+    assert.ok(leaf.position.distanceTo(browserPoint(expected)) < .0002, `${leaf.name} pivot missed the receiver lip`)
+    assert.ok(browserPoint(leaf.userData.hingeEdgeModel[0]).distanceTo(leaf.position) < .0002,
+      `${leaf.name} recorded hinge edge missed its physical pivot`)
+    assert.deepEqual(leaf.userData.receiverDatumShiftModel.map(x => +x.toFixed(2)), [0, 3.45, .55])
+  }
+  const cap = root.getObjectByName('Axial_Bow_FrontCap')
+  assert.ok(cap.position.distanceTo(browserPoint(modelPoint([0, 15.57, 6.29]))) < .0002,
+    'Bow front plate missed the translated receiver datum')
+  assert.deepEqual(cap.userData.receiverDatumShiftModel.map(x => +x.toFixed(2)), [0, 3.45, .55])
+})
+
+test('original single covers keep their source open pose and stagger root-first', () => {
+  const { nodes, rig } = loadRig()
+  const sourceRotations = new Map(nodes.map(n => [n.name, n.quaternion.clone()]))
+  rig.apply(1, 0)
+  for (const cap of nodes.filter(n => n.userData.system === 'single-front-cap')) {
+    const leaves = nodes.filter(n => n.userData.barrelJoint === cap.userData.barrel)
+    for (const leaf of leaves) {
+      assert.ok(Math.abs(leaf.userData.armorThickness-cap.userData.armorThickness)<1e-6)
+      assert.equal(leaf.userData.sourceGeometry, true, 'Use the existing source cover')
+      if (leaf.userData.openingTravelDegrees) {
+        assert.equal(leaf.userData.openingTravelDegrees, 95, 'Stern aperture stays clear of the aft hull')
+      } else {
+        assert.ok(leaf.quaternion.angleTo(sourceRotations.get(leaf.name))<1e-7, 'SCM must stop at the original open position')
+      }
+    }
+    const panels = leaves.filter(n => n.name.includes('_Shutter_Port_')).sort((a,b)=>a.userData.panelIndex-b.userData.panelIndex)
+    assert.ok(panels[0].userData.openEnd < panels[1].userData.openEnd && panels[1].userData.openEnd < panels[2].userData.openEnd)
+    assert.ok(panels[0].userData.openEnd-panels[0].userData.openStart < panels[2].userData.openEnd-panels[2].userData.openStart)
+  }
+})
+
+test('four flank first pairs lift before sliding and retain finite flat crowns', () => {
+  const { nodes, rig } = loadRig()
+  const sliders = nodes.filter(n => n.userData.system === 'side-front-slider')
+  assert.equal(sliders.length, 8)
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for (const slider of sliders) {
+    rig.apply(0,0); const closed=slider.position.clone(), rotation=slider.quaternion.clone()
+    rig.apply(.07,0)
+    assert.ok(slider.position.clone().sub(closed).distanceTo(map(slider.userData.liftVector))<1e-6)
+    rig.apply(.24,0)
+    assert.ok(slider.position.clone().sub(closed).distanceTo(map(slider.userData.liftVector).add(map(slider.userData.slideVector)))<1e-6)
+    assert.ok(slider.quaternion.angleTo(rotation)<1e-7)
+    assert.equal(slider.userData.allowHullParkingIntersection, slider.name.includes('Battery_3_'))
+  }
+  for (const leaf of nodes.filter(n=>n.userData.system==='side-battery-leaf')) {
+    assert.equal(leaf.userData.physicalHinge,true)
+    assert.ok(leaf.userData.ridgeHalfWidth>.1)
+    rig.apply(1,0);const position=leaf.position.clone(),open=leaf.quaternion.clone()
+    rig.apply(0,0)
+    assert.ok(leaf.position.distanceTo(position)<1e-6,'The hinge stays on its attachment rail')
+    assert.ok(Math.abs(leaf.quaternion.angleTo(open)-Math.PI*5/6)<1e-6)
+  }
+})
+
+test('flank rear cradle seats only after folding and carries gun plus groups 3 and 4 rigidly', () => {
+  const { root,nodes,rig }=loadRig(), map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for (const carriage of nodes.filter(n=>n.userData.system==='side-battery-carriage')) {
+    const name=carriage.userData.battery, gun=root.getObjectByName(name)
+    const carried=nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup>=3)
+    assert.ok(carriage.userData.originalOuterPedestalVertices>2000,'The source rear pedestal must travel with the cradle')
+    assert.equal(carried.length,4);assert.equal(gun.parent,carriage)
+    for(const leaf of carried)assert.equal(leaf.parent,carriage)
+    for(const fixed of nodes.filter(n=>n.userData.barrelJoint===name && n.userData.armorGroup===2))assert.equal(fixed.parent.name,'Odin_Asset')
+    rig.apply(.24,0);root.updateMatrixWorld(true)
+    const origin=carriage.position.clone(), relatives=[gun,...carried].map(n=>relativeMatrix(n,carriage))
+    rig.apply(.14,0);root.updateMatrixWorld(true)
+    assert.ok(carriage.position.clone().sub(origin).distanceTo(map(carriage.userData.liftVector))<1e-6,'Finish lift before forward seating')
+    rig.apply(0,0);root.updateMatrixWorld(true)
+    assert.ok(carriage.position.clone().sub(origin).distanceTo(map(carriage.userData.liftVector).add(map(carriage.userData.slideVector)))<1e-6)
+    for(let i=0;i<=24;i++) {
+      rig.apply(i/100,0);root.updateMatrixWorld(true)
+      ;[gun,...carried].forEach((n,k)=>assertMatrixClose(relativeMatrix(n,carriage),relatives[k],`${n.name} slips on the closing cradle`))
+    }
+  }
+})
+
+test('four flank bores remain centered and stow parallel to their own slots', () => {
+  const {root,nodes,rig}=loadRig(),asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  for(const gun of nodes.filter(n=>n.userData.sideBatteryMechanism && n.userData.singleBattery)) {
+    const axis=map(gun.userData.slotAxisModel).normalize()
+    const normal=map(gun.userData.outwardNormal).normalize(),transverse=axis.clone().cross(normal).normalize()
+    const origin=map(gun.userData.slotOriginModel)
+    for(const d of [0,.14,.24,.67,.8,1,.4,0]) {
+      rig.apply(d,0);root.updateMatrixWorld(true)
+      const [a,b]=gun.userData.boreAxisPointsLocal.map(p=>asset.worldToLocal(gun.localToWorld(map(p))))
+      for(const p of [a,b])assert.ok(Math.abs(p.clone().sub(origin).dot(transverse))<.0001,`${gun.name} leaves the slot center plane at ${d}`)
+      if(d<=.67)assert.ok(b.clone().sub(a).normalize().distanceTo(axis)<.00001,`${gun.name} folds inward past parallel`)
+    }
+    assert.equal(gun.userData.stowSink,1.8, 'The centered bore settles behind the re-fitted inner slot roof in NAV')
+  }
+})
+
+test('flank inclined edges meet after the complete carriage seats', () => {
+  const {root,nodes,rig}=loadRig(), asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  rig.apply(0,0);root.updateMatrixWorld(true)
+  for(const second of nodes.filter(n=>n.userData.system==='side-battery-leaf' && n.userData.armorGroup===2)) {
+    const third=root.getObjectByName(second.name.replace('_02','_01'))
+    const points=n=>n.userData.seamEdgeLocal.map(p=>asset.worldToLocal(n.localToWorld(map(p))))
+    const a=points(second),b=points(third),axis=map(second.userData.hingeAxisModel).normalize()
+    for(let i=0;i<2;i++)assert.ok(Math.abs(a[i].distanceTo(b[i])-.026)<.0001,`${second.name} leaves an open carriage seam`)
+    assert.ok(Math.abs(a[1].clone().sub(a[0]).dot(axis))>.8,'The butt seam must be inclined rather than square-cut')
+    assert.ok(a[1].clone().sub(a[0]).normalize().dot(b[1].clone().sub(b[0]).normalize())>.99999,'Mating edges stay parallel')
+  }
+  for(const slider of nodes.filter(n=>n.userData.system==='side-front-slider')) {
+    const p=slider.userData.closedOutlineModel.map(v=>new THREE.Vector3(...v))
+    // Both flat-ridge returns and both sloping corners are in this outline.
+    // Pick the long edges of the sloping section on each end geometrically.
+    const endA=p.slice(0,3),endB=p.slice(3).reverse()
+    const edge=q=>q[1].distanceTo(q[0])>q[2].distanceTo(q[1])?q[1].clone().sub(q[0]):q[2].clone().sub(q[1])
+    // The aft end is fitted to its shallower hull receiver, so the required
+    // trapezoid is unequal-ended without imposing the old guessed 26° angle.
+    assert.ok(Math.abs(edge(endA).normalize().dot(edge(endB).normalize()))<Math.cos(Math.PI/36),'The first leaf must have visibly unequal end slopes')
+  }
+})
+
+test('closed flank leaves have equal lengths and straight seams across the flat crown', () => {
+  const {root,nodes,rig}=loadRig(),asset=root.getObjectByName('Odin_Asset')
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+  rig.apply(0,0);root.updateMatrixWorld(true)
+  for(const leaf of nodes.filter(n=>n.userData.system==='side-battery-leaf' && n.name.includes('_Shutter_Port_'))) {
+    const paired=root.getObjectByName(leaf.name.replace('_Shutter_Port_','_Shutter_Starboard_'))
+    const [lo,hi]=leaf.userData.closedLongitudinalRange
+    assert.ok(Math.abs(hi-lo-8.70)<1e-6,'Groups 2, 3 and 4 must expose the same length')
+    for(let end=0;end<2;end++) {
+      const points=[leaf,paired].flatMap(n=>n.userData.crownSeamsLocal[end].map(p=>asset.worldToLocal(n.localToWorld(map(p)))))
+      const direction=points[3].clone().sub(points[0]).normalize()
+      for(const p of points)assert.ok(p.clone().sub(points[0]).cross(direction).length()<.0001,'The crown seam must be one straight line across both halves')
+    }
+  }
+})
+
+test('each source nose cap returns to its original deployed seat after sliding and settling', () => {
+  const { nodes, rig } = loadRig()
+  for (const cap of nodes.filter(n => n.userData.system === 'single-front-cap')) {
+    const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+    assert.equal(cap.userData.sourceOpenPose, true)
+    const deployed = cap.position.clone()
+    rig.apply(0,0);const origin=cap.position.clone(),orientation=cap.quaternion.clone()
+    rig.apply(Number(cap.userData.slideEnd ?? .23),0);const slid=cap.position.clone().sub(origin)
+    const settleComplete = Number(cap.userData.settleEnd ?? .36) <= Number(cap.userData.slideEnd ?? .23)
+    const expectedSlide = map(cap.userData.slideVector).negate()
+    if (settleComplete) expectedSlide.sub(map(cap.userData.settleVector))
+    assert.ok(slid.distanceTo(expectedSlide)<1e-6)
+    rig.apply(1,0);const complete=cap.position.clone().sub(origin)
+    assert.ok(complete.distanceTo(map(cap.userData.slideVector).add(map(cap.userData.settleVector)).negate())<1e-6)
+    assert.ok(cap.position.distanceTo(deployed)<1e-6, 'The original model cap position is the deployed endpoint')
+    assert.ok(cap.quaternion.angleTo(orientation)<1e-6, 'Nose cap translates without a hinge rotation')
+  }
+})
+
+test('aft twin guides retract just behind the gun and sink with its carriage', () => {
+  const { root, rig } = loadRig()
+  for (let i = 5; i <= 8; i++) {
+    const prefix = `Defense_${String(i).padStart(2, '0')}`
+    const gate = root.getObjectByName(prefix + '_NotchGate'), carriage = root.getObjectByName(prefix + '_Carriage')
+    const side = carriage.userData.side < 0 ? 'Port' : 'Starboard'
+    const rail = root.getObjectByName(`DefenseRail_Aft_${side}`)
+    assert.equal(gate.parent.name, 'Odin_Asset')
+    assert.equal(rail.parent.name, 'Odin_Asset')
+    assert.equal(carriage.userData.finalStowInward, 2.3)
+    assert.equal(carriage.userData.finalStowDrop, 4.0,
+      'The requested outward adjustment must not increase the original sink distance')
+    assert.equal(rail.userData.finalStowDrop, carriage.userData.finalStowDrop)
+    assert.equal(rail.userData.finalStowInward, carriage.userData.finalStowInward)
+    assert.ok(rail.userData.retractLag > 0 && rail.userData.retractLag <= .03)
+    assert.equal(rail.userData.sinkStart, .40)
+    assert.equal(carriage.userData.sinkStart, .40)
+    rig.apply(0, 0)
+    root.updateMatrixWorld(true)
+    const shut = gate.position.clone(), parked = carriage.position.clone(), parkedRail = rail.position.clone()
+    rig.apply(.20, 0)
+    const onset = carriage.position.clone(), onsetRail = rail.position.clone(), open = gate.position.clone()
+    assert.ok(shut.y - open.y > 4, 'Gate must clear before the final combined stroke')
+    rig.apply(1, 0)
+    const deployed = carriage.position.clone(), deployedRail = rail.position.clone()
+    assert.ok(onset.y > parked.y && onset.y < deployed.y,
+      'Gun is already descending at 20% without reaching the parked level')
+    assert.ok(onsetRail.y > parkedRail.y && onsetRail.y < deployedRail.y,
+      'Shared rail descends on the same interval')
+    assert.ok(Math.abs(deployed.y - parked.y - Number(carriage.userData.finalStowDrop)) < 1e-6)
+    assert.ok(Math.abs(deployedRail.y - parkedRail.y - Number(rail.userData.finalStowDrop)) < 1e-6)
+    for (const d of [.40, .47, .55, .68, .8, 1]) {
+      rig.apply(d, 0)
+      assert.ok(Math.abs(carriage.position.y - deployed.y) < 1e-6,
+        'Aft gun cannot have a separate late upward lift')
+      assert.ok(Math.abs(rail.position.y - deployedRail.y) < 1e-6,
+        'Support rail remains at deployed height after 40%')
+    }
+    let previousHeight = deployed.y
+    for (let step = 39; step >= 5; step--) {
+      const d = step / 100
+      rig.apply(d, 0)
+      const gunHeight = carriage.position.y
+      const gunProgress = (gunHeight - parked.y) / (deployed.y - parked.y)
+      const railProgress = (rail.position.y - parkedRail.y) / (deployedRail.y - parkedRail.y)
+      assert.ok(gunHeight <= previousHeight + 1e-6, 'Aft gun must descend monotonically')
+      assert.ok(previousHeight - gunHeight < .33, 'Aft gun must descend gently enough to clear the opening')
+      assert.ok(Math.abs(gunProgress - railProgress) < 1e-6,
+        'Gun and support rail must share the same descent progress')
+      previousHeight = gunHeight
+    }
+    assert.ok(Math.abs(onset.x - parked.x) > .1 && Math.abs(onset.x - parked.x) < Math.abs(deployed.x - parked.x) * .25,
+      'At 20%, the turret still has its final inward travel remaining')
+    assert.ok(Math.abs(onsetRail.x - parkedRail.x) > Math.abs(onset.x - parked.x),
+      'The rail remains only slightly behind the gun at the beginning of the final fifth')
+    for (let step = 1; step < 20; step++) {
+      rig.apply(step / 20, 0)
+      const railFraction = Math.abs((rail.position.x - parkedRail.x) / (deployedRail.x - parkedRail.x))
+      const gunFraction = Math.abs((carriage.position.x - parked.x) / (deployed.x - parked.x))
+      assert.ok(railFraction >= gunFraction - 1e-6,
+        'The rail must retract slightly more slowly than the gun')
+      assert.ok(railFraction - gunFraction <= .026,
+        'The rail may only lag by a small amount through the glazing')
+    }
+    rig.apply(.20, 0)
+    rig.apply(.10, 0)
+    assert.ok(carriage.position.y < onset.y && carriage.position.y > parked.y,
+      'Turret sinks while its inward travel is still underway')
+    assert.ok(rail.position.y < onsetRail.y && rail.position.y > parkedRail.y,
+      'Shared support rail sinks with the turret')
+    assert.ok(Math.abs(carriage.position.x - parked.x) < Math.abs(onset.x - parked.x))
+    assert.ok(Math.abs(rail.position.x - parkedRail.x) < Math.abs(onsetRail.x - parkedRail.x),
+      'Long guides continue retracting with the gun until both reach the same inboard seat')
+    rig.apply(.05, 0)
+    assert.ok(carriage.position.distanceTo(parked) < 1e-6 && rail.position.distanceTo(parkedRail) < 1e-6,
+      'The full carriage and bracket are parked before the gate shuts')
+    assert.ok(gate.position.distanceTo(open) < 1e-6)
+    for (const d of [.3, .5, .8, 1, .6, .25]) {
+      rig.apply(d, 0)
+      assert.ok(gate.position.distanceTo(open) < 1e-6)
+    }
+    rig.apply(0, 0)
+    assert.ok(gate.position.distanceTo(shut) < 1e-6)
+  }
+})
+
+test('keel battery moves diagonally inward only after every armor leaf has closed', () => {
+  const { root, rig } = loadRig()
+  const mount = root.getObjectByName('Axial_Keel_Mount')
+  const covers = [root.getObjectByName('Axial_Keel_FrontCap'),
+    ...['Port','Starboard'].flatMap(side => [0,1,2].map(i => root.getObjectByName(`Axial_Keel_Shutter_${side}_${String(i).padStart(2,'0')}`)))]
+  rig.apply(.22, 0)
+  const outside = mount.position.clone()
+  const closed = covers.map(o => ({ position: o.position.clone(), rotation: o.quaternion.clone() }))
+  rig.apply(.20, 0)
+  assert.ok(mount.position.distanceTo(outside) < 1e-6, 'Keel retreat starts after the armor has seated')
+  for (const d of [.15, .10, .02, 0]) {
+    rig.apply(d, 0)
+    covers.forEach((o,i) => {
+      assert.ok(o.position.distanceTo(closed[i].position) < 1e-6, 'Keel armor is already closed during the final retreat')
+      assert.ok(o.quaternion.angleTo(closed[i].rotation) < 1e-6)
+    })
+  }
+  assert.ok(Math.abs(mount.position.y - outside.y - 6.135) < 1e-6, 'Keel mount rises into the hull')
+  assert.ok(Math.abs(mount.position.z - outside.z - 14.270) < 1e-6, 'Keel mount retains the diagonal travel')
+})
+
+test('side batteries 2 and 4 seat across the hull without fore-aft translation', () => {
+  const { root, rig } = loadRig()
+  for (const i of [2,4]) for (const side of ['Port','Starboard']) {
+    const gun = root.getObjectByName(`SideBattery_${i}_${side}`)
+    const axis = gun.userData.stowDirectionModel
+    assert.ok(axis && Math.abs(axis[1]) < 1e-8)
+    rig.apply(0, 0)
+    const foreAft = gun.position.z
+    for (const d of [.4,.75,1]) {
+      rig.apply(d, 0)
+      assert.ok(Math.abs(gun.position.z - foreAft) < 1e-6)
+    }
   }
 })
 
