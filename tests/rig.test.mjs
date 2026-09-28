@@ -639,8 +639,8 @@ test('axial armor crowns follow the raised hull line and the breech trapezoids m
     const outer = coordinates(breech[0]), inner = coordinates(breech[1])
     const tip = coordinates(muzzle[1])
     const rearTrim = inner.y - outer.y
-    assert.ok(station === 'Bow' ? rearTrim > 1.25 && rearTrim < 1.45 : rearTrim > .65 && rearTrim < 1,
-      `${station} rear panel should remain trapezoidal without the old 2.80-unit gap`)
+    assert.ok(station === 'Bow' ? rearTrim > 1.25 && rearTrim < 1.45 : rearTrim > .02 && rearTrim < .08,
+      `${station} rear panel should meet the gun root without the artificial crown retreat`)
     if (station === 'Bow') assert.ok(inner.z > 5.3 && inner.z < 5.45,
       'Bow crown must sit on the marked lower hull silhouette')
     else assert.ok(inner.z > 5.2, `${station} crown still follows the low blue line`)
@@ -685,16 +685,42 @@ test('bow front cap fits between the last hinged leaf and the raised receiver li
   }
 })
 
-test('stern front plate uses the original deployed armor rather than the fixed nose roof', () => {
+test('stern and keel source nose shells fit the full shutter and fixed receiver profiles', () => {
   const { root } = loadRig()
-  const cap = root.getObjectByName('Axial_Stern_FrontCap')
-  const [openLow, openHigh] = cap.userData.originalOpenBounds
-  const [closedLow, closedHigh] = cap.userData.originalClosedBounds
-  assert.ok(openLow[1] > 18.4 && openLow[1] < 18.6 && openHigh[1] > 26.8 && openHigh[1] < 27.0,
-    'The original movable plate retains its deployed source position')
-  assert.ok(Math.abs(closedLow[1] - 10.51) < .06 && Math.abs(closedHigh[1] - 18.94) < .06,
-    'The plate returns to the last shutter seam when stowed')
-  assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 disconnected 66-face armor shell')
+  const frames = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url)))
+  const receivers = {
+    Stern: [[.015, 18.7318677, 5.8638629], [.4092712, 18.6959981, 5.8276370], [2.4624300, 15.6811440, 2.8621690]],
+    Keel: [[.0140122, 18.8725736, 5.3274785], [.2469125, 18.8259012, 5.2875084], [2.2966890, 15.8218248, 2.3257913]],
+  }
+  for (const station of ['Stern', 'Keel']) {
+    const cap = root.getObjectByName(`Axial_${station}_FrontCap`)
+    const frame = frames[`Axial_${station}`]
+    const origin = new THREE.Vector3(...frame.frameOrigin)
+    if (station === 'Keel') origin.add(new THREE.Vector3(...root.getObjectByName('Axial_Keel_Mount').userData.fixedAssemblyOffsetModel))
+    const axes = frame.frameAxes[0].map((_, column) => new THREE.Vector3(...frame.frameAxes.map(row => row[column])))
+    const local = point => axes.map(axis => new THREE.Vector3(...point).sub(origin).dot(axis))
+    const fore = cap.userData.closedForeProfileModel.map(local)
+    for (const [index, point] of fore.entries()) {
+      const expected = [...receivers[station][index]]
+      expected[1] -= .02
+      assert.ok(Math.max(...point.map((value, axis) => Math.abs(value - expected[axis]))) < .0001,
+        `${station} receiver diagonal fails at crown, crease or outside edge ${index}`)
+    }
+    const rear = cap.userData.closedRearProfileModel.map(local)
+    const leaf = root.getObjectByName(`Axial_${station}_Shutter_Starboard_02`)
+    const [outside, center] = leaf.userData.closedEndEdgesModel[1].map(local)
+    for (const [actual, expected] of [[rear[0], center], [rear[2], outside]]) {
+      assert.ok(Math.abs(actual[0] - Math.abs(expected[0])) < .0001)
+      assert.ok(Math.abs(actual[1] - expected[1] - .02) < .0001)
+      assert.ok(Math.abs(actual[2] - expected[2]) < .0001)
+    }
+    const [closedLow, closedHigh] = cap.userData.originalClosedBounds
+    assert.ok(Math.abs(2 * closedHigh[0] - (station === 'Stern' ? 4.92 : 4.596)) < .01,
+      'The source nose cover should match the shutter width')
+    assert.ok(Math.abs(closedLow[1] - rear[0][1]) < .03)
+    assert.equal(cap.userData.armorTemplate, 'odin.blend/holo.001 disconnected 66-face armor shell')
+    assert.equal(cap.userData.sourceOpenPose, true)
+  }
   assert.equal(root.getObjectByName('Axial_Stern_OriginalNoseRoof'), undefined,
     'The stationary source roof is merged into the fixed asset during export')
 })

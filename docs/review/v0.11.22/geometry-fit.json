@@ -1,0 +1,120 @@
+{
+  "stations": {
+    "Stern": {
+      "leafWidth": 4.92,
+      "centerSeam": 0.029999999999999995,
+      "breechCrownRear": -16.19691062101541,
+      "capWidthBefore": 5.628413200378418,
+      "capWidthAfter": 4.924860000610352,
+      "capCenterGapBefore": 0.2417733520269394,
+      "capCenterGapAfter": 0.029999999999999995,
+      "rearProfile": [
+        [
+          0.014999999999999998,
+          10.549999999999999,
+          5.42
+        ],
+        [
+          0.45,
+          10.549999999999999,
+          5.42
+        ],
+        [
+          2.46,
+          10.549999999999999,
+          2.49
+        ]
+      ],
+      "foreProfile": [
+        [
+          0.014999999999999998,
+          18.71186770772573,
+          5.863862869058634
+        ],
+        [
+          0.4092712104320526,
+          18.675998129113342,
+          5.82763697803881
+        ],
+        [
+          2.462430000305176,
+          15.661143973053447,
+          2.86216900500934
+        ]
+      ]
+    },
+    "Keel": {
+      "leafWidth": 4.596,
+      "centerSeam": 0.02802439024390244,
+      "breechCrownRear": -16.299120881956178,
+      "capWidthBefore": 5.257761576953752,
+      "capWidthAfter": 4.596,
+      "capCenterGapBefore": 0.2258516905871799,
+      "capCenterGapAfter": 0.02802439024390244,
+      "rearProfile": [
+        [
+          0.01401219512195122,
+          10.69,
+          4.88
+        ],
+        [
+          0.4203658536585366,
+          10.69,
+          4.88
+        ],
+        [
+          2.298,
+          10.69,
+          1.95
+        ]
+      ],
+      "foreProfile": [
+        [
+          0.01401219512195122,
+          18.852573615645845,
+          5.32747846266452
+        ],
+        [
+          0.24691254934508455,
+          18.805901172187596,
+          5.287508373764857
+        ],
+        [
+          2.296688984243461,
+          15.801824800690405,
+          2.3257913054350903
+        ]
+      ]
+    }
+  },
+  "keelRestoredFixedSupportFaces": [
+    1456,
+    2736,
+    2737,
+    3291,
+    3293,
+    3518
+  ],
+  "unchangedMeshes": 812,
+  "unchangedJointTransforms": 187,
+  "changedMeshes": [
+    "Axial_Keel_FrontCap_Skin",
+    "Axial_Keel_Shutter_Port_00_FittedBacking",
+    "Axial_Keel_Shutter_Port_00_Skin",
+    "Axial_Keel_Shutter_Port_01_FittedBacking",
+    "Axial_Keel_Shutter_Port_02_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_00_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_00_Skin",
+    "Axial_Keel_Shutter_Starboard_01_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_02_FittedBacking",
+    "Axial_Stern_FrontCap_Skin",
+    "Axial_Stern_Shutter_Port_00_FittedBacking",
+    "Axial_Stern_Shutter_Port_00_Skin",
+    "Axial_Stern_Shutter_Port_01_FittedBacking",
+    "Axial_Stern_Shutter_Port_02_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_00_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_00_Skin",
+    "Axial_Stern_Shutter_Starboard_01_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_02_FittedBacking"
+  ]
+}
