@@ -3,6 +3,8 @@ node_modules/
 .output/
 dist/
 work/
+.playwright-cli/
+output/playwright/
 *.log
 *.blend1
 .env
