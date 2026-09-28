@@ -648,7 +648,7 @@ test('axial armor crowns follow the raised hull line and the breech trapezoids m
   }
 })
 
-test('bow front cap crown continues the last hinged leaf as one side-view line', () => {
+test('bow front cap fits between the last hinged leaf and the raised receiver lip', () => {
   const { root } = loadRig()
   const frames = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json', import.meta.url)))
   for (const station of ['Bow']) {
@@ -665,15 +665,23 @@ test('bow front cap crown continues the last hinged leaf as one side-view line',
       return { y: delta.dot(along), z: delta.dot(normal) }
     }
     const leaf = root.getObjectByName(`${prefix}_Shutter_Port_02`)
-    const rear = yz(leaf.userData.closedEndEdgesModel[0][1])
     const front = yz(leaf.userData.closedEndEdgesModel[1][1])
-    const slope = (front.z - rear.z) / (front.y - rear.y)
     const cap = root.getObjectByName(`${prefix}_FrontCap`)
+    const rear = yz(cap.userData.closedCrownLineModel[0])
+    assert.ok(Math.abs(rear.y - front.y) < .025 && Math.abs(rear.z - front.z) < .025,
+      'Shortening the front plate must preserve the accepted last-leaf seam')
+    const receiver = cap.userData.receiverForeSeamLocal[2]
+    const tip = yz(cap.userData.closedCrownLineModel.at(-1))
+    assert.ok(Math.abs(tip.y - receiver[1] + .02) < .0001 && Math.abs(tip.z - receiver[2]) < .0001,
+      'The leading crown must meet the unchanged receiver lip rather than extend beyond it')
+    const slope = (tip.z - rear.z) / (tip.y - rear.y)
     for (const [index, point] of cap.userData.closedCrownLineModel.entries()) {
       const crown = yz(point)
-      assert.ok(Math.abs(crown.z - front.z - slope * (crown.y - front.y)) < .07,
-        `${station} front cap crown point ${index} bends away from the leaf line`)
+      assert.ok(Math.abs(crown.z - rear.z - slope * (crown.y - rear.y)) < .025,
+        `${station} front cap crown point ${index} bends between its two fitted seams`)
     }
+    assert.ok(cap.userData.closedLengthLocal > 9.3 && cap.userData.closedLengthLocal < 9.7,
+      'The bow front plate must fit the receiver opening instead of retaining its old 12-unit length')
   }
 })
 
