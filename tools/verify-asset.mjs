@@ -37,7 +37,7 @@ for (const plate of asset.nodes.filter(n => n.extras?.system === 'main-hatch')) 
 }
 assert.equal(asset.nodes.filter(n => n.extras?.barrelJoint && n.extras?.staticJoint).length, 66, 'All eleven single-battery shutter pairs remain')
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'single-front-cap').length, 7)
-for (const station of ['Bow', 'Stern']) {
+for (const station of ['Bow', 'Stern', 'Keel']) {
   const prefix = `Axial_${station}`
   const leaves = asset.nodes.filter(n => n.extras?.barrelJoint === `${prefix}_Barrel`)
   assert.equal(leaves.length, 6, `${station} has six folding plates`)
@@ -47,6 +47,13 @@ for (const station of ['Bow', 'Stern']) {
     assert.ok(leaf.extras.armorTemplate?.startsWith('SideBattery_1_Starboard_Shutter_Port_'), `${leaf.name} derives from the accepted flank armor`)
     assert.ok(leaf.children?.some(i => asset.nodes[i].mesh !== undefined), `${leaf.name} contains fitted flank geometry`)
   }
+}
+for (const node of asset.nodes.filter(n => n.name.startsWith('Axial_Keel_') &&
+  (n.name.includes('_Shutter_') || n.name.includes('_FrontCap')) && n.mesh !== undefined)) {
+  const materials = asset.meshes[node.mesh].primitives.map(p => asset.materials[p.material].name)
+  assert.ok(materials.some(name => ['Odin_Bay_Primer', 'Odin_Turret_Interior_DeepRed'].includes(name)),
+    `${node.name} has a red inward surface`)
+  assert.ok(materials.includes('Odin_Paint_Light'), `${node.name} retains its gray exterior`)
 }
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-front-slider').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage').length, 4)

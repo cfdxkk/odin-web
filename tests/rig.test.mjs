@@ -699,9 +699,9 @@ test('stern front plate uses the original deployed armor rather than the fixed n
     'The stationary source roof is merged into the fixed asset during export')
 })
 
-test('bow and stern close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
+test('axial bays close six flank-derived leaves muzzle-first, then seat one cap without moving the turret', () => {
   const { root, nodes, rig } = loadRig()
-  for (const station of ['Bow', 'Stern']) {
+  for (const station of ['Bow', 'Stern', 'Keel']) {
     const prefix = `Axial_${station}`
     const mount = root.getObjectByName(prefix + '_Mount')
     const leaves = nodes.filter(node => node.userData.barrelJoint === prefix + '_Barrel')
@@ -715,10 +715,10 @@ test('bow and stern close six flank-derived leaves muzzle-first, then seat one c
     for (const side of ['Port', 'Starboard']) {
       const ordered = [0, 1, 2].map(index => root.getObjectByName(`${prefix}_Shutter_${side}_${String(index).padStart(2, '0')}`))
       for (const leaf of ordered) {
-        assert.equal(leaf.parent.name, 'Odin_Asset', 'Axial plates keep fixed hull pivots')
+        assert.equal(leaf.parent.name, station === 'Keel' ? 'Axial_Keel_Mount' : 'Odin_Asset', 'Axial plates keep fixed hull pivots')
         assert.ok(leaf.userData.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_Port_'))
         assert.equal(leaf.userData.closedAngleDegrees, side === 'Port' ? 150 : -150)
-        if (station === 'Stern') assert.equal(leaf.userData.openingTravelDegrees, 95)
+        if (station !== 'Bow') assert.equal(leaf.userData.openingTravelDegrees, 95)
       }
       assert.equal(ordered[0].userData.shorterBreechTrapezoid, true)
       for (let index = 0; index < 2; index++) {
@@ -1003,25 +1003,33 @@ test('aft twin guides retract just behind the gun and sink with its carriage', (
   }
 })
 
-test('keel battery moves diagonally inward only after every armor leaf has closed', () => {
-  const { root, rig } = loadRig()
+test('keel bay remains at the old 14% assembly position through both directions of armor travel', () => {
+  const { root, nodes, rig } = loadRig()
+  const reference = JSON.parse(fs.readFileSync(new URL('./fixtures/keel-locked-mount-v01121.json', import.meta.url)))
   const mount = root.getObjectByName('Axial_Keel_Mount')
-  const covers = [root.getObjectByName('Axial_Keel_FrontCap'),
-    ...['Port','Starboard'].flatMap(side => [0,1,2].map(i => root.getObjectByName(`Axial_Keel_Shutter_${side}_${String(i).padStart(2,'0')}`)))]
-  rig.apply(.22, 0)
-  const outside = mount.position.clone()
-  const closed = covers.map(o => ({ position: o.position.clone(), rotation: o.quaternion.clone() }))
-  rig.apply(.20, 0)
-  assert.ok(mount.position.distanceTo(outside) < 1e-6, 'Keel retreat starts after the armor has seated')
-  for (const d of [.15, .10, .02, 0]) {
+  const expected = new THREE.Matrix4().fromArray(reference.mountWorld)
+  for (const d of [0, .02, .08, .14, .2, .26, .4, .53, .64, .8, 1, .8, .64, .53, .4, .26, .14, 0]) {
     rig.apply(d, 0)
-    covers.forEach((o,i) => {
-      assert.ok(o.position.distanceTo(closed[i].position) < 1e-6, 'Keel armor is already closed during the final retreat')
-      assert.ok(o.quaternion.angleTo(closed[i].rotation) < 1e-6)
-    })
+    root.updateMatrixWorld(true)
+    assertMatrixClose(mount.matrixWorld, expected, `Keel assembly departed from its old 14% seat at ${d}`)
   }
-  assert.ok(Math.abs(mount.position.y - outside.y - 6.135) < 1e-6, 'Keel mount rises into the hull')
-  assert.ok(Math.abs(mount.position.z - outside.z - 14.270) < 1e-6, 'Keel mount retains the diagonal travel')
+  const keelLeaves = nodes.filter(n => n.userData.barrelJoint === 'Axial_Keel_Barrel')
+  for (const keel of keelLeaves) {
+    const stern = root.getObjectByName(keel.name.replace('Axial_Keel', 'Axial_Stern'))
+    for (const d of [0, .14, .26, .4, .53, .64, 1]) {
+      rig.apply(d, 0)
+      assert.ok(Math.abs(keel.quaternion.angleTo(new THREE.Quaternion()) - stern.quaternion.angleTo(new THREE.Quaternion())) < 1e-6,
+        'The keel and stern leaves share the same folding order and 95-degree sweep')
+    }
+  }
+  const cap = root.getObjectByName('Axial_Keel_FrontCap')
+  rig.apply(0, 0); const closed = cap.position.clone()
+  rig.apply(.08, 0); const lifted = cap.position.clone()
+  const settle = cap.userData.settleVector
+  assert.ok(lifted.clone().sub(closed).distanceTo(new THREE.Vector3(-settle[0], -settle[2], settle[1])) < 1e-5,
+    'The front cap releases vertically before advancing')
+  rig.apply(.25, 0)
+  assert.ok(cap.position.distanceTo(lifted) > 7.9, 'The front plate then advances along the bore')
 })
 
 test('side batteries 2 and 4 seat across the hull without fore-aft translation', () => {

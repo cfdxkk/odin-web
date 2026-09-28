@@ -1,0 +1,302 @@
+{
+  "axial": [
+    {
+      "name": "keel-closed-first",
+      "station": "单联装 · 舰腹",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-closed-oblique",
+      "station": "单联装 · 舰艉",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-closed-top",
+      "station": "单联装 · 舰艉",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-closed-side",
+      "station": "单联装 · 舰艉",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-open-64",
+      "station": "单联装 · 舰艉",
+      "progress": "0.640",
+      "joints": "187"
+    },
+    {
+      "name": "bow-clean-closed",
+      "station": "单联装 · 舰艏",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "bow-clean-oblique",
+      "station": "单联装 · 舰艏",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "bow-clean-open",
+      "station": "单联装 · 舰艏",
+      "progress": "0.400",
+      "joints": "187"
+    },
+    {
+      "name": "keel-closed-side",
+      "station": "单联装 · 舰腹",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "keel-closed-top",
+      "station": "单联装 · 舰腹",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "keel-nose-lift-08",
+      "station": "单联装 · 舰腹",
+      "progress": "0.080",
+      "joints": "187"
+    },
+    {
+      "name": "keel-nose-forward-25",
+      "station": "单联装 · 舰腹",
+      "progress": "0.250",
+      "joints": "187"
+    },
+    {
+      "name": "keel-opening-40",
+      "station": "单联装 · 舰腹",
+      "progress": "0.400",
+      "joints": "187"
+    },
+    {
+      "name": "keel-open-64",
+      "station": "单联装 · 舰腹",
+      "progress": "0.640",
+      "joints": "187"
+    },
+    {
+      "name": "keel-barrel-82",
+      "station": "单联装 · 舰腹",
+      "progress": "0.820",
+      "joints": "187"
+    },
+    {
+      "name": "keel-deployed",
+      "station": "单联装 · 舰腹",
+      "progress": "1.000",
+      "joints": "187"
+    },
+    {
+      "name": "keel-returned-closed",
+      "station": "单联装 · 舰腹",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-nose-detail-context",
+      "station": "单联装 · 舰艉",
+      "progress": "0.000",
+      "joints": "187"
+    },
+    {
+      "name": "stern-nose-seam-detail",
+      "station": "单联装 · 舰艉",
+      "progress": "0.000"
+    }
+  ],
+  "otherBatteries": [
+    {
+      "name": "main-dorsal-0",
+      "station": "主炮 · 上方五块护甲",
+      "progress": 0
+    },
+    {
+      "name": "main-dorsal-34",
+      "station": "主炮 · 上方五块护甲",
+      "progress": 0.34
+    },
+    {
+      "name": "main-dorsal-70",
+      "station": "主炮 · 上方五块护甲",
+      "progress": 0.7
+    },
+    {
+      "name": "main-dorsal-100",
+      "station": "主炮 · 上方五块护甲",
+      "progress": 1
+    },
+    {
+      "name": "main-ventral-0",
+      "station": "主炮 · 下方五块护甲",
+      "progress": 0
+    },
+    {
+      "name": "main-ventral-34",
+      "station": "主炮 · 下方五块护甲",
+      "progress": 0.34
+    },
+    {
+      "name": "main-ventral-70",
+      "station": "主炮 · 下方五块护甲",
+      "progress": 0.7
+    },
+    {
+      "name": "main-ventral-100",
+      "station": "主炮 · 下方五块护甲",
+      "progress": 1
+    },
+    {
+      "name": "flank-4",
+      "station": "单联装 · 右舷 1",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-5",
+      "station": "单联装 · 右舷 2",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-6",
+      "station": "单联装 · 右舷 3",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-7",
+      "station": "单联装 · 右舷 4",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-8",
+      "station": "单联装 · 左舷 1",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-9",
+      "station": "单联装 · 左舷 2",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-10",
+      "station": "单联装 · 左舷 3",
+      "progress": 0.8
+    },
+    {
+      "name": "flank-11",
+      "station": "单联装 · 左舷 4",
+      "progress": 0.8
+    },
+    {
+      "name": "bridge-quad-12-0",
+      "station": "四联装 · 右舷",
+      "progress": 0
+    },
+    {
+      "name": "bridge-quad-12-1",
+      "station": "四联装 · 右舷",
+      "progress": 1
+    },
+    {
+      "name": "bridge-quad-13-0",
+      "station": "四联装 · 左舷",
+      "progress": 0
+    },
+    {
+      "name": "bridge-quad-13-1",
+      "station": "四联装 · 左舷",
+      "progress": 1
+    },
+    {
+      "name": "defense-14",
+      "station": "双联装 · 1",
+      "progress": 1
+    },
+    {
+      "name": "defense-15",
+      "station": "双联装 · 2",
+      "progress": 1
+    },
+    {
+      "name": "defense-16",
+      "station": "双联装 · 3",
+      "progress": 1
+    },
+    {
+      "name": "defense-17",
+      "station": "双联装 · 4",
+      "progress": 1
+    },
+    {
+      "name": "defense-18",
+      "station": "双联装 · 5 / 船壳盖板",
+      "progress": 0.35
+    },
+    {
+      "name": "defense-19",
+      "station": "双联装 · 6 / 船壳盖板",
+      "progress": 0.35
+    },
+    {
+      "name": "defense-20",
+      "station": "双联装 · 7 / 船壳盖板",
+      "progress": 0.35
+    },
+    {
+      "name": "defense-21",
+      "station": "双联装 · 8 / 船壳盖板",
+      "progress": 0.35
+    },
+    {
+      "name": "fixed-bridge-22-0",
+      "station": "舰桥 · 前部",
+      "progress": 0
+    },
+    {
+      "name": "fixed-bridge-22-1",
+      "station": "舰桥 · 前部",
+      "progress": 1
+    },
+    {
+      "name": "fixed-bridge-23-0",
+      "station": "舰桥 · 后部",
+      "progress": 0
+    },
+    {
+      "name": "fixed-bridge-23-1",
+      "station": "舰桥 · 后部",
+      "progress": 1
+    },
+    {
+      "name": "keel-final-preview",
+      "station": "单联装 · 舰腹",
+      "progress": 0.64
+    }
+  ],
+  "intermediate": [
+    {
+      "name": "stern-folding-40",
+      "station": "单联装 · 舰艉",
+      "progress": 0.4
+    },
+    {
+      "name": "stern-folding-52",
+      "station": "单联装 · 舰艉",
+      "progress": 0.52
+    },
+    {
+      "name": "keel-folding-53",
+      "station": "单联装 · 舰腹",
+      "progress": 0.53
+    }
+  ],
+  "consoleErrors": 0
+}

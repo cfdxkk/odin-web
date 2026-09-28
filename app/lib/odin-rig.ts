@@ -177,10 +177,8 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(...data.stowVector as [number, number, number]).multiplyScalar(1 - ease(.03, .14, d)))
       }
     })
-    // The keel turret has a final diagonal inboard stroke after its armor
-    // has completely closed. The other axial turrets have no such stroke.
-    const keelCarriage = ease(.02, .20, d)
-    pose('Axial_Keel_Mount', v(0, 14.270 * keelCarriage, -6.135 * keelCarriage))
+    // The keel mount is baked at the former 14% carriage position. Only its
+    // seven armor covers and barrel articulate; the complete bay stays fixed.
     // The aft twins begin descending at 40% while still retracting. Their
     // former late ring lift is removed entirely. Rails follow the same slow
     // vertical curve; hull gates close only after the assembly seats at 5%.

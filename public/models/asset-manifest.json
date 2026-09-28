@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 176,
-  "triangles": 2396838,
+  "triangles": 2396506,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -125,20 +125,24 @@
     "The bow muzzle channel extends two units down the deck incline and its foremost plate has an inclined end seam aligned with the fixed deck",
     "The inward surfaces of the bow and all eight flank bore channels use deep-red paint without recoloring their exterior armor",
     "Main, secondary, defense, PDC and bridge mechanisms retain their established motions",
-    "The stern nose plate is the exact single_behind_1st_armor shell; the eight fixed support faces beneath it are restored at their original source coordinates",
-    "The bow foremost plate is shortened along the existing receiver diagonal and meets its raised lip and crown while its fitted rear seam remains unchanged"
+    "The bow foremost plate is shortened along the existing receiver diagonal and meets its raised lip and crown while its fitted rear seam remains unchanged",
+    "The stern source nose shell has a slightly narrowed central seam; its eight fixed source support faces remain unchanged",
+    "Six floating bow receiver skirts are removed while its fitted channel and bore supports remain",
+    "Extended stationary stern slot lips close the gap to the six hinged leaves",
+    "The keel bay stays at the former 14% whole-assembly position at every deployment progress; it uses six fitted flank-derived leaves and one source nose cover with the stern opening sequence",
+    "Keel inward armor surfaces, supports and bore channel use deep-red paint"
   ],
   "webOptimization": {
     "batchedMeshes": 176,
-    "highTriangles": 2396838,
-    "liteTriangles": 851100,
-    "highBytes": 18464192,
-    "liteBytes": 7955608,
+    "highTriangles": 2396506,
+    "liteTriangles": 851526,
+    "highBytes": 18537784,
+    "liteBytes": 8040992,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.20",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.20.blend",
+  "version": "0.11.21",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.21.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
