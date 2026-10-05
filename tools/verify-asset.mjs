@@ -60,6 +60,22 @@ assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'pdc-hull-petal').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
+if (manifest.version === '0.11.24') for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
+  const prefix = `SideBattery_${i}_${side}`
+  const gun = asset.nodes.find(n => n.name === prefix)?.extras
+  assert.equal(gun?.sourceEulerMotion, true, `${model}: ${prefix} keeps all original Euler channels`)
+  assert.equal(gun.stowSink, 0, `${model}: no handmade barrel offset`)
+  const cap = asset.nodes.find(n => n.name === prefix + '_FrontCap')?.extras
+  assert.equal(cap?.sourceRigidCap, true)
+  assert.equal(cap.sourceCapStroke, true)
+  const leaves = asset.nodes.filter(n => n.extras?.barrelJoint === prefix)
+  assert.equal(leaves.length, 6)
+  for (const leaf of leaves) {
+    assert.equal(leaf.extras.fixedHullFacesRemoved, 0, `${model}: fixed hull cannot be taken into ${leaf.name}`)
+    assert.equal(leaf.extras.sourceFlankTemplate, true)
+    assert.ok(leaf.extras.armorTemplate.startsWith('SideBattery_1_Starboard_Shutter_'))
+  }
+}
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'defense-gate').length, 4)
 for (const side of ['Port', 'Starboard']) assert.equal(asset.nodes.find(n => n.name === `PDC_${side}_Gimbal`).extras.fixedRootArmorPieces, 4)
 const tubes = asset.nodes.filter(n => n.extras?.system === 'main-telescope' && n.extras?.staticJoint)

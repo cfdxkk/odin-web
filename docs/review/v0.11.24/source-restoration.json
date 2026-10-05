@@ -1,0 +1,232 @@
+{
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "stations": {
+    "SideBattery_2_Starboard": {
+      "fixedSourceFaces": 7915,
+      "sourceCapVertices": 36,
+      "sourceCapFaces": 45,
+      "capRigidOffsetLocal": [
+        0,
+        -11.204666400357993,
+        -0.2870834561271991
+      ],
+      "capClearanceOffsetLocal": [
+        0,
+        3.0,
+        1.35
+      ],
+      "sourceCapCoordinateError": 1.4456469088486301e-06,
+      "retainedFixedGrateIslands": 44,
+      "leaves": [
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        }
+      ]
+    },
+    "SideBattery_2_Port": {
+      "fixedSourceFaces": 7915,
+      "sourceCapVertices": 36,
+      "sourceCapFaces": 45,
+      "capRigidOffsetLocal": [
+        0,
+        -11.204666400357993,
+        -0.2870834561271991
+      ],
+      "capClearanceOffsetLocal": [
+        0,
+        3.0,
+        1.35
+      ],
+      "sourceCapCoordinateError": 1.4456469088486301e-06,
+      "retainedFixedGrateIslands": 44,
+      "leaves": [
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        }
+      ]
+    },
+    "SideBattery_4_Starboard": {
+      "fixedSourceFaces": 7936,
+      "sourceCapVertices": 36,
+      "sourceCapFaces": 44,
+      "capRigidOffsetLocal": [
+        0,
+        -11.206829191889462,
+        -0.2905719217133864
+      ],
+      "capClearanceOffsetLocal": [
+        0,
+        3.0,
+        1.35
+      ],
+      "sourceCapCoordinateError": 3.584715767601665e-05,
+      "retainedFixedGrateIslands": 44,
+      "leaves": [
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        }
+      ]
+    },
+    "SideBattery_4_Port": {
+      "fixedSourceFaces": 6024,
+      "sourceCapVertices": 36,
+      "sourceCapFaces": 44,
+      "capRigidOffsetLocal": [
+        0,
+        -11.206829191889462,
+        -0.2905719217133864
+      ],
+      "capClearanceOffsetLocal": [
+        0,
+        3.0,
+        1.35
+      ],
+      "sourceCapCoordinateError": 3.584715767601665e-05,
+      "retainedFixedGrateIslands": 44,
+      "leaves": [
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_00",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_00_Skin",
+          "vertices": 311,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_01",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_01_Skin",
+          "vertices": 231,
+          "fixedSourceFacesRemoved": 0
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_02",
+          "armorTemplate": "SideBattery_1_Starboard_Shutter_Port_02_Skin",
+          "vertices": 196,
+          "fixedSourceFacesRemoved": 0
+        }
+      ]
+    }
+  },
+  "restoredFixedFaces": 7200,
+  "removedLegacyStaticFragments": 0,
+  "verifiedOriginalFixedFaces": 29790,
+  "fixedFacesOnMovingJoints": 0,
+  "unchangedMeshes": 482,
+  "unchangedOtherJoints": 155,
+  "animationClips": 0
+}

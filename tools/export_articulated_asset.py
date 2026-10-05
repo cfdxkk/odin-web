@@ -15,8 +15,11 @@ for parent in [asset]+[o for o in bpy.context.scene.objects if o.type=='EMPTY' a
  for o in members:o.select_set(True)
  bpy.context.view_layer.objects.active=members[0];bpy.ops.object.join();bpy.context.object.name=parent.name+'_Geometry'
 def export(name):
+ staging=root/'work/asset-export';staging.mkdir(parents=True,exist_ok=True)
+ temporary=staging/name
  bpy.ops.object.select_all(action='SELECT')
- bpy.ops.export_scene.gltf(filepath=str(root/'public/models'/name),export_format='GLB',use_selection=True,export_animations=False,export_cameras=False,export_lights=False,export_extras=True,export_yup=True,export_materials='EXPORT',export_image_format='WEBP',export_image_quality=95,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=7,export_draco_position_quantization=18,export_draco_normal_quantization=12,export_draco_texcoord_quantization=14)
+ bpy.ops.export_scene.gltf(filepath=str(temporary),export_format='GLB',use_selection=True,export_animations=False,export_cameras=False,export_lights=False,export_extras=True,export_yup=True,export_materials='EXPORT',export_image_format='WEBP',export_image_quality=95,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=7,export_draco_position_quantization=18,export_draco_normal_quantization=12,export_draco_texcoord_quantization=14)
+ temporary.replace(root/'public/models'/name)
  return sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in bpy.context.scene.objects if o.type=='MESH')
 high=export('odin.glb')
 for im in bpy.data.images:
@@ -90,22 +93,24 @@ if version in ['0.11.17','0.11.18']:
 if version=='0.11.18':
  d['completion']=[item for item in d['completion'] if not item.startswith('Bow and stern singles each have six flank-derived')]
  d['completion']+=['The redundant rear substitute is removed; the stern moving nose cover uses the eight original odin.blend roof faces at the farther-forward source position', 'Stern bore static geometry is aligned point-for-point to the original odin.blend closed pose without changing its action', 'The original stern trough shoulder and fixed forward hull are restored without reshaping their source faces', 'Bow front cap parks farther forward and lower along its existing incline, clearing the untouched source bore action']
-if version in ('0.11.19','0.11.20','0.11.21','0.11.22','0.11.23'):
+if version in ('0.11.19','0.11.20','0.11.21','0.11.22','0.11.23','0.11.24'):
  d['bridgeArmorSlats']=0
  d['rigSystems']=[item for item in d['rigSystems'] if item not in ('bridge-armor','axial-shutter')]+['single-shutter','single-front-cap','side-front-slider','side-battery-leaf','side-battery-carriage','defense-gate','pdc-hull-petal','bow-receiver']
  d['completion']=[item for item in d['completion'] if 'axial shutter' not in item and 'bridge armor' not in item]
  d['completion']+=['Original bow and stern barrel keyframes remain authored in Nuxt, with no GLB animation clips', 'The stern moving nose plate uses the original disconnected 66-face armor shell from odin.blend; the misplaced triangle and duplicate vented leaves are removed', 'Six stern shutters retain their fitted closed seams and stop after a 95-degree opening sweep', 'The bow muzzle channel extends two units down the deck incline and its foremost plate has an inclined end seam aligned with the fixed deck', 'The inward surfaces of the bow and all eight flank bore channels use deep-red paint without recoloring their exterior armor', 'Main, secondary, defense, PDC and bridge mechanisms retain their established motions']
-if version in ('0.11.20','0.11.21','0.11.22','0.11.23'):
+if version in ('0.11.20','0.11.21','0.11.22','0.11.23','0.11.24'):
  d['completion']=[item for item in d['completion'] if 'disconnected 66-face' not in item or 'misplaced triangle' not in item]
  d['completion']+=['The stern nose plate is the exact single_behind_1st_armor shell; the eight fixed support faces beneath it are restored at their original source coordinates', 'The bow foremost plate is shortened along the existing receiver diagonal and meets its raised lip and crown while its fitted rear seam remains unchanged']
-if version in ('0.11.21','0.11.22','0.11.23'):
+if version in ('0.11.21','0.11.22','0.11.23','0.11.24'):
  d['completion']=[item for item in d['completion'] if 'exact single_behind_1st_armor' not in item or 'eight fixed support' not in item]
  d['completion']+=['The stern source nose shell has a slightly narrowed central seam; its eight fixed source support faces remain unchanged', 'Six floating bow receiver skirts are removed while its fitted channel and bore supports remain', 'Extended stationary stern slot lips close the gap to the six hinged leaves', 'The keel bay stays at the former 14% whole-assembly position at every deployment progress; it uses six fitted flank-derived leaves and one source nose cover with the stern opening sequence', 'Keel inward armor surfaces, supports and bore channel use deep-red paint']
-if version in ('0.11.22','0.11.23'):
+if version in ('0.11.22','0.11.23','0.11.24'):
  d['completion']=[item for item in d['completion'] if not item.startswith('The stern source nose shell has a slightly narrowed')]
  d['completion']+=['Stern and keel source nose shells retain their topology and curled edges while their full rear profiles match the adjacent shutters and their full leading diagonals match the original fixed receivers', 'All stern and keel shutter crowns share continuous widths, crown planes and narrow center seams; the rear edges meet their unchanged gun-root housings', 'Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat and original barrel actions remain unchanged']
 if version=='0.11.23':
  d['completion']+=['Stern and keel crown lines continue across all six shutters and the original nose cover to the unchanged fixed receiver', 'Port and starboard side singles 2 and 4 use six accepted flank-derived vented leaves with red inner skins and their own original fitted nose cap; the cap lifts before advancing, shutters sweep 95 degrees before the unchanged barrel action starts', 'Only the 24 side single cover contact hinges are re-fitted; all other 163 joint transforms and every gun and fixed hull mesh remain unchanged']
+if version=='0.11.24':
+ d['completion'] += ['Side singles 2 and 4 recover their original fixed trough and turret support faces from odin.blend; no fixed source faces are assigned to armor joints', 'Their original double-shell front caps retain their shape and UVs with a rigid outward clearance offset; added lower sealing returns meet the unchanged receiver, then the caps lift and advance', 'All original source channel walls, raised grates and triangular braces remain fixed; six missing outer covers reuse the completed flank armor assets with red inward reinforcement and contact-edge hinges', 'All four side 2/4 barrels retain their exact source geometry, fixed locations and three-channel Euler curves in Nuxt; handmade sinks and pitch offsets are removed', 'The accepted stern and keel continuous crown lines and all other weapon geometry and joints remain unchanged']
 if version=='0.11.13':
  d['rigSystems']+=['bow-receiver-seam']
  d['completion']+=['Mirrored stationary bow shoulder skins join the untouched turret housing and rigid source receiver along the full diagonal seam without changing the original barrel motion']

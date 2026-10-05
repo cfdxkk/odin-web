@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 176,
-  "triangles": 2402184,
+  "triangles": 2381446,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -133,21 +133,23 @@
     "Stern and keel source nose shells retain their topology and curled edges while their full rear profiles match the adjacent shutters and their full leading diagonals match the original fixed receivers",
     "All stern and keel shutter crowns share continuous widths, crown planes and narrow center seams; the rear edges meet their unchanged gun-root housings",
     "Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat and original barrel actions remain unchanged",
-    "Stern and keel crown lines continue across all six shutters and the original nose cover to the unchanged fixed receiver",
-    "Port and starboard side singles 2 and 4 use six accepted flank-derived vented leaves with red inner skins and their own original fitted nose cap; the cap lifts before advancing, shutters sweep 95 degrees before the unchanged barrel action starts",
-    "Only the 24 side single cover contact hinges are re-fitted; all other 163 joint transforms and every gun and fixed hull mesh remain unchanged"
+    "Side singles 2 and 4 recover their original fixed trough and turret support faces from odin.blend; no fixed source faces are assigned to armor joints",
+    "Their original double-shell front caps retain their shape and UVs with a rigid outward clearance offset; added lower sealing returns meet the unchanged receiver, then the caps lift and advance",
+    "All original source channel walls, raised grates and triangular braces remain fixed; six missing outer covers reuse the completed flank armor assets with red inward reinforcement and contact-edge hinges",
+    "All four side 2/4 barrels retain their exact source geometry, fixed locations and three-channel Euler curves in Nuxt; handmade sinks and pitch offsets are removed",
+    "The accepted stern and keel continuous crown lines and all other weapon geometry and joints remain unchanged"
   ],
   "webOptimization": {
     "batchedMeshes": 176,
-    "highTriangles": 2402184,
-    "liteTriangles": 856709,
-    "highBytes": 18695308,
-    "liteBytes": 8194220,
+    "highTriangles": 2381446,
+    "liteTriangles": 856486,
+    "highBytes": 18673624,
+    "liteBytes": 8221316,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.23",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.23.blend",
+  "version": "0.11.24",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.24.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

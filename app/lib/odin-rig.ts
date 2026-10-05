@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
+import { flankSourceMotion } from './flank-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -145,6 +146,8 @@ export function createOdinRig(root: THREE.Object3D) {
         } else if (name === 'Axial_Stern_Barrel' && sternRestWeb) {
           const { move, turn } = sternSourceMotion(d, sternRestWeb)
           pose(name, move, turn)
+        } else if (data.sourceEulerMotion) {
+          pose(name, v(0, 0, 0), flankSourceMotion(data, d))
         } else {
           const gunLift = data.sideBatteryMechanism || data.stagedSingleBattery ? ease(.67, .96, d) : singleLift
           const seatAxis = (data.stowDirectionModel || data.outwardNormal) as [number, number, number]
@@ -166,6 +169,16 @@ export function createOdinRig(root: THREE.Object3D) {
           .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.87, 1, closing))))
       }
       if (data.system === 'single-front-cap') {
+        if (data.sourceCapStroke) {
+          // The source shell stays rigid: lift off the original receiver,
+          // advance over it, then settle at the authored clearance position.
+          const raised = ease(0, .08, d), forward = ease(.10, .23, d), parked = ease(.24, .26, d)
+          pose(name, v(...data.slideVector as [number, number, number])
+            .addScaledVector(v(...data.clearanceLiftVector as [number, number, number]), raised)
+            .addScaledVector(v(...data.advanceVector as [number, number, number]), forward)
+            .addScaledVector(v(...data.parkingSettleVector as [number, number, number]), parked))
+          return
+        }
         // Recovered source caps are authored in their deployed location.
         // NAV seats them against the folding leaves; SCM returns to source.
         const slide = ease(Number(data.slideStart ?? .09), Number(data.slideEnd ?? .23), d)
