@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 180,
-  "triangles": 2361451,
+  "triangles": 2362455,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -133,22 +133,25 @@
     "Stern and keel source nose shells retain their topology and curled edges while their full rear profiles match the adjacent shutters and their full leading diagonals match the original fixed receivers",
     "All stern and keel shutter crowns share continuous widths, crown planes and narrow center seams; the rear edges meet their unchanged gun-root housings",
     "Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat and original barrel actions remain unchanged",
-    "Side singles 2 and 4 use their six original vented armor assemblies and original nose shells from odin.blend, with source topology and UVs retained and red inward faces",
     "The source rear turret shell, bore and final armor pair rise together; closing retracts the bore, seats the shell forward and down, then folds the armor",
     "The bore roots and their physical pivots share the requested upward and rearward rigid offset; a small rest-angle correction lowers the muzzle, while the source three-channel Euler action remains intact",
-    "The original stationary trough, cheek supports and lower mount bearings remain fixed; no substitute armor skins or copied side-1 leaves remain on side 2/4"
+    "The original stationary trough, cheek supports and lower mount bearings remain fixed; no substitute armor skins or copied side-1 leaves remain on side 2/4",
+    "The existing six source flank leaves and nose shells gain continuous gray exterior shoulders and a flat crown, with deep-red inward returns and narrow closed seams",
+    "Original outer rail belt panels are restored on both ship sides as fixed hull geometry; outward cheek faces are aligned to the closed armor plane",
+    "Side 2 and 4 leaf sweeps stop at their previous front-leaf 20-percent and 18-percent orientations respectively; original bore curves, corrected pivots, carriage stroke and motion order remain unchanged",
+    "Both original side-4 elevation linkages follow their barrel curves from the correct closed pose; their source polygons and UVs are retained"
   ],
   "webOptimization": {
     "batchedMeshes": 180,
-    "highTriangles": 2361451,
-    "liteTriangles": 856431,
-    "highBytes": 18503760,
-    "liteBytes": 8296312,
+    "highTriangles": 2362455,
+    "liteTriangles": 857247,
+    "highBytes": 18528636,
+    "liteBytes": 8322324,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.25",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.25.blend",
+  "version": "0.11.26",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.26.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

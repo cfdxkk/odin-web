@@ -1122,9 +1122,11 @@ test('side singles 2 and 4 open their original seven source covers before raisin
       const leaf = leaves[k]
       assert.equal(leaf.userData.originalSourceArmor, true)
       assert.ok(!leaf.userData.sourceFlankTemplate)
-      assert.ok(leaf.quaternion.angleTo(new THREE.Quaternion()) < 1e-6,
-        'Every source cover returns to its actual source open pose')
-      assert.ok(Math.abs(leaf.quaternion.angleTo(closedLeaves[k]) - THREE.MathUtils.degToRad(Math.abs(leaf.userData.closedAngleDegrees))) < 1e-6)
+      const angle = leaf.userData.closedAngleDegrees - Math.sign(leaf.userData.closedAngleDegrees) * leaf.userData.openingTravelDegrees
+      const axis = map(leaf.userData.hingeAxisModel).normalize()
+      assert.ok(leaf.quaternion.angleTo(new THREE.Quaternion().setFromAxisAngle(axis, THREE.MathUtils.degToRad(angle))) < 1e-6,
+        'The original leaf stops at its limited open orientation')
+      assert.ok(Math.abs(leaf.quaternion.angleTo(closedLeaves[k]) - THREE.MathUtils.degToRad(leaf.userData.openingTravelDegrees)) < 1e-6)
       assert.equal(leaf.parent.name, leaf.userData.panelIndex === 0 ? prefix + '_SourceCarriage' : 'Odin_Asset')
     }
   }
@@ -1152,27 +1154,55 @@ test('side 2 and 4 follow the original three-channel barrel curves on both mirro
   }
 })
 
-test('the actual source side armor keeps its open geometry and clears the corrected bores', () => {
-  const source=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.25/source-armor.json',import.meta.url)))
-  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.25/source-geometry.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.25/mesh-clearance.json',import.meta.url)))
+test('the fitted source side armor retains its grates and UVs and clears the corrected bores', () => {
+  const source=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.26/source-fit.json',import.meta.url)))
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.26/source-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.26/mesh-clearance.json',import.meta.url)))
   assert.equal(source.sourceSha256,'9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e')
   assert.equal(geometry.sourceSha256,source.sourceSha256)
-  assert.equal(geometry.meshes.length,36)
-  assert.equal(geometry.originalMovingPolygons,12294)
-  assert.equal(geometry.left4FixedBearingPolygons,1590,'Retain both original fixed bearings, without the moving housing duplicate')
+  assert.equal(geometry.meshes.length,28)
+  assert.equal(geometry.restoredRailPolygons,8)
+  assert.equal(geometry.unchangedBarrelAndTurretMeshes,12)
+  assert.ok(geometry.restoredRailCornerError<.00012)
+  assert.ok(geometry.restoredRailUvError<.000001)
+  assert.equal(geometry.sourceElevationRailPolygons,48)
+  assert.ok(geometry.sourceElevationRailCornerError<.00012)
+  assert.ok(geometry.sourceElevationRailUvError<.000001)
   for(const row of geometry.meshes) {
-    assert.ok(row.maxCornerError<.00012,`${row.mesh} changes its original shape`)
     assert.ok(row.maxUvError<.000001,`${row.mesh} changes its source UVs`)
+    assert.equal(row.retainedOriginalPolygons,row.originalPolygons,`${row.mesh} loses original grate detail`)
+    if(row.mesh.includes('_OriginalArmor')) {
+      assert.ok(row.closedExteriorPlaneError<.00012,`${row.mesh} breaks the common closed side plane`)
+      assert.ok(Math.abs(row.closedLowerEdgeHalfWidth-2.88)<.00012,`${row.mesh} leaves a tapered lower seam`)
+    }
   }
-  assert.ok(Object.values(geometry.duplicateMovingFacesOnFixedHull).every(n=>n===0))
   for(const [name,station]of Object.entries(source.stations)) {
-    assert.ok(geometry.fixedSourcePolygonsByMount[name]>3000,`${name} loses its original fixed trough and supports`)
     assert.equal(station.leaves.length,6)
-    assert.equal(station.leaves.filter(leaf=>leaf.carriageFollower).length,2)
     assert.equal(clearance[name].poses,101)
     assert.deepEqual(clearance[name].barrelArmorContacts,[],`${name} has a geometric barrel/armor contact`)
-    assert.ok(clearance[name].sourceOpenCoordinateError<.0001)
+    assert.ok(clearance[name].limitedOpenCoordinateError<.0001)
+  }
+})
+
+test('all source flank leaves stop at the requested v25 front-leaf orientation and retain a flat crown', () => {
+  const {root,rig}=loadRig()
+  const old=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.25/source-armor.json',import.meta.url)))
+  const ease=(a,b,d)=>{const t=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return t*t*(3-2*t)}
+  for(const i of [2,4])for(const side of ['Port','Starboard'])for(const physical of ['Port','Starboard']) {
+    const prefix=`SideBattery_${i}_${side}`
+    const front=old.stations[prefix].leaves.find(l=>l.name===`${prefix}_Shutter_${physical}_02`)
+    const expectedTravel=Math.abs(front.closedAngle)*ease(.12,.24,i===2?.20:.18)
+    for(let k=0;k<3;k++) {
+      const leaf=root.getObjectByName(`${prefix}_Shutter_${physical}_0${k}`)
+      assert.ok(Math.abs(leaf.userData.openingTravelDegrees-expectedTravel)<1e-6)
+      assert.equal(leaf.userData.centerSeamHalfWidth,.02)
+      assert.equal(leaf.userData.crownHalfWidth,.45,'Closed covers retain a finite-width flat crown')
+      rig.apply(1,0);const limit=leaf.quaternion.clone()
+      for(const d of [.3,.42,.6,.9,1,.6,.3]) {
+        rig.apply(d,0)
+        assert.ok(leaf.quaternion.angleTo(limit)<1e-6,'Armor stays at its safe open stop while the gun moves')
+      }
+    }
   }
 })
 
@@ -1194,10 +1224,10 @@ test('side 2 and 4 stow the bore, then seat the turret and rear pair, then close
     forward.forEach((o,k)=>assertMatrixClose(o.matrixWorld,openForward[k],'Forward armor stays on the hull'))
     rig.apply(.30,0);root.updateMatrixWorld(true)
     const seatedCarriage=carriage.position.clone()
-    rear.forEach(o=>assert.ok(o.quaternion.angleTo(new THREE.Quaternion())<1e-6))
+    rear.forEach((o,k)=>assert.ok(o.quaternion.angleTo(new THREE.Quaternion().setFromRotationMatrix(rearInTurret[k]))<1e-6))
     rig.apply(.20,0);root.updateMatrixWorld(true)
     assert.ok(carriage.position.distanceTo(seatedCarriage)<1e-6,'Turret is seated before armor closes')
-    assert.ok(rear.some(o=>o.quaternion.angleTo(new THREE.Quaternion())>.1))
+    assert.ok(rear.some((o,k)=>o.quaternion.angleTo(new THREE.Quaternion().setFromRotationMatrix(rearInTurret[k]))>.1))
   }
 })
 

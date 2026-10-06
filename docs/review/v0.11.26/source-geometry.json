@@ -1,0 +1,260 @@
+{
+  "version": "0.11.26",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "meshes": [
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalFrontCap",
+      "originalPolygons": 45,
+      "retainedOriginalPolygons": 45,
+      "fittedPolygons": 65,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+      "originalPolygons": 517,
+      "retainedOriginalPolygons": 517,
+      "fittedPolygons": 527,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 4.431286567685433e-06,
+      "closedLowerEdgeHalfWidth": 2.8800013783241583
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+      "originalPolygons": 170,
+      "retainedOriginalPolygons": 170,
+      "fittedPolygons": 180,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 2.073126048607321e-06,
+      "closedLowerEdgeHalfWidth": 2.880000140589014
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+      "originalPolygons": 171,
+      "retainedOriginalPolygons": 171,
+      "fittedPolygons": 181,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 5.707740980298581e-06,
+      "closedLowerEdgeHalfWidth": 2.8800003037973627
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "originalPolygons": 519,
+      "retainedOriginalPolygons": 519,
+      "fittedPolygons": 529,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.9370977712984683e-06,
+      "closedLowerEdgeHalfWidth": 2.880000790963974
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "originalPolygons": 168,
+      "retainedOriginalPolygons": 168,
+      "fittedPolygons": 178,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 4.342818288760597e-06,
+      "closedLowerEdgeHalfWidth": 2.879998158945321
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "originalPolygons": 169,
+      "retainedOriginalPolygons": 169,
+      "fittedPolygons": 179,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 6.290113000240183e-06,
+      "closedLowerEdgeHalfWidth": 2.8800022045609732
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalFrontCap",
+      "originalPolygons": 45,
+      "retainedOriginalPolygons": 45,
+      "fittedPolygons": 65,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+      "originalPolygons": 519,
+      "retainedOriginalPolygons": 519,
+      "fittedPolygons": 529,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.9370977712984683e-06,
+      "closedLowerEdgeHalfWidth": 2.880000790963974
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+      "originalPolygons": 168,
+      "retainedOriginalPolygons": 168,
+      "fittedPolygons": 178,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 4.99416657362417e-06,
+      "closedLowerEdgeHalfWidth": 2.8799979821094213
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+      "originalPolygons": 169,
+      "retainedOriginalPolygons": 169,
+      "fittedPolygons": 179,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 6.290113000240183e-06,
+      "closedLowerEdgeHalfWidth": 2.8800022045609732
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+      "originalPolygons": 517,
+      "retainedOriginalPolygons": 517,
+      "fittedPolygons": 527,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 4.431286567685433e-06,
+      "closedLowerEdgeHalfWidth": 2.8800013783241583
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+      "originalPolygons": 170,
+      "retainedOriginalPolygons": 170,
+      "fittedPolygons": 180,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.654481381230255e-06,
+      "closedLowerEdgeHalfWidth": 2.879999963753114
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+      "originalPolygons": 171,
+      "retainedOriginalPolygons": 171,
+      "fittedPolygons": 181,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 5.707740980298581e-06,
+      "closedLowerEdgeHalfWidth": 2.8800003037973627
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalFrontCap",
+      "originalPolygons": 44,
+      "retainedOriginalPolygons": 44,
+      "fittedPolygons": 64,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+      "originalPolygons": 521,
+      "retainedOriginalPolygons": 521,
+      "fittedPolygons": 531,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 6.860225677085552e-06,
+      "closedLowerEdgeHalfWidth": 2.8800013204134065
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+      "originalPolygons": 170,
+      "retainedOriginalPolygons": 170,
+      "fittedPolygons": 180,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 7.606220663092245e-06,
+      "closedLowerEdgeHalfWidth": 2.8799976035486994
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+      "originalPolygons": 171,
+      "retainedOriginalPolygons": 171,
+      "fittedPolygons": 181,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.0552997311119583e-05,
+      "closedLowerEdgeHalfWidth": 2.8800071909765017
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "originalPolygons": 527,
+      "retainedOriginalPolygons": 527,
+      "fittedPolygons": 537,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.4538677247877274e-05,
+      "closedLowerEdgeHalfWidth": 2.8800031605279397
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "originalPolygons": 168,
+      "retainedOriginalPolygons": 168,
+      "fittedPolygons": 178,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 3.734326489812645e-06,
+      "closedLowerEdgeHalfWidth": 2.879998094912517
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "originalPolygons": 169,
+      "retainedOriginalPolygons": 169,
+      "fittedPolygons": 179,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 9.149804892416569e-06,
+      "closedLowerEdgeHalfWidth": 2.8799983232930595
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalFrontCap",
+      "originalPolygons": 44,
+      "retainedOriginalPolygons": 44,
+      "fittedPolygons": 64,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+      "originalPolygons": 527,
+      "retainedOriginalPolygons": 527,
+      "fittedPolygons": 537,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.4538677247877274e-05,
+      "closedLowerEdgeHalfWidth": 2.8800031605279397
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+      "originalPolygons": 168,
+      "retainedOriginalPolygons": 168,
+      "fittedPolygons": 178,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.4881284103651637e-05,
+      "closedLowerEdgeHalfWidth": 2.879998094912517
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+      "originalPolygons": 169,
+      "retainedOriginalPolygons": 169,
+      "fittedPolygons": 179,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 9.149804892416569e-06,
+      "closedLowerEdgeHalfWidth": 2.879997929293915
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+      "originalPolygons": 521,
+      "retainedOriginalPolygons": 521,
+      "fittedPolygons": 531,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.1567681556634568e-05,
+      "closedLowerEdgeHalfWidth": 2.880005613123612
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+      "originalPolygons": 170,
+      "retainedOriginalPolygons": 170,
+      "fittedPolygons": 180,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.0042383407515842e-05,
+      "closedLowerEdgeHalfWidth": 2.8800068798066008
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+      "originalPolygons": 171,
+      "retainedOriginalPolygons": 171,
+      "fittedPolygons": 181,
+      "maxUvError": 0.0,
+      "closedExteriorPlaneError": 1.0552997311119583e-05,
+      "closedLowerEdgeHalfWidth": 2.8800071909765017
+    }
+  ],
+  "restoredRailPolygons": 8,
+  "restoredRailCornerError": 0.0,
+  "restoredRailUvError": 0.0,
+  "sourceElevationRailPolygons": 48,
+  "sourceElevationRailCornerError": 2.326136172772528e-05,
+  "sourceElevationRailUvError": 0.0,
+  "unchangedOtherMeshes": 498,
+  "unchangedJointTransforms": 191,
+  "unchangedBarrelAndTurretMeshes": 12,
+  "originalUnchanged": true
+}

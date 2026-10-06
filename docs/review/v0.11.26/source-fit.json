@@ -1,0 +1,966 @@
+{
+  "version": "0.11.26",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "stations": {
+    "SideBattery_2_Starboard": {
+      "leaves": [
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_00",
+          "originalVertices": 378,
+          "vertices": 388,
+          "sourceArmorFaces": 517,
+          "faces": 527,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.3344641646637,
+          "openAngleDegrees": 46.44093488571713,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              -0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 170,
+          "faces": 180,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.3344641646637,
+          "openAngleDegrees": 45.93084330059597,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              -0.02,
+              1.3471716253565844,
+              5.605569798622504
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 171,
+          "faces": 181,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.3344641646637,
+          "openAngleDegrees": 44.91706245763223,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              1.5903891709628177,
+              5.60386727580326
+            ],
+            [
+              -0.02,
+              9.445894334780608,
+              5.548878739656536
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_00",
+          "originalVertices": 379,
+          "vertices": 389,
+          "sourceArmorFaces": 519,
+          "faces": 529,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": -46.427985146462646,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 168,
+          "faces": 178,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": -45.92914621827563,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              0.02,
+              1.3496774277105117,
+              5.605552258006027
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 169,
+          "faces": 179,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": -44.923354173001,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              1.5858115853458443,
+              5.603899318902579
+            ],
+            [
+              0.02,
+              9.443615054081665,
+              5.548894694621429
+            ]
+          ]
+        }
+      ],
+      "originalCapVertices": 36,
+      "capVertices": 56,
+      "capCrownClosed": [
+        [
+          [
+            -0.02,
+            9.437847370950871,
+            5.5489350684033445
+          ],
+          [
+            -0.02,
+            21.889633335365687,
+            5.03
+          ]
+        ],
+        [
+          [
+            0.02,
+            9.43526616504322,
+            5.548953136844697
+          ],
+          [
+            0.02,
+            21.898712088334428,
+            5.03
+          ]
+        ]
+      ],
+      "openingLimitReferenceProgress": 0.2,
+      "barrelAndCarriageUnchanged": true
+    },
+    "SideBattery_2_Port": {
+      "leaves": [
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_00",
+          "originalVertices": 379,
+          "vertices": 389,
+          "sourceArmorFaces": 519,
+          "faces": 529,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": 46.427985146466085,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              -0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 168,
+          "faces": 178,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": 45.9291462182814,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              -0.02,
+              1.3496774277105117,
+              5.605552258006027
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 169,
+          "faces": 179,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.35244049428874,
+          "openAngleDegrees": 44.923354173001,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              1.5858115853458443,
+              5.603899318902579
+            ],
+            [
+              -0.02,
+              9.443615054081665,
+              5.548894694621429
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_00",
+          "originalVertices": 378,
+          "vertices": 388,
+          "sourceArmorFaces": 517,
+          "faces": 527,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.33446416465384,
+          "openAngleDegrees": -46.44093488572696,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 170,
+          "faces": 180,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.33446416465384,
+          "openAngleDegrees": -45.93084330061092,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              0.02,
+              1.3471707790643181,
+              5.60556980454655
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 171,
+          "faces": 181,
+          "referenceProgress": 0.2,
+          "openingTravelDegrees": 128.33446416465384,
+          "openAngleDegrees": -44.91706245762879,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              1.5903891709628177,
+              5.60386727580326
+            ],
+            [
+              0.02,
+              9.445894334780608,
+              5.548878739656536
+            ]
+          ]
+        }
+      ],
+      "originalCapVertices": 36,
+      "capVertices": 56,
+      "capCrownClosed": [
+        [
+          [
+            -0.02,
+            9.43526616504322,
+            5.548953136844697
+          ],
+          [
+            -0.02,
+            21.898712088334428,
+            5.03
+          ]
+        ],
+        [
+          [
+            0.02,
+            9.437847370950871,
+            5.5489350684033445
+          ],
+          [
+            0.02,
+            21.889633335365687,
+            5.03
+          ]
+        ]
+      ],
+      "openingLimitReferenceProgress": 0.2,
+      "barrelAndCarriageUnchanged": true
+    },
+    "SideBattery_4_Starboard": {
+      "leaves": [
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_00",
+          "originalVertices": 380,
+          "vertices": 390,
+          "sourceArmorFaces": 521,
+          "faces": 531,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504315,
+          "openAngleDegrees": 88.07266326666426,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -17.399999999999995,
+              5.736800000000001
+            ],
+            [
+              -0.02,
+              -8.205000000000002,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 170,
+          "faces": 180,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504315,
+          "openAngleDegrees": 87.6174486572995,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              -0.02,
+              1.3466365564877718,
+              5.605573544104586
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 171,
+          "faces": 181,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504315,
+          "openAngleDegrees": 86.58789194504315,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              1.5853288638999186,
+              5.603902697952701
+            ],
+            [
+              -0.02,
+              9.443131253192844,
+              5.548898081227651
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_00",
+          "originalVertices": 383,
+          "vertices": 393,
+          "sourceArmorFaces": 527,
+          "faces": 537,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125235,
+          "openAngleDegrees": -88.14499675125609,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 168,
+          "faces": 178,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125235,
+          "openAngleDegrees": -87.65094274324639,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              0.02,
+              1.3567515739166707,
+              5.605502738982583
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 169,
+          "faces": 179,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125235,
+          "openAngleDegrees": -86.58480487125235,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              1.5909136905859447,
+              5.603863604165898
+            ],
+            [
+              0.02,
+              9.447196913565875,
+              5.548869621605039
+            ]
+          ]
+        }
+      ],
+      "originalCapVertices": 36,
+      "capVertices": 56,
+      "capCrownClosed": [
+        [
+          [
+            -0.02,
+            9.428819489271023,
+            5.548998263575103
+          ],
+          [
+            -0.02,
+            21.886339868299153,
+            5.03
+          ]
+        ],
+        [
+          [
+            0.02,
+            9.43594399989914,
+            5.548948392000706
+          ],
+          [
+            0.02,
+            21.89343350955961,
+            5.03
+          ]
+        ]
+      ],
+      "openingLimitReferenceProgress": 0.18,
+      "barrelAndCarriageUnchanged": true
+    },
+    "SideBattery_4_Port": {
+      "leaves": [
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_00",
+          "originalVertices": 383,
+          "vertices": 393,
+          "sourceArmorFaces": 527,
+          "faces": 537,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125335,
+          "openAngleDegrees": 88.144996751259,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              -0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 168,
+          "faces": 178,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125335,
+          "openAngleDegrees": 87.65094274324532,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              -0.02,
+              1.356752428504767,
+              5.605502733000467
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 169,
+          "faces": 179,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58480487125335,
+          "openAngleDegrees": 86.58480487125335,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              -0.02,
+              1.5909136905859447,
+              5.603863604165898
+            ],
+            [
+              -0.02,
+              9.447196913565875,
+              5.548869621605039
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_00",
+          "originalVertices": 380,
+          "vertices": 390,
+          "sourceArmorFaces": 521,
+          "faces": 531,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504219,
+          "openAngleDegrees": -88.07266326666588,
+          "closedRange": [
+            -17.4,
+            -8.205
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -17.4,
+              5.736800000000001
+            ],
+            [
+              0.02,
+              -8.205,
+              5.672435
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_01",
+          "originalVertices": 203,
+          "vertices": 213,
+          "sourceArmorFaces": 170,
+          "faces": 180,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504219,
+          "openAngleDegrees": -87.61744865730647,
+          "closedRange": [
+            -8.185,
+            0.315
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              -8.185,
+              5.672295
+            ],
+            [
+              0.02,
+              1.3466365564877718,
+              5.605573544104586
+            ]
+          ]
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_02",
+          "originalVertices": 204,
+          "vertices": 214,
+          "sourceArmorFaces": 171,
+          "faces": 181,
+          "referenceProgress": 0.18,
+          "openingTravelDegrees": 86.58789194504219,
+          "openAngleDegrees": -86.58789194504219,
+          "closedRange": [
+            0.335,
+            9.415
+          ],
+          "crownEdgeClosed": [
+            [
+              0.02,
+              1.5853288638999186,
+              5.603902697952701
+            ],
+            [
+              0.02,
+              9.443131253192844,
+              5.548898081227651
+            ]
+          ]
+        }
+      ],
+      "originalCapVertices": 36,
+      "capVertices": 56,
+      "capCrownClosed": [
+        [
+          [
+            -0.02,
+            9.43594399989914,
+            5.548948392000706
+          ],
+          [
+            -0.02,
+            21.89343350955961,
+            5.03
+          ]
+        ],
+        [
+          [
+            0.02,
+            9.428819489271023,
+            5.548998263575103
+          ],
+          [
+            0.02,
+            21.886339868299153,
+            5.03
+          ]
+        ]
+      ],
+      "openingLimitReferenceProgress": 0.18,
+      "barrelAndCarriageUnchanged": true
+    }
+  },
+  "restoredHull": [
+    {
+      "name": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFaceIds": [
+        182071,
+        221180,
+        232976,
+        247874
+      ],
+      "faces": 4,
+      "vertices": 8,
+      "static": true
+    },
+    {
+      "name": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFaceIds": [
+        175461,
+        223163,
+        231072,
+        251065
+      ],
+      "faces": 4,
+      "vertices": 8,
+      "static": true
+    }
+  ],
+  "sourceElevationRails": [
+    {
+      "mesh": "SideBattery_4_Starboard_SourceElevationRail",
+      "sourceIsland": 46052,
+      "sourceFaceIds": [
+        34894,
+        36783,
+        50352,
+        53565,
+        53566,
+        53568,
+        53569,
+        53635,
+        53640,
+        53652,
+        73280,
+        88247,
+        89225,
+        101569,
+        102531,
+        102908,
+        105390,
+        125769,
+        132264,
+        145155,
+        196391,
+        241948,
+        242240,
+        244850
+      ],
+      "sourcePolygons": 24,
+      "followsBarrel": "SideBattery_4_Starboard"
+    },
+    {
+      "mesh": "SideBattery_4_Port_SourceElevationRail",
+      "sourceIsland": 44418,
+      "sourceFaceIds": [
+        36426,
+        53907,
+        56837,
+        56838,
+        56841,
+        56842,
+        56848,
+        56849,
+        56852,
+        56857,
+        56858,
+        85088,
+        100426,
+        109620,
+        113331,
+        115074,
+        123800,
+        143765,
+        155602,
+        160373,
+        181079,
+        202224,
+        234652,
+        250258
+      ],
+      "sourcePolygons": 24,
+      "followsBarrel": "SideBattery_4_Port"
+    }
+  ],
+  "fixedCheekFit": {
+    "islands": [
+      {
+        "station": "SideBattery_2_Starboard",
+        "sourceIsland": 98526,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          98536,
+          98537,
+          98550,
+          98554
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_2_Starboard",
+        "sourceIsland": 98556,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          98530,
+          98531,
+          98541,
+          98545
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_2_Port",
+        "sourceIsland": 85335,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          85314,
+          85315,
+          85328,
+          85332
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_2_Port",
+        "sourceIsland": 85324,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          85308,
+          85309,
+          85319,
+          85323
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_4_Starboard",
+        "sourceIsland": 115747,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          115731,
+          115732,
+          115745,
+          115749
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_4_Starboard",
+        "sourceIsland": 115741,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          115725,
+          115726,
+          115736,
+          115740
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_4_Port",
+        "sourceIsland": 103768,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          103754,
+          103755,
+          103768,
+          103772
+        ],
+        "fixedContourExtensions": 3
+      },
+      {
+        "station": "SideBattery_4_Port",
+        "sourceIsland": 103757,
+        "outerVertices": 4,
+        "sourceOuterVertices": [
+          103748,
+          103749,
+          103759,
+          103763
+        ],
+        "fixedContourExtensions": 3
+      }
+    ],
+    "editedVertices": {
+      "holo.001": 32,
+      "Flank24_OriginalFixedHull": 16
+    },
+    "innerFacesRetained": true
+  },
+  "unchangedOtherMeshes": 498,
+  "unchangedJointTransforms": 191,
+  "animationClips": 0
+}
