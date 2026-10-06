@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 176,
-  "triangles": 2381446,
+  "meshCount": 180,
+  "triangles": 2361451,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -133,23 +133,22 @@
     "Stern and keel source nose shells retain their topology and curled edges while their full rear profiles match the adjacent shutters and their full leading diagonals match the original fixed receivers",
     "All stern and keel shutter crowns share continuous widths, crown planes and narrow center seams; the rear edges meet their unchanged gun-root housings",
     "Six missing original keel fixed nose support faces are restored from odin.blend; the former 14-percent seat and original barrel actions remain unchanged",
-    "Side singles 2 and 4 recover their original fixed trough and turret support faces from odin.blend; no fixed source faces are assigned to armor joints",
-    "Their original double-shell front caps retain their shape and UVs with a rigid outward clearance offset; added lower sealing returns meet the unchanged receiver, then the caps lift and advance",
-    "All original source channel walls, raised grates and triangular braces remain fixed; six missing outer covers reuse the completed flank armor assets with red inward reinforcement and contact-edge hinges",
-    "All four side 2/4 barrels retain their exact source geometry, fixed locations and three-channel Euler curves in Nuxt; handmade sinks and pitch offsets are removed",
-    "The accepted stern and keel continuous crown lines and all other weapon geometry and joints remain unchanged"
+    "Side singles 2 and 4 use their six original vented armor assemblies and original nose shells from odin.blend, with source topology and UVs retained and red inward faces",
+    "The source rear turret shell, bore and final armor pair rise together; closing retracts the bore, seats the shell forward and down, then folds the armor",
+    "The bore roots and their physical pivots share the requested upward and rearward rigid offset; a small rest-angle correction lowers the muzzle, while the source three-channel Euler action remains intact",
+    "The original stationary trough, cheek supports and lower mount bearings remain fixed; no substitute armor skins or copied side-1 leaves remain on side 2/4"
   ],
   "webOptimization": {
-    "batchedMeshes": 176,
-    "highTriangles": 2381446,
-    "liteTriangles": 856486,
-    "highBytes": 18673624,
-    "liteBytes": 8221316,
+    "batchedMeshes": 180,
+    "highTriangles": 2361451,
+    "liteTriangles": 856431,
+    "highBytes": 18503760,
+    "liteBytes": 8296312,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.24",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.24.blend",
+  "version": "0.11.25",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.25.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
@@ -167,6 +166,7 @@
     "side-battery-carriage",
     "defense-gate",
     "pdc-hull-petal",
-    "bow-receiver"
+    "bow-receiver",
+    "single-source-carriage"
   ]
 }

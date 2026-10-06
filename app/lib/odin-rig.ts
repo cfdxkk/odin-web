@@ -168,11 +168,19 @@ export function createOdinRig(root: THREE.Object3D) {
         pose(name, v(...data.liftVector as [number, number, number]).multiplyScalar(ease(.76, .86, closing))
           .add(v(...data.slideVector as [number, number, number]).multiplyScalar(ease(.87, 1, closing))))
       }
+      if (data.system === 'single-source-carriage') {
+        // The source rear pair and bore share this physical turret shell.
+        // Reversing stows the bore first, seats the shell, then shuts armor.
+        const rise = ease(Number(data.raiseStart), Number(data.raiseEnd), d)
+        pose(name, v(...data.closedOffsetModel as [number, number, number]).multiplyScalar(1 - rise))
+      }
       if (data.system === 'single-front-cap') {
         if (data.sourceCapStroke) {
           // The source shell stays rigid: lift off the original receiver,
           // advance over it, then settle at the authored clearance position.
-          const raised = ease(0, .08, d), forward = ease(.10, .23, d), parked = ease(.24, .26, d)
+          const raised = ease(0, Number(data.releaseEnd ?? .08), d)
+          const forward = ease(Number(data.slideStart ?? .10), Number(data.slideEnd ?? .23), d)
+          const parked = ease(Number(data.settleStart ?? .24), Number(data.settleEnd ?? .26), d)
           pose(name, v(...data.slideVector as [number, number, number])
             .addScaledVector(v(...data.clearanceLiftVector as [number, number, number]), raised)
             .addScaledVector(v(...data.advanceVector as [number, number, number]), forward)

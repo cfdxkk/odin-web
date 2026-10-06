@@ -60,6 +60,32 @@ assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'pdc-hull-petal').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
+if (manifest.version === '0.11.25') for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
+  const prefix = `SideBattery_${i}_${side}`
+  const carriage = asset.nodes.find(n => n.name === prefix + '_SourceCarriage')
+  const gun = asset.nodes.find(n => n.name === prefix)
+  assert.equal(carriage.extras.system, 'single-source-carriage')
+  assert.ok(carriage.children.includes(asset.nodes.indexOf(gun)))
+  assert.equal(gun.extras.userRequestedRestAdjustment, true)
+  assert.equal(gun.extras.sourceEulerMotion, true)
+  const leaves = asset.nodes.filter(n => n.extras?.barrelJoint === prefix)
+  assert.equal(leaves.length, 6)
+  for (const leaf of leaves) {
+    assert.equal(leaf.extras.originalSourceArmor, true)
+    assert.equal(leaf.extras.sourceObject, 'holo.001')
+    assert.ok(leaf.extras.sourceIslandIds.length > 1)
+    assert.equal(carriage.children.includes(asset.nodes.indexOf(leaf)), leaf.extras.panelIndex === 0)
+    assert.ok(!leaf.extras.sourceFlankTemplate)
+    const mesh = asset.nodes[leaf.children.find(index => asset.nodes[index].mesh !== undefined)]
+    const materials = asset.meshes[mesh.mesh].primitives.map(p => asset.materials[p.material].name)
+    assert.ok(materials.includes('Odin_Turret_Interior_DeepRed'), `${leaf.name} retains red inward details`)
+    assert.ok(materials.includes('Odin_Paint_Light'), `${leaf.name} retains its gray original exterior`)
+  }
+  const cap = asset.nodes.find(n => n.name === prefix + '_FrontCap')
+  assert.equal(cap.extras.originalSourceArmor, true)
+  assert.deepEqual(cap.extras.sourceClearanceOffsetModel, [0, 0, 0])
+  assert.ok(!asset.nodes.some(n => n.name.startsWith(prefix) && /OuterSkin|FlankReinforcement|SealingReturns/.test(n.name)))
+}
 if (manifest.version === '0.11.24') for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
   const prefix = `SideBattery_${i}_${side}`
   const gun = asset.nodes.find(n => n.name === prefix)?.extras

@@ -20,5 +20,10 @@ export function flankSourceMotion(data: Record<string, any>, deployment: number)
     delta.y *= -1
     delta.z *= -1
   }
+  if (data.sourceRigRotationWXYZ) {
+    const [rw, rx, ry, rz] = data.sourceRigRotationWXYZ as number[]
+    const rest = new THREE.Quaternion(rx, ry, rz, rw)
+    delta.premultiply(rest).multiply(rest.clone().invert())
+  }
   return webBasis.clone().multiply(delta).multiply(webBasis.clone().invert())
 }
