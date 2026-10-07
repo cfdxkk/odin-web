@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import { createHash } from 'node:crypto'
 import * as THREE from 'three'
 import { createOdinRig } from '../app/lib/odin-rig.ts'
 
@@ -1228,6 +1229,38 @@ test('side 2 and 4 stow the bore, then seat the turret and rear pair, then close
     rig.apply(.20,0);root.updateMatrixWorld(true)
     assert.ok(carriage.position.distanceTo(seatedCarriage)<1e-6,'Turret is seated before armor closes')
     assert.ok(rear.some((o,k)=>o.quaternion.angleTo(new THREE.Quaternion().setFromRotationMatrix(rearInTurret[k]))>.1))
+  }
+})
+
+test('fitted original flank seams hide the interior and only the obsolete housing shell is removed', () => {
+  const fit=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.27/source-fit.json',import.meta.url)))
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.27/source-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.27/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.27.blend',import.meta.url))
+  assert.equal(createHash('sha256').update(native).digest('hex'),geometry.nativeSha256,'Seam proof must belong to the committed editable model')
+  assert.equal(geometry.sourceArmorPolygonsAndUvs.length,28)
+  assert.equal(geometry.unchangedJointTransforms,191)
+  assert.equal(geometry.unchangedJointMetadata,191)
+  assert.equal(fit.removedLegacyHousing.removedPolygons,359)
+  assert.equal(geometry.legacyFixedHousingPolygons,0)
+  assert.equal(geometry.fixedBearingPolygons,1590,'The two source bearing islands remain fixed and intact')
+  assert.equal(fit.removedLegacyHousing.retainedBearingIslands,2)
+  assert.deepEqual(geometry.restoredGrayOuterEndFaces,[131174,163397])
+  assert.equal(geometry.fixedHullCoordinatesAndUvsUnchanged,true)
+  assert.equal(geometry.grayOuterFloorBands,4)
+  assert.deepEqual(geometry.originalFloorFacesStillRed,[194058,163402])
+  assert.equal(geometry.closedSeams.length,4)
+  for(const row of geometry.sourceArmorPolygonsAndUvs)assert.ok(row.maxUvError<1e-6)
+  for(const row of geometry.closedSeams) {
+    assert.equal(row.rays,1140)
+    assert.deepEqual(row.misses,[],`${row.station} exposes an open seam`)
+    assert.deepEqual(row.interiorFirstHits,[],`${row.station} shows the red interior through a closed seam`)
+    assert.equal(row.centerCrownRays,480)
+    assert.deepEqual(row.centerCrownMisses,[],`${row.station} has an open center crown`)
+    assert.deepEqual(row.centerCrownInteriorFirstHits,[],`${row.station} shows its red interior through the flat crown`)
+    assert.ok(row.maxSurfaceDistanceError<.04)
+    assert.deepEqual(clearance[row.station].barrelArmorContacts,[])
+    assert.equal(clearance[row.station].poses,101)
   }
 })
 

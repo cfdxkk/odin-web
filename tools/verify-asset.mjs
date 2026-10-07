@@ -60,7 +60,7 @@ assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-carriage
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'side-battery-leaf').length, 24)
 assert.equal(asset.nodes.filter(n => n.extras?.system === 'pdc-hull-petal').length, 8)
 assert.equal(asset.nodes.filter(n => n.extras?.singleBattery).length, 11)
-if (['0.11.25', '0.11.26'].includes(manifest.version)) for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
+if (['0.11.25', '0.11.26', '0.11.27'].includes(manifest.version)) for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
   const prefix = `SideBattery_${i}_${side}`
   const carriage = asset.nodes.find(n => n.name === prefix + '_SourceCarriage')
   const gun = asset.nodes.find(n => n.name === prefix)
@@ -68,7 +68,7 @@ if (['0.11.25', '0.11.26'].includes(manifest.version)) for (const i of [2, 4]) f
   assert.ok(carriage.children.includes(asset.nodes.indexOf(gun)))
   assert.equal(gun.extras.userRequestedRestAdjustment, true)
   assert.equal(gun.extras.sourceEulerMotion, true)
-  if (manifest.version === '0.11.26' && i === 4) {
+  if (['0.11.26', '0.11.27'].includes(manifest.version) && i === 4) {
     const mesh = asset.nodes[gun.children.find(index => asset.nodes[index].mesh !== undefined)]
     assert.ok(asset.meshes[mesh.mesh].primitives.some(p => asset.materials[p.material].name === 'Odin_Paint_Light'),
       `${gun.name} includes its original gray elevation linkage in the moving barrel assembly`)
@@ -85,20 +85,24 @@ if (['0.11.25', '0.11.26'].includes(manifest.version)) for (const i of [2, 4]) f
     const materials = asset.meshes[mesh.mesh].primitives.map(p => asset.materials[p.material].name)
     assert.ok(materials.includes('Odin_Turret_Interior_DeepRed'), `${leaf.name} retains red inward details`)
     assert.ok(materials.includes('Odin_Paint_Light'), `${leaf.name} retains its gray original exterior`)
-    if (manifest.version === '0.11.26') {
+    if (['0.11.26', '0.11.27'].includes(manifest.version)) {
       assert.equal(leaf.extras.limitedSourceOpening, true)
       assert.equal(leaf.extras.openingLimitReferenceProgress, i === 2 ? .20 : .18)
       assert.ok(leaf.extras.openingTravelDegrees < (i === 2 ? 130 : 88))
       assert.equal(leaf.extras.crownHalfWidth, .45)
       assert.equal(leaf.extras.centerSeamHalfWidth, .02)
       assert.equal(mesh.extras.fittedFlatCrown, true)
+      if (manifest.version === '0.11.27' && leaf.extras.panelIndex > 0)
+        assert.equal(mesh.extras.closedSeamReturn, true, `${leaf.name} carries its gray inner seam return`)
+      if (manifest.version === '0.11.27' && leaf.name.includes('_Shutter_Port_'))
+        assert.equal(mesh.extras.closedCenterReturn, true, `${leaf.name} hides the narrow flat-roof center seam`)
     }
   }
   const cap = asset.nodes.find(n => n.name === prefix + '_FrontCap')
   assert.equal(cap.extras.originalSourceArmor, true)
   assert.deepEqual(cap.extras.sourceClearanceOffsetModel, [0, 0, 0])
   assert.ok(!asset.nodes.some(n => n.name.startsWith(prefix) && /OuterSkin|FlankReinforcement|SealingReturns/.test(n.name)))
-  if (manifest.version === '0.11.26') assert.equal(cap.extras.fittedFlatCrown, true)
+  if (['0.11.26', '0.11.27'].includes(manifest.version)) assert.equal(cap.extras.fittedFlatCrown, true)
 }
 if (manifest.version === '0.11.24') for (const i of [2, 4]) for (const side of ['Port', 'Starboard']) {
   const prefix = `SideBattery_${i}_${side}`
