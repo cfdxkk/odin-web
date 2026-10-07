@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 180,
-  "triangles": 2362651,
+  "triangles": 2362601,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -140,22 +140,20 @@
     "Original outer rail belt panels are restored on both ship sides as fixed hull geometry; outward cheek faces are aligned to the closed armor plane",
     "Side 2 and 4 leaf sweeps stop at their previous front-leaf 20-percent and 18-percent orientations respectively; original bore curves, corrected pivots, carriage stroke and motion order remain unchanged",
     "Both original side-4 elevation linkages follow their barrel curves from the correct closed pose; their source polygons and UVs are retained",
-    "The small source exterior end triangles and rolled rails of side 2/4 covers share aligned closed profiles; gray inner seam returns prevent views through bank and nose joints",
-    "The front nose rear profile meets the adjacent original leaf; its original leading receiver edge is unchanged",
-    "The obsolete fixed mirrored starboard side-4 housing is removed while its two fixed bearing islands retain their original geometry, UVs and coordinates",
-    "All 191 joint transforms and motion metadata remain unchanged from v0.11.26, including the limited opening stops and original barrel/carriage/cap phases"
+    "Side 2/4 source covers use one lower straight crown profile across all six leaves, the nose and the fitted fixed receiver; the flat crown is 0.60 source units wide",
+    "Only the two isolated side-4 floating triangles are removed; original grate topology and UVs are retained, and barrel pivots, source Euler curves, carriage timing and opening stops are unchanged"
   ],
   "webOptimization": {
     "batchedMeshes": 180,
-    "highTriangles": 2362651,
-    "liteTriangles": 857778,
-    "highBytes": 18527060,
-    "liteBytes": 8324360,
+    "highTriangles": 2362601,
+    "liteTriangles": 857729,
+    "highBytes": 18533064,
+    "liteBytes": 8330592,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.27",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.27.blend",
+  "version": "0.11.28",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.28.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

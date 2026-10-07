@@ -1188,6 +1188,7 @@ test('the fitted source side armor retains its grates and UVs and clears the cor
 test('all source flank leaves stop at the requested v25 front-leaf orientation and retain a flat crown', () => {
   const {root,rig}=loadRig()
   const old=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.25/source-armor.json',import.meta.url)))
+  const crownFit=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.28/source-fit.json',import.meta.url)))
   const ease=(a,b,d)=>{const t=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return t*t*(3-2*t)}
   for(const i of [2,4])for(const side of ['Port','Starboard'])for(const physical of ['Port','Starboard']) {
     const prefix=`SideBattery_${i}_${side}`
@@ -1197,7 +1198,7 @@ test('all source flank leaves stop at the requested v25 front-leaf orientation a
       const leaf=root.getObjectByName(`${prefix}_Shutter_${physical}_0${k}`)
       assert.ok(Math.abs(leaf.userData.openingTravelDegrees-expectedTravel)<1e-6)
       assert.equal(leaf.userData.centerSeamHalfWidth,.02)
-      assert.equal(leaf.userData.crownHalfWidth,.45,'Closed covers retain a finite-width flat crown')
+      assert.equal(leaf.userData.crownHalfWidth,crownFit.stations[prefix].flatCrownWidth/2,'Closed covers retain the fitted narrow flat crown')
       rig.apply(1,0);const limit=leaf.quaternion.clone()
       for(const d of [.3,.42,.6,.9,1,.6,.3]) {
         rig.apply(d,0)
@@ -1259,6 +1260,37 @@ test('fitted original flank seams hide the interior and only the obsolete housin
     assert.deepEqual(row.centerCrownMisses,[],`${row.station} has an open center crown`)
     assert.deepEqual(row.centerCrownInteriorFirstHits,[],`${row.station} shows its red interior through the flat crown`)
     assert.ok(row.maxSurfaceDistanceError<.04)
+    assert.deepEqual(clearance[row.station].barrelArmorContacts,[])
+    assert.equal(clearance[row.station].poses,101)
+  }
+})
+
+test('lower flank crowns form a sealed straight narrow roof and clear the unchanged bore action', () => {
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.28/source-geometry.json',import.meta.url)))
+  const fit=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.28/source-fit.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.28/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.28.blend',import.meta.url))
+  assert.equal(createHash('sha256').update(native).digest('hex'),geometry.nativeSha256)
+  assert.equal(geometry.sourceArmorPolygonsAndUvs.length,28)
+  assert.equal(geometry.unchangedJointTransforms,191)
+  assert.equal(geometry.unchangedMechanicalMetadata,191)
+  assert.equal(geometry.removedFloatingTriangles,2)
+  assert.equal(geometry.originalSourceUnchanged,true)
+  for(const row of geometry.sourceArmorPolygonsAndUvs)assert.ok(row.maxUvError<1e-6)
+  assert.equal(geometry.closedRoofs.length,4)
+  for(const row of geometry.closedRoofs) {
+    assert.ok(row.rays>2200)
+    assert.deepEqual(row.misses,[],`${row.station} has a roof or bank opening`)
+    assert.deepEqual(row.interiorFirstHits,[],`${row.station} shows primer through a closed seam`)
+    assert.ok(row.maxCrownLineError<.015,`${row.station} has a stepped crown`)
+    assert.ok(row.maxSideSeamError<.025)
+    assert.equal(row.fixedReceiverRays,156)
+    assert.deepEqual(row.fixedReceiverMisses,[])
+    assert.deepEqual(row.fixedReceiverInteriorFirstHits,[])
+    assert.ok(row.maxFixedReceiverCrownError<.015,'Fixed nose continues the same crown line')
+    assert.ok(row.heightReduction>.7)
+    assert.ok(row.flatCrownWidth>0&&row.flatCrownWidth<=.6)
+    assert.equal(fit.stations[row.station].leaves.length,6)
     assert.deepEqual(clearance[row.station].barrelArmorContacts,[])
     assert.equal(clearance[row.station].poses,101)
   }

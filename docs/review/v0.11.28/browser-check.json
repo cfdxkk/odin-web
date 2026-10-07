@@ -1,0 +1,559 @@
+{
+  "version": "0.11.28",
+  "endpoints": [
+    {
+      "station": "right-2",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-斜视-0.png"
+    },
+    {
+      "station": "right-2",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-俯视-0.png"
+    },
+    {
+      "station": "right-2",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-正视-0.png"
+    },
+    {
+      "station": "right-2",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-2-斜视-1.png"
+    },
+    {
+      "station": "right-2",
+      "view": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-2-俯视-1.png"
+    },
+    {
+      "station": "right-2",
+      "view": "rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-rear.png"
+    },
+    {
+      "station": "right-2",
+      "view": "upper-rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-upper-rear.png"
+    },
+    {
+      "station": "right-2",
+      "view": "outer-side",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-outer-side.png"
+    },
+    {
+      "station": "right-4",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-斜视-0.png"
+    },
+    {
+      "station": "right-4",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-俯视-0.png"
+    },
+    {
+      "station": "right-4",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-正视-0.png"
+    },
+    {
+      "station": "right-4",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-4-斜视-1.png"
+    },
+    {
+      "station": "right-4",
+      "view": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-4-俯视-1.png"
+    },
+    {
+      "station": "right-4",
+      "view": "rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-rear.png"
+    },
+    {
+      "station": "right-4",
+      "view": "upper-rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-upper-rear.png"
+    },
+    {
+      "station": "right-4",
+      "view": "outer-side",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-outer-side.png"
+    },
+    {
+      "station": "left-2",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-斜视-0.png"
+    },
+    {
+      "station": "left-2",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-俯视-0.png"
+    },
+    {
+      "station": "left-2",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-正视-0.png"
+    },
+    {
+      "station": "left-2",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-2-斜视-1.png"
+    },
+    {
+      "station": "left-2",
+      "view": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-2-俯视-1.png"
+    },
+    {
+      "station": "left-2",
+      "view": "rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-rear.png"
+    },
+    {
+      "station": "left-2",
+      "view": "upper-rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-upper-rear.png"
+    },
+    {
+      "station": "left-2",
+      "view": "outer-side",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-outer-side.png"
+    },
+    {
+      "station": "left-4",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-斜视-0.png"
+    },
+    {
+      "station": "left-4",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-俯视-0.png"
+    },
+    {
+      "station": "left-4",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-正视-0.png"
+    },
+    {
+      "station": "left-4",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-4-斜视-1.png"
+    },
+    {
+      "station": "left-4",
+      "view": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-4-俯视-1.png"
+    },
+    {
+      "station": "left-4",
+      "view": "rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-rear.png"
+    },
+    {
+      "station": "left-4",
+      "view": "upper-rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-upper-rear.png"
+    },
+    {
+      "station": "left-4",
+      "view": "outer-side",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-outer-side.png"
+    }
+  ],
+  "motion": [
+    {
+      "station": "right-2",
+      "progress": 0.12,
+      "path": "output/playwright/v01128/right-2-motion-12.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/right-2-motion-20.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.3,
+      "path": "output/playwright/v01128/right-2-motion-30.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/right-2-motion-37.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.43,
+      "path": "output/playwright/v01128/right-2-motion-43.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/right-2-motion-67.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-2-motion-100.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/right-2-motion-67.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/right-2-motion-37.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/right-2-motion-20.png"
+    },
+    {
+      "station": "right-2",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-2-motion-0.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.12,
+      "path": "output/playwright/v01128/right-4-motion-12.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/right-4-motion-20.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.3,
+      "path": "output/playwright/v01128/right-4-motion-30.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/right-4-motion-37.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.43,
+      "path": "output/playwright/v01128/right-4-motion-43.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/right-4-motion-67.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 1,
+      "path": "output/playwright/v01128/right-4-motion-100.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/right-4-motion-67.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/right-4-motion-37.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/right-4-motion-20.png"
+    },
+    {
+      "station": "right-4",
+      "progress": 0,
+      "path": "output/playwright/v01128/right-4-motion-0.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.12,
+      "path": "output/playwright/v01128/left-2-motion-12.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/left-2-motion-20.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.3,
+      "path": "output/playwright/v01128/left-2-motion-30.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/left-2-motion-37.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.43,
+      "path": "output/playwright/v01128/left-2-motion-43.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/left-2-motion-67.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-2-motion-100.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/left-2-motion-67.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/left-2-motion-37.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/left-2-motion-20.png"
+    },
+    {
+      "station": "left-2",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-2-motion-0.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.12,
+      "path": "output/playwright/v01128/left-4-motion-12.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/left-4-motion-20.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.3,
+      "path": "output/playwright/v01128/left-4-motion-30.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/left-4-motion-37.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.43,
+      "path": "output/playwright/v01128/left-4-motion-43.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/left-4-motion-67.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 1,
+      "path": "output/playwright/v01128/left-4-motion-100.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.67,
+      "path": "output/playwright/v01128/left-4-motion-67.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.37,
+      "path": "output/playwright/v01128/left-4-motion-37.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0.2,
+      "path": "output/playwright/v01128/left-4-motion-20.png"
+    },
+    {
+      "station": "left-4",
+      "progress": 0,
+      "path": "output/playwright/v01128/left-4-motion-0.png"
+    }
+  ],
+  "otherArmament": [
+    {
+      "station": "bow",
+      "progress": 0,
+      "path": "output/playwright/v01128/bow-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 1,
+      "path": "output/playwright/v01128/bow-1.png"
+    },
+    {
+      "station": "stern",
+      "progress": 0,
+      "path": "output/playwright/v01128/stern-0.png"
+    },
+    {
+      "station": "stern",
+      "progress": 1,
+      "path": "output/playwright/v01128/stern-1.png"
+    },
+    {
+      "station": "keel",
+      "progress": 0,
+      "path": "output/playwright/v01128/keel-0.png"
+    },
+    {
+      "station": "keel",
+      "progress": 1,
+      "path": "output/playwright/v01128/keel-1.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 0,
+      "path": "output/playwright/v01128/side-1-0.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 1,
+      "path": "output/playwright/v01128/side-1-1.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 0,
+      "path": "output/playwright/v01128/side-3-0.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 1,
+      "path": "output/playwright/v01128/side-3-1.png"
+    },
+    {
+      "station": "bridge-quad-and-pdc",
+      "progress": 0,
+      "path": "output/playwright/v01128/bridge-quad-0.png"
+    },
+    {
+      "station": "bridge-quad-and-pdc",
+      "progress": 1,
+      "path": "output/playwright/v01128/bridge-quad-1.png"
+    },
+    {
+      "station": "defense-forward",
+      "progress": 0,
+      "path": "output/playwright/v01128/defense-forward-0.png"
+    },
+    {
+      "station": "defense-forward",
+      "progress": 1,
+      "path": "output/playwright/v01128/defense-forward-1.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 0,
+      "path": "output/playwright/v01128/defense-aft-0.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 1,
+      "path": "output/playwright/v01128/defense-aft-1.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 0,
+      "path": "output/playwright/v01128/bridge-front-0.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 1,
+      "path": "output/playwright/v01128/bridge-front-1.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 0,
+      "path": "output/playwright/v01128/bridge-rear-0.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 1,
+      "path": "output/playwright/v01128/bridge-rear-1.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 0,
+      "path": "output/playwright/v01128/pdc-0.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 1,
+      "path": "output/playwright/v01128/pdc-1.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 0,
+      "path": "output/playwright/v01128/main-dorsal-0.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 1,
+      "path": "output/playwright/v01128/main-dorsal-1.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 0,
+      "path": "output/playwright/v01128/main-ventral-0.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 1,
+      "path": "output/playwright/v01128/main-ventral-1.png"
+    }
+  ],
+  "renderedViews": 102,
+  "explicitPauseRetained": true,
+  "idleRenderFrames": [
+    954,
+    954
+  ],
+  "consoleErrors": 0,
+  "checkingBrowserClosed": true
+}
