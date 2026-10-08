@@ -196,8 +196,18 @@ export function createOdinRig(root: THREE.Object3D) {
           .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
       }
       if (data.system === 'pdc-hull-petal') {
-        const compact = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, d) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
+        const center = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, d) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
+        const compact = data.translationOnly ? center ** Number(data.petalPackingExponent ?? 1) : center
         const move = v(...(data.sourceQuadPetal ? data.compactVector : data.stowVector) as [number, number, number]).multiplyScalar(compact)
+        if (data.translationOnly) {
+          // Lock ship X (port/starboard in plan view) for every vertex:
+          // no petal rotation or inherited aiming/carriage motion is applied.
+          move.add(v(0, 0, Number(data.translationClearanceZ ?? 0)).multiplyScalar((1 - compact)
+            * (1 - ease(Number(data.translationClearanceReleaseStart ?? .35), Number(data.translationClearanceReleaseEnd ?? .60), d))))
+          move.x = 0
+          pose(name, move)
+          return
+        }
         if (data.clearanceVector) move.add(v(...data.clearanceVector as [number, number, number])
           .multiplyScalar((1 - ease(Number(data.clearanceStart), Number(data.clearanceEnd), d)) * (1 - compact ** 3)))
         let turn = identity

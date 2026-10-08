@@ -1443,7 +1443,8 @@ test('bridge turret seats at frame 30 before tubes, original gray petals and rea
     assert.deepEqual(tube.position.toArray(),t1.toArray())
     assert.ok(carriage.position.distanceTo(c1)<1e-6)
     assert.ok(cradle.position.distanceTo(r1)<1e-6)
-    assert.deepEqual(petal.position.toArray(),p1.toArray(),'Petals have no axial release before carriage seating')
+    assert.equal(petal.position.x,p1.x,'Petals retain ship X while allowing vertical passage clearance')
+    assert.equal(petal.position.z,p1.z,'No fore/aft armor detour is used')
     rig.apply(.20,0);const seat=carriage.position.clone()
     assert.ok(Math.abs(seat.distanceTo(c1)-10)<1e-6)
     assert.deepEqual(tube.position.toArray(),t1.toArray())
@@ -1460,7 +1461,10 @@ test('bridge turret seats at frame 30 before tubes, original gray petals and rea
         const full=new THREE.Vector3(p.userData.compactVector[0],p.userData.compactVector[2],-p.userData.compactVector[1])
         assert.equal(p.userData.compactVector[0],0,'Armor contracts directly in the quad cross-section')
         assert.equal(p.userData.clearanceVector,undefined,'There is no retreat detour')
-        assert.ok(p.position.clone().sub(petalBases[i]).distanceTo(full.multiplyScalar(amount))<1e-6)
+        const release=1-ease(p.userData.translationClearanceReleaseStart,p.userData.translationClearanceReleaseEnd,d)
+        const petalAmount=amount**p.userData.petalPackingExponent
+        full.multiplyScalar(petalAmount).add(new THREE.Vector3(0,p.userData.translationClearanceZ*(1-petalAmount)*release,0))
+        assert.ok(p.position.clone().sub(petalBases[i]).distanceTo(full)<1e-6)
         const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`)
         assert.ok(Math.abs(arm.position.distanceTo(t1)-14.40237037037037*(1-ease(.03,.18,d)))<1e-6,'Short axial tube slide shares the late interval while center packing leads smoothly')
       }
@@ -1468,23 +1472,32 @@ test('bridge turret seats at frame 30 before tubes, original gray petals and rea
   }
 })
 
-test('quad tubes stop at the previous 11-percent reach; gray petals translate only inward and finish in the hull attitude', () => {
+test('quad tubes keep the previous 11-percent reach; all gray armor stays unrotated and locks ship X in plan view', () => {
   const ease=(a,b,d)=>{const t=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return t*t*(3-2*t)}
-  const {root,rig}=loadRig(),travel=32*(1-ease(.03,.18,.11))
+  const {root,rig,meshBounds}=loadRig(),travel=32*(1-ease(.03,.18,.11))
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`),petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
-    rig.apply(1,0);const a1=arm.position.clone(),p1=petal.position.clone()
+    rig.apply(1,0);root.updateMatrixWorld(true)
+    const a1=arm.position.clone(),p1=petal.position.clone(),restTurn=petal.quaternion.clone()
+    const skin=petal.children.find(o=>meshBounds.has(o)),box=meshBounds.get(skin)
+    const corners=[box.min.x,box.max.x].flatMap(x=>[box.min.y,box.max.y].flatMap(y=>[box.min.z,box.max.z].map(z=>new THREE.Vector3(x,y,z))))
+    const openX=corners.map(p=>p.clone().applyMatrix4(skin.matrixWorld).x)
     assert.equal(arm.userData.stowReferenceProgress,.11)
     assert.ok(Math.abs(arm.userData.stowTravel-travel)<1e-9)
-    rig.apply(.2,0);const closedTurn=petal.quaternion.clone()
-    assert.ok(closedTurn.angleTo(new THREE.Quaternion())>.05,'Source-open skins align with the hull before center packing')
-    for(const d of [1,.7,.4,.3,.2,.18,.14,.11,.06,.03,0,.03,.11,.18,.3,.4,.7,1]) {
-      rig.apply(d,0)
-      assert.equal(petal.position.x,p1.x,'No forward/backward petal translation at any progress')
-      const compact=1-ease(.03,.18,d),center=compact+2.5*compact*(1-compact)**2,vector=petal.userData.compactVector
-      assert.ok(petal.position.clone().sub(p1).distanceTo(new THREE.Vector3(vector[0],vector[2],-vector[1]).multiplyScalar(center))<1e-6)
+    assert.equal(petal.userData.translationOnly,true)
+    assert.equal(petal.userData.compactRotationWXYZ,undefined)
+    // Reject the old rotating-plate behavior even if stale rotation extras recur.
+    petal.userData.compactRotationWXYZ=[Math.cos(.1),0,Math.sin(.1),0]
+    for(const d of [...Array.from({length:101},(_,n)=>1-n/100),...Array.from({length:101},(_,n)=>n/100)]) {
+      rig.apply(d,0);root.updateMatrixWorld(true)
+      assert.equal(petal.position.x,p1.x,'No port/starboard petal translation at any progress')
+      assert.ok(petal.quaternion.angleTo(restTurn)<1e-7,'The original petal orientation never changes')
+      corners.forEach((p,n)=>assert.ok(Math.abs(p.clone().applyMatrix4(skin.matrixWorld).x-openX[n])<1e-12,'Every point in the armor bounds retains ship X through aiming, carriage travel and packing'))
+      const compact=1-ease(.03,.18,d),center=(compact+2.5*compact*(1-compact)**2)**2,vector=petal.userData.compactVector
+      const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
+      expected.y+=petal.userData.translationClearanceZ*(1-center)*(1-ease(.35,.60,d))
+      assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
       assert.ok(Math.abs(arm.position.distanceTo(a1)-travel*compact)<1e-6)
-      if(d<=.2)assert.ok(petal.quaternion.angleTo(closedTurn)<1e-6)
     }
   }
 })
@@ -1511,16 +1524,18 @@ test('quad cradle guides retain their small stroke and center packing is monoton
   }
 })
 
-test('both original bridge quads retain every source surface and UV; gray armor clears all 802 poses and seats on source hull receivers', () => {
-  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.32/source-geometry.json',import.meta.url)))
-  const restored=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.32/source-restoration.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.32/mesh-clearance.json',import.meta.url)))
-  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.32.blend',import.meta.url))
+test('original bridge quads retain all source surfaces and UVs; translating petals keep X fixed and join the hull lips', () => {
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/source-geometry.json',import.meta.url)))
+  const restored=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/source-restoration.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.33.blend',import.meta.url))
   assert.equal(createHash('sha256').update(native).digest('hex'),geometry.nativeSha256)
   assert.equal(geometry.maxPointError,0)
   assert.equal(geometry.maxUvError,0)
   assert.equal(geometry.sourceMeshParts.length,36)
-  assert.equal(geometry.unchangedOtherMeshes,494)
+  assert.equal(geometry.unchangedOtherMeshes,493)
+  assert.equal(geometry.fixedSeamEditedVertices,32)
+  assert.equal(geometry.fixedHullOutsideSeamsUnchanged,true)
   assert.equal(geometry.unchangedOtherJoints,171)
   assert.equal(geometry.beltGeometryUnchanged,true)
   assert.equal(geometry.originalSourceUnchanged,true)
@@ -1538,7 +1553,12 @@ test('both original bridge quads retain every source surface and UV; gray armor 
     assert.deepEqual(clearance[side].barrelPetalContacts,[])
     assert.deepEqual(clearance[side].cradlePairContacts,[])
     assert.ok(clearance[side].sourceMeshesRemainRigid)
-    for(const seat of clearance[side].originalReceiverSeats)assert.ok(seat.maxSkinToOriginalReceiverPlane<.215)
+    assert.equal(clearance[side].maxArmorVertexXChange,0)
+    assert.equal(clearance[side].maxArmorRotationRadians,0)
+    for(const seam of clearance[side].closedForwardSeams) {
+      assert.ok(seam.closedEdgeEndpointGap<.00003)
+      assert.ok(seam.closedEdgeAngleDegrees<.001)
+    }
     for(const tube of clearance[side].hiddenBarrelTips) {
       assert.ok(tube.hiddenBehindArmor>.20)
       assert.ok(tube.referenceTipError<.00002,'NAV tube reach matches the requested prior 11-percent position')

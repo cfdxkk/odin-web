@@ -148,19 +148,20 @@
     "The original tubes retract farther independently of their gray rear cradles; after carriage stow, four cradles and four unpainted original hull petals compact toward each quad center together",
     "Side-2 original outer rail belt panels recover their source light top and dark side materials",
     "Bridge quad extra tube travel ends at the former v0.11.31 11-percent tube position, shortening the stroke by 55 percent",
-    "The four original gray petals align to their source hull receiver normals, then contract directly toward the quad center without axial retreat or a clearance detour; gray cradles compact with the tubes after frame-30 carriage seating"
+    "All eight original gray bridge quad petals keep their source orientation and every vertex X coordinate throughout translation-only closure; their original forward edges join fitted stationary hull lips in NAV",
+    "Only 32 fixed hull lip vertices are adjusted at the eight original petal junctions; original petal surfaces, UVs, full tube reach, gray guide packing and frame-30 carriage stop are retained"
   ],
   "webOptimization": {
     "batchedMeshes": 196,
     "highTriangles": 2367903,
-    "liteTriangles": 875458,
-    "highBytes": 18854372,
-    "liteBytes": 8863528,
+    "liteTriangles": 875459,
+    "highBytes": 18854596,
+    "liteBytes": 8863924,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.32",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.32.blend",
+  "version": "0.11.33",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.33.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
