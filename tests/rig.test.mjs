@@ -1362,3 +1362,44 @@ test('side 2/4 hinges share the actual fixed-hull seam and lining respects the m
     assert.equal(root.getObjectByName(name+'_FrontCap').userData.holdRaisedAfterAdvance,true)
   }
 })
+
+test('rear flank covers follow the source turret-root bevels, seal the closed roof and clear the full sweep', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.30/root-geometry.json',import.meta.url)))
+  const fit=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.30/root-fit.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.30/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.30.blend',import.meta.url))
+  assert.equal(createHash('sha256').update(native).digest('hex'),proof.nativeSha256)
+  assert.equal(proof.rearCovers.length,8)
+  assert.equal(proof.unchangedOtherMeshes,524)
+  assert.equal(proof.unchangedJointTransforms,191)
+  assert.equal(proof.unchangedMechanicalMetadata,191)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.animationClips,0)
+  const {root}=loadRig()
+  for(const [station,bay]of Object.entries(fit.stations)) {
+    assert.equal(bay.rearCovers.length,2)
+    assert.equal(clearance[station].poses,101)
+    assert.deepEqual(clearance[station].rearCoverRootBevelContacts,[],`${station}: rear armor clips its inclined root face`)
+    assert.deepEqual(clearance[station].barrelArmorContacts,[])
+    for(const cover of bay.rearCovers) {
+      const leaf=root.getObjectByName(cover.joint)
+      assert.equal(leaf.userData.rearScarfClearance,.055)
+      assert.equal(leaf.parent.name,station+'_SourceCarriage')
+      assert.equal(leaf.userData.alignedSeamHinge,true)
+      for(let i=0;i<2;i++) {
+        const {sourcePlaneB,coverPlaneB}=cover.planes[i]
+        assert.ok(Math.abs(coverPlaneB[2]-sourcePlaneB[2]-.055)<1e-8)
+        assert.deepEqual(coverPlaneB.slice(0,2),sourcePlaneB.slice(0,2))
+      }
+      const result=proof.rearCovers.find(r=>r.mesh===cover.mesh)
+      assert.equal(result.closedScarfRays,36)
+      assert.deepEqual(result.missingRoof,[])
+      assert.deepEqual(result.redFirstHits,[])
+      assert.ok(result.maxRoofError<.015)
+      assert.ok(result.retainedSourceUvError<.00001)
+      assert.ok(result.maxTrimmedAreaError<.001)
+      assert.ok(result.minimumPlaneMargins.every(m=>m>-.0001))
+      assert.ok(result.sealedEndFaces>0)
+    }
+  }
+})

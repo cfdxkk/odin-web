@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 180,
-  "triangles": 2365299,
+  "triangles": 2365927,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -143,19 +143,20 @@
     "Side 2/4 source covers use one lower straight crown profile across all six leaves, the nose and the fitted fixed receiver; the flat crown is 0.60 source units wide",
     "Only the two isolated side-4 floating triangles are removed; original grate surfaces and their texture coordinates are retained, and barrel pivots, source Euler curves, carriage timing and opening stops are unchanged",
     "All side 2/4 original hinged covers share one lower hull-seam rail; source inward lining is partitioned at the same bank boundaries with preserved surfaces and interpolated UVs",
-    "The original fixed outer cheek lips continue the common hinge line without a step; front caps lift and advance without settling downward"
+    "The original fixed outer cheek lips continue the common hinge line without a step; front caps lift and advance without settling downward",
+    "The eight original side 2/4 rear armor ends follow the two measured source turret-root bevels, with closed cut ends and red inward lining; all joints, source housings, bore actions and front-cap motions are unchanged"
   ],
   "webOptimization": {
     "batchedMeshes": 180,
-    "highTriangles": 2365299,
-    "liteTriangles": 860426,
-    "highBytes": 18597120,
-    "liteBytes": 8394168,
+    "highTriangles": 2365927,
+    "liteTriangles": 861054,
+    "highBytes": 18605368,
+    "liteBytes": 8402416,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.29",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.29.blend",
+  "version": "0.11.30",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.30.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
