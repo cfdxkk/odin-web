@@ -1,6 +1,6 @@
 {
   "source": "odin.blend",
-  "meshCount": 188,
+  "meshCount": 196,
   "triangles": 2367903,
   "animationClips": 0,
   "engineAnchors": [
@@ -146,19 +146,21 @@
     "The eight original side 2/4 rear armor ends follow the two measured source turret-root bevels, with closed cut ends and red inward lining; all joints, source housings, bore actions and front-cap motions are unchanged",
     "Both complete bridge quads recover all 5001 original gun vertices and 1602 original support vertices, with intact source topology and UVs; carriage motion stops at source frame 30 in NAV and original aiming channels are restored",
     "The original tubes retract farther independently of their gray rear cradles; after carriage stow, four cradles and four unpainted original hull petals compact toward each quad center together",
-    "Side-2 original outer rail belt panels recover their source light top and dark side materials"
+    "Side-2 original outer rail belt panels recover their source light top and dark side materials",
+    "Bridge quad extra tube travel ends at the former v0.11.31 11-percent tube position, shortening the stroke by 55 percent",
+    "The four original gray petals align to their source hull receiver normals, then contract directly toward the quad center without axial retreat or a clearance detour; gray cradles compact with the tubes after frame-30 carriage seating"
   ],
   "webOptimization": {
-    "batchedMeshes": 188,
+    "batchedMeshes": 196,
     "highTriangles": 2367903,
     "liteTriangles": 875458,
-    "highBytes": 18776208,
-    "liteBytes": 8785372,
+    "highBytes": 18854372,
+    "liteBytes": 8863528,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.31",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.31.blend",
+  "version": "0.11.32",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.32.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

@@ -3,6 +3,13 @@ import { ease } from './odin-motion.ts'
 
 const webBasis = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2)
 
+// A smooth center lead clears the long tubes without an armor detour. Both
+// derivatives still vanish at the ends of the original packing interval.
+export function bridgeQuadCompactAmount(data: Record<string, any>, deployment: number) {
+  const amount = 1 - ease(Number(data.compactStart), Number(data.compactEnd), deployment)
+  return amount + Number(data.compactLead ?? 0) * amount * (1 - amount) ** 2
+}
+
 // Original bridge turret action: 15–45, horizontal one-third Bezier handles.
 // Retain only frames 30–45: NAV is the source midpoint, not its deep stow.
 export function bridgeQuadCarriageAmount(data: Record<string, any>, deployment: number) {

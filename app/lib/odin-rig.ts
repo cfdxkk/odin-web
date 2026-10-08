@@ -3,7 +3,7 @@ import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
-import { bridgeQuadCarriageAmount, bridgeQuadSourceAim } from './bridge-quad-source-motion.ts'
+import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount } from './bridge-quad-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -196,14 +196,15 @@ export function createOdinRig(root: THREE.Object3D) {
           .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
       }
       if (data.system === 'pdc-hull-petal') {
-        const compact = 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
+        const compact = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, d) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
         const move = v(...(data.sourceQuadPetal ? data.compactVector : data.stowVector) as [number, number, number]).multiplyScalar(compact)
         if (data.clearanceVector) move.add(v(...data.clearanceVector as [number, number, number])
           .multiplyScalar((1 - ease(Number(data.clearanceStart), Number(data.clearanceEnd), d)) * (1 - compact ** 3)))
         let turn = identity
         if (data.compactRotationWXYZ) {
           const [w,x,y,z] = data.compactRotationWXYZ as number[]
-          const modelTurn = new THREE.Quaternion().slerp(new THREE.Quaternion(x,y,z,w), compact)
+          const alignment = data.sourceCenteredPetal ? 1 - ease(Number(data.alignStart), Number(data.alignEnd), d) : compact
+          const modelTurn = new THREE.Quaternion().slerp(new THREE.Quaternion(x,y,z,w).normalize(), alignment)
           turn = basis.clone().multiply(modelTurn).multiply(basis.clone().invert())
         }
         pose(name, move, turn)
@@ -269,7 +270,10 @@ export function createOdinRig(root: THREE.Object3D) {
       for (let i = 0; i < 4; i++) {
         const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
         if (cradleData?.quadCompact) pose(cradleName, v(...cradleData.compactVector as [number, number, number])
-          .multiplyScalar(1 - ease(Number(cradleData.compactStart), Number(cradleData.compactEnd), d)))
+          .multiplyScalar(bridgeQuadCompactAmount(cradleData, d)))
+        const guideName = `PDC_${side}_CradleGuide_${i}`, guideData = joints.get(guideName)?.object.userData
+        if (guideData) pose(guideName, v(...guideData.compactVector as [number, number, number])
+          .multiplyScalar(bridgeQuadCompactAmount(guideData, d)))
         const armName = `PDC_${side}_Arm_${i}`, armData = joints.get(armName)?.object.userData
         const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), d)
         const slide = armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]
