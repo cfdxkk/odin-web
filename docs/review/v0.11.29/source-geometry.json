@@ -1,0 +1,400 @@
+{
+  "version": "0.11.29",
+  "unchangedOtherMeshes": 506,
+  "unchangedOtherJoints": 167,
+  "originalSourcePolygons": 6432,
+  "retainedSourcePolygons": 6432,
+  "collapsedOriginalPolygons": 448,
+  "maxSourceAreaError": 9.845843610212235e-05,
+  "maxSourceUvError": 5.8938880886927336e-08,
+  "hingeRails": [
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_00",
+      "positionError": 8.091247789554501e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_01",
+      "positionError": 1.0502218910080074e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_02",
+      "positionError": 5.632425812418518e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_00",
+      "positionError": 1.3384427253182452e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_01",
+      "positionError": 2.3603464105459437e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_02",
+      "positionError": 2.8400142482176705e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_00",
+      "positionError": 1.3384427253182452e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_01",
+      "positionError": 2.3603464105459437e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_02",
+      "positionError": 2.8400142482176705e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_00",
+      "positionError": 8.091247789554501e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_01",
+      "positionError": 1.0502218910080074e-06,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_02",
+      "positionError": 5.632425812418518e-07,
+      "axisError": 6.938893903907228e-18
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_00",
+      "positionError": 1.149218001650354e-06,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_01",
+      "positionError": 2.0649637266778598e-06,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_02",
+      "positionError": 1.035383834002701e-06,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_00",
+      "positionError": 8.877230828208127e-07,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_01",
+      "positionError": 9.703393901716595e-07,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_02",
+      "positionError": 5.9240502503499215e-08,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_00",
+      "positionError": 8.877230828208127e-07,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_01",
+      "positionError": 9.703393901716595e-07,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_02",
+      "positionError": 5.9240502503499215e-08,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_00",
+      "positionError": 1.149218001650354e-06,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_01",
+      "positionError": 2.0649637266778598e-06,
+      "axisError": 2.883309475461196e-17
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_02",
+      "positionError": 1.035383834002701e-06,
+      "axisError": 2.883309475461196e-17
+    }
+  ],
+  "liningBanks": [
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_00",
+      "liningRange": [
+        -17.405799633257853,
+        -8.194999196810127
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_01",
+      "liningRange": [
+        -8.195001007868337,
+        0.3250021100424273
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Port_02",
+      "liningRange": [
+        0.32499861825236276,
+        9.741112847889262
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_00",
+      "liningRange": [
+        -17.40781222317387,
+        -8.195000054165037
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_01",
+      "liningRange": [
+        -8.19500111043621,
+        0.3250022481347422
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Starboard_Shutter_Starboard_02",
+      "liningRange": [
+        0.3249975709251522,
+        9.741690404118497
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_00",
+      "liningRange": [
+        -17.40781222317387,
+        -8.195000054165037
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_01",
+      "liningRange": [
+        -8.195000947929787,
+        0.32500210470184066
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Port_02",
+      "liningRange": [
+        0.324997285585231,
+        9.741690404118497
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_00",
+      "liningRange": [
+        -17.405799633257853,
+        -8.194999196810127
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_01",
+      "liningRange": [
+        -8.195001373174007,
+        0.32500215562815
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_2_Port_Shutter_Starboard_02",
+      "liningRange": [
+        0.32499792550196593,
+        9.741112847889262
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_00",
+      "liningRange": [
+        -17.40656658492415,
+        -8.194973168173917
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_01",
+      "liningRange": [
+        -8.195013697713568,
+        0.3250125358703897
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Port_02",
+      "liningRange": [
+        0.3249868953665417,
+        9.739319912872823
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_00",
+      "liningRange": [
+        -17.406985666069005,
+        -8.194985408909597
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_01",
+      "liningRange": [
+        -8.195009290765677,
+        0.32501602422095166
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Starboard_Shutter_Starboard_02",
+      "liningRange": [
+        0.3249873435074585,
+        9.739100972537038
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_00",
+      "liningRange": [
+        -17.406985666069005,
+        -8.194985408909597
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_01",
+      "liningRange": [
+        -8.195009290765677,
+        0.32501630545340876
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Port_02",
+      "liningRange": [
+        0.324988384172452,
+        9.739100545242989
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_00",
+      "liningRange": [
+        -17.406558346119656,
+        -8.194970674560388
+      ],
+      "boundaryLimits": [
+        null,
+        -8.195
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_01",
+      "liningRange": [
+        -8.195012343487258,
+        0.3250116346867768
+      ],
+      "boundaryLimits": [
+        -8.195,
+        0.325
+      ]
+    },
+    {
+      "joint": "SideBattery_4_Port_Shutter_Starboard_02",
+      "liningRange": [
+        0.32498559099724467,
+        9.739319485578774
+      ],
+      "boundaryLimits": [
+        0.325,
+        null
+      ]
+    }
+  ],
+  "originalSourceUnchanged": true,
+  "animationClips": 0
+}

@@ -177,10 +177,10 @@ export function createOdinRig(root: THREE.Object3D) {
       if (data.system === 'single-front-cap') {
         if (data.sourceCapStroke) {
           // The source shell stays rigid: lift off the original receiver,
-          // advance over it, then settle at the authored clearance position.
+          // advance over it. The side 2/4 caps hold their raised position.
           const raised = ease(0, Number(data.releaseEnd ?? .08), d)
           const forward = ease(Number(data.slideStart ?? .10), Number(data.slideEnd ?? .23), d)
-          const parked = ease(Number(data.settleStart ?? .24), Number(data.settleEnd ?? .26), d)
+          const parked = data.holdRaisedAfterAdvance ? 0 : ease(Number(data.settleStart ?? .24), Number(data.settleEnd ?? .26), d)
           pose(name, v(...data.slideVector as [number, number, number])
             .addScaledVector(v(...data.clearanceLiftVector as [number, number, number]), raised)
             .addScaledVector(v(...data.advanceVector as [number, number, number]), forward)

@@ -1,0 +1,95 @@
+{
+  "version": "0.11.29",
+  "nativeSha256": "7fade97596c38af455539c2faa62492a31fef5b82e13cefa95e7a9fe36167db4",
+  "closedRoofs": [
+    {
+      "station": "SideBattery_2_Starboard",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006002664566040039,
+      "maxSideSeamError": 0.0060040950775146484,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.9649999999999999,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 1.9073486328125e-06
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006002664566040039,
+      "maxSideSeamError": 0.006007671356201172,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.9649999999999999,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 1.9669532775878906e-06
+    },
+    {
+      "station": "SideBattery_4_Starboard",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006003320217132568,
+      "maxSideSeamError": 0.006010115146636963,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.7450000000000001,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 2.8014183044433594e-06
+    },
+    {
+      "station": "SideBattery_4_Port",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006001591682434082,
+      "maxSideSeamError": 0.006008505821228027,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.7450000000000001,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 2.8014183044433594e-06
+    }
+  ],
+  "fixedHingeLips": [
+    {
+      "station": "SideBattery_2_Starboard",
+      "rays": 482,
+      "missing": [],
+      "redFirstHits": [],
+      "maxOuterRailError": 0.011370150840917859
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "rays": 482,
+      "missing": [],
+      "redFirstHits": [],
+      "maxOuterRailError": 0.011370150840917859
+    },
+    {
+      "station": "SideBattery_4_Starboard",
+      "rays": 482,
+      "missing": [],
+      "redFirstHits": [],
+      "maxOuterRailError": 0.01137469180493067
+    },
+    {
+      "station": "SideBattery_4_Port",
+      "rays": 482,
+      "missing": [],
+      "redFirstHits": [],
+      "maxOuterRailError": 0.011373596493393201
+    }
+  ],
+  "removedFloatingTriangles": 2,
+  "originalSourceUnchanged": true,
+  "animationClips": 0
+}

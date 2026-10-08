@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
   "meshCount": 180,
-  "triangles": 2362601,
+  "triangles": 2365299,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -141,19 +141,21 @@
     "Side 2 and 4 leaf sweeps stop at their previous front-leaf 20-percent and 18-percent orientations respectively; original bore curves, corrected pivots, carriage stroke and motion order remain unchanged",
     "Both original side-4 elevation linkages follow their barrel curves from the correct closed pose; their source polygons and UVs are retained",
     "Side 2/4 source covers use one lower straight crown profile across all six leaves, the nose and the fitted fixed receiver; the flat crown is 0.60 source units wide",
-    "Only the two isolated side-4 floating triangles are removed; original grate topology and UVs are retained, and barrel pivots, source Euler curves, carriage timing and opening stops are unchanged"
+    "Only the two isolated side-4 floating triangles are removed; original grate surfaces and their texture coordinates are retained, and barrel pivots, source Euler curves, carriage timing and opening stops are unchanged",
+    "All side 2/4 original hinged covers share one lower hull-seam rail; source inward lining is partitioned at the same bank boundaries with preserved surfaces and interpolated UVs",
+    "The original fixed outer cheek lips continue the common hinge line without a step; front caps lift and advance without settling downward"
   ],
   "webOptimization": {
     "batchedMeshes": 180,
-    "highTriangles": 2362601,
-    "liteTriangles": 857729,
-    "highBytes": 18533064,
-    "liteBytes": 8330592,
+    "highTriangles": 2365299,
+    "liteTriangles": 860426,
+    "highBytes": 18597120,
+    "liteBytes": 8394168,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.28",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.28.blend",
+  "version": "0.11.29",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.29.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

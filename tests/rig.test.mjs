@@ -930,7 +930,7 @@ test('closed flank leaves have equal lengths and straight seams across the flat 
   }
 })
 
-test('each source nose cap returns to its original deployed seat after sliding and settling', () => {
+test('source nose caps follow their seat path and side 2/4 hold their raised parking position', () => {
   const { nodes, rig } = loadRig()
   for (const cap of nodes.filter(n => n.userData.system === 'single-front-cap')) {
     const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
@@ -944,8 +944,15 @@ test('each source nose cap returns to its original deployed seat after sliding a
       const lifted = cap.position.clone()
       rig.apply(Number(cap.userData.slideEnd ?? .23),0)
       assert.ok(cap.position.clone().sub(lifted).distanceTo(map(cap.userData.advanceVector)) < 1e-6)
+      const advanced = cap.position.clone()
       rig.apply(Number(cap.userData.settleEnd ?? .26),0)
-      assert.ok(cap.position.distanceTo(deployed)<1e-5)
+      if (cap.userData.holdRaisedAfterAdvance) {
+        assert.ok(cap.position.distanceTo(advanced)<1e-6, 'No downward settling after the forward slide')
+        for (const progress of [.18,.3,.42,.8,1,.8,.3,.18]) {
+          rig.apply(progress,0)
+          assert.ok(cap.position.distanceTo(advanced)<1e-6, 'Raised parking height survives forward and backward scrubbing')
+        }
+      } else assert.ok(cap.position.distanceTo(deployed)<1e-5)
       assert.ok(cap.quaternion.angleTo(orientation)<1e-6)
       continue
     }
@@ -1308,4 +1315,50 @@ test('scrubbing backward restores every joint exactly without scaling rigid armo
   }
   assert.deepEqual(joints.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), initial)
   assert.deepEqual(joints.map(n => n.scale.toArray()), scales)
+})
+
+test('side 2/4 hinges share the actual fixed-hull seam and lining respects the matching cover banks', () => {
+  const {root,rig}=loadRig()
+  const frames=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.10.0/source-covers.json',import.meta.url)))
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.29/source-geometry.json',import.meta.url)))
+  assert.equal(proof.retainedSourcePolygons,proof.originalSourcePolygons)
+  assert.ok(proof.originalSourcePolygons>6000)
+  assert.ok(proof.maxSourceAreaError<.002)
+  assert.ok(proof.maxSourceUvError<.0006)
+  assert.equal(proof.hingeRails.length,24)
+  assert.equal(proof.liningBanks.length,24)
+  const roof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.29/roof-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.29/mesh-clearance.json',import.meta.url)))
+  for(const row of roof.closedRoofs) {
+    assert.equal(row.rays,2231)
+    assert.deepEqual(row.misses,[])
+    assert.deepEqual(row.interiorFirstHits,[])
+    assert.ok(row.maxCrownLineError<.015)
+    assert.equal(clearance[row.station].poses,101)
+    assert.deepEqual(clearance[row.station].barrelArmorContacts,[])
+  }
+  for(const lip of roof.fixedHingeLips) {
+    assert.equal(lip.rays,482)
+    assert.deepEqual(lip.missing,[])
+    assert.deepEqual(lip.redFirstHits,[])
+    assert.ok(lip.maxOuterRailError<.015)
+  }
+  const toModel=(p)=>new THREE.Vector3(p.x,-p.z,p.y).multiplyScalar(100)
+  for(const n of [2,4])for(const side of ['Port','Starboard']) {
+    const name=`SideBattery_${n}_${side}`,frame=frames[name]
+    const origin=new THREE.Vector3(...frame.frameOrigin)
+    const local=(p)=>frame.frameAxes[0].map((_,c)=>frame.frameAxes.reduce((v,row,r)=>v+row[c]*p.getComponent(r),0))
+    rig.apply(.18,0);root.updateMatrixWorld(true)
+    for(const physical of ['Port','Starboard'])for(let i=0;i<3;i++) {
+      const leaf=root.getObjectByName(`${name}_Shutter_${physical}_0${i}`)
+      const [x,b,z]=local(toModel(leaf.getWorldPosition(new THREE.Vector3())).sub(origin))
+      assert.ok(Math.abs(Math.abs(x)-2.88)<.0001)
+      assert.ok(Math.abs(z-(1.7756-.007*b))<.0001,`${leaf.name} pivot lies on the hull seam during folding`)
+      const axis=new THREE.Vector3(...leaf.userData.hingeAxisModel)
+      const a=local(axis)
+      assert.ok(new THREE.Vector3(...a).cross(new THREE.Vector3(0,1,-.007)).length()<.00001)
+      assert.equal(leaf.userData.alignedSeamHinge,true)
+    }
+    assert.equal(root.getObjectByName(name+'_FrontCap').userData.holdRaisedAfterAdvance,true)
+  }
 })
