@@ -1,0 +1,795 @@
+{
+  "version": "0.11.31",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "quads": {
+    "Port": {
+      "sourceCarriageClosed": [
+        -22.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceCarriageDeployed": [
+        -32.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceGunOrigin": [
+        -42.17247009277344,
+        -61.79541015625,
+        106.02177429199219
+      ],
+      "completeGunVertices": 5001,
+      "sourceGunVertices": 5001,
+      "supportVertices": 1602,
+      "sourceSupportVertices": 1602,
+      "quadrants": [
+        {
+          "quadrant": 0,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            0.6,
+            0.25
+          ],
+          "tubeSlide": [
+            32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 1,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            0.6,
+            -0.25
+          ],
+          "tubeSlide": [
+            32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 2,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            -0.6,
+            0.25
+          ],
+          "tubeSlide": [
+            32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 3,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            -0.6,
+            -0.25
+          ],
+          "tubeSlide": [
+            32.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "sourcePetals": 4,
+      "petalSeats": [
+        {
+          "joint": "PDC_Port_HullPetal_0",
+          "sourceOuterFaces": [
+            20770,
+            20773
+          ],
+          "sourceReceiverFace": 252887,
+          "receiverPoints": [
+            [
+              -28.104928970336914,
+              -66.76099395751953,
+              104.6676254272461
+            ],
+            [
+              -24.357152938842773,
+              -62.161468505859375,
+              102.51045989990234
+            ],
+            [
+              -19.804349899291992,
+              -64.31249237060547,
+              104.10669708251953
+            ]
+          ],
+          "receiverNormal": [
+            0.08153027296066284,
+            -0.47688716650009155,
+            -0.8751751184463501
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09336250047921518,
+            0.04021821595169084,
+            0.21029230832958357,
+            0.09336250047921518,
+            0.13052945562979112,
+            0.11848374477810442
+          ],
+          "maxPrimarySurfaceError": 0.21029230832958357,
+          "closedBounds": [
+            [
+              -38.76333435248106,
+              -67.24719841612206,
+              102.62688689166748
+            ],
+            [
+              -28.11335081558483,
+              -63.61579876822247,
+              104.8316968184352
+            ]
+          ],
+          "guideSeatDegrees": 8.357778053359027,
+          "compactVector": [
+            0.6265497766829857,
+            0.6,
+            0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9973413944244385,
+            -0.04552043601870537,
+            -0.05164205655455589,
+            0.0238993801176548
+          ]
+        },
+        {
+          "joint": "PDC_Port_HullPetal_1",
+          "sourceOuterFaces": [
+            20625,
+            20631
+          ],
+          "sourceReceiverFace": 49947,
+          "receiverPoints": [
+            [
+              -27.70579719543457,
+              -66.28044891357422,
+              107.90496826171875
+            ],
+            [
+              -14.852413177490234,
+              -62.04705047607422,
+              109.22554779052734
+            ],
+            [
+              -24.357152938842773,
+              -62.161468505859375,
+              109.83455657958984
+            ]
+          ],
+          "receiverNormal": [
+            0.062195733189582825,
+            -0.46441754698753357,
+            0.8834297060966492
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09336199315542451,
+            0.11848596613955831,
+            0.13052350149216663,
+            0.09336199315542451,
+            0.21029012626191795,
+            0.04022257343919189
+          ],
+          "maxPrimarySurfaceError": 0.21029012626191795,
+          "closedBounds": [
+            [
+              -36.662362647781976,
+              -67.23068797635554,
+              107.33241580370652
+            ],
+            [
+              -25.992698593336655,
+              -63.62937061280527,
+              109.3377739311706
+            ]
+          ],
+          "guideSeatDegrees": 6.957480417366517,
+          "compactVector": [
+            2.741210408997036,
+            0.6,
+            -0.25
+          ],
+          "compactRotationWXYZ": [
+            0.998157262802124,
+            0.03811347857117653,
+            0.04284605011343956,
+            0.01984081231057644
+          ]
+        },
+        {
+          "joint": "PDC_Port_HullPetal_2",
+          "sourceOuterFaces": [
+            20795,
+            20798
+          ],
+          "sourceReceiverFace": 252869,
+          "receiverPoints": [
+            [
+              -28.104928970336914,
+              -56.474998474121094,
+              104.6676254272461
+            ],
+            [
+              -19.804349899291992,
+              -58.923492431640625,
+              104.10669708251953
+            ],
+            [
+              -24.357152938842773,
+              -61.07451629638672,
+              102.51045989990234
+            ]
+          ],
+          "receiverNormal": [
+            0.08152999728918076,
+            0.47688767313957214,
+            -0.8751749396324158
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09331521430403678,
+            0.2117281386403735,
+            0.043441798376077534,
+            0.09331521430403678,
+            0.12049749009207544,
+            0.12983720994315018
+          ],
+          "maxPrimarySurfaceError": 0.2117281386403735,
+          "closedBounds": [
+            [
+              -37.74221710328451,
+              -59.803167648670275,
+              102.62253763117268
+            ],
+            [
+              -27.09246675916231,
+              -56.16067041315887,
+              104.8346285525747
+            ]
+          ],
+          "guideSeatDegrees": 8.415597312230478,
+          "compactVector": [
+            1.647430635962475,
+            -0.6,
+            0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9973044991493225,
+            0.04603881016373634,
+            -0.05186104774475098,
+            -0.0239704642444849
+          ]
+        },
+        {
+          "joint": "PDC_Port_HullPetal_3",
+          "sourceOuterFaces": [
+            20671,
+            20767
+          ],
+          "sourceReceiverFace": 50037,
+          "receiverPoints": [
+            [
+              -27.70579719543457,
+              -56.96698760986328,
+              107.90496826171875
+            ],
+            [
+              -24.357152938842773,
+              -61.07451629638672,
+              109.83455657958984
+            ],
+            [
+              -14.852413177490234,
+              -61.20037841796875,
+              109.22554779052734
+            ]
+          ],
+          "receiverNormal": [
+            0.06272441893815994,
+            0.46578696370124817,
+            0.8826709985733032
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09331903345678413,
+            0.04344185615512175,
+            0.211721719573794,
+            0.09331903345678413,
+            0.12982668561336586,
+            0.12050402635060431
+          ],
+          "maxPrimarySurfaceError": 0.211721719573794,
+          "closedBounds": [
+            [
+              -35.4055029405161,
+              -59.78957247136797,
+              107.3266523421357
+            ],
+            [
+              -24.736510650420826,
+              -56.17738958311626,
+              109.33946731372198
+            ]
+          ],
+          "guideSeatDegrees": 7.096020132509647,
+          "compactVector": [
+            3.997543936287103,
+            -0.6,
+            -0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9980832934379578,
+            -0.03941382095217705,
+            0.04329502955079079,
+            -0.02004603110253811
+          ]
+        }
+      ]
+    },
+    "Starboard": {
+      "sourceCarriageClosed": [
+        22.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceCarriageDeployed": [
+        32.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceGunOrigin": [
+        42.17247009277344,
+        -61.79541015625,
+        106.02177429199219
+      ],
+      "completeGunVertices": 5001,
+      "sourceGunVertices": 5001,
+      "supportVertices": 1602,
+      "sourceSupportVertices": 1602,
+      "quadrants": [
+        {
+          "quadrant": 0,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            0.6,
+            0.25
+          ],
+          "tubeSlide": [
+            -32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 1,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            0.6,
+            -0.25
+          ],
+          "tubeSlide": [
+            -32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 2,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            -0.6,
+            0.25
+          ],
+          "tubeSlide": [
+            -32.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 3,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0,
+            -0.6,
+            -0.25
+          ],
+          "tubeSlide": [
+            -32.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "sourcePetals": 4,
+      "petalSeats": [
+        {
+          "joint": "PDC_Starboard_HullPetal_0",
+          "sourceOuterFaces": [
+            19720,
+            19721
+          ],
+          "sourceReceiverFace": 252817,
+          "receiverPoints": [
+            [
+              28.104928970336914,
+              -66.76099395751953,
+              104.6676254272461
+            ],
+            [
+              19.804349899291992,
+              -64.31249237060547,
+              104.10669708251953
+            ],
+            [
+              24.357152938842773,
+              -62.161468505859375,
+              102.51045989990234
+            ]
+          ],
+          "receiverNormal": [
+            -0.08153027296066284,
+            -0.47688716650009155,
+            -0.8751751184463501
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09336250047921518,
+            0.11848374477810442,
+            0.13052945562979112,
+            0.09336250047921518,
+            0.21029230832958357,
+            0.04021821595169084
+          ],
+          "maxPrimarySurfaceError": 0.21029230832958357,
+          "closedBounds": [
+            [
+              28.11335081558483,
+              -67.24719841612206,
+              102.62688689166748
+            ],
+            [
+              38.76333435248106,
+              -63.61579876822247,
+              104.8316968184352
+            ]
+          ],
+          "guideSeatDegrees": 8.357778053359027,
+          "compactVector": [
+            -0.6265497766829857,
+            0.6,
+            0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9973413944244385,
+            -0.04552043601870537,
+            0.05164205655455589,
+            -0.0238993801176548
+          ]
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_1",
+          "sourceOuterFaces": [
+            19959,
+            20063
+          ],
+          "sourceReceiverFace": 48381,
+          "receiverPoints": [
+            [
+              27.70579719543457,
+              -66.28044891357422,
+              107.90496826171875
+            ],
+            [
+              24.357152938842773,
+              -62.161468505859375,
+              109.83455657958984
+            ],
+            [
+              14.852413177490234,
+              -62.04705047607422,
+              109.22554779052734
+            ]
+          ],
+          "receiverNormal": [
+            -0.062195733189582825,
+            -0.46441754698753357,
+            0.8834297060966492
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09336199315542451,
+            0.04022257343919189,
+            0.21029012626191795,
+            0.09336199315542451,
+            0.13052350149216663,
+            0.11848596613955831
+          ],
+          "maxPrimarySurfaceError": 0.21029012626191795,
+          "closedBounds": [
+            [
+              25.992698593336655,
+              -67.23068797635554,
+              107.33241580370652
+            ],
+            [
+              36.662362647781976,
+              -63.62937061280527,
+              109.3377739311706
+            ]
+          ],
+          "guideSeatDegrees": 6.957480417366517,
+          "compactVector": [
+            -2.741210408997036,
+            0.6,
+            -0.25
+          ],
+          "compactRotationWXYZ": [
+            0.998157262802124,
+            0.03811347857117653,
+            -0.04284605011343956,
+            -0.01984081231057644
+          ]
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_2",
+          "sourceOuterFaces": [
+            83635,
+            191856
+          ],
+          "sourceReceiverFace": 252806,
+          "receiverPoints": [
+            [
+              28.104928970336914,
+              -56.474998474121094,
+              104.6676254272461
+            ],
+            [
+              24.357152938842773,
+              -61.07451629638672,
+              102.51045989990234
+            ],
+            [
+              19.804349899291992,
+              -58.923492431640625,
+              104.10669708251953
+            ]
+          ],
+          "receiverNormal": [
+            -0.08152999728918076,
+            0.47688767313957214,
+            -0.8751749396324158
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.0933152143040118,
+            0.12983720994317505,
+            0.12049749009205057,
+            0.0933152143040118,
+            0.0434417983761024,
+            0.21172813864039836
+          ],
+          "maxPrimarySurfaceError": 0.21172813864039836,
+          "closedBounds": [
+            [
+              27.092466759162615,
+              -59.803167648670275,
+              102.62253763117268
+            ],
+            [
+              37.742217103284815,
+              -56.16067041315887,
+              104.8346285525747
+            ]
+          ],
+          "guideSeatDegrees": 8.415597312230478,
+          "compactVector": [
+            -1.64743063596217,
+            -0.6,
+            0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9973044991493225,
+            0.04603881016373634,
+            0.05186104774475098,
+            0.0239704642444849
+          ]
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_3",
+          "sourceOuterFaces": [
+            19716,
+            123757
+          ],
+          "sourceReceiverFace": 87560,
+          "receiverPoints": [
+            [
+              27.70579719543457,
+              -56.96698760986328,
+              107.90496826171875
+            ],
+            [
+              14.852413177490234,
+              -61.20037841796875,
+              109.22554779052734
+            ],
+            [
+              24.357152938842773,
+              -61.07451629638672,
+              109.83455657958984
+            ]
+          ],
+          "receiverNormal": [
+            -0.06272441893815994,
+            0.46578696370124817,
+            0.8826709985733032
+          ],
+          "closedPrimarySurfaceErrors": [
+            0.09331903345677164,
+            0.12050402635059188,
+            0.1298266856133783,
+            0.09331903345677164,
+            0.21172171957380648,
+            0.043441856155134406
+          ],
+          "maxPrimarySurfaceError": 0.21172171957380648,
+          "closedBounds": [
+            [
+              24.736510650421025,
+              -59.78957247136797,
+              107.3266523421357
+            ],
+            [
+              35.4055029405163,
+              -56.17738958311626,
+              109.33946731372198
+            ]
+          ],
+          "guideSeatDegrees": 7.096020132509647,
+          "compactVector": [
+            -3.9975439362869025,
+            -0.6,
+            -0.25
+          ],
+          "compactRotationWXYZ": [
+            0.9980832934379578,
+            -0.03941382095217705,
+            -0.04329502955079079,
+            0.02004603110253811
+          ]
+        }
+      ]
+    }
+  },
+  "beltColors": [
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 175461,
+      "material": "Odin_Paint_Light"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 223163,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 231072,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 251065,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 182071,
+      "material": "Odin_Paint_Light"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 221180,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 232976,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 247874,
+      "material": "Odin_Paint_Dark.001"
+    }
+  ],
+  "unchangedOtherMeshes": 494,
+  "unchangedOtherJoints": 171,
+  "removedObjects": [
+    "PDC_Port_ArmMesh_0",
+    "PDC_Port_ArmMesh_1",
+    "PDC_Port_ArmMesh_2",
+    "PDC_Port_ArmMesh_3",
+    "PDC_Port_Arm_0",
+    "PDC_Port_Arm_1",
+    "PDC_Port_Arm_2",
+    "PDC_Port_Arm_3",
+    "PDC_Port_Carriage",
+    "PDC_Port_Casing",
+    "PDC_Port_FixedFork_0",
+    "PDC_Port_FixedFork_1",
+    "PDC_Port_FixedFork_2",
+    "PDC_Port_FixedFork_3",
+    "PDC_Port_Gimbal",
+    "PDC_Port_HullPetal_0",
+    "PDC_Port_HullPetal_0_Skin",
+    "PDC_Port_HullPetal_1",
+    "PDC_Port_HullPetal_1_Skin",
+    "PDC_Port_HullPetal_2",
+    "PDC_Port_HullPetal_2_Skin",
+    "PDC_Port_HullPetal_3",
+    "PDC_Port_HullPetal_3_Skin",
+    "PDC_Port_RootArmor_0",
+    "PDC_Port_RootArmor_1",
+    "PDC_Port_RootArmor_2",
+    "PDC_Port_RootArmor_3",
+    "PDC_Starboard_ArmMesh_0",
+    "PDC_Starboard_ArmMesh_1",
+    "PDC_Starboard_ArmMesh_2",
+    "PDC_Starboard_ArmMesh_3",
+    "PDC_Starboard_Arm_0",
+    "PDC_Starboard_Arm_1",
+    "PDC_Starboard_Arm_2",
+    "PDC_Starboard_Arm_3",
+    "PDC_Starboard_Carriage",
+    "PDC_Starboard_Casing",
+    "PDC_Starboard_FixedFork_0",
+    "PDC_Starboard_FixedFork_1",
+    "PDC_Starboard_FixedFork_2",
+    "PDC_Starboard_FixedFork_3",
+    "PDC_Starboard_Gimbal",
+    "PDC_Starboard_HullPetal_0",
+    "PDC_Starboard_HullPetal_0_Skin",
+    "PDC_Starboard_HullPetal_1",
+    "PDC_Starboard_HullPetal_1_Skin",
+    "PDC_Starboard_HullPetal_2",
+    "PDC_Starboard_HullPetal_2_Skin",
+    "PDC_Starboard_HullPetal_3",
+    "PDC_Starboard_HullPetal_3_Skin",
+    "PDC_Starboard_RootArmor_0",
+    "PDC_Starboard_RootArmor_1",
+    "PDC_Starboard_RootArmor_2",
+    "PDC_Starboard_RootArmor_3",
+    "holo.016__bridge turret",
+    "holo.016__bridge turret.001"
+  ],
+  "sourceEulerStart": [
+    0.0,
+    -0.0,
+    0.0
+  ],
+  "sourceEulerEnd": [
+    3.74994524321437e-09,
+    -0.1147344559431076,
+    -0.873746931552887
+  ],
+  "animationClips": 0
+}

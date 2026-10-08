@@ -247,22 +247,26 @@ test('the short fore-end wedge lifts before sliding forward and closes exactly',
   }
 })
 
-test('quad barrels retain orientation during stow/deploy while pod travel is short', () => {
+test('original quad tubes retract independently while complete gray cradles retain the source frame-30 turret stroke', () => {
   const { root, rig } = loadRig()
   rig.apply(0, 0)
   const pod = root.getObjectByName('PDC_Starboard_Carriage'), start = pod.position.clone()
   const arms = ['Port', 'Starboard'].flatMap(side => Array.from({ length: 4 }, (_, i) => root.getObjectByName(`PDC_${side}_Arm_${i}`)))
   const orientations = arms.map(n => n.getWorldQuaternion(new THREE.Quaternion()))
   const locations = arms.map(n => n.getWorldPosition(new THREE.Vector3()))
-  for (let d = 0; d <= .95; d += .01) {
+  const cradles = ['Port', 'Starboard'].flatMap(side => Array.from({ length: 4 }, (_, i) => root.getObjectByName(`PDC_${side}_Cradle_${i}`)))
+  const cradleLocations = cradles.map(n => n.getWorldPosition(new THREE.Vector3()))
+  for (let d = 0; d <= .78; d += .01) {
     rig.apply(d, 4)
     arms.forEach((n, i) => assert.ok(n.getWorldQuaternion(new THREE.Quaternion()).angleTo(orientations[i]) < 1e-6))
   }
-  assert.ok(Math.abs(pod.position.distanceTo(start) - 2) < 1e-6)
+  rig.apply(.78,4)
+  assert.ok(Math.abs(pod.position.distanceTo(start) - 10) < 1e-6)
   arms.forEach((n, i) => {
     const travel = n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i])
-    assert.ok(travel > .14 && travel < .17, 'The bore retracts on its rail while its rear support stays outside the hull')
+    assert.ok(travel > .41 && travel < .43, 'Complete tube retains its extra slide plus the ten-unit turret stroke')
   })
+  cradles.forEach((n,i)=>assert.ok(n.getWorldPosition(new THREE.Vector3()).distanceTo(cradleLocations[i])>.099&&n.getWorldPosition(new THREE.Vector3()).distanceTo(cradleLocations[i])<.103,'Gray cradle follows the turret and small radial packing, without the tube slide'))
 })
 
 test('all three main tubes telescope in sync while retaining their full SCM reach', () => {
@@ -446,7 +450,7 @@ test('the fixed bridge has no remaining armor mechanism', () => {
   assert.equal(nodes.filter(n => n.name.startsWith('BridgeArmor_') || n.userData.system === 'bridge-armor').length, 0)
 })
 
-test('all eleven single batteries stay fixed in SCM; only real twin and quad mounts scan', () => {
+test('single batteries and restored source quad aim stay fixed in SCM while actual twin mounts scan', () => {
   const { root, nodes, rig } = loadRig()
   const fixed = nodes.filter(n => n.userData.staticJoint && /^(Main_|Axial_|SideBattery_)/.test(n.name))
   rig.apply(1, 0)
@@ -456,8 +460,8 @@ test('all eleven single batteries stay fixed in SCM; only real twin and quad mou
   rig.apply(1, 10)
   assert.deepEqual(fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), original)
   assert.ok(twin.angleTo(root.getObjectByName('Defense_01_Yaw').quaternion) > .02)
-  assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) > .005)
-  rig.apply(.9, 10)
+  assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) < 1e-6)
+  rig.apply(.78, 10)
   assert.ok(root.getObjectByName('PDC_Starboard_Gimbal').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
 })
 
@@ -1401,5 +1405,94 @@ test('rear flank covers follow the source turret-root bevels, seal the closed ro
       assert.ok(result.minimumPlaneMargins.every(m=>m>-.0001))
       assert.ok(result.sealedEndFaces>0)
     }
+  }
+})
+
+test('bridge quads use the original frame-30 carriage seat and all original aiming channels on both mirrors', () => {
+  const {root,rig}=loadRig()
+  const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/bridge-quad-source-v01131.json',import.meta.url)))
+  const toModel=p=>new THREE.Vector3(p.x,-p.z,p.y).multiplyScalar(100)
+  const basis=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-Math.PI/2)
+  function inverseEase(value){let lo=0,hi=1;for(let i=0;i<45;i++){const x=(lo+hi)/2;if(x*x*(3-2*x)<value)lo=x;else hi=x;}return(lo+hi)/2;}
+  for(const row of fixture.samples) {
+    const d=row.frame<=45?.20+.36*inverseEase((row.frame-30)/15):.80+.20*(row.frame-53)/33
+    rig.apply(d,0);root.updateMatrixWorld(true)
+    for(const side of ['Port','Starboard']) {
+      const carriage=root.getObjectByName(`PDC_${side}_Carriage`),expected=new THREE.Vector3(...row.carriages[side].slice(0,3).map(r=>r[3]))
+      assert.ok(toModel(carriage.getWorldPosition(new THREE.Vector3())).distanceTo(expected)<.0001,`${side} differs from source carriage frame ${row.frame}`)
+      if(row.frame>=53) {
+        const source=new THREE.Matrix4().set(...row.guns[side].flat())
+        if(side==='Starboard')source.multiply(new THREE.Matrix4().makeScale(-1,1,1))
+        const turn=new THREE.Quaternion().setFromRotationMatrix(source).normalize()
+        const expectedTurn=basis.clone().multiply(turn).multiply(basis.clone().invert())
+        assert.ok(root.getObjectByName(`PDC_${side}_Gimbal`).getWorldQuaternion(new THREE.Quaternion()).angleTo(expectedTurn)<.00001,`${side} differs from all source aim channels at frame ${row.frame}`)
+      }
+    }
+  }
+})
+
+test('bridge turret seats at frame 30 before tubes, original gray petals and rear cradles compact together', () => {
+  const {root,rig}=loadRig()
+  for(const side of ['Port','Starboard']) {
+    const carriage=root.getObjectByName(`PDC_${side}_Carriage`),tube=root.getObjectByName(`PDC_${side}_Arm_0`),cradle=root.getObjectByName(`PDC_${side}_Cradle_0`),petal=root.getObjectByName(`PDC_${side}_HullPetal_0`)
+    rig.apply(1,0);const c1=carriage.position.clone(),t1=tube.position.clone(),r1=cradle.position.clone(),p1=petal.position.clone()
+    const cradleBases=Array.from({length:4},(_,i)=>root.getObjectByName(`PDC_${side}_Cradle_${i}`).position.clone())
+    const petalBases=Array.from({length:4},(_,i)=>root.getObjectByName(`PDC_${side}_HullPetal_${i}`).position.clone())
+    rig.apply(.56,0)
+    assert.deepEqual(tube.position.toArray(),t1.toArray())
+    assert.ok(carriage.position.distanceTo(c1)<1e-6)
+    assert.ok(cradle.position.distanceTo(r1)<1e-6)
+    assert.ok(Math.abs(petal.position.distanceTo(p1)-.85)<1e-6,'Petals clear the intact tube path before the source carriage stroke')
+    rig.apply(.20,0);const seat=carriage.position.clone()
+    assert.ok(Math.abs(seat.distanceTo(c1)-10)<1e-6)
+    assert.deepEqual(tube.position.toArray(),t1.toArray())
+    assert.deepEqual(cradle.position.toArray(),r1.toArray())
+    for(const d of [.18,.14,.10,.06,.03,0]) {
+      rig.apply(d,0)
+      assert.deepEqual(carriage.position.toArray(),seat.toArray())
+      for(let i=0;i<4;i++) {
+        const r=root.getObjectByName(`PDC_${side}_Cradle_${i}`),p=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
+        assert.equal(r.userData.compactStart,p.userData.compactStart)
+        assert.equal(r.userData.compactEnd,p.userData.compactEnd)
+        const radial=new THREE.Vector3(r.userData.compactVector[0],r.userData.compactVector[2],-r.userData.compactVector[1])
+        const amount=r.position.clone().sub(cradleBases[i]).dot(radial)/radial.lengthSq()
+        const full=new THREE.Vector3(p.userData.compactVector[0],p.userData.compactVector[2],-p.userData.compactVector[1])
+        const lift=new THREE.Vector3(p.userData.clearanceVector[0],p.userData.clearanceVector[2],-p.userData.clearanceVector[1])
+        assert.ok(p.position.clone().sub(petalBases[i]).distanceTo(full.multiplyScalar(amount).add(lift.multiplyScalar(1-amount**3)))<1e-6)
+        const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`)
+        assert.ok(Math.abs(arm.position.distanceTo(t1)-32*amount)<1e-6,'Tube slide follows the same late compact stroke as its cradle and petal')
+      }
+    }
+  }
+})
+
+test('both original bridge quads retain every source surface and UV; gray armor clears all 802 poses and seats on source hull receivers', () => {
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.31/source-geometry.json',import.meta.url)))
+  const restored=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.31/source-restoration.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.31/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.31.blend',import.meta.url))
+  assert.equal(createHash('sha256').update(native).digest('hex'),geometry.nativeSha256)
+  assert.equal(geometry.maxPointError,0)
+  assert.equal(geometry.maxUvError,0)
+  assert.equal(geometry.sourceMeshParts.length,36)
+  assert.equal(geometry.unchangedOtherMeshes,494)
+  assert.equal(geometry.unchangedOtherJoints,171)
+  assert.equal(geometry.beltGeometryUnchanged,true)
+  assert.equal(geometry.originalSourceUnchanged,true)
+  assert.equal(geometry.animationClips,0)
+  assert.equal(restored.beltColors.filter(f=>f.material==='Odin_Paint_Dark.001').length,6)
+  for(const side of ['Port','Starboard']) {
+    assert.equal(restored.quads[side].completeGunVertices,5001)
+    assert.equal(restored.quads[side].supportVertices,1602)
+    assert.equal(restored.quads[side].sourcePetals,4)
+    for(const quadrant of restored.quads[side].quadrants) {
+      assert.equal(quadrant.tubeVertices,204,'Complete long tube and inner sleeves share the extra slide')
+      assert.equal(quadrant.rearCradleVertices,771,'Original gray cradle, bearing and foot keep the turret stroke')
+    }
+    assert.equal(clearance[side].poses,401)
+    assert.deepEqual(clearance[side].barrelPetalContacts,[])
+    assert.ok(clearance[side].sourceMeshesRemainRigid)
+    for(const seat of clearance[side].originalReceiverSeats)assert.ok(seat.maxSkinToOriginalReceiverPlane<.215)
+    for(const tube of clearance[side].hiddenBarrelTips)assert.ok(tube.hiddenBehindArmor>.20)
   }
 })

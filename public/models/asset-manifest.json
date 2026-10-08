@@ -1,7 +1,7 @@
 {
   "source": "odin.blend",
-  "meshCount": 180,
-  "triangles": 2365927,
+  "meshCount": 188,
+  "triangles": 2367903,
   "animationClips": 0,
   "engineAnchors": [
     {
@@ -113,7 +113,6 @@
     "Five-piece main bay armor: two polygonal forward skins, two independent gap fillers hinging outward 130 degrees along the inclined hull lip; intact fixed hull and fitted serrated seams, and the serrated fore-end cap that lifts then slides forward; dark red inward-facing armor surfaces",
     "Main guns wait until all five armor pieces clear their travel corridor",
     "Synchronized three-bore main-barrel telescopic tubes, measured center-bore axes",
-    "Parallel quad gun slides and short gunner-pod travel",
     "Original hidden aft door and frame restored",
     "Original-style gray charcoal and orange albedo with 2K wear maps",
     "Aft armor leaves are single inclined planes with constant thickness and fitted edges",
@@ -144,19 +143,22 @@
     "Only the two isolated side-4 floating triangles are removed; original grate surfaces and their texture coordinates are retained, and barrel pivots, source Euler curves, carriage timing and opening stops are unchanged",
     "All side 2/4 original hinged covers share one lower hull-seam rail; source inward lining is partitioned at the same bank boundaries with preserved surfaces and interpolated UVs",
     "The original fixed outer cheek lips continue the common hinge line without a step; front caps lift and advance without settling downward",
-    "The eight original side 2/4 rear armor ends follow the two measured source turret-root bevels, with closed cut ends and red inward lining; all joints, source housings, bore actions and front-cap motions are unchanged"
+    "The eight original side 2/4 rear armor ends follow the two measured source turret-root bevels, with closed cut ends and red inward lining; all joints, source housings, bore actions and front-cap motions are unchanged",
+    "Both complete bridge quads recover all 5001 original gun vertices and 1602 original support vertices, with intact source topology and UVs; carriage motion stops at source frame 30 in NAV and original aiming channels are restored",
+    "The original tubes retract farther independently of their gray rear cradles; after carriage stow, four cradles and four unpainted original hull petals compact toward each quad center together",
+    "Side-2 original outer rail belt panels recover their source light top and dark side materials"
   ],
   "webOptimization": {
-    "batchedMeshes": 180,
-    "highTriangles": 2365927,
-    "liteTriangles": 861054,
-    "highBytes": 18605368,
-    "liteBytes": 8402416,
+    "batchedMeshes": 188,
+    "highTriangles": 2367903,
+    "liteTriangles": 875458,
+    "highBytes": 18776208,
+    "liteBytes": 8785372,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.30",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.30.blend",
+  "version": "0.11.31",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.31.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

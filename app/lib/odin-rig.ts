@@ -3,6 +3,7 @@ import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
+import { bridgeQuadCarriageAmount, bridgeQuadSourceAim } from './bridge-quad-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -195,7 +196,17 @@ export function createOdinRig(root: THREE.Object3D) {
           .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
       }
       if (data.system === 'pdc-hull-petal') {
-        pose(name, v(...data.stowVector as [number, number, number]).multiplyScalar(1 - ease(.03, .14, d)))
+        const compact = 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
+        const move = v(...(data.sourceQuadPetal ? data.compactVector : data.stowVector) as [number, number, number]).multiplyScalar(compact)
+        if (data.clearanceVector) move.add(v(...data.clearanceVector as [number, number, number])
+          .multiplyScalar((1 - ease(Number(data.clearanceStart), Number(data.clearanceEnd), d)) * (1 - compact ** 3)))
+        let turn = identity
+        if (data.compactRotationWXYZ) {
+          const [w,x,y,z] = data.compactRotationWXYZ as number[]
+          const modelTurn = new THREE.Quaternion().slerp(new THREE.Quaternion(x,y,z,w), compact)
+          turn = basis.clone().multiply(modelTurn).multiply(basis.clone().invert())
+        }
+        pose(name, move, turn)
       }
     })
     // The keel mount is baked at the former 14% carriage position. Only its
@@ -241,16 +252,28 @@ export function createOdinRig(root: THREE.Object3D) {
       const axis = elevation?.hingeAxisModel
       if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...axis as [number, number, number]).normalize(), rad(Number(elevation.pitchDegrees)) * gun))
     }
-    // The RSI tower-quad clip shows parallel gun rails, not a 180-degree flip.
-    // A short pod travel precedes the longer gun slide; yaw begins only in SCM.
-    const pdcOut = ease(.10, .40, d), pdcArms = ease(.36, .88, d)
+    // Restore the complete original bridge quads and their source carriage/aim
+    // curves. Closing neutralizes aim and seats the turret at source frame 30,
+    // then retracts the tubes and compacts all four cradles and petals together.
+    const pdcArms = ease(.03, .18, d)
     for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
-      pose(`PDC_${side}_Carriage`, v(sign * (18 + 2 * pdcOut), 0, 0))
-      pose(`PDC_${side}_Gimbal`, v(0, 0, 0), rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
+      const carriageName = `PDC_${side}_Carriage`, carriageData = joints.get(carriageName)?.object.userData
+      if (carriageData?.sourceQuadCarriage) {
+        const closed = v(...carriageData.sourceClosedOrigin as [number, number, number])
+        const deployed = v(...carriageData.sourceDeployedOrigin as [number, number, number])
+        pose(carriageName, closed.sub(deployed).multiplyScalar(1 - bridgeQuadCarriageAmount(carriageData, d)))
+      } else pose(carriageName, v(sign * (18 + 2 * ease(.10, .40, d)), 0, 0))
+      const gimbalName = `PDC_${side}_Gimbal`, gimbalData = joints.get(gimbalName)?.object.userData
+      pose(gimbalName, v(0, 0, 0), gimbalData?.sourceQuadAim
+        ? bridgeQuadSourceAim(gimbalData, d) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
-        const armOpen = ease(.36 + (i >= 2 ? .025 : 0), .86 + (i >= 2 ? .025 : 0), d)
-        const travel = Number(joints.get(`PDC_${side}_Arm_${i}`)?.object.userData.stowTravel || 13.5)
-        pose(`PDC_${side}_Arm_${i}`, v(-sign * travel * (1 - armOpen), 0, 0))
+        const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
+        if (cradleData?.quadCompact) pose(cradleName, v(...cradleData.compactVector as [number, number, number])
+          .multiplyScalar(1 - ease(Number(cradleData.compactStart), Number(cradleData.compactEnd), d)))
+        const armName = `PDC_${side}_Arm_${i}`, armData = joints.get(armName)?.object.userData
+        const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), d)
+        const slide = armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]
+        pose(armName, v(...slide as [number, number, number]).multiplyScalar(1 - armOpen))
       }
     }
     return { joints: joints.size, deployment: d, covers, barrels, pdcArms }
