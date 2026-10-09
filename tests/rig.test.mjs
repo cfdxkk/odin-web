@@ -1461,9 +1461,8 @@ test('bridge turret seats at frame 30 before tubes, original gray petals and rea
         const full=new THREE.Vector3(p.userData.compactVector[0],p.userData.compactVector[2],-p.userData.compactVector[1])
         assert.equal(p.userData.compactVector[0],0,'Armor contracts directly in the quad cross-section')
         assert.equal(p.userData.clearanceVector,undefined,'There is no retreat detour')
-        const release=1-ease(p.userData.translationClearanceReleaseStart,p.userData.translationClearanceReleaseEnd,d)
         const petalAmount=amount**p.userData.petalPackingExponent
-        full.multiplyScalar(petalAmount).add(new THREE.Vector3(0,p.userData.translationClearanceZ*(1-petalAmount)*release,0))
+        full.multiplyScalar(petalAmount)
         assert.ok(p.position.clone().sub(petalBases[i]).distanceTo(full)<1e-6)
         const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`)
         assert.ok(Math.abs(arm.position.distanceTo(t1)-14.40237037037037*(1-ease(.03,.18,d)))<1e-6,'Short axial tube slide shares the late interval while center packing leads smoothly')
@@ -1495,7 +1494,6 @@ test('quad tubes keep the previous 11-percent reach; all gray armor stays unrota
       corners.forEach((p,n)=>assert.ok(Math.abs(p.clone().applyMatrix4(skin.matrixWorld).x-openX[n])<1e-12,'Every point in the armor bounds retains ship X through aiming, carriage travel and packing'))
       const compact=1-ease(.03,.18,d),center=(compact+2.5*compact*(1-compact)**2)**2,vector=petal.userData.compactVector
       const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
-      expected.y+=petal.userData.translationClearanceZ*(1-center)*(1-ease(.35,.60,d))
       assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
       assert.ok(Math.abs(arm.position.distanceTo(a1)-travel*compact)<1e-6)
     }
@@ -1524,11 +1522,11 @@ test('quad cradle guides retain their small stroke and center packing is monoton
   }
 })
 
-test('original bridge quads retain all source surfaces and UVs; translating petals keep X fixed and join the hull lips', () => {
-  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/source-geometry.json',import.meta.url)))
-  const restored=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/source-restoration.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.33/mesh-clearance.json',import.meta.url)))
-  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.33.blend',import.meta.url))
+test('original bridge quad parts and UVs remain intact; fitted petals match the complete adjoining roof surface', () => {
+  const geometry=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.34/source-geometry.json',import.meta.url)))
+  const restored=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.34/source-restoration.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.34/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.34.blend',import.meta.url))
   assert.equal(createHash('sha256').update(native).digest('hex'),geometry.nativeSha256)
   assert.equal(geometry.maxPointError,0)
   assert.equal(geometry.maxUvError,0)
@@ -1555,13 +1553,40 @@ test('original bridge quads retain all source surfaces and UVs; translating peta
     assert.ok(clearance[side].sourceMeshesRemainRigid)
     assert.equal(clearance[side].maxArmorVertexXChange,0)
     assert.equal(clearance[side].maxArmorRotationRadians,0)
+    assert.ok(clearance[side].maxArmorReturnStroke<.00002)
+    assert.equal(clearance[side].maxOpenEndpointDrift,0)
     for(const seam of clearance[side].closedForwardSeams) {
       assert.ok(seam.closedEdgeEndpointGap<.00003)
       assert.ok(seam.closedEdgeAngleDegrees<.001)
+      assert.ok(seam.maxClosedSurfaceError<.00003,'The whole outer skin seats on the adjoining fixed roof plane')
     }
     for(const tube of clearance[side].hiddenBarrelTips) {
       assert.ok(tube.hiddenBehindArmor>.20)
       assert.ok(tube.referenceTipError<.00002,'NAV tube reach matches the requested prior 11-percent position')
+    }
+  }
+})
+
+test('bridge quad armor completes one monotonic stroke and holds its endpoint through carriage travel and aiming', () => {
+  const {root,rig}=loadRig()
+  for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
+    const petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`),out=i%2?1:-1
+    rig.apply(1,0);const open=petal.position.clone()
+    assert.equal(petal.userData.monotonicPetalStroke,true)
+    assert.equal(petal.userData.translationClearanceZ,undefined)
+    assert.equal(petal.userData.openEndpointHoldStart,.18)
+    // A stale v33 clearance pulse must never reintroduce the descending leg.
+    Object.assign(petal.userData,{translationClearanceZ:.25*out,translationClearanceReleaseStart:.35,translationClearanceReleaseEnd:.60})
+    let previous=-Infinity
+    for(let n=0;n<=400;n++) {
+      const d=n/400;rig.apply(d,0)
+      assert.ok(out*petal.position.y>=previous-1e-9,'Opening never reverses direction')
+      previous=out*petal.position.y
+      if(d>=.18)assert.ok(petal.position.distanceTo(open)<1e-12,'Armor stays at its opening endpoint without lowering')
+    }
+    for(let n=400;n>=72;n--) {
+      rig.apply(n/400,0)
+      assert.ok(petal.position.distanceTo(open)<1e-12,'The held endpoint also survives reverse playback')
     }
   }
 })

@@ -1,0 +1,693 @@
+{
+  "version": "0.11.34",
+  "quadEndpoints": [
+    {
+      "station": "right-quad",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-斜视-0.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "斜视",
+      "progress": 0.18,
+      "path": "output/playwright/v01134/right-quad-斜视-0.18.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "斜视",
+      "progress": 0.11,
+      "path": "output/playwright/v01134/right-quad-斜视-0.11.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "斜视",
+      "progress": 0.78,
+      "path": "output/playwright/v01134/right-quad-斜视-0.78.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01134/right-quad-斜视-1.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-俯视-0.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-正视-0.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-侧视-0.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-斜视-0.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "斜视",
+      "progress": 0.18,
+      "path": "output/playwright/v01134/left-quad-斜视-0.18.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "斜视",
+      "progress": 0.11,
+      "path": "output/playwright/v01134/left-quad-斜视-0.11.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "斜视",
+      "progress": 0.78,
+      "path": "output/playwright/v01134/left-quad-斜视-0.78.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01134/left-quad-斜视-1.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-俯视-0.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-正视-0.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-侧视-0.png"
+    }
+  ],
+  "quadMotionAndLowerPetals": [
+    {
+      "station": "right-quad",
+      "progress": 1,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-1.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.95,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.95.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.88,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.88.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.8,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.8.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.78,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.78.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.67,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.67.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.56,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.56.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.42,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.42.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.32,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.32.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.2,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.2.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.18,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.18.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.14,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.14.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.1,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.1.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.08,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.08.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.06,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.06.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.03,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.03.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.08,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.08.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.18,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.18.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.32,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.32.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.56,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.56.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.78,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-0.78.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 1,
+      "view": "motion",
+      "path": "output/playwright/v01134/right-quad-motion-1.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 1,
+      "view": "underside",
+      "path": "output/playwright/v01134/right-quad-underside-1.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.18,
+      "view": "underside",
+      "path": "output/playwright/v01134/right-quad-underside-0.18.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0.08,
+      "view": "underside",
+      "path": "output/playwright/v01134/right-quad-underside-0.08.png"
+    },
+    {
+      "station": "right-quad",
+      "progress": 0,
+      "view": "underside",
+      "path": "output/playwright/v01134/right-quad-underside-0.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 1,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-1.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.95,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.95.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.88,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.88.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.8,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.8.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.78,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.78.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.67,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.67.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.56,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.56.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.42,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.42.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.32,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.32.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.2,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.2.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.18,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.18.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.14,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.14.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.1,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.1.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.08,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.08.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.06,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.06.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.03,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.03.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.08,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.08.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.18,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.18.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.32,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.32.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.56,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.56.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.78,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-0.78.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 1,
+      "view": "motion",
+      "path": "output/playwright/v01134/left-quad-motion-1.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 1,
+      "view": "underside",
+      "path": "output/playwright/v01134/left-quad-underside-1.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.18,
+      "view": "underside",
+      "path": "output/playwright/v01134/left-quad-underside-0.18.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0.08,
+      "view": "underside",
+      "path": "output/playwright/v01134/left-quad-underside-0.08.png"
+    },
+    {
+      "station": "left-quad",
+      "progress": 0,
+      "view": "underside",
+      "path": "output/playwright/v01134/left-quad-underside-0.png"
+    }
+  ],
+  "frontSeamsAndPlanView": [
+    {
+      "station": "right-quad",
+      "view": "front-edge-close-up",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-front-seam.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "top-X-lock",
+      "progress": 0,
+      "path": "output/playwright/v01134/right-quad-top-lock-0.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "top-X-lock",
+      "progress": 0.08,
+      "path": "output/playwright/v01134/right-quad-top-lock-0.08.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "top-X-lock",
+      "progress": 0.18,
+      "path": "output/playwright/v01134/right-quad-top-lock-0.18.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "top-X-lock",
+      "progress": 0.4,
+      "path": "output/playwright/v01134/right-quad-top-lock-0.4.png"
+    },
+    {
+      "station": "right-quad",
+      "view": "top-X-lock",
+      "progress": 1,
+      "path": "output/playwright/v01134/right-quad-top-lock-1.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "front-edge-close-up",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-front-seam.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "top-X-lock",
+      "progress": 0,
+      "path": "output/playwright/v01134/left-quad-top-lock-0.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "top-X-lock",
+      "progress": 0.08,
+      "path": "output/playwright/v01134/left-quad-top-lock-0.08.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "top-X-lock",
+      "progress": 0.18,
+      "path": "output/playwright/v01134/left-quad-top-lock-0.18.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "top-X-lock",
+      "progress": 0.4,
+      "path": "output/playwright/v01134/left-quad-top-lock-0.4.png"
+    },
+    {
+      "station": "left-quad",
+      "view": "top-X-lock",
+      "progress": 1,
+      "path": "output/playwright/v01134/left-quad-top-lock-1.png"
+    }
+  ],
+  "otherArmament": [
+    {
+      "station": "bow",
+      "progress": 0,
+      "path": "output/playwright/v01134/bow-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 1,
+      "path": "output/playwright/v01134/bow-1.png"
+    },
+    {
+      "station": "stern",
+      "progress": 0,
+      "path": "output/playwright/v01134/stern-0.png"
+    },
+    {
+      "station": "stern",
+      "progress": 1,
+      "path": "output/playwright/v01134/stern-1.png"
+    },
+    {
+      "station": "keel",
+      "progress": 0,
+      "path": "output/playwright/v01134/keel-0.png"
+    },
+    {
+      "station": "keel",
+      "progress": 1,
+      "path": "output/playwright/v01134/keel-1.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-1-0.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-1-1.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-3-0.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-3-1.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-2-right-0.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-2-right-1.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-4-right-0.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-4-right-1.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-2-left-0.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-2-left-1.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 0,
+      "path": "output/playwright/v01134/side-4-left-0.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 1,
+      "path": "output/playwright/v01134/side-4-left-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 0,
+      "path": "output/playwright/v01134/bridge-quad-pdc-right-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 1,
+      "path": "output/playwright/v01134/bridge-quad-pdc-right-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 0,
+      "path": "output/playwright/v01134/bridge-quad-pdc-left-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 1,
+      "path": "output/playwright/v01134/bridge-quad-pdc-left-1.png"
+    },
+    {
+      "station": "defense-forward",
+      "progress": 0,
+      "path": "output/playwright/v01134/defense-forward-0.png"
+    },
+    {
+      "station": "defense-forward",
+      "progress": 1,
+      "path": "output/playwright/v01134/defense-forward-1.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 0,
+      "path": "output/playwright/v01134/defense-aft-0.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 1,
+      "path": "output/playwright/v01134/defense-aft-1.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 0,
+      "path": "output/playwright/v01134/bridge-front-0.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 1,
+      "path": "output/playwright/v01134/bridge-front-1.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 0,
+      "path": "output/playwright/v01134/bridge-rear-0.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 1,
+      "path": "output/playwright/v01134/bridge-rear-1.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 0,
+      "path": "output/playwright/v01134/main-hull-seam-0.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 1,
+      "path": "output/playwright/v01134/main-hull-seam-1.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 0,
+      "path": "output/playwright/v01134/main-dorsal-0.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 1,
+      "path": "output/playwright/v01134/main-dorsal-1.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 0,
+      "path": "output/playwright/v01134/main-ventral-0.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 1,
+      "path": "output/playwright/v01134/main-ventral-1.png"
+    }
+  ],
+  "beltColorScreenshot": "belt-color.png",
+  "explicitPauseRetained": true,
+  "idleRenderFrames": [
+    327,
+    327
+  ],
+  "consoleErrors": 0,
+  "checkingBrowserClosed": true,
+  "previewServiceCount": 1,
+  "previewUrl": "http://127.0.0.1:4175/?review=secondary&v=0.11.34-rc.1"
+}

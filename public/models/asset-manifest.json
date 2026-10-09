@@ -148,20 +148,21 @@
     "The original tubes retract farther independently of their gray rear cradles; after carriage stow, four cradles and four unpainted original hull petals compact toward each quad center together",
     "Side-2 original outer rail belt panels recover their source light top and dark side materials",
     "Bridge quad extra tube travel ends at the former v0.11.31 11-percent tube position, shortening the stroke by 55 percent",
-    "All eight original gray bridge quad petals keep their source orientation and every vertex X coordinate throughout translation-only closure; their original forward edges join fitted stationary hull lips in NAV",
-    "Only 32 fixed hull lip vertices are adjusted at the eight original petal junctions; original petal surfaces, UVs, full tube reach, gray guide packing and frame-30 carriage stop are retained"
+    "The eight original bridge quad petals make one monotonic vertical stroke and hold the open endpoint from 18 percent; no late descent, rotation or ship X displacement remains",
+    "Each complete outer petal skin is fitted in Z to its actual adjoining roof face, retaining all original 26 vertices, source topology, UVs and X/Y footprint; the prior 32 fixed lip edits are unchanged",
+    "All eight quad armor skins share the adjoining Odin_Bridge_Armor material; complete original tubes, support, gray guide packing and the frame-30 carriage stop are retained"
   ],
   "webOptimization": {
     "batchedMeshes": 196,
     "highTriangles": 2367903,
     "liteTriangles": 875459,
-    "highBytes": 18854596,
-    "liteBytes": 8863924,
+    "highBytes": 18847860,
+    "liteBytes": 8857196,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.33",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.33.blend",
+  "version": "0.11.34",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.34.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

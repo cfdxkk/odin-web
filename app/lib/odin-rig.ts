@@ -202,8 +202,6 @@ export function createOdinRig(root: THREE.Object3D) {
         if (data.translationOnly) {
           // Lock ship X (port/starboard in plan view) for every vertex:
           // no petal rotation or inherited aiming/carriage motion is applied.
-          move.add(v(0, 0, Number(data.translationClearanceZ ?? 0)).multiplyScalar((1 - compact)
-            * (1 - ease(Number(data.translationClearanceReleaseStart ?? .35), Number(data.translationClearanceReleaseEnd ?? .60), d))))
           move.x = 0
           pose(name, move)
           return
