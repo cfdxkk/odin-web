@@ -1,0 +1,54 @@
+[
+  {
+    "station": 1,
+    "sourceVertices": 718,
+    "fittedVertices": 3489,
+    "sourceFaces": 768,
+    "fittedTriangles": 1163,
+    "sweepPoses": 57,
+    "separateSourceComponentSweeps": 32,
+    "appliedConvexSweeps": 6,
+    "clearanceMarginModel": 0.04,
+    "originalTransformsPreserved": true,
+    "originalUVsAndNormalsInterpolatedAtCuts": true
+  },
+  {
+    "station": 2,
+    "sourceVertices": 718,
+    "fittedVertices": 5766,
+    "sourceFaces": 771,
+    "fittedTriangles": 1922,
+    "sweepPoses": 57,
+    "separateSourceComponentSweeps": 32,
+    "appliedConvexSweeps": 6,
+    "clearanceMarginModel": 0.04,
+    "originalTransformsPreserved": true,
+    "originalUVsAndNormalsInterpolatedAtCuts": true
+  },
+  {
+    "station": 3,
+    "sourceVertices": 718,
+    "fittedVertices": 3750,
+    "sourceFaces": 768,
+    "fittedTriangles": 1250,
+    "sweepPoses": 57,
+    "separateSourceComponentSweeps": 32,
+    "appliedConvexSweeps": 6,
+    "clearanceMarginModel": 0.04,
+    "originalTransformsPreserved": true,
+    "originalUVsAndNormalsInterpolatedAtCuts": true
+  },
+  {
+    "station": 4,
+    "sourceVertices": 718,
+    "fittedVertices": 5031,
+    "sourceFaces": 771,
+    "fittedTriangles": 1677,
+    "sweepPoses": 57,
+    "separateSourceComponentSweeps": 32,
+    "appliedConvexSweeps": 6,
+    "clearanceMarginModel": 0.04,
+    "originalTransformsPreserved": true,
+    "originalUVsAndNormalsInterpolatedAtCuts": true
+  }
+]

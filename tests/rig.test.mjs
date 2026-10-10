@@ -1701,53 +1701,55 @@ test('aft twin cover thickness reaches the innermost original hull edge across t
   }
 })
 
-test('forward twins keep white hoods fixed and lift their complete lower cradles only after sliding clear', () => {
+test('forward twins keep fixed hoods and centered complete guides on one shorter measured ramp stroke', () => {
   const { root, rig } = loadRig()
-  const proof = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json', import.meta.url)))
+  const fit = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/assembly-fit.json', import.meta.url)))
+  const old = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json', import.meta.url)))
   const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
   rig.apply(0, 0); root.updateMatrixWorld(true)
-  const baselines = proof.stations.map(row => {
+  const baselines = fit.stations.map(row => {
     const prefix = `Defense_${String(row.station).padStart(2,'0')}`
     const carriage = root.getObjectByName(prefix + '_Carriage')
     const hood = root.getObjectByName(prefix + '_FixedHood')
     const lower = root.getObjectByName(prefix + '_LowerCradle')
-    const rail = root.getObjectByName(`DefenseRail_Forward_${row.station <= 2 ? 'Port' : 'Starboard'}`)
+    const guides = root.getObjectByName(prefix + '_Guides')
     assert.equal(hood.parent.name, prefix + '_FixedArmor')
     assert.equal(hood.parent.parent.name, 'Odin_Asset')
     assert.equal(lower.parent, carriage)
-    assert.equal(carriage.userData.stowDrop, 4.6)
-    assert.ok(carriage.position.distanceTo(map(row.originalRestOrigin).add(new THREE.Vector3(0,-4.6,0))) < .00003,
-      'The parked complete turret starts below the original upper-only lift start')
-    return { row, prefix, carriage, hood, lower, rail, hoodWorld: hood.matrixWorld.clone(), lowerRelative: relativeMatrix(lower,carriage), guideRelative: relativeMatrix(lower,rail), parked: carriage.position.clone(), parkedRail: rail.position.clone() }
+    assert.equal(guides.parent, carriage)
+    assert.ok(row.drop > 2.2 && row.drop < 2.7, 'The closed height remains near the former 60-percent pose')
+    assert.ok(row.horizontalTravel > 3 && row.horizontalTravel < 3.8, 'The inward stroke is much shorter than the former ten-unit travel')
+    const rest = map(old.stations.find(entry => entry.station === row.station).originalRestOrigin)
+    const deployed = rest.add(map(row.deployedOffsetModel))
+    return { row, prefix, carriage, hood, lower, guides, deployed, slide: map(row.stowVectorModel), normal: map(row.rampNormalModel), transverse: map(row.receiverCrossAxisModel), center: map(row.receiverCenterModel), hoodWorld: hood.matrixWorld.clone(), lowerRelative: relativeMatrix(lower,carriage), guideRelative: relativeMatrix(guides,lower), guideHeading: guides.getWorldQuaternion(new THREE.Quaternion()) }
   })
-  for (const d of [0,.24,.32,.47,.52,.56,.60,.64,.68,.7,.85,1,.68,.52,.32,0]) {
+  for (const d of [0,.04,.22,.24,.32,.4,.47,.52,.56,.60,.64,.65,.69,.85,1,.85,.64,.5,.4,.24,.22,0]) {
     rig.apply(d, 20); root.updateMatrixWorld(true)
     for (const b of baselines) {
       assertMatrixClose(b.hood.matrixWorld,b.hoodWorld,`Fixed white armor on twin ${b.row.station} moved`)
       assertMatrixClose(relativeMatrix(b.lower,b.carriage),b.lowerRelative,'Lower armor and brackets must rise with the turret')
-      assertMatrixClose(relativeMatrix(b.lower,b.rail),b.guideRelative,'Source lower brackets and guide mating surfaces must keep their rigid relationship')
-      assert.ok(Math.abs((b.carriage.position.y-b.parked.y)-(b.rail.position.y-b.parkedRail.y))<1e-6,
-        'The original guide and lower assembly share the same vertical stroke')
-      const originalHeight = b.row.originalRestOrigin[2]
-      assert.ok(b.carriage.position.y <= originalHeight + .00003,'The obsolete extra two-unit upper lift must never return')
-      assert.ok(b.carriage.position.y >= originalHeight - 4.6 - .00003)
-      if (d <= .52) assert.ok(Math.abs(b.carriage.position.y-b.parked.y)<1e-6,'Lower before translating inward under the fixed hood')
-      if (d >= .52) {
-        assert.ok(Math.abs(Math.abs(b.carriage.position.x-b.parked.x)-9.781)<1e-5,'Slide outside the hood before rising')
-        assert.ok(Math.abs(b.carriage.position.z-b.parked.z+2.079)<1e-5)
+      assert.ok(b.guides.getWorldQuaternion(new THREE.Quaternion()).angleTo(b.guideHeading)<1e-6,'Source guides preserve the receiver heading while the gun aligns')
+      const u = Math.max(0,Math.min(1,(d-.24)/.4)), seated = 1-u*u*(3-2*u)
+      const delta = b.carriage.position.clone().sub(b.deployed)
+      assert.ok(delta.distanceTo(b.slide.clone().multiplyScalar(seated))<.00003,'Inward and downward movement share the same progress')
+      assert.ok(Math.abs(delta.dot(b.normal))<.00003,'The entire stroke must be tangent to the original inclined cradle underside')
+      assert.ok(Math.abs(b.carriage.position.clone().sub(b.center).dot(b.transverse))<.00003,'The whole turret remains centered on the fixed receiver')
+      if (d<=.64) {
+        assertMatrixClose(relativeMatrix(b.guides,b.lower),b.guideRelative,'Each guide stays rigidly registered to the cradle throughout the inclined stroke')
+        const bore = map(root.getObjectByName(b.prefix+'_Tubes').userData.horizontalBoreAxisModel).applyQuaternion(b.carriage.quaternion)
+        assert.ok(Math.abs(bore.dot(b.transverse))<.00003,'The closed gun must face along the hood centerline instead of sitting crooked')
+        assert.ok(root.getObjectByName(b.prefix+'_Yaw').quaternion.angleTo(new THREE.Quaternion())<1e-6,'Aiming neutralizes before retraction')
       }
-      if (d >= .68) assert.ok(Math.abs(b.carriage.position.y-originalHeight)<.00003,'Raised endpoint is the old lift starting height')
-      if (d <= .68) assert.ok(root.getObjectByName(b.prefix+'_Yaw').quaternion.angleTo(new THREE.Quaternion())<1e-6,
-        'Aiming neutralizes before lowering and retracting')
+      assert.ok(b.carriage.position.y<=b.deployed.y+.00003 && b.carriage.position.y>=b.deployed.y-b.row.drop-.00003)
     }
   }
 })
 
-test('forward twin partition preserves original source faces and clears fixed white armor throughout the actual motion', () => {
+test('v38 forward twin source partition and clearance evidence remain reproducible', () => {
   const proof = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json',import.meta.url)))
   const hashes = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/asset-hashes.json',import.meta.url)))
   const clearance = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/mesh-clearance.json',import.meta.url)))
-  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.38.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.38.blend']]) {
     assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
   }
   assert.equal(hashes.native.sha256,proof.nativeSha256)
@@ -1769,5 +1771,59 @@ test('forward twin partition preserves original source faces and clears fixed wh
     assert.deepEqual(sweep.upperRailContacts,[])
     assert.ok(sweep.zeroDropControlContacts.length>0,
       'Keeping the old starting height during inward travel must fail the real hood contact check')
+  }
+})
+
+test('forward tubes follow the carriage first then withdraw horizontally while original rear brackets hold still', () => {
+  const {root,rig}=loadRig()
+  rig.apply(.22,0);root.updateMatrixWorld(true)
+  const scale=root.getObjectByName('Odin_Asset').scale.x
+  const baselines=Array.from({length:4},(_,i)=>{
+    const prefix=`Defense_${String(i+1).padStart(2,'0')}`
+    const tube=root.getObjectByName(prefix+'_Tubes'),carriage=root.getObjectByName(prefix+'_Carriage')
+    const suffix='turret 1'+(i?`.${String(i).padStart(3,'0')}`:'')
+    const rear=root.getObjectByName('odin.072__'+suffix)
+    return {tube,carriage,rear,rest:tube.position.clone(),initial:tube.getWorldPosition(new THREE.Vector3()),rearWorld:rear.matrixWorld.clone(),carriageWorld:carriage.matrixWorld.clone()}
+  })
+  for(const d of [.22,.15,.10,.04,0,.1,.22,.4,.64,1,.64,.4,.22,0]){
+    rig.apply(d,0);root.updateMatrixWorld(true)
+    for(const b of baselines){
+      if(d<=.22){
+        assertMatrixClose(b.carriage.matrixWorld,b.carriageWorld,'The carriage holds its seat during the extra barrel withdrawal')
+        assertMatrixClose(b.rear.matrixWorld,b.rearWorld,'Original rear elevation brackets must not telescope with the tubes')
+        const delta=b.tube.getWorldPosition(new THREE.Vector3()).sub(b.initial)
+        assert.ok(Math.abs(delta.y)<1e-7,'Extra barrel withdrawal must never move downward')
+        if(d===0)assert.ok(Math.abs(delta.length()/scale-5)<1e-5,'Original tubes receive the additional five-unit horizontal stroke')
+      }else assert.ok(b.tube.position.distanceTo(b.rest)<1e-7,'The tubes travel rigidly with the turret throughout the inclined carriage stroke')
+    }
+  }
+})
+
+test('inclined twin native surfaces are preserved and clear the fixed receiver throughout both stages', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/source-geometry.json',import.meta.url)))
+  const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/asset-hashes.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/mesh-clearance.json',import.meta.url)))
+  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.39.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  assert.equal(proof.nativeSha256,hashes.native.sha256)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.allPartitionedFacesAndUVsPreservedExactlyOnce,true)
+  assert.equal(proof.unchangedOtherMeshes,530)
+  assert.equal(proof.unchangedExistingJointTransforms,207)
+  assert.equal(proof.unchangedOtherJointProperties,201)
+  assert.equal(proof.newHorizontalTubeJoints,4)
+  assert.equal(proof.newReceiverGuideJoints,4)
+  for(const row of proof.stations){
+    assert.equal(row.tubeVertices,9882)
+    assert.equal(row.retainedRearBracketVertices,3698)
+    assert.equal(row.receiverMaterialsAndUVLayersPreserved,true)
+    assert.equal(row.receiverRoofSurfaceSamples,49)
+    assert.ok(row.receiverRoofSurfaceMaxError<.00003,'Local receiver side relief must preserve the original central canopy surface')
+    assert.ok(row.receiverRoofHeightMaxError<.00003,'Receiver side relief must preserve the roof height')
+    assert.ok(row.rampTangencyError<.00003 && row.receiverCenterlineError<.00003 && row.closedBoreAlignmentError<.00003)
+    const sweep=clearance[String(row.station)]
+    assert.equal(sweep.poses,416)
+    assert.deepEqual(sweep.hoodContacts,[])
+    assert.deepEqual(sweep.upperGuideContacts,[])
+    assert.ok(sweep.horizontalOnlyControlContacts.length>0,'Keeping the stroke horizontal must fail actual fixed-hood clearance')
   }
 })

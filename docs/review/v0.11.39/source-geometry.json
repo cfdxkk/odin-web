@@ -1,0 +1,92 @@
+{
+  "version": "0.11.39",
+  "originalSourceUnchanged": true,
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "nativeSha256": "8b0d2fb0afdd14a58dbd3856d3c1bb6d0b19380c1edbdf7a831c828b7f27324e",
+  "allPartitionedFacesAndUVsPreservedExactlyOnce": true,
+  "fixedReceiverSideLipsAdjusted": true,
+  "unchangedOtherMeshes": 530,
+  "unchangedExistingJointTransforms": 207,
+  "unchangedOtherJointProperties": 201,
+  "newHorizontalTubeJoints": 4,
+  "newReceiverGuideJoints": 4,
+  "animationClips": 0,
+  "stations": [
+    {
+      "station": 1,
+      "tubeVertices": 9882,
+      "retainedRearBracketVertices": 3698,
+      "rampTangencyError": 1.4156103134155273e-07,
+      "receiverCenterlineError": 7.152557373046875e-07,
+      "closedBoreAlignmentError": 4.470348358154297e-08,
+      "drop": 2.4644854068756104,
+      "horizontalTravel": 3.299999772057381,
+      "sourceRampFaces": [
+        9552,
+        9553
+      ],
+      "receiverMaterialsAndUVLayersPreserved": true,
+      "receiverRoofHeightMaxError": 0.0,
+      "receiverRoofSurfaceMaxError": 3.814697265625e-06,
+      "receiverRoofSurfaceSamples": 49,
+      "receiverSweepClearanceModel": 0.04
+    },
+    {
+      "station": 2,
+      "tubeVertices": 9882,
+      "retainedRearBracketVertices": 3698,
+      "rampTangencyError": 5.960464477539063e-08,
+      "receiverCenterlineError": 4.76837158203125e-07,
+      "closedBoreAlignmentError": 5.960464477539063e-08,
+      "drop": 2.4669079780578613,
+      "horizontalTravel": 3.300000088142625,
+      "sourceRampFaces": [
+        9565,
+        9567
+      ],
+      "receiverMaterialsAndUVLayersPreserved": true,
+      "receiverRoofHeightMaxError": 0.0,
+      "receiverRoofSurfaceMaxError": 5.7220458984375e-06,
+      "receiverRoofSurfaceSamples": 49,
+      "receiverSweepClearanceModel": 0.04
+    },
+    {
+      "station": 3,
+      "tubeVertices": 9882,
+      "retainedRearBracketVertices": 3698,
+      "rampTangencyError": 7.450580596923828e-09,
+      "receiverCenterlineError": 9.5367431640625e-07,
+      "closedBoreAlignmentError": 7.450580596923828e-08,
+      "drop": 2.4644856452941895,
+      "horizontalTravel": 3.2999996907783133,
+      "sourceRampFaces": [
+        9549,
+        9550
+      ],
+      "receiverMaterialsAndUVLayersPreserved": true,
+      "receiverRoofHeightMaxError": 0.0,
+      "receiverRoofSurfaceMaxError": 4.2649612623790745e-06,
+      "receiverRoofSurfaceSamples": 49,
+      "receiverSweepClearanceModel": 0.04
+    },
+    {
+      "station": 4,
+      "tubeVertices": 9882,
+      "retainedRearBracketVertices": 3698,
+      "rampTangencyError": 3.725290298461914e-08,
+      "receiverCenterlineError": 2.6226043701171875e-06,
+      "closedBoreAlignmentError": 1.1920928955078125e-07,
+      "drop": 2.466909408569336,
+      "horizontalTravel": 3.299999943646517,
+      "sourceRampFaces": [
+        9565,
+        9567
+      ],
+      "receiverMaterialsAndUVLayersPreserved": true,
+      "receiverRoofHeightMaxError": 0.0,
+      "receiverRoofSurfaceMaxError": 4.2649612623790745e-06,
+      "receiverRoofSurfaceSamples": 49,
+      "receiverSweepClearanceModel": 0.04
+    }
+  ]
+}

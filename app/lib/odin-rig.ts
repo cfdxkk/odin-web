@@ -234,6 +234,7 @@ export function createOdinRig(root: THREE.Object3D) {
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const name = `DefenseRail_${station}_${side}`
       const railData = joints.get(name)?.object.userData
+      if (railData?.guidesFollowCompleteCarriage) { pose(name, v(0, 0, 0)); continue }
       const drop = station === 'Aft' ? Number(railData?.finalStowDrop || 0) * aftSink
         : Number(railData?.stowDrop || 0) * (1 - ease(Number(railData?.raiseStart ?? .52), Number(railData?.raiseEnd ?? .68), d))
       // The long guides and lower brackets retract a little behind the gun,
@@ -252,15 +253,31 @@ export function createOdinRig(root: THREE.Object3D) {
       const sign = Number(data?.side || 1), forward = i < 4
       const inward = forward ? 0 : Number(data?.finalStowInward || 0)
       const finalSink = forward ? 0 : Number(data?.finalStowDrop || 0) * aftSink
-      // The complete forward cradle rests at the former lift's START height.
-      // Only after sliding outside the fixed white hood does the entire gun,
-      // lower armored cradle and its brackets rise together from their seat.
-      // Closing neutralizes aim, lowers all of it, then retracts under the hood.
-      const forwardSink = forward ? Number(data?.stowDrop || 0) * (1 - ease(Number(data?.raiseStart ?? .52), Number(data?.raiseEnd ?? .68), d)) : 0
       const gunMotion = forward ? ease(Number(data?.aimStart ?? .69), .94, d) : gun
-      pose(prefix + '_Carriage', forward
-        ? v(sign * 9.781 * carriage, 2.079 * carriage, -forwardSink)
-        : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, -finalSink))
+      if (forward && data?.inclinedStow) {
+        // The complete cradle and its own guides share one measured ramp
+        // stroke. Its receiver centerline is held through simultaneous inward
+        // and downward travel; there is no separate late vertical descent.
+        const seated = 1 - ease(Number(data.travelStart), Number(data.travelEnd), d)
+        const move = v(...data.deployedOffsetModel as [number, number, number])
+          .addScaledVector(v(...data.stowVectorModel as [number, number, number]), seated)
+        const alignment = Number(data.closedAlignmentDegrees) * (1 - ease(Number(data.alignStart), Number(data.alignEnd), d))
+        pose(prefix + '_Carriage', move, rotation(0, 0, alignment))
+        // Source guide rails already face along the fixed receiver. Preserve
+        // that heading as the gun assembly centers before its common stroke.
+        if (joints.get(prefix + '_Guides')?.object.userData.preserveReceiverHeading)
+          pose(prefix + '_Guides', v(0, 0, 0), rotation(0, 0, -alignment))
+        // Once the carriage seats, only original tube surfaces withdraw along
+        // their horizontal bore axes. Rear elevation brackets stay on the gun.
+        const tubeName = prefix + '_Tubes', tube = joints.get(tubeName)?.object.userData
+        if (tube) pose(tubeName, v(...tube.horizontalBoreAxisModel as [number, number, number])
+          .multiplyScalar(-Number(tube.stowTravel) * (1 - ease(Number(tube.extendStart), Number(tube.extendEnd), d))))
+      } else {
+        const forwardSink = forward ? Number(data?.stowDrop || 0) * (1 - ease(Number(data?.raiseStart ?? .52), Number(data?.raiseEnd ?? .68), d)) : 0
+        pose(prefix + '_Carriage', forward
+          ? v(sign * 9.781 * carriage, 2.079 * carriage, -forwardSink)
+          : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, -finalSink))
+      }
       const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
       const scan = Math.sin(time * .10 + i * .7) * 3 * aim
       pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gunMotion + scan))
