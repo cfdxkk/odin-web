@@ -1,0 +1,97 @@
+{
+  "version": "0.11.36",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "endSeamClearance": 0.008,
+  "covers": [
+    {
+      "station": 5,
+      "mesh": "Defense_05_NotchGate_Skin",
+      "vertices": 784,
+      "faces": 782,
+      "gridColumns": 56,
+      "gridRows": 7,
+      "gridLevels": [
+        0.0,
+        0.11052621029369761,
+        0.12825547806307305,
+        0.12864124701272417,
+        0.24686603032803536,
+        0.92,
+        1.0
+      ],
+      "sourceReceiverPoints": 120,
+      "floorSections": 56,
+      "sourceStation": 5,
+      "endSeamClearance": 0.008,
+      "jointFrameAndMotionUnchanged": true
+    },
+    {
+      "station": 7,
+      "mesh": "Defense_07_NotchGate_Skin",
+      "vertices": 784,
+      "faces": 782,
+      "gridColumns": 56,
+      "gridRows": 7,
+      "gridLevels": [
+        0.0,
+        0.11052621029369761,
+        0.12825547806307305,
+        0.12864124701272417,
+        0.24686603032803536,
+        0.92,
+        1.0
+      ],
+      "sourceReceiverPoints": 120,
+      "floorSections": 56,
+      "sourceStation": 5,
+      "endSeamClearance": 0.008,
+      "jointFrameAndMotionUnchanged": true
+    },
+    {
+      "station": 6,
+      "mesh": "Defense_06_NotchGate_Skin",
+      "vertices": 896,
+      "faces": 894,
+      "gridColumns": 56,
+      "gridRows": 8,
+      "gridLevels": [
+        0.0,
+        0.1015993304875431,
+        0.11957600790509298,
+        0.12030780544295142,
+        0.24300701106460532,
+        0.243503291451847,
+        0.92,
+        1.0
+      ],
+      "sourceReceiverPoints": 121,
+      "floorSections": 56,
+      "sourceStation": 6,
+      "endSeamClearance": 0.008,
+      "jointFrameAndMotionUnchanged": true
+    },
+    {
+      "station": 8,
+      "mesh": "Defense_08_NotchGate_Skin",
+      "vertices": 896,
+      "faces": 894,
+      "gridColumns": 56,
+      "gridRows": 8,
+      "gridLevels": [
+        0.0,
+        0.1015993304875431,
+        0.11957600790509298,
+        0.12030780544295142,
+        0.24300701106460532,
+        0.243503291451847,
+        0.92,
+        1.0
+      ],
+      "sourceReceiverPoints": 121,
+      "floorSections": 56,
+      "sourceStation": 6,
+      "endSeamClearance": 0.008,
+      "jointFrameAndMotionUnchanged": true
+    }
+  ]
+}

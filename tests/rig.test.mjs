@@ -1591,7 +1591,7 @@ test('bridge quad armor completes one monotonic stroke and holds its endpoint th
   }
 })
 
-test('aft twin covers fit original exterior rim corners, match hull thickness and clear guns and rails', () => {
+test('v35 aft twin cover evidence remains reproducible', () => {
   const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.35/source-geometry.json',import.meta.url)))
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.35/mesh-clearance.json',import.meta.url)))
   const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.35.blend',import.meta.url))
@@ -1625,5 +1625,40 @@ test('aft twin covers fit original exterior rim corners, match hull thickness an
     assert.ok(Math.abs(x.normal[0]+y.normal[0])<.00001)
     assert.ok(Math.abs(x.normal[1]-y.normal[1])<.00001)
     assert.ok(Math.abs(x.normal[2]-y.normal[2])<.00001)
+  }
+})
+
+test('aft twin covers join the full source receiver profiles and preserve tapered lower shell returns', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/source-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/mesh-clearance.json',import.meta.url)))
+  const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/asset-hashes.json',import.meta.url)))
+  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.36.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+    const file=fs.readFileSync(new URL(path,import.meta.url))
+    assert.equal(createHash('sha256').update(file).digest('hex'),hashes[name].sha256)
+  }
+  assert.equal(hashes.native.sha256,proof.nativeSha256)
+  assert.ok(proof.sourceReceiverVerticesVerified>=480)
+  assert.equal(proof.unchangedOtherMeshes,528)
+  assert.equal(proof.unchangedJointTransforms,207)
+  assert.equal(proof.unchangedJointMotionMetadata,207)
+  assert.equal(proof.fixedHullUnchanged,true)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.animationClips,0)
+  for(const row of proof.covers) {
+    assert.equal(row.sourceFloorSections,56)
+    assert.equal(row.watertightShell,true)
+    assert.ok(Object.values(row.receiverContourMaxErrors).every(error=>error<.00803),
+      'Both end profiles and all serrated outer/inner floor sections join the actual immutable source cut')
+    assert.ok(row.maxEndContourErrorAfterClearance<.00003)
+    assert.ok(row.lowerShellSectionVectorError<.00003,'Lower return thickness and direction reproduce the whole source cross-section')
+    assert.ok(row.lowerReturnWidths.every(width=>width>.8))
+    assert.ok(row.oldCoverControlErrors.innerBottom>.25,'This check rejects the old constant-thickness normal extrusion')
+    assert.ok(row.oldCoverControlErrors.outerBottom>.1,'This check rejects the old four-corner approximation')
+    const sweep=clearance[String(row.station)]
+    assert.equal(sweep.poses,401)
+    assert.deepEqual(sweep.gunCoverContacts,[])
+    assert.deepEqual(sweep.railCoverContacts,[])
+    assert.deepEqual(sweep.scanEndpointContacts,[])
+    assert.ok(sweep.unsunkControlContacts>0)
   }
 })
