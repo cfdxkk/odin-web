@@ -226,7 +226,7 @@ export function createOdinRig(root: THREE.Object3D) {
     const aftFinal = ease(.05, .20, d)
     const aftCarriage = .2 * aftFinal + .8 * ease(.20, .52, d)
     const aftSink = 1 - ease(.05, .40, d)
-    const gate = ease(0, .05, d), carriage = ease(.24, .52, d), ring = ease(.47, .68, d), gun = ease(.65, .94, d)
+    const gate = ease(0, .05, d), carriage = ease(.24, .52, d), gun = ease(.65, .94, d)
     for (let i = 5; i <= 8; i++) {
       const name = `Defense_${String(i).padStart(2, '0')}_NotchGate`, data = joints.get(name)?.object.userData
       if (data?.slideVector) pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(gate).add(v(...data.releaseVector as [number, number, number]).multiplyScalar(ease(0, .04, d))))
@@ -234,7 +234,8 @@ export function createOdinRig(root: THREE.Object3D) {
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const name = `DefenseRail_${station}_${side}`
       const railData = joints.get(name)?.object.userData
-      const drop = station === 'Aft' ? Number(railData?.finalStowDrop || 0) * aftSink : 0
+      const drop = station === 'Aft' ? Number(railData?.finalStowDrop || 0) * aftSink
+        : Number(railData?.stowDrop || 0) * (1 - ease(Number(railData?.raiseStart ?? .52), Number(railData?.raiseEnd ?? .68), d))
       // The long guides and lower brackets retract a little behind the gun,
       // but travel to the same inboard seat. The former shorter travel left
       // them protruding through the turret glazing during the stroke.
@@ -244,22 +245,28 @@ export function createOdinRig(root: THREE.Object3D) {
       const aftRailExtra = Number(railData?.finalStowInward || 0)
       pose(name, station === 'Aft'
         ? v(sign * ((9.903 + aftRailExtra) * aftRailInboard - aftRailExtra), -1.392 * aftRailInboard, -drop)
-        : v(sign * 9.781 * carriage, 2.079 * carriage, 0))
+        : v(sign * 9.781 * carriage, 2.079 * carriage, -drop))
     }
     for (let i = 0; i < 8; i++) {
       const prefix = `Defense_${String(i + 1).padStart(2, '0')}`, data = joints.get(prefix + '_Carriage')?.object.userData
       const sign = Number(data?.side || 1), forward = i < 4
       const inward = forward ? 0 : Number(data?.finalStowInward || 0)
       const finalSink = forward ? 0 : Number(data?.finalStowDrop || 0) * aftSink
+      // The complete forward cradle rests at the former lift's START height.
+      // Only after sliding outside the fixed white hood does the entire gun,
+      // lower armored cradle and its brackets rise together from their seat.
+      // Closing neutralizes aim, lowers all of it, then retracts under the hood.
+      const forwardSink = forward ? Number(data?.stowDrop || 0) * (1 - ease(Number(data?.raiseStart ?? .52), Number(data?.raiseEnd ?? .68), d)) : 0
+      const gunMotion = forward ? ease(Number(data?.aimStart ?? .69), .94, d) : gun
       pose(prefix + '_Carriage', forward
-        ? v(sign * 9.781 * carriage, 2.079 * carriage, 2 * ring)
+        ? v(sign * 9.781 * carriage, 2.079 * carriage, -forwardSink)
         : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, -finalSink))
       const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
       const scan = Math.sin(time * .10 + i * .7) * 3 * aim
-      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gun + scan))
+      pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gunMotion + scan))
       const elevation = joints.get(prefix + '_Elevation')?.object.userData
       const axis = elevation?.hingeAxisModel
-      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...axis as [number, number, number]).normalize(), rad(Number(elevation.pitchDegrees)) * gun))
+      if (axis) pose(prefix + '_Elevation', v(0, 0, 0), new THREE.Quaternion().setFromAxisAngle(v(...axis as [number, number, number]).normalize(), rad(Number(elevation.pitchDegrees)) * gunMotion))
     }
     // Restore the complete original bridge quads and their source carriage/aim
     // curves. Closing neutralizes aim and seats the turret at source frame 30,

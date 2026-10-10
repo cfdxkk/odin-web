@@ -1,6 +1,6 @@
 {
   "source": "odin.blend",
-  "meshCount": 196,
+  "meshCount": 204,
   "triangles": 2377919,
   "animationClips": 0,
   "engineAnchors": [
@@ -152,19 +152,19 @@
     "Each complete outer petal skin is fitted in Z to its actual adjoining roof face, retaining all original 26 vertices, source topology, UVs and X/Y footprint; the prior 32 fixed lip edits are unchanged",
     "All eight quad armor skins share the adjoining Odin_Bridge_Armor material; complete original tubes, support, gray guide packing and the frame-30 carriage stop are retained",
     "Aft twin gates 5–8 match all four boundary layers of the original hull shell, including its complete upper lip and lower return; their inner skins meet the innermost source edges rather than the first thin layer",
-    "Only four gate meshes change; all 207 static joint frames and motion properties and all 528 other meshes remain unchanged"
+    "Forward twins 1–4 retain all accepted source faces and UVs: original white hoods remain fixed; the complete turret, lower armored cradle, support brackets and shared guides rise together from a lower stowed seat to the former lift start height after sliding clear; aiming neutralizes before lowering and retracting"
   ],
   "webOptimization": {
-    "batchedMeshes": 196,
+    "batchedMeshes": 204,
     "highTriangles": 2377919,
-    "liteTriangles": 885475,
-    "highBytes": 18914692,
-    "liteBytes": 8924028,
+    "liteTriangles": 886865,
+    "highBytes": 18963540,
+    "liteBytes": 8952816,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.37",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.37.blend",
+  "version": "0.11.38",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.38.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

@@ -1667,7 +1667,7 @@ test('aft twin cover thickness reaches the innermost original hull edge across t
   const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/source-geometry.json',import.meta.url)))
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/mesh-clearance.json',import.meta.url)))
   const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/asset-hashes.json',import.meta.url)))
-  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.37.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.37.blend']]) {
     assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
   }
   assert.equal(hashes.native.sha256,proof.nativeSha256)
@@ -1698,5 +1698,76 @@ test('aft twin cover thickness reaches the innermost original hull edge across t
     assert.deepEqual(sweep.railCoverContacts,[])
     assert.deepEqual(sweep.scanEndpointContacts,[])
     assert.ok(sweep.unsunkControlContacts>0)
+  }
+})
+
+test('forward twins keep white hoods fixed and lift their complete lower cradles only after sliding clear', () => {
+  const { root, rig } = loadRig()
+  const proof = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json', import.meta.url)))
+  const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
+  rig.apply(0, 0); root.updateMatrixWorld(true)
+  const baselines = proof.stations.map(row => {
+    const prefix = `Defense_${String(row.station).padStart(2,'0')}`
+    const carriage = root.getObjectByName(prefix + '_Carriage')
+    const hood = root.getObjectByName(prefix + '_FixedHood')
+    const lower = root.getObjectByName(prefix + '_LowerCradle')
+    const rail = root.getObjectByName(`DefenseRail_Forward_${row.station <= 2 ? 'Port' : 'Starboard'}`)
+    assert.equal(hood.parent.name, prefix + '_FixedArmor')
+    assert.equal(hood.parent.parent.name, 'Odin_Asset')
+    assert.equal(lower.parent, carriage)
+    assert.equal(carriage.userData.stowDrop, 4.6)
+    assert.ok(carriage.position.distanceTo(map(row.originalRestOrigin).add(new THREE.Vector3(0,-4.6,0))) < .00003,
+      'The parked complete turret starts below the original upper-only lift start')
+    return { row, prefix, carriage, hood, lower, rail, hoodWorld: hood.matrixWorld.clone(), lowerRelative: relativeMatrix(lower,carriage), guideRelative: relativeMatrix(lower,rail), parked: carriage.position.clone(), parkedRail: rail.position.clone() }
+  })
+  for (const d of [0,.24,.32,.47,.52,.56,.60,.64,.68,.7,.85,1,.68,.52,.32,0]) {
+    rig.apply(d, 20); root.updateMatrixWorld(true)
+    for (const b of baselines) {
+      assertMatrixClose(b.hood.matrixWorld,b.hoodWorld,`Fixed white armor on twin ${b.row.station} moved`)
+      assertMatrixClose(relativeMatrix(b.lower,b.carriage),b.lowerRelative,'Lower armor and brackets must rise with the turret')
+      assertMatrixClose(relativeMatrix(b.lower,b.rail),b.guideRelative,'Source lower brackets and guide mating surfaces must keep their rigid relationship')
+      assert.ok(Math.abs((b.carriage.position.y-b.parked.y)-(b.rail.position.y-b.parkedRail.y))<1e-6,
+        'The original guide and lower assembly share the same vertical stroke')
+      const originalHeight = b.row.originalRestOrigin[2]
+      assert.ok(b.carriage.position.y <= originalHeight + .00003,'The obsolete extra two-unit upper lift must never return')
+      assert.ok(b.carriage.position.y >= originalHeight - 4.6 - .00003)
+      if (d <= .52) assert.ok(Math.abs(b.carriage.position.y-b.parked.y)<1e-6,'Lower before translating inward under the fixed hood')
+      if (d >= .52) {
+        assert.ok(Math.abs(Math.abs(b.carriage.position.x-b.parked.x)-9.781)<1e-5,'Slide outside the hood before rising')
+        assert.ok(Math.abs(b.carriage.position.z-b.parked.z+2.079)<1e-5)
+      }
+      if (d >= .68) assert.ok(Math.abs(b.carriage.position.y-originalHeight)<.00003,'Raised endpoint is the old lift starting height')
+      if (d <= .68) assert.ok(root.getObjectByName(b.prefix+'_Yaw').quaternion.angleTo(new THREE.Quaternion())<1e-6,
+        'Aiming neutralizes before lowering and retracting')
+    }
+  }
+})
+
+test('forward twin partition preserves original source faces and clears fixed white armor throughout the actual motion', () => {
+  const proof = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json',import.meta.url)))
+  const hashes = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/asset-hashes.json',import.meta.url)))
+  const clearance = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/mesh-clearance.json',import.meta.url)))
+  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.38.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+    assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  }
+  assert.equal(hashes.native.sha256,proof.nativeSha256)
+  assert.equal(proof.originalRailFacesAndUVsPreservedExactlyOnce,true)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.unchangedOtherMeshes,530)
+  assert.equal(proof.unchangedStaticJointTransforms,207)
+  assert.equal(proof.unchangedOtherJointProperties,201)
+  for(const row of proof.stations) {
+    assert.equal(row.hoodVertices,718)
+    assert.ok(row.supportVertices>8900)
+    assert.ok(row.FixedHoodSourceMaxError<.0001)
+    assert.ok(row.LowerCradleSourceMaxError<.16)
+    assert.ok(row.inheritedSupportSourceSurfaceDifferences.length<.005*row.supportVertices,
+      'Existing evaluated bearing seam differences remain bounded while every prior face and UV is preserved')
+    const sweep=clearance[String(row.station)]
+    assert.equal(sweep.poses,416)
+    assert.deepEqual(sweep.hoodContacts,[])
+    assert.deepEqual(sweep.upperRailContacts,[])
+    assert.ok(sweep.zeroDropControlContacts.length>0,
+      'Keeping the old starting height during inward travel must fail the real hood contact check')
   }
 })
