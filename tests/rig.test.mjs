@@ -1703,7 +1703,7 @@ test('aft twin cover thickness reaches the innermost original hull edge across t
 
 test('forward twins keep fixed hoods and centered complete guides on one shorter measured ramp stroke', () => {
   const { root, rig } = loadRig()
-  const fit = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/assembly-fit.json', import.meta.url)))
+  const fit = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.40/assembly-fit.json', import.meta.url)))
   const old = JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.38/source-geometry.json', import.meta.url)))
   const map = ([x,y,z]) => new THREE.Vector3(x,z,-y)
   rig.apply(0, 0); root.updateMatrixWorld(true)
@@ -1799,11 +1799,63 @@ test('forward tubes follow the carriage first then withdraw horizontally while o
   }
 })
 
+test('forward twin foundations stay on the hull and cradle heading never changes through either playback direction', () => {
+  const {root,rig}=loadRig()
+  rig.apply(0,0);root.updateMatrixWorld(true)
+  const bases=Array.from({length:4},(_,i)=>{
+    const prefix=`Defense_${String(i+1).padStart(2,'0')}`
+    const foundation=root.getObjectByName(prefix+'_FixedFoundation'),skin=root.getObjectByName(prefix+'_FoundationGeometry')
+    const carriage=root.getObjectByName(prefix+'_Carriage'),guides=root.getObjectByName(prefix+'_Guides')
+    assert.equal(foundation.parent.name,'Odin_Asset')
+    assert.equal(foundation.userData.staticJoint,undefined)
+    assert.equal(skin.parent,foundation)
+    assert.equal(carriage.userData.translationOnly,true)
+    // A cached former alignment interval must not bring back the late twist.
+    Object.assign(carriage.userData,{closedAlignmentDegrees:25,alignStart:.65,alignEnd:.85})
+    return {skin,carriage,guides,world:skin.matrixWorld.clone(),turn:carriage.quaternion.clone(),guideTurn:guides.getWorldQuaternion(new THREE.Quaternion())}
+  })
+  for(const d of [...Array.from({length:401},(_,i)=>i/400),...Array.from({length:401},(_,i)=>1-i/400)]){
+    rig.apply(d,20);root.updateMatrixWorld(true)
+    for(const b of bases){
+      assertMatrixClose(b.skin.matrixWorld,b.world,'The lower 140-vertex source foundation must remain attached to the hull')
+      assert.ok(b.carriage.quaternion.angleTo(b.turn)<1e-7,'The cradle never rotates while translating or holding its endpoint')
+      assert.ok(b.guides.getWorldQuaternion(new THREE.Quaternion()).angleTo(b.guideTurn)<1e-6,'Fixed guide heading must survive late aiming')
+    }
+  }
+})
+
+test('fixed forward foundations preserve original faces and match the stationary ramp throughout actual mesh travel', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.40/source-geometry.json',import.meta.url)))
+  const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.40/asset-hashes.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.40/mesh-clearance.json',import.meta.url)))
+  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.40.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])
+    assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  assert.equal(proof.nativeSha256,hashes.native.sha256)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.allLowerFacesAndUVsPreservedExactlyOnce,true)
+  assert.ok(proof.unchangedOtherMeshes>530)
+  assert.equal(proof.unchangedExistingJointTransforms,215)
+  assert.equal(proof.unchangedOtherJointProperties,211)
+  for(const row of proof.stations){
+    assert.equal(row.foundationVertices,140)
+    assert.equal(row.foundationFaces,145)
+    assert.equal(row.allLowerFacesAndUVsPreservedExactlyOnce,true)
+    assert.ok(row.stationaryRampTangencyError<.00003)
+    const sweep=clearance[String(row.station)]
+    assert.equal(sweep.poses,416)
+    assert.deepEqual(sweep.upperFoundationContacts,[])
+    assert.deepEqual(sweep.hoodContacts,[])
+    assert.deepEqual(sweep.upperGuideContacts,[])
+    assert.equal(sweep.maxFoundationWorldChange,0)
+    assert.ok(sweep.maxCradleRotationRadians<1e-6)
+  }
+})
+
 test('inclined twin native surfaces are preserved and clear the fixed receiver throughout both stages', () => {
   const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/source-geometry.json',import.meta.url)))
   const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/asset-hashes.json',import.meta.url)))
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.39/mesh-clearance.json',import.meta.url)))
-  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.39.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  for(const [name,path] of [['native','../assets/blender/odin_articulated_v0.11.39.blend']])assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
   assert.equal(proof.nativeSha256,hashes.native.sha256)
   assert.equal(proof.originalSourceUnchanged,true)
   assert.equal(proof.allPartitionedFacesAndUVsPreservedExactlyOnce,true)

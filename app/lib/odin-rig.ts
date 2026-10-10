@@ -255,16 +255,14 @@ export function createOdinRig(root: THREE.Object3D) {
       const finalSink = forward ? 0 : Number(data?.finalStowDrop || 0) * aftSink
       const gunMotion = forward ? ease(Number(data?.aimStart ?? .69), .94, d) : gun
       if (forward && data?.inclinedStow) {
-        // The complete cradle and its own guides share one measured ramp
-        // stroke. Its receiver centerline is held through simultaneous inward
-        // and downward travel; there is no separate late vertical descent.
+        // The cradle slides along its stationary lower foundation. Alignment
+        // is a fixed installation angle, never a late rotation during travel.
         const seated = 1 - ease(Number(data.travelStart), Number(data.travelEnd), d)
         const move = v(...data.deployedOffsetModel as [number, number, number])
           .addScaledVector(v(...data.stowVectorModel as [number, number, number]), seated)
-        const alignment = Number(data.closedAlignmentDegrees) * (1 - ease(Number(data.alignStart), Number(data.alignEnd), d))
+        const alignment = Number(data.fixedInstallationDegrees ?? data.closedAlignmentDegrees ?? 0)
         pose(prefix + '_Carriage', move, rotation(0, 0, alignment))
-        // Source guide rails already face along the fixed receiver. Preserve
-        // that heading as the gun assembly centers before its common stroke.
+        // Source guides retain the receiver heading at every progress value.
         if (joints.get(prefix + '_Guides')?.object.userData.preserveReceiverHeading)
           pose(prefix + '_Guides', v(0, 0, 0), rotation(0, 0, -alignment))
         // Once the carriage seats, only original tube surfaces withdraw along
