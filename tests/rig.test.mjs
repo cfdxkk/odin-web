@@ -1590,3 +1590,40 @@ test('bridge quad armor completes one monotonic stroke and holds its endpoint th
     }
   }
 })
+
+test('aft twin covers fit original exterior rim corners, match hull thickness and clear guns and rails', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.35/source-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.35/mesh-clearance.json',import.meta.url)))
+  const native=fs.readFileSync(new URL('../assets/blender/odin_articulated_v0.11.35.blend',import.meta.url))
+  assert.equal(createHash('sha256').update(native).digest('hex'),proof.nativeSha256)
+  assert.equal(proof.covers.length,4)
+  assert.ok(proof.unchangedOtherMeshes>=500)
+  assert.equal(proof.unchangedJointTransforms,proof.unchangedJointMotionMetadata)
+  assert.ok(proof.unchangedJointTransforms>=200)
+  assert.equal(proof.fixedHullUnchanged,true)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.animationClips,0)
+  for(const cover of proof.covers) {
+    assert.equal(cover.vertices,8)
+    assert.equal(cover.faces,6)
+    assert.ok(cover.outerPlanarityError<.00003)
+    assert.ok(cover.maxThicknessError<.00003,'Cover extrusion matches the actual adjoining source-shell thickness')
+    assert.ok(cover.coverThickness>.50&&cover.coverThickness<.56,'The old arbitrary 0.18-thick cover must not return')
+    assert.ok(cover.sourceCornerGap.every(gap=>gap<.065),'Cover corners remain on the narrow source-rim seam with exterior ridge clearance')
+    const sweep=clearance[String(cover.station)]
+    assert.equal(sweep.poses,401)
+    assert.deepEqual(sweep.gunCoverContacts,[])
+    assert.deepEqual(sweep.railCoverContacts,[])
+    assert.deepEqual(sweep.scanEndpointContacts,[])
+    assert.equal(sweep.closedExteriorHullContacts,0,'The closed skin clears the fixed serrated source rim')
+    assert.ok(sweep.unseatedExteriorControlContacts>0,'Removing the exterior ridge clearance must intersect the fixed source rim')
+    assert.ok(sweep.unsunkControlContacts>0,'Omitting the original carriage sink must trigger the real mesh intersection check')
+  }
+  for(const [a,b]of[[5,7],[6,8]]) {
+    const x=proof.covers.find(r=>r.station===a),y=proof.covers.find(r=>r.station===b)
+    assert.ok(Math.abs(x.coverThickness-y.coverThickness)<.00003)
+    assert.ok(Math.abs(x.normal[0]+y.normal[0])<.00001)
+    assert.ok(Math.abs(x.normal[1]-y.normal[1])<.00001)
+    assert.ok(Math.abs(x.normal[2]-y.normal[2])<.00001)
+  }
+})

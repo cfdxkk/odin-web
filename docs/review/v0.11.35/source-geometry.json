@@ -1,0 +1,98 @@
+{
+  "version": "0.11.35",
+  "nativeSha256": "bcf88e11820b7da69205d5183abc7e317f64324740e2744a76c108e7151e087a",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "sourceRimVerticesVerified": 28,
+  "covers": [
+    {
+      "station": 5,
+      "mesh": "Defense_05_NotchGate_Skin",
+      "coverThickness": 0.5346233248710632,
+      "hullThickness": 0.5346225500106812,
+      "maxThicknessError": 3.039836883544922e-06,
+      "outerPlanarityError": 2.384185791015625e-06,
+      "normal": [
+        0.7148568630218506,
+        -0.08560810983181,
+        0.6940106749534607
+      ],
+      "sourceCornerGap": [
+        0.020740920677781105,
+        0.06080576404929161,
+        0.01961333304643631,
+        0.060795411467552185
+      ],
+      "vertices": 8,
+      "faces": 6
+    },
+    {
+      "station": 7,
+      "mesh": "Defense_07_NotchGate_Skin",
+      "coverThickness": 0.5346233248710632,
+      "hullThickness": 0.5346226096153259,
+      "maxThicknessError": 2.9802322387695312e-06,
+      "outerPlanarityError": 2.384185791015625e-06,
+      "normal": [
+        -0.7148568034172058,
+        -0.08560832589864731,
+        0.6940107345581055
+      ],
+      "sourceCornerGap": [
+        0.060795411467552185,
+        0.01961333304643631,
+        0.06080576404929161,
+        0.020740920677781105
+      ],
+      "vertices": 8,
+      "faces": 6
+    },
+    {
+      "station": 6,
+      "mesh": "Defense_06_NotchGate_Skin",
+      "coverThickness": 0.5234178304672241,
+      "hullThickness": 0.5234177112579346,
+      "maxThicknessError": 3.516674041748047e-06,
+      "outerPlanarityError": 3.337860107421875e-06,
+      "normal": [
+        0.746745765209198,
+        -0.10930783301591873,
+        0.6560659408569336
+      ],
+      "sourceCornerGap": [
+        0.020089244470000267,
+        0.022028250619769096,
+        0.01895935647189617,
+        0.020584620535373688
+      ],
+      "vertices": 8,
+      "faces": 6
+    },
+    {
+      "station": 8,
+      "mesh": "Defense_08_NotchGate_Skin",
+      "coverThickness": 0.5234178304672241,
+      "hullThickness": 0.5234177112579346,
+      "maxThicknessError": 3.516674041748047e-06,
+      "outerPlanarityError": 4.0531158447265625e-06,
+      "normal": [
+        -0.746745765209198,
+        -0.10930747538805008,
+        0.6560660600662231
+      ],
+      "sourceCornerGap": [
+        0.020584620535373688,
+        0.01895935647189617,
+        0.022028250619769096,
+        0.020089244470000267
+      ],
+      "vertices": 8,
+      "faces": 6
+    }
+  ],
+  "unchangedOtherMeshes": 528,
+  "unchangedJointTransforms": 207,
+  "unchangedJointMotionMetadata": 207,
+  "fixedHullUnchanged": true,
+  "originalSourceUnchanged": true,
+  "animationClips": 0
+}
