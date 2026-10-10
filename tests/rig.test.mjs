@@ -1628,11 +1628,11 @@ test('v35 aft twin cover evidence remains reproducible', () => {
   }
 })
 
-test('aft twin covers join the full source receiver profiles and preserve tapered lower shell returns', () => {
+test('v36 first-layer aft twin cover evidence remains reproducible', () => {
   const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/source-geometry.json',import.meta.url)))
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/mesh-clearance.json',import.meta.url)))
   const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.36/asset-hashes.json',import.meta.url)))
-  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.36.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.36.blend']]) {
     const file=fs.readFileSync(new URL(path,import.meta.url))
     assert.equal(createHash('sha256').update(file).digest('hex'),hashes[name].sha256)
   }
@@ -1654,6 +1654,44 @@ test('aft twin covers join the full source receiver profiles and preserve tapere
     assert.ok(row.lowerReturnWidths.every(width=>width>.8))
     assert.ok(row.oldCoverControlErrors.innerBottom>.25,'This check rejects the old constant-thickness normal extrusion')
     assert.ok(row.oldCoverControlErrors.outerBottom>.1,'This check rejects the old four-corner approximation')
+    const sweep=clearance[String(row.station)]
+    assert.equal(sweep.poses,401)
+    assert.deepEqual(sweep.gunCoverContacts,[])
+    assert.deepEqual(sweep.railCoverContacts,[])
+    assert.deepEqual(sweep.scanEndpointContacts,[])
+    assert.ok(sweep.unsunkControlContacts>0)
+  }
+})
+
+test('aft twin cover thickness reaches the innermost original hull edge across the entire upper rim', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/source-geometry.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/mesh-clearance.json',import.meta.url)))
+  const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.37/asset-hashes.json',import.meta.url)))
+  for(const [name,path]of [['native','../assets/blender/odin_articulated_v0.11.37.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']]) {
+    assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  }
+  assert.equal(hashes.native.sha256,proof.nativeSha256)
+  assert.ok(proof.sourceReceiverVerticesVerified>=920)
+  assert.equal(proof.sourceRoofEdgesVerified,22)
+  assert.equal(proof.unchangedOtherMeshes,528)
+  assert.equal(proof.unchangedJointTransforms,207)
+  assert.equal(proof.unchangedJointMotionMetadata,207)
+  assert.equal(proof.fixedHullUnchanged,true)
+  assert.equal(proof.originalSourceUnchanged,true)
+  assert.equal(proof.animationClips,0)
+  for(const row of proof.covers) {
+    assert.equal(row.sourceShellLayers,4)
+    assert.equal(row.sourceFloorSections,56)
+    assert.equal(row.watertightShell,true)
+    assert.ok(Object.values(row.fullReceiverContourMaxErrors).every(error=>error<.00003))
+    assert.ok(row.upperShellSectionVectorError<.00003)
+    assert.ok(row.lowerShellSectionVectorError<.00003)
+    assert.ok(Object.values(row.fullRoofBoundaryErrors).every(error=>error<.00003),
+      'The whole top boundary must follow actual original roof edges without a valley at an internal cut vertex')
+    assert.equal(row.upperRimSectionLengths.length,56)
+    assert.ok(row.upperRimSectionLengths.every(width=>width>1.0))
+    assert.ok(row.oldFirstLayerControlMinThicknessError>.50,
+      'This independent source-section check must reject the v36 half-thickness upper rim')
     const sweep=clearance[String(row.station)]
     assert.equal(sweep.poses,401)
     assert.deepEqual(sweep.gunCoverContacts,[])
