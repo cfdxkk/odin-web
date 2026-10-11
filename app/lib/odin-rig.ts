@@ -3,7 +3,7 @@ import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
-import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount, bridgeQuadTubeCompactAmount, bridgeQuadTubeCompactVector, bridgeQuadGuideCompactVector, bridgeQuadTubeSlideAmount, bridgeQuadTubeSlideVector } from './bridge-quad-source-motion.ts'
+import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount, bridgeQuadTubeCompactAmount, bridgeQuadTubeCompactVector, bridgeQuadBearingCompactVector, bridgeQuadGuideCompactVector, bridgeQuadTubeSlideAmount, bridgeQuadTubeSlideVector } from './bridge-quad-source-motion.ts'
 import { turretPoseProgress } from './turret-tempo.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
@@ -302,7 +302,7 @@ export function createOdinRig(root: THREE.Object3D) {
         ? bridgeQuadSourceAim(gimbalData, quadProgress) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
-        if (cradleData?.quadCompact) pose(cradleName, v(...bridgeQuadTubeCompactVector(cradleData))
+        if (cradleData?.quadCompact) pose(cradleName, v(...bridgeQuadBearingCompactVector(cradleData))
           .multiplyScalar(bridgeQuadTubeCompactAmount(cradleData, quadProgress)))
         const guideName = `PDC_${side}_CradleGuide_${i}`, guideData = joints.get(guideName)?.object.userData
         if (guideData && cradleData) pose(guideName, v(...bridgeQuadGuideCompactVector(cradleData, guideData))
@@ -312,7 +312,13 @@ export function createOdinRig(root: THREE.Object3D) {
           : ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), quadProgress)
         const slide = armData?.sourceFullTube ? bridgeQuadTubeSlideVector(armData)
           : armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]
-        pose(armName, v(...slide as [number, number, number]).multiplyScalar(1 - armOpen))
+        const move = v(...slide as [number, number, number]).multiplyScalar(1 - armOpen)
+        if (armData?.sourceFullTube && cradleData?.quadCompact) {
+          const tubePacking = v(...bridgeQuadTubeCompactVector(cradleData))
+          const bearingPacking = v(...bridgeQuadBearingCompactVector(cradleData))
+          move.add(tubePacking.sub(bearingPacking).multiplyScalar(bridgeQuadTubeCompactAmount(cradleData, quadProgress)))
+        }
+        pose(armName, move)
       }
     }
     return { joints: joints.size, deployment: d, covers, barrels, pdcArms }

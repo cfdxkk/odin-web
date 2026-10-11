@@ -1467,11 +1467,12 @@ test('bridge quads only pack slightly in side-view horizontal direction and rema
       const c=1-ease(.03,.18,d),original=c+2.5*c*(1-c)**2,shorter=original*(1-.60*ease(.12,.15,d))
       const shift=cradle.position.clone().sub(c1)
       assert.equal(shift.x,0,'Packing must not add axial withdrawal')
-      assert.ok(Math.abs(shift.z)<=.50*shorter+1e-9,'Side-view horizontal packing is at most half a source unit')
-      assert.ok(Math.abs(shift.z)<=Math.abs(old.z)*shorter*.26+1e-9,'Horizontal packing is reduced to about one quarter')
-      assert.ok(Math.abs(shift.y)<=.321*shorter+1e-9,'Upper/lower packing stays below the gray bearing contact threshold')
-      assert.ok(Math.abs(shift.y)>=Math.abs(old.y)*shorter-1e-9,'Upper/lower packing is not reduced with the excessive horizontal stroke')
-      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original*.35+1e-9,'The total packing stroke is visibly shallow')
+      assert.ok(Math.abs(shift.z)<=.68*shorter+1e-9,'Side-view horizontal packing remains below one source unit')
+      assert.ok(Math.abs(shift.z)<=Math.abs(old.z)*shorter*.35+1e-9,'Horizontal packing stays far below the former excessive stroke')
+      assert.ok(Math.abs(shift.y-.20*shorter)<=.321*shorter+1e-9,'Recentering preserves the gray bearing pair clearance')
+      assert.ok(Math.abs(shift.y-.20*shorter)>=Math.abs(old.y)*shorter-1e-9,'The bearing vertical half-stroke is preserved around its fitted datum')
+      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original*.43+1e-9,'The total packing stroke is visibly shallow')
+      assert.ok(Math.abs(tube.position.y-t1.y)<=.081*shorter+1e-9,'Only a small extra vertical stroke occurs within the receiver')
       assert.ok(tube.position.distanceTo(t1)>14,'Barrels retain axial clearance behind the skins throughout transverse packing')
       if(d>=.15&&d<.18&&original>0)assert.ok(cradle.position.distanceTo(c1)<.401*old.length()*original,'Exposed tubes retain wider transverse spacing')
     }
@@ -1502,7 +1503,8 @@ test('quad tubes extend smoothly through released skins; all gray armor stays un
       const compact=1-ease(.03,.18,d),center=(compact+2.5*compact*(1-compact)**2)**2,vector=petal.userData.compactVector
       const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
       assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
-      assert.ok(Math.abs(arm.position.distanceTo(a1)-(travel+8)*(1-ease(.08,.69,timelineForPose(d,'quad'))))<1e-6)
+      assert.ok(Math.abs(Math.abs(arm.position.x-a1.x)-(travel+8)*(1-ease(.08,.69,timelineForPose(d,'quad'))))<1e-6,'The approved axial distance and clock remain unchanged')
+      assert.equal(arm.position.z,a1.z,'The extra tube stroke does not introduce relative horizontal motion')
     }
   }
 })
@@ -1531,9 +1533,9 @@ test('quad fixed forks retain their complete accepted path as bearings use shall
   }
 })
 
-test('shallow quad packing clears the actual casing, petals, tubes and bearings on both mirrored strokes', () => {
-  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.49/motion-verification.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.49/mesh-clearance.json',import.meta.url)))
+test('quad packing seats the actual receiver tails within both hull roofs and clears both mirrored strokes', () => {
+  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.50/motion-verification.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.50/mesh-clearance.json',import.meta.url)))
   const hash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex')
   const codeHash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url),'utf8').replaceAll('\r\n','\n')).digest('hex')
   assert.equal(motion.codeHashEncoding,'UTF-8 with LF newlines')
@@ -1547,6 +1549,10 @@ test('shallow quad packing clears the actual casing, petals, tubes and bearings 
   assert.equal(clearance.reverseSamples,31)
   assert.equal(motion.unchangedWorldJoints,199)
   assert.ok(motion.maxUnchangedJointWorldError<1e-9)
+  assert.equal(motion.maxAxialScheduleError,0)
+  assert.equal(motion.maxDeployedWorldError,0)
+  assert.equal(motion.axialSeating.unchanged,true)
+  assert.equal(motion.axialSeating.previousTravel,motion.axialSeating.newTravel)
   for(const side of ['Port','Starboard']) {
     const r=clearance.sides[side]
     assert.equal(r.poses,motion.samples)
@@ -1554,11 +1560,14 @@ test('shallow quad packing clears the actual casing, petals, tubes and bearings 
     assert.deepEqual(r.tubePetalContacts,[])
     assert.deepEqual(r.tubePairContacts,[])
     assert.deepEqual(r.cradlePairContacts,[])
-    assert.ok(r.baselineTubeCasingContacts.length>0,'The audit detects the prior casing penetration as a positive control')
+    assert.ok(r.baselineClosedHullEnvelope.some(seat=>seat.parts.RootArmor.maximumOutsideHeight>.10),'The roof envelope detects the prior receiver protrusion as a positive control')
+    assert.equal(r.closedHullEnvelope.length,4)
+    for(const seat of r.closedHullEnvelope)for(const part of Object.values(seat.parts))
+      assert.ok(part.minimumInsideMargin>.01,'Every original tail-shell, tube and fork vertex fits inside the closed sloped hull')
     const closed=r.examples.find(e=>e.progress===0),open=r.examples.find(e=>e.progress===.5)
-    assert.ok(closed.foreAftSeparation>7.4,'Closed tubes retain a wide side-view horizontal gap')
-    assert.ok(open.foreAftSeparation-closed.foreAftSeparation<1.1,'The closing horizontal stroke is small')
-    assert.ok(closed.verticalSeparation>2.5,'Upper/lower tubes retain adequate clearance')
+    assert.ok(closed.foreAftSeparation>7.0,'Closed tubes retain a wide side-view horizontal gap')
+    assert.ok(open.foreAftSeparation-closed.foreAftSeparation<1.4,'The closing horizontal stroke is small')
+    assert.ok(closed.verticalSeparation>2.4,'Upper/lower tubes retain adequate clearance')
   }
 })
 

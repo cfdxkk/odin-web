@@ -27,7 +27,15 @@ export function bridgeQuadTubeCompactAmount(data: Record<string, any>, deploymen
 // the barrels beside the casing with only a small horizontal packing stroke.
 export function bridgeQuadTubeCompactVector(data: Record<string, any>): [number, number, number] {
   const [x, y, z] = data.compactVector as [number, number, number]
-  return [x, y * .25, z * (16 / 15)]
+  return [x, y * (.67 / 1.98), z * (4 / 3) + .20]
+}
+
+// The lower receiver corners previously escaped the sloped closed hull.
+// Recenter the quartet on that envelope, retaining the bearing pair's gap.
+// Tubes get a little extra vertical packing inside their roomy receivers.
+export function bridgeQuadBearingCompactVector(data: Record<string, any>): [number, number, number] {
+  const [x, y, z] = data.compactVector as [number, number, number]
+  return [x, y * (.67 / 1.98), z * (16 / 15) + .20]
 }
 
 // Shallow side-view packing keeps the tubes outside the central casing.
@@ -48,7 +56,7 @@ export function bridgeQuadTubeSlideVector(data: Record<string, any>): [number, n
 // their revised packing so each fork keeps its accepted world-space path.
 export function bridgeQuadGuideCompactVector(cradle: Record<string, any>, guide: Record<string, any>): [number, number, number] {
   const original = cradle.compactVector as number[]
-  const corrected = bridgeQuadTubeCompactVector(cradle)
+  const corrected = bridgeQuadBearingCompactVector(cradle)
   return original.map((value, axis) => value + Number(guide.compactVector[axis]) - corrected[axis]!) as [number, number, number]
 }
 
