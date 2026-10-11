@@ -1,0 +1,46 @@
+{
+  "version": "0.11.23-rc.1",
+  "viewport": [
+    1600,
+    900
+  ],
+  "endpointViews": 24,
+  "motionPoses": 60,
+  "otherArmamentPoses": 33,
+  "axialCrownDetailViews": 2,
+  "consoleErrors": 0,
+  "pausedRenderCheck": {
+    "stillA": {
+      "rendered": 98,
+      "deployment": "0.000",
+      "station": "单联装 · 左舷 4"
+    },
+    "stillB": {
+      "rendered": 98,
+      "deployment": "0.000",
+      "station": "单联装 · 左舷 4"
+    },
+    "playing": {
+      "rendered": 118,
+      "deployment": "0.089",
+      "station": "单联装 · 左舷 4"
+    },
+    "stopA": {
+      "rendered": 121,
+      "deployment": "0.098",
+      "station": "单联装 · 左舷 4"
+    },
+    "stopB": {
+      "rendered": 121,
+      "deployment": "0.098",
+      "station": "单联装 · 左舷 4"
+    },
+    "changedView": {
+      "rendered": 123,
+      "deployment": "0.098",
+      "station": "单联装 · 舰艉"
+    }
+  },
+  "automatedBrowsersClosed": true,
+  "existingInAppPreviewClose": "Control connection failed; no in-app tabs were added."
+}

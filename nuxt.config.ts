@@ -10,7 +10,10 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Anvil Odin 奥丁战列巡洋舰粉丝艺术展示。实时三维舰船、电影式镜头与自由探索。非 Star Citizen 官方网站。' },
         { name: 'theme-color', content: '#070b10' },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/odin-founders-icon-v0.11.47.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/odin-founders-touch-v0.11.47.png' },
+      ],
     },
   },
   vite: { build: { chunkSizeWarningLimit: 1100 } },

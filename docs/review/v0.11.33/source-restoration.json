@@ -1,0 +1,1464 @@
+{
+  "version": "0.11.33",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "quads": {
+    "Port": {
+      "sourceCarriageClosed": [
+        -22.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceCarriageDeployed": [
+        -32.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceGunOrigin": [
+        -42.17247009277344,
+        -61.79541015625,
+        106.02177429199219
+      ],
+      "completeGunVertices": 5001,
+      "sourceGunVertices": 5001,
+      "supportVertices": 1602,
+      "sourceSupportVertices": 1602,
+      "quadrants": [
+        {
+          "quadrant": 0,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            2.0,
+            0.3
+          ],
+          "tubeSlide": [
+            14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            -1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 1,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            2.0,
+            -0.3
+          ],
+          "tubeSlide": [
+            14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            -1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 2,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            -2.0,
+            0.3
+          ],
+          "tubeSlide": [
+            14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 3,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            -2.0,
+            -0.3
+          ],
+          "tubeSlide": [
+            14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            1.4,
+            0.0
+          ]
+        }
+      ],
+      "sourcePetals": 4,
+      "petalSeats": [
+        {
+          "joint": "PDC_Port_HullPetal_0",
+          "sourceOuterFaces": [
+            20770,
+            20773
+          ],
+          "closedBounds": [
+            [
+              -39.42605209350586,
+              -67.75641632080078,
+              103.58570468623861
+            ],
+            [
+              -28.700244903564453,
+              -64.2323989868164,
+              105.48965823848471
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            1.0528143664143954
+          ],
+          "quadCenter": [
+            -42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": -0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 252845,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              155231,
+              155264,
+              155265,
+              155232
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 2,
+            "sourceArmorVertexIds": [
+              15442,
+              15444
+            ],
+            "closedArmorEdge": [
+              [
+                -35.01869583129883,
+                -67.75641632080078,
+                105.16272342403158
+              ],
+              [
+                -39.42605209350586,
+                -64.74727630615234,
+                104.26203525264486
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                -39.42605209350586,
+                -64.74727630615234,
+                104.26203525264486
+              ],
+              [
+                -43.211036682128906,
+                -62.163062998071155,
+                103.48853511534844
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Port_HullPetal_1",
+          "sourceOuterFaces": [
+            20625,
+            20631
+          ],
+          "closedBounds": [
+            [
+              -39.42605209350586,
+              -67.75641632080078,
+              106.86015760874216
+            ],
+            [
+              -28.700244903564453,
+              -64.2323989868164,
+              108.76090681528513
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            -0.8012117149883125
+          ],
+          "quadCenter": [
+            -42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": 0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 11134,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              36133,
+              36013,
+              36014,
+              36134
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 1,
+            "sourceArmorVertexIds": [
+              15421,
+              15422
+            ],
+            "closedArmorEdge": [
+              [
+                -35.01869583129883,
+                -67.75641632080078,
+                107.18388807749216
+              ],
+              [
+                -39.42605209350586,
+                -64.74727630615234,
+                108.0845838782734
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                -39.42605209350586,
+                -64.74727630615234,
+                108.0845838782734
+              ],
+              [
+                -43.211036682128906,
+                -62.163062998071155,
+                108.85809054692072
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Port_HullPetal_2",
+          "sourceOuterFaces": [
+            20795,
+            20798
+          ],
+          "closedBounds": [
+            [
+              -39.42605209350586,
+              -59.17522430419922,
+              103.58570507602474
+            ],
+            [
+              -28.700244903564453,
+              -55.65119171142578,
+              105.48965862827083
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            1.0528147562005188
+          ],
+          "quadCenter": [
+            -42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": -0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 252962,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              155233,
+              155269,
+              155268,
+              155229
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 1,
+            "sourceArmorVertexIds": [
+              15484,
+              15485
+            ],
+            "closedArmorEdge": [
+              [
+                -35.01869583129883,
+                -55.65119171142578,
+                105.1627238138177
+              ],
+              [
+                -39.42605209350586,
+                -58.671783447265625,
+                104.26203564243099
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                -39.42605209350586,
+                -58.671783447265625,
+                104.26203564243099
+              ],
+              [
+                -43.21104049682617,
+                -61.265834178746445,
+                103.48853472556232
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Port_HullPetal_3",
+          "sourceOuterFaces": [
+            20671,
+            20767
+          ],
+          "closedBounds": [
+            [
+              -39.42605209350586,
+              -59.17522430419922,
+              106.85795474046972
+            ],
+            [
+              -28.700244903564453,
+              -55.65119171142578,
+              108.75870394701269
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            -0.8034145832607464
+          ],
+          "quadCenter": [
+            -42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": 0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 46735,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              36010,
+              36137,
+              36138,
+              36011
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 2,
+            "sourceArmorVertexIds": [
+              15463,
+              15465
+            ],
+            "closedArmorEdge": [
+              [
+                -35.01869583129883,
+                -55.65119171142578,
+                107.18168520921972
+              ],
+              [
+                -39.42605209350586,
+                -58.671783447265625,
+                108.08238101000097
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                -39.42605209350586,
+                -58.671783447265625,
+                108.08238101000097
+              ],
+              [
+                -43.211036682128906,
+                -61.2658315643348,
+                108.85588767864829
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        }
+      ]
+    },
+    "Starboard": {
+      "sourceCarriageClosed": [
+        22.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceCarriageDeployed": [
+        32.263671875,
+        -61.706565856933594,
+        105.91594696044922
+      ],
+      "sourceGunOrigin": [
+        42.17247009277344,
+        -61.79541015625,
+        106.02177429199219
+      ],
+      "completeGunVertices": 5001,
+      "sourceGunVertices": 5001,
+      "supportVertices": 1602,
+      "sourceSupportVertices": 1602,
+      "quadrants": [
+        {
+          "quadrant": 0,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            2.0,
+            0.3
+          ],
+          "tubeSlide": [
+            -14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            -1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 1,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            2.0,
+            -0.3
+          ],
+          "tubeSlide": [
+            -14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            -1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 2,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            -2.0,
+            0.3
+          ],
+          "tubeSlide": [
+            -14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            1.4,
+            0.0
+          ]
+        },
+        {
+          "quadrant": 3,
+          "tubeVertices": 204,
+          "rearCradleVertices": 771,
+          "compactVector": [
+            0.0,
+            -2.0,
+            -0.3
+          ],
+          "tubeSlide": [
+            -14.40237037037037,
+            0.0,
+            0.0
+          ],
+          "guideCompensation": [
+            0.0,
+            1.4,
+            0.0
+          ]
+        }
+      ],
+      "sourcePetals": 4,
+      "petalSeats": [
+        {
+          "joint": "PDC_Starboard_HullPetal_0",
+          "sourceOuterFaces": [
+            19720,
+            19721
+          ],
+          "closedBounds": [
+            [
+              28.700244903564453,
+              -67.75641632080078,
+              103.58570468623861
+            ],
+            [
+              39.42605209350586,
+              -64.2323989868164,
+              105.48965823848471
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            1.0528143664143954
+          ],
+          "quadCenter": [
+            42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": -0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 252845,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              155159,
+              155192,
+              155193,
+              155160
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 2,
+            "sourceArmorVertexIds": [
+              15392,
+              15394
+            ],
+            "closedArmorEdge": [
+              [
+                35.01869583129883,
+                -67.75641632080078,
+                105.16272342403158
+              ],
+              [
+                39.42605209350586,
+                -64.74727630615234,
+                104.26203525264486
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                39.42605209350586,
+                -64.74727630615234,
+                104.26203525264486
+              ],
+              [
+                43.211036682128906,
+                -62.163062998071155,
+                103.48853511534844
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_1",
+          "sourceOuterFaces": [
+            19959,
+            20063
+          ],
+          "closedBounds": [
+            [
+              28.700244903564453,
+              -67.75641632080078,
+              106.86015760874216
+            ],
+            [
+              39.42605209350586,
+              -64.2323989868164,
+              108.76090681528513
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            -0.8012117149883125
+          ],
+          "quadCenter": [
+            42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": 0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 11134,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              34696,
+              34334,
+              34335,
+              34697
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 1,
+            "sourceArmorVertexIds": [
+              15371,
+              15372
+            ],
+            "closedArmorEdge": [
+              [
+                35.01869583129883,
+                -67.75641632080078,
+                107.18388807749216
+              ],
+              [
+                39.42605209350586,
+                -64.74727630615234,
+                108.0845838782734
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                39.42605209350586,
+                -64.74727630615234,
+                108.0845838782734
+              ],
+              [
+                43.211036682128906,
+                -62.163062998071155,
+                108.85809054692072
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_2",
+          "sourceOuterFaces": [
+            83635,
+            191856
+          ],
+          "closedBounds": [
+            [
+              28.700244903564453,
+              -59.17522430419922,
+              103.58570507602474
+            ],
+            [
+              39.42605209350586,
+              -55.65119171142578,
+              105.48965862827083
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            1.0528147562005188
+          ],
+          "quadCenter": [
+            42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": -0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 252962,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              155161,
+              155197,
+              155196,
+              155157
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 1,
+            "sourceArmorVertexIds": [
+              15854,
+              15855
+            ],
+            "closedArmorEdge": [
+              [
+                35.01869583129883,
+                -55.65119171142578,
+                105.1627238138177
+              ],
+              [
+                39.42605209350586,
+                -58.671783447265625,
+                104.26203564243099
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                39.42605209350586,
+                -58.671783447265625,
+                104.26203564243099
+              ],
+              [
+                43.21104049682617,
+                -61.265834178746445,
+                103.48853472556232
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        },
+        {
+          "joint": "PDC_Starboard_HullPetal_3",
+          "sourceOuterFaces": [
+            19716,
+            123757
+          ],
+          "closedBounds": [
+            [
+              28.700244903564453,
+              -59.17522430419922,
+              106.85795474046972
+            ],
+            [
+              39.42605209350586,
+              -55.65119171142578,
+              108.75870394701269
+            ]
+          ],
+          "compactVector": [
+            0.0,
+            0.0,
+            -0.8034145832607464
+          ],
+          "quadCenter": [
+            42.17247009277344,
+            -61.706565856933594,
+            106.02177429199219
+          ],
+          "axialTravel": 0.0,
+          "clearanceStroke": 0.25,
+          "translationOnly": true,
+          "lockedHullAxis": "X",
+          "translationClearanceZ": 0.25,
+          "translationClearanceReleaseStart": 0.35,
+          "translationClearanceReleaseEnd": 0.6,
+          "petalPackingExponent": 2.0,
+          "forwardSeam": {
+            "originalHullFace": 46735,
+            "fixedMesh": "holo.001",
+            "fixedLipVertices": [
+              34331,
+              34700,
+              34701,
+              34332
+            ],
+            "armorCornerVertex": 0,
+            "armorTipVertex": 2,
+            "sourceArmorVertexIds": [
+              15413,
+              15415
+            ],
+            "closedArmorEdge": [
+              [
+                35.01869583129883,
+                -55.65119171142578,
+                107.18168520921972
+              ],
+              [
+                39.42605209350586,
+                -58.671783447265625,
+                108.08238101000097
+              ]
+            ],
+            "closedHullEdge": [
+              [
+                39.42605209350586,
+                -58.671783447265625,
+                108.08238101000097
+              ],
+              [
+                43.211036682128906,
+                -61.2658315643348,
+                108.85588767864829
+              ]
+            ],
+            "targetEndpointGap": 0.0,
+            "targetLineAngle": 0.0
+          }
+        }
+      ]
+    }
+  },
+  "beltColors": [
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 175461,
+      "material": "Odin_Paint_Light"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 223163,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 231072,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Port_OriginalOuterRailBelt",
+      "sourceFace": 251065,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 182071,
+      "material": "Odin_Paint_Light"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 221180,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 232976,
+      "material": "Odin_Paint_Dark.001"
+    },
+    {
+      "mesh": "Flank_2_Starboard_OriginalOuterRailBelt",
+      "sourceFace": 247874,
+      "material": "Odin_Paint_Dark.001"
+    }
+  ],
+  "unchangedOtherMeshes": 493,
+  "unchangedOtherJoints": 171,
+  "removedObjects": [
+    "PDC_Port_ArmMesh_0",
+    "PDC_Port_ArmMesh_1",
+    "PDC_Port_ArmMesh_2",
+    "PDC_Port_ArmMesh_3",
+    "PDC_Port_Arm_0",
+    "PDC_Port_Arm_1",
+    "PDC_Port_Arm_2",
+    "PDC_Port_Arm_3",
+    "PDC_Port_Carriage",
+    "PDC_Port_Casing",
+    "PDC_Port_FixedFork_0",
+    "PDC_Port_FixedFork_1",
+    "PDC_Port_FixedFork_2",
+    "PDC_Port_FixedFork_3",
+    "PDC_Port_Gimbal",
+    "PDC_Port_HullPetal_0",
+    "PDC_Port_HullPetal_0_Skin",
+    "PDC_Port_HullPetal_1",
+    "PDC_Port_HullPetal_1_Skin",
+    "PDC_Port_HullPetal_2",
+    "PDC_Port_HullPetal_2_Skin",
+    "PDC_Port_HullPetal_3",
+    "PDC_Port_HullPetal_3_Skin",
+    "PDC_Port_RootArmor_0",
+    "PDC_Port_RootArmor_1",
+    "PDC_Port_RootArmor_2",
+    "PDC_Port_RootArmor_3",
+    "PDC_Starboard_ArmMesh_0",
+    "PDC_Starboard_ArmMesh_1",
+    "PDC_Starboard_ArmMesh_2",
+    "PDC_Starboard_ArmMesh_3",
+    "PDC_Starboard_Arm_0",
+    "PDC_Starboard_Arm_1",
+    "PDC_Starboard_Arm_2",
+    "PDC_Starboard_Arm_3",
+    "PDC_Starboard_Carriage",
+    "PDC_Starboard_Casing",
+    "PDC_Starboard_FixedFork_0",
+    "PDC_Starboard_FixedFork_1",
+    "PDC_Starboard_FixedFork_2",
+    "PDC_Starboard_FixedFork_3",
+    "PDC_Starboard_Gimbal",
+    "PDC_Starboard_HullPetal_0",
+    "PDC_Starboard_HullPetal_0_Skin",
+    "PDC_Starboard_HullPetal_1",
+    "PDC_Starboard_HullPetal_1_Skin",
+    "PDC_Starboard_HullPetal_2",
+    "PDC_Starboard_HullPetal_2_Skin",
+    "PDC_Starboard_HullPetal_3",
+    "PDC_Starboard_HullPetal_3_Skin",
+    "PDC_Starboard_RootArmor_0",
+    "PDC_Starboard_RootArmor_1",
+    "PDC_Starboard_RootArmor_2",
+    "PDC_Starboard_RootArmor_3",
+    "holo.016__bridge turret",
+    "holo.016__bridge turret.001"
+  ],
+  "sourceEulerStart": [
+    0.0,
+    -0.0,
+    0.0
+  ],
+  "sourceEulerEnd": [
+    3.74994524321437e-09,
+    -0.1147344559431076,
+    -0.873746931552887
+  ],
+  "animationClips": 0,
+  "tubeReference": {
+    "version": "0.11.31",
+    "progress": 0.11,
+    "previousTravel": 32.0,
+    "previousCompactAmount": 0.45007407407407407,
+    "newTravel": 14.40237037037037
+  },
+  "petalMotion": "Original open petals translate vertically toward the quad center with no rotation and no X displacement. Their original forward edges join fitted stationary hull lips at NAV.",
+  "centerTiming": {
+    "start": 0.03,
+    "end": 0.18,
+    "lead": 2.5,
+    "progress": "c + lead*c*(1-c)**2",
+    "tubeAxialProgress": "c",
+    "monotonic": true
+  },
+  "fixedSeamEdits": [
+    {
+      "vertex": 155231,
+      "before": [
+        -43.211036682128906,
+        -62.138587951660156,
+        103.64513397216797
+      ],
+      "after": [
+        -43.211036682128906,
+        -62.163062998071155,
+        103.48853511534844
+      ],
+      "side": "Port",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155264,
+      "before": [
+        -43.16368103027344,
+        -61.989845275878906,
+        104.08425903320312
+      ],
+      "after": [
+        -43.162554498988975,
+        -62.013420563802,
+        103.93190216988015
+      ],
+      "side": "Port",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155265,
+      "before": [
+        -39.473411560058594,
+        -64.63285827636719,
+        104.52018737792969
+      ],
+      "after": [
+        -39.38546371459961,
+        -64.58708953857422,
+        104.6947592516683
+      ],
+      "side": "Port",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155232,
+      "before": [
+        -39.513999938964844,
+        -64.79304504394531,
+        104.08746337890625
+      ],
+      "after": [
+        -39.42605209350586,
+        -64.74727630615234,
+        104.26203525264486
+      ],
+      "side": "Port",
+      "quadrant": 0
+    },
+    {
+      "vertex": 36133,
+      "before": [
+        -43.197505950927734,
+        -62.09282684326172,
+        108.57487487792969
+      ],
+      "after": [
+        -43.197184071882624,
+        -62.117044805464836,
+        108.73185909120342
+      ],
+      "side": "Port",
+      "quadrant": 1
+    },
+    {
+      "vertex": 36013,
+      "before": [
+        -43.211036682128906,
+        -62.138587951660156,
+        108.69988250732422
+      ],
+      "after": [
+        -43.211036682128906,
+        -62.163062998071155,
+        108.85809054692072
+      ],
+      "side": "Port",
+      "quadrant": 1
+    },
+    {
+      "vertex": 36014,
+      "before": [
+        -39.513999938964844,
+        -64.79304504394531,
+        108.2607650756836
+      ],
+      "after": [
+        -39.42605209350586,
+        -64.74727630615234,
+        108.0845838782734
+      ],
+      "side": "Port",
+      "quadrant": 1
+    },
+    {
+      "vertex": 36134,
+      "before": [
+        -39.500465393066406,
+        -64.74727630615234,
+        108.13575744628906
+      ],
+      "after": [
+        -39.41251754760742,
+        -64.70150756835938,
+        107.95957624887888
+      ],
+      "side": "Port",
+      "quadrant": 1
+    },
+    {
+      "vertex": 155233,
+      "before": [
+        -39.513999938964844,
+        -58.45439147949219,
+        104.08746337890625
+      ],
+      "after": [
+        -39.42605209350586,
+        -58.671783447265625,
+        104.26203564243099
+      ],
+      "side": "Port",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155269,
+      "before": [
+        -39.473411560058594,
+        -58.61457824707031,
+        104.52018737792969
+      ],
+      "after": [
+        -39.38546371459961,
+        -58.83197021484375,
+        104.69475964145443
+      ],
+      "side": "Port",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155268,
+      "before": [
+        -43.16368103027344,
+        -61.24613952636719,
+        104.08425903320312
+      ],
+      "after": [
+        -43.162554409404606,
+        -61.40390647663936,
+        103.93190212741354
+      ],
+      "side": "Port",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155229,
+      "before": [
+        -43.21104049682617,
+        -61.10884094238281,
+        103.64513397216797
+      ],
+      "after": [
+        -43.21104049682617,
+        -61.265834178746445,
+        103.48853472556232
+      ],
+      "side": "Port",
+      "quadrant": 2
+    },
+    {
+      "vertex": 36010,
+      "before": [
+        -43.211036682128906,
+        -61.10884094238281,
+        108.69988250732422
+      ],
+      "after": [
+        -43.211036682128906,
+        -61.2658315643348,
+        108.85588767864829
+      ],
+      "side": "Port",
+      "quadrant": 3
+    },
+    {
+      "vertex": 36137,
+      "before": [
+        -43.197505950927734,
+        -61.143165588378906,
+        108.57487487792969
+      ],
+      "after": [
+        -43.19704326503262,
+        -61.3002948997531,
+        108.72963196463412
+      ],
+      "side": "Port",
+      "quadrant": 3
+    },
+    {
+      "vertex": 36138,
+      "before": [
+        -39.52752685546875,
+        -58.5115966796875,
+        108.13896179199219
+      ],
+      "after": [
+        -39.40237808227539,
+        -58.70610046386719,
+        107.95738101000097
+      ],
+      "side": "Port",
+      "quadrant": 3
+    },
+    {
+      "vertex": 36011,
+      "before": [
+        -39.55120086669922,
+        -58.47727966308594,
+        108.26396179199219
+      ],
+      "after": [
+        -39.42605209350586,
+        -58.671783447265625,
+        108.08238101000097
+      ],
+      "side": "Port",
+      "quadrant": 3
+    },
+    {
+      "vertex": 155159,
+      "before": [
+        43.211036682128906,
+        -62.138587951660156,
+        103.64513397216797
+      ],
+      "after": [
+        43.211036682128906,
+        -62.163062998071155,
+        103.48853511534844
+      ],
+      "side": "Starboard",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155192,
+      "before": [
+        43.16368103027344,
+        -61.989845275878906,
+        104.08425903320312
+      ],
+      "after": [
+        43.162554498988975,
+        -62.013420563802,
+        103.93190216988015
+      ],
+      "side": "Starboard",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155193,
+      "before": [
+        39.473411560058594,
+        -64.63285827636719,
+        104.52018737792969
+      ],
+      "after": [
+        39.38546371459961,
+        -64.58708953857422,
+        104.6947592516683
+      ],
+      "side": "Starboard",
+      "quadrant": 0
+    },
+    {
+      "vertex": 155160,
+      "before": [
+        39.513999938964844,
+        -64.79304504394531,
+        104.08746337890625
+      ],
+      "after": [
+        39.42605209350586,
+        -64.74727630615234,
+        104.26203525264486
+      ],
+      "side": "Starboard",
+      "quadrant": 0
+    },
+    {
+      "vertex": 34696,
+      "before": [
+        43.197505950927734,
+        -62.09282684326172,
+        108.57487487792969
+      ],
+      "after": [
+        43.197184071882624,
+        -62.117044805464836,
+        108.73185909120342
+      ],
+      "side": "Starboard",
+      "quadrant": 1
+    },
+    {
+      "vertex": 34334,
+      "before": [
+        43.211036682128906,
+        -62.138587951660156,
+        108.69988250732422
+      ],
+      "after": [
+        43.211036682128906,
+        -62.163062998071155,
+        108.85809054692072
+      ],
+      "side": "Starboard",
+      "quadrant": 1
+    },
+    {
+      "vertex": 34335,
+      "before": [
+        39.513999938964844,
+        -64.79304504394531,
+        108.2607650756836
+      ],
+      "after": [
+        39.42605209350586,
+        -64.74727630615234,
+        108.0845838782734
+      ],
+      "side": "Starboard",
+      "quadrant": 1
+    },
+    {
+      "vertex": 34697,
+      "before": [
+        39.500465393066406,
+        -64.74727630615234,
+        108.13575744628906
+      ],
+      "after": [
+        39.41251754760742,
+        -64.70150756835938,
+        107.95957624887888
+      ],
+      "side": "Starboard",
+      "quadrant": 1
+    },
+    {
+      "vertex": 155161,
+      "before": [
+        39.513999938964844,
+        -58.45439147949219,
+        104.08746337890625
+      ],
+      "after": [
+        39.42605209350586,
+        -58.671783447265625,
+        104.26203564243099
+      ],
+      "side": "Starboard",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155197,
+      "before": [
+        39.473411560058594,
+        -58.61457824707031,
+        104.52018737792969
+      ],
+      "after": [
+        39.38546371459961,
+        -58.83197021484375,
+        104.69475964145443
+      ],
+      "side": "Starboard",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155196,
+      "before": [
+        43.16368103027344,
+        -61.24613952636719,
+        104.08425903320312
+      ],
+      "after": [
+        43.162554409404606,
+        -61.40390647663936,
+        103.93190212741354
+      ],
+      "side": "Starboard",
+      "quadrant": 2
+    },
+    {
+      "vertex": 155157,
+      "before": [
+        43.21104049682617,
+        -61.10884094238281,
+        103.64513397216797
+      ],
+      "after": [
+        43.21104049682617,
+        -61.265834178746445,
+        103.48853472556232
+      ],
+      "side": "Starboard",
+      "quadrant": 2
+    },
+    {
+      "vertex": 34331,
+      "before": [
+        43.211036682128906,
+        -61.10884094238281,
+        108.69988250732422
+      ],
+      "after": [
+        43.211036682128906,
+        -61.2658315643348,
+        108.85588767864829
+      ],
+      "side": "Starboard",
+      "quadrant": 3
+    },
+    {
+      "vertex": 34700,
+      "before": [
+        43.197505950927734,
+        -61.143165588378906,
+        108.57487487792969
+      ],
+      "after": [
+        43.19704326503262,
+        -61.3002948997531,
+        108.72963196463412
+      ],
+      "side": "Starboard",
+      "quadrant": 3
+    },
+    {
+      "vertex": 34701,
+      "before": [
+        39.52752685546875,
+        -58.5115966796875,
+        108.13896179199219
+      ],
+      "after": [
+        39.40237808227539,
+        -58.70610046386719,
+        107.95738101000097
+      ],
+      "side": "Starboard",
+      "quadrant": 3
+    },
+    {
+      "vertex": 34332,
+      "before": [
+        39.55120086669922,
+        -58.47727966308594,
+        108.26396179199219
+      ],
+      "after": [
+        39.42605209350586,
+        -58.671783447265625,
+        108.08238101000097
+      ],
+      "side": "Starboard",
+      "quadrant": 3
+    }
+  ],
+  "fixedSeamMesh": "holo.001",
+  "seamFit": "Only the four vertices of each adjoining fixed lip are adjusted; each original 26-vertex petal and its static orientation remain unchanged.",
+  "packingClearance": "The original bearing/tube groups pack 2.0 units in Y and 0.30 in Z; original fork guides retain the 0.60 Y stroke. Petals follow the squared center clock in the same final interval, closing after the tubes clear their edges. They use a 0.25 vertical passage allowance during carriage travel and recover the original open endpoint."
+}

@@ -1,0 +1,255 @@
+{
+  "unchangedObjectsOutsideScope": 508,
+  "changedOutsideScope": [],
+  "hinges": 24,
+  "maxActualContactEdgeToHingeAxis": 1.3672666563887803e-05,
+  "maxFlatCrownHeightError": 3.096062394192245e-05,
+  "maxFirstPlateCrownHeightError": 3.6837728041305695e-06,
+  "maxPlanViewOuterRailError": 7.709311449222156e-06,
+  "maxLowerNoseInfillSourceError": 0.0,
+  "maxFirstPlateFrontRimError": 1.0789593218636812e-05,
+  "minimumInnerGrateRoofClearance": 0.4027826969572764,
+  "originalBlendSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "mounts": {
+    "SideBattery_1_Starboard": {
+      "Port": {
+        "frontRimError": 1.078959321863681e-05,
+        "leaves": [
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 1.0801711918162705e-05,
+            "maxMeshEdgeToMetadata": 1.3546259935951929e-05,
+            "flatCrownHeightError": 2.051355366372576e-05,
+            "minimumRedGrateRoofClearance": 0.4030249452769491
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 7.730834723820167e-06,
+            "maxMeshEdgeToMetadata": 8.050031630498262e-06,
+            "flatCrownHeightError": 1.6502413851871012e-05,
+            "minimumRedGrateRoofClearance": 0.40286843069500544
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Port_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 1.3543568113567388e-05,
+            "maxMeshEdgeToMetadata": 1.666639262984746e-05,
+            "flatCrownHeightError": 2.8301171061340114e-05,
+            "minimumRedGrateRoofClearance": 0.4033561451999881
+          }
+        ]
+      },
+      "Starboard": {
+        "frontRimError": 1.0789593218636812e-05,
+        "leaves": [
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 1.3672666563887803e-05,
+            "maxMeshEdgeToMetadata": 1.5315190074914255e-05,
+            "flatCrownHeightError": 1.0700047615941344e-05,
+            "minimumRedGrateRoofClearance": 0.40300633639279315
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 1.0543073658842025e-05,
+            "maxMeshEdgeToMetadata": 1.1487129020061721e-05,
+            "flatCrownHeightError": 2.115510709632673e-05,
+            "minimumRedGrateRoofClearance": 0.4029139376307702
+          },
+          {
+            "name": "SideBattery_1_Starboard_Shutter_Starboard_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 7.426898763585587e-06,
+            "maxMeshEdgeToMetadata": 8.908626744753664e-06,
+            "flatCrownHeightError": 2.943656479281742e-05,
+            "minimumRedGrateRoofClearance": 0.4030364001122999
+          }
+        ]
+      }
+    },
+    "SideBattery_1_Port": {
+      "Port": {
+        "frontRimError": 1.0789593218636812e-05,
+        "leaves": [
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 8.459284636181037e-06,
+            "maxMeshEdgeToMetadata": 1.2210553280669377e-05,
+            "flatCrownHeightError": 1.9540768151138366e-05,
+            "minimumRedGrateRoofClearance": 0.40303403024771023
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 1.3544857362971159e-05,
+            "maxMeshEdgeToMetadata": 1.4939764822960283e-05,
+            "flatCrownHeightError": 2.5652698703027e-05,
+            "minimumRedGrateRoofClearance": 0.4028929730670102
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Port_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 2.5580229091737496e-06,
+            "maxMeshEdgeToMetadata": 9.815989823480578e-06,
+            "flatCrownHeightError": 2.0192523914275284e-05,
+            "minimumRedGrateRoofClearance": 0.40302720309600426
+          }
+        ]
+      },
+      "Starboard": {
+        "frontRimError": 1.0789593218607162e-05,
+        "leaves": [
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 1.1018138427009544e-05,
+            "maxMeshEdgeToMetadata": 1.3674758331802496e-05,
+            "flatCrownHeightError": 2.1374930185391605e-05,
+            "minimumRedGrateRoofClearance": 0.403025044757201
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 5.391591696646324e-06,
+            "maxMeshEdgeToMetadata": 5.898006849712586e-06,
+            "flatCrownHeightError": 1.024643578251272e-05,
+            "minimumRedGrateRoofClearance": 0.4028722567613102
+          },
+          {
+            "name": "SideBattery_1_Port_Shutter_Starboard_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 8.290621815028465e-06,
+            "maxMeshEdgeToMetadata": 1.535546273038827e-05,
+            "flatCrownHeightError": 3.096062394192245e-05,
+            "minimumRedGrateRoofClearance": 0.40334239724801035
+          }
+        ]
+      }
+    },
+    "SideBattery_3_Starboard": {
+      "Port": {
+        "frontRimError": 1.0789593218607162e-05,
+        "leaves": [
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 8.09202964135721e-06,
+            "maxMeshEdgeToMetadata": 8.431773404328464e-06,
+            "flatCrownHeightError": 6.188271809648427e-06,
+            "minimumRedGrateRoofClearance": 0.40288183270042305
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 7.221979328721467e-06,
+            "maxMeshEdgeToMetadata": 7.226379445153001e-06,
+            "flatCrownHeightError": 2.2467078255150597e-05,
+            "minimumRedGrateRoofClearance": 0.4027826969572764
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Port_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 1.7002765578586498e-06,
+            "maxMeshEdgeToMetadata": 2.0198987177398437e-06,
+            "flatCrownHeightError": 1.2184907153489632e-05,
+            "minimumRedGrateRoofClearance": 0.40364852313795563
+          }
+        ]
+      },
+      "Starboard": {
+        "frontRimError": 0.0,
+        "leaves": [
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 7.785510117750993e-06,
+            "maxMeshEdgeToMetadata": 7.913106020365844e-06,
+            "flatCrownHeightError": 1.4079872204142418e-05,
+            "minimumRedGrateRoofClearance": 0.40288718022530395
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 8.398695771529722e-06,
+            "maxMeshEdgeToMetadata": 8.40724409481189e-06,
+            "flatCrownHeightError": 1.7693632319737418e-05,
+            "minimumRedGrateRoofClearance": 0.40281119976511115
+          },
+          {
+            "name": "SideBattery_3_Starboard_Shutter_Starboard_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 9.278580309029584e-06,
+            "maxMeshEdgeToMetadata": 9.361138611742803e-06,
+            "flatCrownHeightError": 1.6853438320474368e-05,
+            "minimumRedGrateRoofClearance": 0.40288215683659434
+          }
+        ]
+      }
+    },
+    "SideBattery_3_Port": {
+      "Port": {
+        "frontRimError": 0.0,
+        "leaves": [
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 3.7382171079267912e-06,
+            "maxMeshEdgeToMetadata": 3.780123324440909e-06,
+            "flatCrownHeightError": 2.5014019158220435e-06,
+            "minimumRedGrateRoofClearance": 0.4028742657294337
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 9.271550875284365e-06,
+            "maxMeshEdgeToMetadata": 9.292999896288177e-06,
+            "flatCrownHeightError": 1.8267256867599002e-05,
+            "minimumRedGrateRoofClearance": 0.4028384756006602
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Port_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 9.429464366151421e-06,
+            "maxMeshEdgeToMetadata": 9.438872519485207e-06,
+            "flatCrownHeightError": 1.1313801199897e-05,
+            "minimumRedGrateRoofClearance": 0.4028886202825186
+          }
+        ]
+      },
+      "Starboard": {
+        "frontRimError": 3.580361673049448e-15,
+        "leaves": [
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_00",
+            "group": 4,
+            "maxMeshEdgeToHingeAxis": 9.005950819633129e-06,
+            "maxMeshEdgeToMetadata": 9.017332513528783e-06,
+            "flatCrownHeightError": 4.939970601025578e-06,
+            "minimumRedGrateRoofClearance": 0.4028753405651926
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_01",
+            "group": 3,
+            "maxMeshEdgeToHingeAxis": 1.4133053268122363e-06,
+            "maxMeshEdgeToMetadata": 1.4183170413906157e-06,
+            "flatCrownHeightError": 1.3886553598130291e-05,
+            "minimumRedGrateRoofClearance": 0.4027891005759104
+          },
+          {
+            "name": "SideBattery_3_Port_Shutter_Starboard_02",
+            "group": 2,
+            "maxMeshEdgeToHingeAxis": 1.45200751511946e-06,
+            "maxMeshEdgeToMetadata": 1.9206771393712967e-06,
+            "flatCrownHeightError": 1.2676858074822661e-05,
+            "minimumRedGrateRoofClearance": 0.4036452932336463
+          }
+        ]
+      }
+    }
+  }
+}

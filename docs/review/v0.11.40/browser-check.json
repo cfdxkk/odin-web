@@ -1,0 +1,1066 @@
+{
+  "version": "v0.11.40-rc.1",
+  "highAssetSha256": "08b3a45911a1180d37c94e7bf80e80358c49bad2c611b54b39c97e3b49e3b0bd",
+  "forwardTwinStations": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "forwardTwinObservations": 136,
+  "forwardTwinScreenshotFiles": 108,
+  "views": [
+    "oblique",
+    "side",
+    "overhead",
+    "front"
+  ],
+  "forwardAndReverseSeeks": true,
+  "otherArmamentObservations": 34,
+  "otherArmamentStations": [
+    "bow",
+    "stern",
+    "keel",
+    "side-1",
+    "side-3",
+    "side-2-right",
+    "side-4-right",
+    "side-2-left",
+    "side-4-left",
+    "bridge-quad-pdc-right",
+    "bridge-quad-pdc-left",
+    "defense-aft",
+    "bridge-front",
+    "bridge-rear",
+    "main-hull-seam",
+    "main-dorsal",
+    "main-ventral"
+  ],
+  "explicitPauseRetained": true,
+  "idleRenderFrames": [
+    227,
+    227
+  ],
+  "finalGeneratedPreview": {
+    "version": "0.11.40",
+    "meshCount": 214,
+    "animationClips": 0,
+    "bridgeArmorSlats": 0,
+    "finalGeneratedPreviewVerified": true,
+    "idleRenderFrames": [
+      237,
+      237
+    ]
+  },
+  "applicationConsoleErrors": 0,
+  "temporaryCheckingBrowserClosed": true,
+  "headlessBlenderJobs": 0,
+  "userPreview": {
+    "tab": "2",
+    "station": "Twin 1",
+    "progress": 1,
+    "paused": true,
+    "renderedFrames": 4
+  },
+  "staticPreviewService": {
+    "port": 4175,
+    "count": 1,
+    "pid": 43420
+  },
+  "checks": {
+    "npmTest": {
+      "passed": 69,
+      "failed": 0
+    },
+    "verifyAsset": true,
+    "generate": true
+  },
+  "captures": [
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.1.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.22.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.24,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.24.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.4.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.52,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.52.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.6,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.6.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.85,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.85.png"
+    },
+    {
+      "station": 1,
+      "progress": 1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-1.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.4.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.22.png"
+    },
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-1-motion-0.png"
+    },
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-1-侧视-0.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.22,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-1-侧视-0.22.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.4,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-1-侧视-0.4.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-1-侧视-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 1,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-1-侧视-1.png"
+    },
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-1-俯视-0.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.22,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-1-俯视-0.22.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.4,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-1-俯视-0.4.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-1-俯视-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 1,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-1-俯视-1.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.1.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.22.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.24,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.24.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.4.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.52,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.52.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.6,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.6.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.85,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.85.png"
+    },
+    {
+      "station": 2,
+      "progress": 1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-1.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.4.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.22.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-2-motion-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-2-侧视-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.22,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-2-侧视-0.22.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.4,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-2-侧视-0.4.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-2-侧视-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 1,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-2-侧视-1.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-2-俯视-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.22,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-2-俯视-0.22.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.4,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-2-俯视-0.4.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-2-俯视-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 1,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-2-俯视-1.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.1.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.22.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.24,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.24.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.4.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.52,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.52.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.6,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.6.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.85,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.85.png"
+    },
+    {
+      "station": 3,
+      "progress": 1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-1.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.4.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.22.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-3-motion-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-3-侧视-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.22,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-3-侧视-0.22.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.4,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-3-侧视-0.4.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-3-侧视-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 1,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-3-侧视-1.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-3-俯视-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.22,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-3-俯视-0.22.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.4,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-3-俯视-0.4.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-3-俯视-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 1,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-3-俯视-1.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.1.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.22.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.24,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.24.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.4.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.52,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.52.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.6,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.6.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.85,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.85.png"
+    },
+    {
+      "station": 4,
+      "progress": 1,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-1.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.4,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.4.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.22,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.22.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "oblique",
+      "path": "output/playwright/v01140/twin-4-motion-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-4-侧视-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.22,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-4-侧视-0.22.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.4,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-4-侧视-0.4.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-4-侧视-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 1,
+      "view": "侧视",
+      "path": "output/playwright/v01140/twin-4-侧视-1.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-4-俯视-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.22,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-4-俯视-0.22.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.4,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-4-俯视-0.4.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-4-俯视-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 1,
+      "view": "俯视",
+      "path": "output/playwright/v01140/twin-4-俯视-1.png"
+    },
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.24,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.24.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.4,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.4.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.7,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.7.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.85.png"
+    },
+    {
+      "station": 1,
+      "progress": 1,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-1.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.85.png"
+    },
+    {
+      "station": 1,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.64.png"
+    },
+    {
+      "station": 1,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-1-front-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.24,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.24.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.4,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.4.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.7,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.7.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.85.png"
+    },
+    {
+      "station": 2,
+      "progress": 1,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-1.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.85.png"
+    },
+    {
+      "station": 2,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.64.png"
+    },
+    {
+      "station": 2,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-2-front-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.24,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.24.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.4,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.4.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.7,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.7.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.85.png"
+    },
+    {
+      "station": 3,
+      "progress": 1,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-1.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.85.png"
+    },
+    {
+      "station": 3,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.64.png"
+    },
+    {
+      "station": 3,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-3-front-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.24,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.24.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.4,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.4.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.7,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.7.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.85.png"
+    },
+    {
+      "station": 4,
+      "progress": 1,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-1.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.85,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.85.png"
+    },
+    {
+      "station": 4,
+      "progress": 0.64,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.64.png"
+    },
+    {
+      "station": 4,
+      "progress": 0,
+      "view": "front",
+      "path": "output/playwright/v01140/twin-4-front-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 0,
+      "path": "output/playwright/v01140/bow-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 1,
+      "path": "output/playwright/v01140/bow-1.png"
+    },
+    {
+      "station": "stern",
+      "progress": 0,
+      "path": "output/playwright/v01140/stern-0.png"
+    },
+    {
+      "station": "stern",
+      "progress": 1,
+      "path": "output/playwright/v01140/stern-1.png"
+    },
+    {
+      "station": "keel",
+      "progress": 0,
+      "path": "output/playwright/v01140/keel-0.png"
+    },
+    {
+      "station": "keel",
+      "progress": 1,
+      "path": "output/playwright/v01140/keel-1.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-1-0.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-1-1.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-3-0.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-3-1.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-2-right-0.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-2-right-1.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-4-right-0.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-4-right-1.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-2-left-0.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-2-left-1.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 0,
+      "path": "output/playwright/v01140/side-4-left-0.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 1,
+      "path": "output/playwright/v01140/side-4-left-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 0,
+      "path": "output/playwright/v01140/bridge-quad-pdc-right-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 1,
+      "path": "output/playwright/v01140/bridge-quad-pdc-right-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 0,
+      "path": "output/playwright/v01140/bridge-quad-pdc-left-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 1,
+      "path": "output/playwright/v01140/bridge-quad-pdc-left-1.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 0,
+      "path": "output/playwright/v01140/defense-aft-0.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 1,
+      "path": "output/playwright/v01140/defense-aft-1.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 0,
+      "path": "output/playwright/v01140/bridge-front-0.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 1,
+      "path": "output/playwright/v01140/bridge-front-1.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 0,
+      "path": "output/playwright/v01140/bridge-rear-0.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 1,
+      "path": "output/playwright/v01140/bridge-rear-1.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 0,
+      "path": "output/playwright/v01140/main-hull-seam-0.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 1,
+      "path": "output/playwright/v01140/main-hull-seam-1.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 0,
+      "path": "output/playwright/v01140/main-dorsal-0.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 1,
+      "path": "output/playwright/v01140/main-dorsal-1.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 0,
+      "path": "output/playwright/v01140/main-ventral-0.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 1,
+      "path": "output/playwright/v01140/main-ventral-1.png"
+    }
+  ]
+}

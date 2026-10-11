@@ -1,0 +1,210 @@
+{
+  "version": "0.11.28",
+  "nativeSha256": "9f9932fab179f6a99679e792e824ed8c19ac1e7ce57d70e88ca7d3ee8d7a4747",
+  "unchangedOtherMeshes": 499,
+  "unchangedJointTransforms": 191,
+  "unchangedMechanicalMetadata": 191,
+  "sourceArmorPolygonsAndUvs": [
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+      "retainedSourcePolygons": 517,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+      "retainedSourcePolygons": 170,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+      "retainedSourcePolygons": 171,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "retainedSourcePolygons": 519,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "retainedSourcePolygons": 168,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "retainedSourcePolygons": 169,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+      "retainedSourcePolygons": 519,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+      "retainedSourcePolygons": 168,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+      "retainedSourcePolygons": 169,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+      "retainedSourcePolygons": 517,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+      "retainedSourcePolygons": 170,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+      "retainedSourcePolygons": 171,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+      "retainedSourcePolygons": 521,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+      "retainedSourcePolygons": 170,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+      "retainedSourcePolygons": 171,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "retainedSourcePolygons": 527,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "retainedSourcePolygons": 168,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "retainedSourcePolygons": 169,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+      "retainedSourcePolygons": 527,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+      "retainedSourcePolygons": 168,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+      "retainedSourcePolygons": 169,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+      "retainedSourcePolygons": 521,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+      "retainedSourcePolygons": 170,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+      "retainedSourcePolygons": 171,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalFrontCap",
+      "retainedSourcePolygons": 45,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalFrontCap",
+      "retainedSourcePolygons": 45,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalFrontCap",
+      "retainedSourcePolygons": 44,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalFrontCap",
+      "retainedSourcePolygons": 44,
+      "maxUvError": 0.0
+    }
+  ],
+  "closedRoofs": [
+    {
+      "station": "SideBattery_2_Starboard",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.0060045719146728516,
+      "maxSideSeamError": 0.006011366844177246,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.9649999999999999,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 1.9073486328125e-06
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006006956100463867,
+      "maxSideSeamError": 0.006019473075866699,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.9649999999999999,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 1.9669532775878906e-06
+    },
+    {
+      "station": "SideBattery_4_Starboard",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006006896495819092,
+      "maxSideSeamError": 0.006030380725860596,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.7450000000000001,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 2.8014183044433594e-06
+    },
+    {
+      "station": "SideBattery_4_Port",
+      "rays": 2231,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxCrownLineError": 0.006014704704284668,
+      "maxSideSeamError": 0.006039977073669434,
+      "flatCrownWidth": 0.6,
+      "heightReduction": 0.7450000000000001,
+      "fixedReceiverRays": 156,
+      "fixedReceiverMisses": [],
+      "fixedReceiverInteriorFirstHits": [],
+      "maxFixedReceiverCrownError": 2.8014183044433594e-06
+    }
+  ],
+  "removedFloatingTriangles": 2,
+  "originalSourceUnchanged": true,
+  "animationClips": 0
+}

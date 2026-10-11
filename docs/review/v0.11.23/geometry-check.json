@@ -1,0 +1,233 @@
+{
+  "stations": {
+    "Axial_Stern": {
+      "crownLineMaximumError": 1.0410205251609739e-05,
+      "adjacentFullWidthEdgeMaximumError": 1.6917969320573434e-05,
+      "noseRearMaximumError": 5.616806447505951e-06,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        56,
+        66
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    },
+    "Axial_Keel": {
+      "crownLineMaximumError": 4.942316216727249e-06,
+      "adjacentFullWidthEdgeMaximumError": 4.855829462524497e-06,
+      "noseRearMaximumError": 2.670101821422577e-06,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        56,
+        66
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    },
+    "SideBattery_2_Port": {
+      "crownLineMaximumError": 5.458551822989932e-06,
+      "adjacentFullWidthEdgeMaximumError": 1.2097740602623475e-05,
+      "noseRearMaximumError": 3.7989920371739316e-06,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        36,
+        45
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    },
+    "SideBattery_2_Starboard": {
+      "crownLineMaximumError": 7.707401018741677e-06,
+      "adjacentFullWidthEdgeMaximumError": 1.0833534446419435e-05,
+      "noseRearMaximumError": 4.805461017109991e-06,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        36,
+        45
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    },
+    "SideBattery_4_Port": {
+      "crownLineMaximumError": 1.0113004032419326e-05,
+      "adjacentFullWidthEdgeMaximumError": 1.3607580865437896e-05,
+      "noseRearMaximumError": 2.3886936052597285e-05,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        36,
+        44
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    },
+    "SideBattery_4_Starboard": {
+      "crownLineMaximumError": 1.0714674061773621e-05,
+      "adjacentFullWidthEdgeMaximumError": 1.3679895932483532e-05,
+      "noseRearMaximumError": 2.1522941184626276e-05,
+      "receiverSeam": 0.02,
+      "shutterSweep": 95,
+      "noseSourceTopology": [
+        36,
+        44
+      ],
+      "leafSourceTopology": [
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ],
+        [
+          311,
+          228
+        ],
+        [
+          231,
+          148
+        ],
+        [
+          196,
+          132
+        ]
+      ]
+    }
+  },
+  "unchangedMeshMaterialHashes": 465,
+  "unchangedJointMatrices": 163,
+  "unchangedGunMetadata": 75,
+  "originalSourceHashes": {
+    "odin.blend": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+    "odin_with_anime.blend": "6cccc632d7939e028722cfe858cb4946935fbe93db3a0f85d4f0be699b4b2e95"
+  }
+}

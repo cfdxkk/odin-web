@@ -1,0 +1,136 @@
+{
+  "Port": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "closedSourceCarriage": [
+      -22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "originalReceiverSeats": [
+      {
+        "joint": "PDC_Port_HullPetal_0",
+        "maxSkinToOriginalReceiverPlane": 0.21029194099332926,
+        "closedForemostCoordinate": 39.38988494873047
+      },
+      {
+        "joint": "PDC_Port_HullPetal_1",
+        "maxSkinToOriginalReceiverPlane": 0.21028610179669727,
+        "closedForemostCoordinate": 39.40357208251953
+      },
+      {
+        "joint": "PDC_Port_HullPetal_2",
+        "maxSkinToOriginalReceiverPlane": 0.21172590527058333,
+        "closedForemostCoordinate": 39.3896484375
+      },
+      {
+        "joint": "PDC_Port_HullPetal_3",
+        "maxSkinToOriginalReceiverPlane": 0.21172742893182317,
+        "closedForemostCoordinate": 39.403045654296875
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 38.59889221191406,
+        "closedArmorForemost": 39.38988494873047,
+        "hiddenBehindArmor": 0.7909927368164062,
+        "previous11PercentTubeTip": 38.598888479727286,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 38.596466064453125,
+        "closedArmorForemost": 39.40357208251953,
+        "hiddenBehindArmor": 0.8071060180664062,
+        "previous11PercentTubeTip": 38.59646233226635,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 38.682228088378906,
+        "closedArmorForemost": 39.3896484375,
+        "hiddenBehindArmor": 0.7074203491210938,
+        "previous11PercentTubeTip": 38.68222435619213,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 38.684814453125,
+        "closedArmorForemost": 39.403045654296875,
+        "hiddenBehindArmor": 0.718231201171875,
+        "previous11PercentTubeTip": 38.68481072093822,
+        "referenceTipError": 3.73218677651721e-06
+      }
+    ],
+    "sourceMeshesRemainRigid": true
+  },
+  "Starboard": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "closedSourceCarriage": [
+      22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "originalReceiverSeats": [
+      {
+        "joint": "PDC_Starboard_HullPetal_0",
+        "maxSkinToOriginalReceiverPlane": 0.21029194099332926,
+        "closedForemostCoordinate": 39.38988494873047
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_1",
+        "maxSkinToOriginalReceiverPlane": 0.21028610179669727,
+        "closedForemostCoordinate": 39.40357208251953
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_2",
+        "maxSkinToOriginalReceiverPlane": 0.21172590527058333,
+        "closedForemostCoordinate": 39.3896484375
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_3",
+        "maxSkinToOriginalReceiverPlane": 0.21172742893182317,
+        "closedForemostCoordinate": 39.403045654296875
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 38.59889221191406,
+        "closedArmorForemost": 39.38988494873047,
+        "hiddenBehindArmor": 0.7909927368164062,
+        "previous11PercentTubeTip": 38.598888479727286,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 38.596466064453125,
+        "closedArmorForemost": 39.40357208251953,
+        "hiddenBehindArmor": 0.8071060180664062,
+        "previous11PercentTubeTip": 38.59646233226635,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 38.682228088378906,
+        "closedArmorForemost": 39.3896484375,
+        "hiddenBehindArmor": 0.7074203491210938,
+        "previous11PercentTubeTip": 38.68222435619213,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 38.684814453125,
+        "closedArmorForemost": 39.403045654296875,
+        "hiddenBehindArmor": 0.718231201171875,
+        "previous11PercentTubeTip": 38.68481072093822,
+        "referenceTipError": 3.73218677651721e-06
+      }
+    ],
+    "sourceMeshesRemainRigid": true
+  }
+}

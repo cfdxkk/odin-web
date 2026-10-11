@@ -1,0 +1,90 @@
+{
+  "version": "0.11.41",
+  "samples": [
+    {
+      "side": "Port",
+      "progress": 0,
+      "previousYSeparation": 4.483009238175839,
+      "currentYSeparation": 4.583009235940665,
+      "previousZSeparation": 2.613111819033776,
+      "currentZSeparation": 2.553111820374909
+    },
+    {
+      "side": "Starboard",
+      "progress": 0,
+      "previousYSeparation": 4.483009238175839,
+      "currentYSeparation": 4.583009235940665,
+      "previousZSeparation": 2.613111819033776,
+      "currentZSeparation": 2.553111820374909
+    },
+    {
+      "side": "Port",
+      "progress": 0.06,
+      "previousYSeparation": 4.8020978710436495,
+      "currentYSeparation": 5.1804140402944725,
+      "previousZSeparation": 2.6609751139639855,
+      "currentZSeparation": 2.6542110949578444
+    },
+    {
+      "side": "Starboard",
+      "progress": 0.06,
+      "previousYSeparation": 4.8020978710436495,
+      "currentYSeparation": 5.1804140402944725,
+      "previousZSeparation": 2.6609751139639855,
+      "currentZSeparation": 2.6542110949578444
+    },
+    {
+      "side": "Port",
+      "progress": 0.1,
+      "previousYSeparation": 5.169338871673261,
+      "currentYSeparation": 5.806533979526442,
+      "previousZSeparation": 2.7160612640584247,
+      "currentZSeparation": 2.760169853904813
+    },
+    {
+      "side": "Starboard",
+      "progress": 0.1,
+      "previousYSeparation": 5.169338871673261,
+      "currentYSeparation": 5.806533979526442,
+      "previousZSeparation": 2.7160612640584247,
+      "currentZSeparation": 2.760169853904813
+    },
+    {
+      "side": "Port",
+      "progress": 0.12,
+      "previousYSeparation": 5.596947133277382,
+      "currentYSeparation": 6.452729076305786,
+      "previousZSeparation": 2.780202503299023,
+      "currentZSeparation": 2.8695259472059433
+    },
+    {
+      "side": "Starboard",
+      "progress": 0.12,
+      "previousYSeparation": 5.596947133277382,
+      "currentYSeparation": 6.452729076305786,
+      "previousZSeparation": 2.780202503299023,
+      "currentZSeparation": 2.8695259472059433
+    },
+    {
+      "side": "Port",
+      "progress": 0.18,
+      "previousYSeparation": 8.483009148768872,
+      "currentYSeparation": 8.483009148768872,
+      "previousZSeparation": 3.213111805622759,
+      "currentZSeparation": 3.213111805622759
+    },
+    {
+      "side": "Starboard",
+      "progress": 0.18,
+      "previousYSeparation": 8.483009148768872,
+      "currentYSeparation": 8.483009148768872,
+      "previousZSeparation": 3.213111805622759,
+      "currentZSeparation": 3.213111805622759
+    }
+  ],
+  "checkedPosesPerSide": 181,
+  "maxSeparationGain": 1.0254944128921792,
+  "foreAftPairSpacingWiderOrUnchanged": true,
+  "bothSpacingsWiderFromProgress": 0.08,
+  "axialStowTravelUnchanged": 14.40237037037037
+}

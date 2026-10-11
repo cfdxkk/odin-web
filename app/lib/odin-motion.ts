@@ -1,9 +1,9 @@
 export const FILM_DURATION = 60
 export const DEPLOY_SECONDS = 6.5
 export const MODES = [
-  { name: '飞船外观', english: 'EXTERIOR', time: 0, caption: '于静默中，显露锋芒。' },
-  { name: 'SCM/战斗', english: 'COMBAT CONFIGURATION', time: 12, caption: '装甲就位。全舰武备展开。' },
-  { name: 'NAV/航行', english: 'NAVIGATION CONFIGURATION', time: 32, caption: '收拢武备，驶向深空。' },
+  { name: '飞船外观', english: 'EXTERIOR', time: 0, caption: '查看舰体外观与布局。' },
+  { name: 'SCM/战斗', english: 'COMBAT CONFIGURATION', time: 12, caption: '武备展开，切换至战斗配置。' },
+  { name: 'NAV/航行', english: 'NAVIGATION CONFIGURATION', time: 32, caption: '武备收起，切换至航行配置。' },
 ] as const
 export function ease(a: number, b: number, value: number) {
   const u = Math.max(0, Math.min(1, (value - a) / (b - a)))

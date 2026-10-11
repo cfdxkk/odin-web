@@ -1,0 +1,54 @@
+{
+  "SideBattery_2_Starboard": {
+    "poses": 101,
+    "barrelArmorContacts": [],
+    "closedRoofVerticalGaps": [
+      1.089734834035652,
+      1.2718599078484898,
+      1.069013329458996,
+      1.4793391894718315,
+      1.8415443022726024,
+      1.972241797593557
+    ],
+    "rigidChildren": 15
+  },
+  "SideBattery_2_Port": {
+    "poses": 101,
+    "barrelArmorContacts": [],
+    "closedRoofVerticalGaps": [
+      1.4793421342983715,
+      1.8415501858006014,
+      1.972242438886794,
+      1.0897326906148006,
+      1.2718594789301099,
+      1.0690090331627653
+    ],
+    "rigidChildren": 15
+  },
+  "SideBattery_4_Starboard": {
+    "poses": 101,
+    "barrelArmorContacts": [],
+    "closedRoofVerticalGaps": [
+      1.3576024098568649,
+      3.7776955830424583,
+      1.414406258149227,
+      0.8973445207213491,
+      4.053999315069806,
+      1.2574360423517286
+    ],
+    "rigidChildren": 15
+  },
+  "SideBattery_4_Port": {
+    "poses": 101,
+    "barrelArmorContacts": [],
+    "closedRoofVerticalGaps": [
+      0.8973504868169968,
+      4.05400524144517,
+      1.2574376836109522,
+      1.3576006703032348,
+      3.7776954933865463,
+      1.4144034216434287
+    ],
+    "rigidChildren": 15
+  }
+}

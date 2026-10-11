@@ -1,0 +1,30 @@
+{
+  "5": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 301
+  },
+  "6": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 384
+  },
+  "7": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 373
+  },
+  "8": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 393
+  }
+}

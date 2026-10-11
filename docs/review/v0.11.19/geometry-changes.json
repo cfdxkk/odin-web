@@ -1,0 +1,71 @@
+{
+  "redInteriorFaces": {
+    "Axial_Bow/Axial_Bow_SourceReceiver_Skin": 2617,
+    "SideBattery_1_Port/holo.001": 1606,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedBayFloor": 6,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedLowerNoseInfill_Port": 2,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedLowerNoseInfill_Starboard": 1,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedNosePatch_Port": 1,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedNosePatch_Starboard": 0,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedNoseReturn_Port": 1,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedNoseReturn_Starboard": 1,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedTransitionPatch_Port": 0,
+    "SideBattery_1_Port/SideBattery_1_Port_FixedTransitionPatch_Starboard": 0,
+    "SideBattery_1_Starboard/holo.001": 1606,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedBayFloor": 6,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedLowerNoseInfill_Port": 1,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedLowerNoseInfill_Starboard": 2,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedNosePatch_Port": 0,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedNosePatch_Starboard": 1,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedNoseReturn_Port": 1,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedNoseReturn_Starboard": 1,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedTransitionPatch_Port": 0,
+    "SideBattery_1_Starboard/SideBattery_1_Starboard_FixedTransitionPatch_Starboard": 0,
+    "SideBattery_2_Port/holo.001": 2959,
+    "SideBattery_2_Starboard/holo.001": 2959,
+    "SideBattery_3_Port/holo.001": 1561,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedBayFloor": 6,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedLowerNoseInfill_Port": 2,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedLowerNoseInfill_Starboard": 2,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedNosePatch_Port": 1,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedNosePatch_Starboard": 0,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedNoseReturn_Port": 0,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedNoseReturn_Starboard": 0,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedTransitionPatch_Port": 0,
+    "SideBattery_3_Port/SideBattery_3_Port_FixedTransitionPatch_Starboard": 0,
+    "SideBattery_3_Starboard/holo.001": 1561,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedBayFloor": 6,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedLowerNoseInfill_Port": 2,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedLowerNoseInfill_Starboard": 2,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedNosePatch_Port": 0,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedNosePatch_Starboard": 1,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedNoseReturn_Port": 0,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedNoseReturn_Starboard": 0,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedTransitionPatch_Port": 0,
+    "SideBattery_3_Starboard/SideBattery_3_Starboard_FixedTransitionPatch_Starboard": 0,
+    "SideBattery_4_Port/holo.001": 2767,
+    "SideBattery_4_Starboard/holo.001": 3009
+  },
+  "sternOriginalPlateLocalBounds": [
+    [
+      -2.814206600189209,
+      18.50975885296718,
+      2.8617941268542157
+    ],
+    [
+      2.814206600189209,
+      26.94466710841413,
+      6.189559376736721
+    ]
+  ],
+  "sternRestoredFixedRoofFaces": 8,
+  "sternRemovedWrongTriangularCapFaces": 8,
+  "sternRemovedDuplicateForwardArmorFaces": 66,
+  "bowExtendedReceiverVertices": 156,
+  "bowForeEndExtensionModel": [
+    0.0,
+    1.9613816117430858,
+    -0.3911293559886504
+  ],
+  "sternOpeningTravelDegrees": 95
+}

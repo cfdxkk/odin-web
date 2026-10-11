@@ -1,0 +1,199 @@
+{
+  "version": "0.11.38",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "originalSourceUnchanged": true,
+  "sourceReferenceFrame": 15,
+  "originalRailFacesAndUVsPreservedExactlyOnce": true,
+  "unchangedOtherMeshes": 530,
+  "unchangedStaticJointTransforms": 207,
+  "unchangedOtherJointProperties": 201,
+  "stations": [
+    {
+      "station": 1,
+      "hoodVertices": 718,
+      "hoodFaces": 768,
+      "supportVertices": 8969,
+      "supportFaces": 9563,
+      "hoodParent": "Defense_01_FixedArmor",
+      "supportParent": "Defense_01_Carriage",
+      "hoodSourceReferenceFrame": 30,
+      "raisedOrigin": [
+        -21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "FixedHoodSourceVertexMaxError": 2.2568054191651754e-05,
+      "FixedHoodSourceInterpolatedVertices": 0,
+      "FixedHoodSourceMaxError": 2.2568054191651754e-05,
+      "FixedHoodSourceUnmatchedVertices": 0,
+      "LowerCradleSourceVertexMaxError": 0.15027102828025818,
+      "LowerCradleSourceInterpolatedVertices": 9,
+      "LowerCradleSourceMaxError": 0.15026061236858368,
+      "LowerCradleSourceUnmatchedVertices": 5,
+      "inheritedSupportSourceSurfaceDifferences": [
+        {
+          "nativeVertex": 6140,
+          "position": [
+            -19.11495018005371,
+            -36.815067291259766,
+            55.0587043762207
+          ],
+          "distance": 0.15026061236858368
+        },
+        {
+          "nativeVertex": 6141,
+          "position": [
+            -19.114952087402344,
+            -36.815067291259766,
+            54.937931060791016
+          ],
+          "distance": 0.04797102138400078
+        },
+        {
+          "nativeVertex": 6144,
+          "position": [
+            -19.114952087402344,
+            -36.815067291259766,
+            54.8494873046875
+          ],
+          "distance": 0.0012173861032351851
+        },
+        {
+          "nativeVertex": 6145,
+          "position": [
+            -19.114952087402344,
+            -36.815067291259766,
+            54.92826843261719
+          ],
+          "distance": 0.0406627357006073
+        },
+        {
+          "nativeVertex": 6147,
+          "position": [
+            -19.114952087402344,
+            -36.815067291259766,
+            54.89448928833008
+          ],
+          "distance": 0.017324337735772133
+        }
+      ],
+      "originalRestOrigin": [
+        -21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ]
+    },
+    {
+      "station": 2,
+      "hoodVertices": 718,
+      "hoodFaces": 771,
+      "supportVertices": 8980,
+      "supportFaces": 9576,
+      "hoodParent": "Defense_02_FixedArmor",
+      "supportParent": "Defense_02_Carriage",
+      "hoodSourceReferenceFrame": 30,
+      "raisedOrigin": [
+        -27.713760375976562,
+        -64.0233154296875,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "FixedHoodSourceVertexMaxError": 0.00010448719694977626,
+      "FixedHoodSourceInterpolatedVertices": 1,
+      "FixedHoodSourceMaxError": 8.420463564107195e-05,
+      "FixedHoodSourceUnmatchedVertices": 0,
+      "LowerCradleSourceVertexMaxError": 0.0031928650569170713,
+      "LowerCradleSourceInterpolatedVertices": 7,
+      "LowerCradleSourceMaxError": 0.00013839782332070172,
+      "LowerCradleSourceUnmatchedVertices": 2,
+      "inheritedSupportSourceSurfaceDifferences": [
+        {
+          "nativeVertex": 1172,
+          "position": [
+            -23.83815574645996,
+            -67.8329849243164,
+            53.98613739013672
+          ],
+          "distance": 0.00013839782332070172
+        },
+        {
+          "nativeVertex": 1950,
+          "position": [
+            -22.632535934448242,
+            -62.20402908325195,
+            53.98554229736328
+          ],
+          "distance": 0.00010080116771860048
+        }
+      ],
+      "originalRestOrigin": [
+        -27.713760375976562,
+        -64.0233154296875,
+        52.27461624145508
+      ]
+    },
+    {
+      "station": 3,
+      "hoodVertices": 718,
+      "hoodFaces": 768,
+      "supportVertices": 8966,
+      "supportFaces": 9560,
+      "hoodParent": "Defense_03_FixedArmor",
+      "supportParent": "Defense_03_Carriage",
+      "hoodSourceReferenceFrame": 30,
+      "raisedOrigin": [
+        21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "FixedHoodSourceVertexMaxError": 1.5728399375802837e-05,
+      "FixedHoodSourceInterpolatedVertices": 0,
+      "FixedHoodSourceMaxError": 1.5728399375802837e-05,
+      "FixedHoodSourceUnmatchedVertices": 0,
+      "LowerCradleSourceVertexMaxError": 0.0024074192624539137,
+      "LowerCradleSourceInterpolatedVertices": 9,
+      "LowerCradleSourceMaxError": 6.919234147062525e-05,
+      "LowerCradleSourceUnmatchedVertices": 0,
+      "inheritedSupportSourceSurfaceDifferences": [],
+      "originalRestOrigin": [
+        21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ]
+    },
+    {
+      "station": 4,
+      "hoodVertices": 718,
+      "hoodFaces": 771,
+      "supportVertices": 8980,
+      "supportFaces": 9576,
+      "hoodParent": "Defense_04_FixedArmor",
+      "supportParent": "Defense_04_Carriage",
+      "hoodSourceReferenceFrame": 30,
+      "raisedOrigin": [
+        27.719816207885742,
+        -64.032958984375,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "FixedHoodSourceVertexMaxError": 0.0003188696864526719,
+      "FixedHoodSourceInterpolatedVertices": 2,
+      "FixedHoodSourceMaxError": 2.8800332074752077e-05,
+      "FixedHoodSourceUnmatchedVertices": 0,
+      "LowerCradleSourceVertexMaxError": 0.00011110203195130453,
+      "LowerCradleSourceInterpolatedVertices": 1,
+      "LowerCradleSourceMaxError": 6.890255463076755e-05,
+      "LowerCradleSourceUnmatchedVertices": 0,
+      "inheritedSupportSourceSurfaceDifferences": [],
+      "originalRestOrigin": [
+        27.719818115234375,
+        -64.032958984375,
+        52.27461624145508
+      ]
+    }
+  ],
+  "animationClips": 0,
+  "nativeSha256": "404c0a9d63a5d70174ba5c77417011a0a891be769c84b81e7143c5824ec70a72"
+}

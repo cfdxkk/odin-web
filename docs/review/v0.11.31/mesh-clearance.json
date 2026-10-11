@@ -1,0 +1,118 @@
+{
+  "Port": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "closedSourceCarriage": [
+      -22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "originalReceiverSeats": [
+      {
+        "joint": "PDC_Port_HullPetal_0",
+        "maxSkinToOriginalReceiverPlane": 0.2102915892130568,
+        "closedForemostCoordinate": 38.763336181640625
+      },
+      {
+        "joint": "PDC_Port_HullPetal_1",
+        "maxSkinToOriginalReceiverPlane": 0.21029784384396066,
+        "closedForemostCoordinate": 36.66236114501953
+      },
+      {
+        "joint": "PDC_Port_HullPetal_2",
+        "maxSkinToOriginalReceiverPlane": 0.21172834221411563,
+        "closedForemostCoordinate": 37.742218017578125
+      },
+      {
+        "joint": "PDC_Port_HullPetal_3",
+        "maxSkinToOriginalReceiverPlane": 0.21172359015706377,
+        "closedForemostCoordinate": 35.4055061340332
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 21.00126075744629,
+        "closedArmorForemost": 38.763336181640625,
+        "hiddenBehindArmor": 17.762075424194336
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 20.99883460998535,
+        "closedArmorForemost": 36.66236114501953,
+        "hiddenBehindArmor": 15.66352653503418
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 21.084596633911133,
+        "closedArmorForemost": 37.742218017578125,
+        "hiddenBehindArmor": 16.657621383666992
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 21.087182998657227,
+        "closedArmorForemost": 35.4055061340332,
+        "hiddenBehindArmor": 14.318323135375977
+      }
+    ],
+    "sourceMeshesRemainRigid": true
+  },
+  "Starboard": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "closedSourceCarriage": [
+      22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "originalReceiverSeats": [
+      {
+        "joint": "PDC_Starboard_HullPetal_0",
+        "maxSkinToOriginalReceiverPlane": 0.2102915892130568,
+        "closedForemostCoordinate": 38.763336181640625
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_1",
+        "maxSkinToOriginalReceiverPlane": 0.21029784384396066,
+        "closedForemostCoordinate": 36.66236114501953
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_2",
+        "maxSkinToOriginalReceiverPlane": 0.21172834221411563,
+        "closedForemostCoordinate": 37.742218017578125
+      },
+      {
+        "joint": "PDC_Starboard_HullPetal_3",
+        "maxSkinToOriginalReceiverPlane": 0.21172359015706377,
+        "closedForemostCoordinate": 35.4055061340332
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 21.00126075744629,
+        "closedArmorForemost": 38.763336181640625,
+        "hiddenBehindArmor": 17.762075424194336
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 20.99883460998535,
+        "closedArmorForemost": 36.66236114501953,
+        "hiddenBehindArmor": 15.66352653503418
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 21.084596633911133,
+        "closedArmorForemost": 37.742218017578125,
+        "hiddenBehindArmor": 16.657621383666992
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 21.087182998657227,
+        "closedArmorForemost": 35.4055061340332,
+        "hiddenBehindArmor": 14.318323135375977
+      }
+    ],
+    "sourceMeshesRemainRigid": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "unaffectedObjects": 506,
+  "changedOutsideScope": [],
+  "originalGeometryTransfers": {
+    "holo.001": {
+      "sourceFaces": 227381,
+      "retainedFaces": 227381,
+      "maximumRestVertexError": 1.080012498277938e-05
+    },
+    "holo.024": {
+      "sourceFaces": 9712,
+      "retainedFaces": 9712,
+      "maximumRestVertexError": 1.080012498277938e-05
+    }
+  },
+  "originalSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e"
+}

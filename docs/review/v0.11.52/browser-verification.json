@@ -1,0 +1,2041 @@
+{
+  "version": "v0.11.52-rc.1",
+  "frames": [
+    {
+      "name": "after-starboard-0-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "5"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "6"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "7"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "8"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "9"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "10"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "11"
+      }
+    },
+    {
+      "name": "after-starboard-0-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "12"
+      }
+    },
+    {
+      "name": "after-starboard-0-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "13"
+      }
+    },
+    {
+      "name": "after-starboard-1-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "16"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "17"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "18"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "19"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "20"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "21"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "22"
+      }
+    },
+    {
+      "name": "after-starboard-1-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "23"
+      }
+    },
+    {
+      "name": "after-starboard-1-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "24"
+      }
+    },
+    {
+      "name": "after-starboard-2-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "27"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "28"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "29"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "30"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "31"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "32"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "33"
+      }
+    },
+    {
+      "name": "after-starboard-2-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "34"
+      }
+    },
+    {
+      "name": "after-starboard-2-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "35"
+      }
+    },
+    {
+      "name": "after-starboard-3-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "38"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "39"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "40"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "41"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "42"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "43"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "44"
+      }
+    },
+    {
+      "name": "after-starboard-3-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "45"
+      }
+    },
+    {
+      "name": "after-starboard-3-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 右舷",
+        "joints": "215",
+        "renderedFrames": "46"
+      }
+    },
+    {
+      "name": "after-port-0-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "50"
+      }
+    },
+    {
+      "name": "after-port-0-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "51"
+      }
+    },
+    {
+      "name": "after-port-0-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "52"
+      }
+    },
+    {
+      "name": "after-port-0-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "53"
+      }
+    },
+    {
+      "name": "after-port-0-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "54"
+      }
+    },
+    {
+      "name": "after-port-0-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "55"
+      }
+    },
+    {
+      "name": "after-port-0-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "56"
+      }
+    },
+    {
+      "name": "after-port-0-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "57"
+      }
+    },
+    {
+      "name": "after-port-0-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "58"
+      }
+    },
+    {
+      "name": "after-port-1-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "61"
+      }
+    },
+    {
+      "name": "after-port-1-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "62"
+      }
+    },
+    {
+      "name": "after-port-1-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "63"
+      }
+    },
+    {
+      "name": "after-port-1-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "64"
+      }
+    },
+    {
+      "name": "after-port-1-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "65"
+      }
+    },
+    {
+      "name": "after-port-1-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "66"
+      }
+    },
+    {
+      "name": "after-port-1-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "67"
+      }
+    },
+    {
+      "name": "after-port-1-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "68"
+      }
+    },
+    {
+      "name": "after-port-1-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "69"
+      }
+    },
+    {
+      "name": "after-port-2-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "72"
+      }
+    },
+    {
+      "name": "after-port-2-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "73"
+      }
+    },
+    {
+      "name": "after-port-2-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "74"
+      }
+    },
+    {
+      "name": "after-port-2-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "75"
+      }
+    },
+    {
+      "name": "after-port-2-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "76"
+      }
+    },
+    {
+      "name": "after-port-2-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "77"
+      }
+    },
+    {
+      "name": "after-port-2-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "78"
+      }
+    },
+    {
+      "name": "after-port-2-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "79"
+      }
+    },
+    {
+      "name": "after-port-2-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "80"
+      }
+    },
+    {
+      "name": "after-port-3-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "83"
+      }
+    },
+    {
+      "name": "after-port-3-0.249",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.249",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "84"
+      }
+    },
+    {
+      "name": "after-port-3-0.3",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.300",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "85"
+      }
+    },
+    {
+      "name": "after-port-3-0.35",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.350",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "86"
+      }
+    },
+    {
+      "name": "after-port-3-0.42",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.420",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "87"
+      }
+    },
+    {
+      "name": "after-port-3-0.5",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.500",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "88"
+      }
+    },
+    {
+      "name": "after-port-3-0.6",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.600",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "89"
+      }
+    },
+    {
+      "name": "after-port-3-0.64",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.640",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "90"
+      }
+    },
+    {
+      "name": "after-port-3-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "四联装 · 左舷",
+        "joints": "215",
+        "renderedFrames": "91"
+      }
+    },
+    {
+      "name": "regression-72-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "主炮 · 上方五块护甲",
+        "joints": "215",
+        "renderedFrames": "93"
+      }
+    },
+    {
+      "name": "regression-73-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "主炮 · 上方五块护甲",
+        "joints": "215",
+        "renderedFrames": "94"
+      }
+    },
+    {
+      "name": "regression-74-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "主炮 · 下方五块护甲",
+        "joints": "215",
+        "renderedFrames": "96"
+      }
+    },
+    {
+      "name": "regression-75-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "主炮 · 下方五块护甲",
+        "joints": "215",
+        "renderedFrames": "97"
+      }
+    },
+    {
+      "name": "regression-76-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "单联装 · 舰艏",
+        "joints": "215",
+        "renderedFrames": "99"
+      }
+    },
+    {
+      "name": "regression-77-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "单联装 · 舰艏",
+        "joints": "215",
+        "renderedFrames": "100"
+      }
+    },
+    {
+      "name": "regression-78-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "单联装 · 右舷 2",
+        "joints": "215",
+        "renderedFrames": "102"
+      }
+    },
+    {
+      "name": "regression-79-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "单联装 · 右舷 2",
+        "joints": "215",
+        "renderedFrames": "103"
+      }
+    },
+    {
+      "name": "regression-80-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "双联装 · 1",
+        "joints": "215",
+        "renderedFrames": "105"
+      }
+    },
+    {
+      "name": "regression-81-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "双联装 · 1",
+        "joints": "215",
+        "renderedFrames": "106"
+      }
+    },
+    {
+      "name": "regression-82-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "双联装 · 5 / 船壳盖板",
+        "joints": "215",
+        "renderedFrames": "108"
+      }
+    },
+    {
+      "name": "regression-83-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "双联装 · 5 / 船壳盖板",
+        "joints": "215",
+        "renderedFrames": "109"
+      }
+    },
+    {
+      "name": "regression-84-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "舰桥 · 前部",
+        "joints": "215",
+        "renderedFrames": "111"
+      }
+    },
+    {
+      "name": "regression-85-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "舰桥 · 前部",
+        "joints": "215",
+        "renderedFrames": "112"
+      }
+    },
+    {
+      "name": "regression-86-0",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "0.000",
+        "station": "舰桥 · 雷达与桁架",
+        "joints": "215",
+        "renderedFrames": "114"
+      }
+    },
+    {
+      "name": "regression-87-1",
+      "state": {
+        "v-70ecf0c2": "",
+        "engine": "three.js r186",
+        "ready": "true",
+        "deployment": "1.000",
+        "station": "舰桥 · 雷达与桁架",
+        "joints": "215",
+        "renderedFrames": "115"
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "playback": {
+    "version": "v0.11.52-rc.1",
+    "loops": [
+      {
+        "side": "右舷",
+        "hasOpen": true,
+        "hasClose": true,
+        "samples": [
+          {
+            "ms": 266,
+            "deployment": 0.041,
+            "direction": "opening",
+            "renderedFrames": 143
+          },
+          {
+            "ms": 526,
+            "deployment": 0.08,
+            "direction": "opening",
+            "renderedFrames": 162
+          },
+          {
+            "ms": 790,
+            "deployment": 0.121,
+            "direction": "opening",
+            "renderedFrames": 182
+          },
+          {
+            "ms": 1054,
+            "deployment": 0.162,
+            "direction": "opening",
+            "renderedFrames": 202
+          },
+          {
+            "ms": 1317,
+            "deployment": 0.201,
+            "direction": "opening",
+            "renderedFrames": 221
+          },
+          {
+            "ms": 1582,
+            "deployment": 0.242,
+            "direction": "opening",
+            "renderedFrames": 241
+          },
+          {
+            "ms": 1847,
+            "deployment": 0.283,
+            "direction": "opening",
+            "renderedFrames": 261
+          },
+          {
+            "ms": 2110,
+            "deployment": 0.324,
+            "direction": "opening",
+            "renderedFrames": 281
+          },
+          {
+            "ms": 2374,
+            "deployment": 0.365,
+            "direction": "opening",
+            "renderedFrames": 301
+          },
+          {
+            "ms": 2795,
+            "deployment": 0.429,
+            "direction": "opening",
+            "renderedFrames": 332
+          },
+          {
+            "ms": 3058,
+            "deployment": 0.47,
+            "direction": "opening",
+            "renderedFrames": 352
+          },
+          {
+            "ms": 3320,
+            "deployment": 0.511,
+            "direction": "opening",
+            "renderedFrames": 372
+          },
+          {
+            "ms": 3584,
+            "deployment": 0.55,
+            "direction": "opening",
+            "renderedFrames": 391
+          },
+          {
+            "ms": 3848,
+            "deployment": 0.591,
+            "direction": "opening",
+            "renderedFrames": 411
+          },
+          {
+            "ms": 4115,
+            "deployment": 0.632,
+            "direction": "opening",
+            "renderedFrames": 431
+          },
+          {
+            "ms": 4376,
+            "deployment": 0.673,
+            "direction": "opening",
+            "renderedFrames": 451
+          },
+          {
+            "ms": 4640,
+            "deployment": 0.714,
+            "direction": "opening",
+            "renderedFrames": 471
+          },
+          {
+            "ms": 4908,
+            "deployment": 0.755,
+            "direction": "opening",
+            "renderedFrames": 491
+          },
+          {
+            "ms": 5175,
+            "deployment": 0.796,
+            "direction": "opening",
+            "renderedFrames": 511
+          },
+          {
+            "ms": 5435,
+            "deployment": 0.835,
+            "direction": "opening",
+            "renderedFrames": 530
+          },
+          {
+            "ms": 5696,
+            "deployment": 0.876,
+            "direction": "opening",
+            "renderedFrames": 550
+          },
+          {
+            "ms": 5960,
+            "deployment": 0.917,
+            "direction": "opening",
+            "renderedFrames": 570
+          },
+          {
+            "ms": 6226,
+            "deployment": 0.958,
+            "direction": "opening",
+            "renderedFrames": 590
+          },
+          {
+            "ms": 6487,
+            "deployment": 0.997,
+            "direction": "opening",
+            "renderedFrames": 609
+          },
+          {
+            "ms": 6751,
+            "deployment": 1,
+            "direction": "opening",
+            "renderedFrames": 629
+          },
+          {
+            "ms": 7016,
+            "deployment": 1,
+            "direction": "hold",
+            "renderedFrames": 649
+          },
+          {
+            "ms": 7281,
+            "deployment": 1,
+            "direction": "hold",
+            "renderedFrames": 669
+          },
+          {
+            "ms": 7549,
+            "deployment": 0.993,
+            "direction": "closing",
+            "renderedFrames": 689
+          },
+          {
+            "ms": 7812,
+            "deployment": 0.954,
+            "direction": "closing",
+            "renderedFrames": 708
+          },
+          {
+            "ms": 8072,
+            "deployment": 0.913,
+            "direction": "closing",
+            "renderedFrames": 728
+          },
+          {
+            "ms": 8336,
+            "deployment": 0.871,
+            "direction": "closing",
+            "renderedFrames": 748
+          },
+          {
+            "ms": 8602,
+            "deployment": 0.83,
+            "direction": "closing",
+            "renderedFrames": 768
+          },
+          {
+            "ms": 8864,
+            "deployment": 0.791,
+            "direction": "closing",
+            "renderedFrames": 787
+          },
+          {
+            "ms": 9127,
+            "deployment": 0.75,
+            "direction": "closing",
+            "renderedFrames": 807
+          },
+          {
+            "ms": 9391,
+            "deployment": 0.709,
+            "direction": "closing",
+            "renderedFrames": 827
+          },
+          {
+            "ms": 9650,
+            "deployment": 0.67,
+            "direction": "closing",
+            "renderedFrames": 846
+          },
+          {
+            "ms": 9913,
+            "deployment": 0.629,
+            "direction": "closing",
+            "renderedFrames": 866
+          },
+          {
+            "ms": 10177,
+            "deployment": 0.588,
+            "direction": "closing",
+            "renderedFrames": 886
+          },
+          {
+            "ms": 10443,
+            "deployment": 0.547,
+            "direction": "closing",
+            "renderedFrames": 906
+          },
+          {
+            "ms": 10708,
+            "deployment": 0.506,
+            "direction": "closing",
+            "renderedFrames": 926
+          },
+          {
+            "ms": 10969,
+            "deployment": 0.467,
+            "direction": "closing",
+            "renderedFrames": 945
+          },
+          {
+            "ms": 11389,
+            "deployment": 0.402,
+            "direction": "closing",
+            "renderedFrames": 977
+          },
+          {
+            "ms": 11646,
+            "deployment": 0.363,
+            "direction": "closing",
+            "renderedFrames": 996
+          },
+          {
+            "ms": 11908,
+            "deployment": 0.322,
+            "direction": "closing",
+            "renderedFrames": 1016
+          },
+          {
+            "ms": 12168,
+            "deployment": 0.283,
+            "direction": "closing",
+            "renderedFrames": 1035
+          },
+          {
+            "ms": 12429,
+            "deployment": 0.242,
+            "direction": "closing",
+            "renderedFrames": 1055
+          },
+          {
+            "ms": 12692,
+            "deployment": 0.203,
+            "direction": "closing",
+            "renderedFrames": 1074
+          },
+          {
+            "ms": 12955,
+            "deployment": 0.162,
+            "direction": "closing",
+            "renderedFrames": 1094
+          },
+          {
+            "ms": 13218,
+            "deployment": 0.121,
+            "direction": "closing",
+            "renderedFrames": 1114
+          },
+          {
+            "ms": 13483,
+            "deployment": 0.079,
+            "direction": "closing",
+            "renderedFrames": 1134
+          },
+          {
+            "ms": 13749,
+            "deployment": 0.038,
+            "direction": "closing",
+            "renderedFrames": 1154
+          },
+          {
+            "ms": 14009,
+            "deployment": 0,
+            "direction": "closing",
+            "renderedFrames": 1173
+          },
+          {
+            "ms": 14271,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 1193
+          },
+          {
+            "ms": 14535,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 1213
+          },
+          {
+            "ms": 14796,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 1232
+          },
+          {
+            "ms": 15057,
+            "deployment": 0.009,
+            "direction": "opening",
+            "renderedFrames": 1252
+          },
+          {
+            "ms": 15320,
+            "deployment": 0.048,
+            "direction": "opening",
+            "renderedFrames": 1271
+          },
+          {
+            "ms": 15580,
+            "deployment": 0.089,
+            "direction": "opening",
+            "renderedFrames": 1291
+          },
+          {
+            "ms": 15844,
+            "deployment": 0.13,
+            "direction": "opening",
+            "renderedFrames": 1311
+          },
+          {
+            "ms": 16106,
+            "deployment": 0.169,
+            "direction": "opening",
+            "renderedFrames": 1330
+          },
+          {
+            "ms": 16370,
+            "deployment": 0.21,
+            "direction": "opening",
+            "renderedFrames": 1350
+          }
+        ]
+      },
+      {
+        "side": "左舷",
+        "hasOpen": true,
+        "hasClose": true,
+        "samples": [
+          {
+            "ms": 265,
+            "deployment": 0.041,
+            "direction": "opening",
+            "renderedFrames": 1375
+          },
+          {
+            "ms": 528,
+            "deployment": 0.08,
+            "direction": "opening",
+            "renderedFrames": 1394
+          },
+          {
+            "ms": 788,
+            "deployment": 0.121,
+            "direction": "opening",
+            "renderedFrames": 1414
+          },
+          {
+            "ms": 1055,
+            "deployment": 0.162,
+            "direction": "opening",
+            "renderedFrames": 1434
+          },
+          {
+            "ms": 1319,
+            "deployment": 0.203,
+            "direction": "opening",
+            "renderedFrames": 1454
+          },
+          {
+            "ms": 1583,
+            "deployment": 0.242,
+            "direction": "opening",
+            "renderedFrames": 1473
+          },
+          {
+            "ms": 1850,
+            "deployment": 0.283,
+            "direction": "opening",
+            "renderedFrames": 1493
+          },
+          {
+            "ms": 2116,
+            "deployment": 0.324,
+            "direction": "opening",
+            "renderedFrames": 1513
+          },
+          {
+            "ms": 2380,
+            "deployment": 0.365,
+            "direction": "opening",
+            "renderedFrames": 1533
+          },
+          {
+            "ms": 2817,
+            "deployment": 0.433,
+            "direction": "opening",
+            "renderedFrames": 1566
+          },
+          {
+            "ms": 3079,
+            "deployment": 0.474,
+            "direction": "opening",
+            "renderedFrames": 1586
+          },
+          {
+            "ms": 3344,
+            "deployment": 0.513,
+            "direction": "opening",
+            "renderedFrames": 1605
+          },
+          {
+            "ms": 3608,
+            "deployment": 0.554,
+            "direction": "opening",
+            "renderedFrames": 1625
+          },
+          {
+            "ms": 3870,
+            "deployment": 0.595,
+            "direction": "opening",
+            "renderedFrames": 1645
+          },
+          {
+            "ms": 4133,
+            "deployment": 0.636,
+            "direction": "opening",
+            "renderedFrames": 1665
+          },
+          {
+            "ms": 4396,
+            "deployment": 0.675,
+            "direction": "opening",
+            "renderedFrames": 1684
+          },
+          {
+            "ms": 4659,
+            "deployment": 0.716,
+            "direction": "opening",
+            "renderedFrames": 1704
+          },
+          {
+            "ms": 4927,
+            "deployment": 0.757,
+            "direction": "opening",
+            "renderedFrames": 1724
+          },
+          {
+            "ms": 5192,
+            "deployment": 0.798,
+            "direction": "opening",
+            "renderedFrames": 1744
+          },
+          {
+            "ms": 5452,
+            "deployment": 0.839,
+            "direction": "opening",
+            "renderedFrames": 1764
+          },
+          {
+            "ms": 5716,
+            "deployment": 0.878,
+            "direction": "opening",
+            "renderedFrames": 1783
+          },
+          {
+            "ms": 5980,
+            "deployment": 0.919,
+            "direction": "opening",
+            "renderedFrames": 1803
+          },
+          {
+            "ms": 6238,
+            "deployment": 0.958,
+            "direction": "opening",
+            "renderedFrames": 1822
+          },
+          {
+            "ms": 6503,
+            "deployment": 0.999,
+            "direction": "opening",
+            "renderedFrames": 1842
+          },
+          {
+            "ms": 6767,
+            "deployment": 1,
+            "direction": "opening",
+            "renderedFrames": 1862
+          },
+          {
+            "ms": 7030,
+            "deployment": 1,
+            "direction": "hold",
+            "renderedFrames": 1882
+          },
+          {
+            "ms": 7291,
+            "deployment": 1,
+            "direction": "hold",
+            "renderedFrames": 1901
+          },
+          {
+            "ms": 7559,
+            "deployment": 0.99,
+            "direction": "closing",
+            "renderedFrames": 1922
+          },
+          {
+            "ms": 7825,
+            "deployment": 0.951,
+            "direction": "closing",
+            "renderedFrames": 1941
+          },
+          {
+            "ms": 8088,
+            "deployment": 0.91,
+            "direction": "closing",
+            "renderedFrames": 1961
+          },
+          {
+            "ms": 8354,
+            "deployment": 0.869,
+            "direction": "closing",
+            "renderedFrames": 1981
+          },
+          {
+            "ms": 8619,
+            "deployment": 0.828,
+            "direction": "closing",
+            "renderedFrames": 2001
+          },
+          {
+            "ms": 8883,
+            "deployment": 0.787,
+            "direction": "closing",
+            "renderedFrames": 2021
+          },
+          {
+            "ms": 9148,
+            "deployment": 0.746,
+            "direction": "closing",
+            "renderedFrames": 2041
+          },
+          {
+            "ms": 9411,
+            "deployment": 0.707,
+            "direction": "closing",
+            "renderedFrames": 2060
+          },
+          {
+            "ms": 9677,
+            "deployment": 0.666,
+            "direction": "closing",
+            "renderedFrames": 2080
+          },
+          {
+            "ms": 9943,
+            "deployment": 0.625,
+            "direction": "closing",
+            "renderedFrames": 2100
+          },
+          {
+            "ms": 10206,
+            "deployment": 0.584,
+            "direction": "closing",
+            "renderedFrames": 2120
+          },
+          {
+            "ms": 10469,
+            "deployment": 0.543,
+            "direction": "closing",
+            "renderedFrames": 2140
+          },
+          {
+            "ms": 10728,
+            "deployment": 0.504,
+            "direction": "closing",
+            "renderedFrames": 2159
+          },
+          {
+            "ms": 10991,
+            "deployment": 0.463,
+            "direction": "closing",
+            "renderedFrames": 2179
+          },
+          {
+            "ms": 11438,
+            "deployment": 0.395,
+            "direction": "closing",
+            "renderedFrames": 2212
+          },
+          {
+            "ms": 11703,
+            "deployment": 0.354,
+            "direction": "closing",
+            "renderedFrames": 2232
+          },
+          {
+            "ms": 11968,
+            "deployment": 0.313,
+            "direction": "closing",
+            "renderedFrames": 2252
+          },
+          {
+            "ms": 12233,
+            "deployment": 0.272,
+            "direction": "closing",
+            "renderedFrames": 2272
+          },
+          {
+            "ms": 12498,
+            "deployment": 0.231,
+            "direction": "closing",
+            "renderedFrames": 2292
+          },
+          {
+            "ms": 12757,
+            "deployment": 0.192,
+            "direction": "closing",
+            "renderedFrames": 2311
+          },
+          {
+            "ms": 13023,
+            "deployment": 0.151,
+            "direction": "closing",
+            "renderedFrames": 2331
+          },
+          {
+            "ms": 13285,
+            "deployment": 0.11,
+            "direction": "closing",
+            "renderedFrames": 2351
+          },
+          {
+            "ms": 13551,
+            "deployment": 0.069,
+            "direction": "closing",
+            "renderedFrames": 2371
+          },
+          {
+            "ms": 13812,
+            "deployment": 0.03,
+            "direction": "closing",
+            "renderedFrames": 2390
+          },
+          {
+            "ms": 14073,
+            "deployment": 0,
+            "direction": "closing",
+            "renderedFrames": 2410
+          },
+          {
+            "ms": 14336,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 2430
+          },
+          {
+            "ms": 14597,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 2449
+          },
+          {
+            "ms": 14860,
+            "deployment": 0,
+            "direction": "hold",
+            "renderedFrames": 2469
+          },
+          {
+            "ms": 15123,
+            "deployment": 0.019,
+            "direction": "opening",
+            "renderedFrames": 2489
+          },
+          {
+            "ms": 15385,
+            "deployment": 0.058,
+            "direction": "opening",
+            "renderedFrames": 2508
+          },
+          {
+            "ms": 15646,
+            "deployment": 0.099,
+            "direction": "opening",
+            "renderedFrames": 2528
+          },
+          {
+            "ms": 15911,
+            "deployment": 0.14,
+            "direction": "opening",
+            "renderedFrames": 2548
+          },
+          {
+            "ms": 16177,
+            "deployment": 0.181,
+            "direction": "opening",
+            "renderedFrames": 2568
+          },
+          {
+            "ms": 16442,
+            "deployment": 0.222,
+            "direction": "opening",
+            "renderedFrames": 2588
+          }
+        ]
+      }
+    ],
+    "explicitPauseHolds": true,
+    "idleRenderFrames": 0,
+    "errors": []
+  },
+  "website": {
+    "states": [
+      {
+        "engine": "three.js r186",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "asset": "/models/odin.glb",
+        "ready": "true",
+        "time": "0.00",
+        "cameraTime": "0.0000",
+        "deployment": "0.000",
+        "thrust": "0.000",
+        "joints": "215",
+        "quality": "high",
+        "cameraTarget": "0.000,0.200,0.000",
+        "cameraPosition": "-9.638250,2.888000,-5.704746",
+        "fps": "22"
+      },
+      {
+        "engine": "three.js r186",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "asset": "/models/odin.glb",
+        "ready": "true",
+        "time": "24.00",
+        "cameraTime": "24.0000",
+        "deployment": "1.000",
+        "thrust": "0.000",
+        "joints": "215",
+        "quality": "high",
+        "cameraTarget": "0.000,0.200,0.000",
+        "cameraPosition": "-9.409163,2.888000,6.075167",
+        "fps": "22"
+      },
+      {
+        "engine": "three.js r186",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "asset": "/models/odin.glb",
+        "ready": "true",
+        "time": "44.00",
+        "cameraTime": "44.0000",
+        "deployment": "0.000",
+        "thrust": "1.000",
+        "joints": "215",
+        "quality": "high",
+        "cameraTarget": "0.000,0.200,0.000",
+        "cameraPosition": "-8.087319,2.888000,7.748243",
+        "fps": "75"
+      }
+    ],
+    "pausePersistsAcrossSeekAndMode": true,
+    "errors": []
+  },
+  "occlusion": {
+    "version": "v0.11.52-rc.1",
+    "rows": [
+      {
+        "progress": 0.249,
+        "part": "PDC_Starboard_ArmMesh_3",
+        "after": [
+          {
+            "pixel": [
+              1167,
+              210
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.21120685345364956,
+              1.0747326288538668,
+              0.5938431707362293
+            ]
+          },
+          {
+            "pixel": [
+              1152,
+              218
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.22611349069387676,
+              1.0787959056066803,
+              0.5858140494627848
+            ]
+          },
+          {
+            "pixel": [
+              1182,
+              199
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.20164954866200982,
+              1.0749354956206887,
+              0.5965229595610864
+            ]
+          }
+        ],
+        "before": [
+          {
+            "pixel": [
+              1167,
+              210
+            ],
+            "nearest": "PDC_Starboard_ArmMesh_3_1",
+            "point": [
+              0.22006389964814566,
+              1.0800468565705643,
+              0.584986124541733
+            ]
+          },
+          {
+            "pixel": [
+              1152,
+              218
+            ],
+            "nearest": "PDC_Starboard_ArmMesh_3_1",
+            "point": [
+              0.22773490573151084,
+              1.0797687546292605,
+              0.5841926344251505
+            ]
+          },
+          {
+            "pixel": [
+              1182,
+              199
+            ],
+            "nearest": "PDC_Starboard_ArmMesh_3_1",
+            "point": [
+              0.21129509259253332,
+              1.0807228219790024,
+              0.5868774156305628
+            ]
+          }
+        ]
+      },
+      {
+        "progress": 0.5,
+        "part": "PDC_Starboard_OriginalSupport",
+        "after": [
+          {
+            "pixel": [
+              1068,
+              307
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.29032168576221495,
+              1.0744224556591593,
+              0.560119943808429
+            ]
+          },
+          {
+            "pixel": [
+              1085,
+              305
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.28487525128075364,
+              1.0741973130993103,
+              0.5577718601942037
+            ]
+          },
+          {
+            "pixel": [
+              1070,
+              309
+            ],
+            "nearest": "Axial_Stern_FixedSlotLips_7",
+            "point": [
+              0.2906302029886164,
+              1.0741783039333495,
+              0.5588944244531231
+            ]
+          }
+        ],
+        "before": [
+          {
+            "pixel": [
+              1068,
+              307
+            ],
+            "nearest": "PDC_Starboard_OriginalSupport",
+            "point": [
+              0.2910886090978948,
+              1.0748826096605668,
+              0.559353020472749
+            ]
+          },
+          {
+            "pixel": [
+              1085,
+              305
+            ],
+            "nearest": "PDC_Starboard_OriginalSupport",
+            "point": [
+              0.2860174122161814,
+              1.0748826096605666,
+              0.5566296992587758
+            ]
+          },
+          {
+            "pixel": [
+              1070,
+              309
+            ],
+            "nearest": "PDC_Starboard_OriginalSupport",
+            "point": [
+              0.291804045867312,
+              1.0748826096605666,
+              0.5577205815744275
+            ]
+          }
+        ]
+      }
+    ],
+    "reportedWhiteCornerHidden": true,
+    "supportWhiteCornerHidden": true,
+    "positiveControl": "Reconstruct the prior local mounting offsets at the same camera and timeline; no production or GLB edits."
+  },
+  "codeHashes": {
+    "motionHelper": "17e8f537bb497e2e301f538c21e8423232287dabd00866efcc2b5ba73edf80bc",
+    "rig": "6a8eba90e28911041905f48801b2a1e4cd51fbff7dd5aa436b8b3534a1ae5564",
+    "tempo": "a5cc158f9503b3e2e88a030394da11284ad726f0c7ab72922984c55dc165be42"
+  }
+}

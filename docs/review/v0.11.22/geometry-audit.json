@@ -1,0 +1,41 @@
+{
+  "stations": {
+    "Stern": {
+      "roofMaximumError": 1.094683464053503e-05,
+      "adjacentLeafMaximumError": 1.6917969320573434e-05,
+      "capFullEdgeMaximumError": 3.490176151643709e-06,
+      "fixedReceiverMaximumError": 4.2674197509029455e-16,
+      "capCenterSeam": 0.029999999329447746,
+      "leafWidth": 4.92,
+      "capWidth": 4.924860000610352,
+      "receiverSeam": 0.02,
+      "gunRootCrownClearance": 0.02,
+      "retainedNoseTopology": {
+        "vertices": 56,
+        "faces": 66
+      }
+    },
+    "Keel": {
+      "roofMaximumError": 5.735069527723624e-06,
+      "adjacentLeafMaximumError": 7.20630828254798e-06,
+      "capFullEdgeMaximumError": 3.261872445037284e-06,
+      "fixedReceiverMaximumError": 4.503870648864482e-06,
+      "capCenterSeam": 0.028024390149338003,
+      "leafWidth": 4.596,
+      "capWidth": 4.596000096019881,
+      "receiverSeam": 0.02,
+      "gunRootCrownClearance": 0.02,
+      "retainedNoseTopology": {
+        "vertices": 56,
+        "faces": 66
+      }
+    }
+  },
+  "restoredOriginalSupportMaximumError": 4.5038706489710526e-06,
+  "unchangedMeshCount": 812,
+  "unchangedJointTransforms": 187,
+  "sourceFileSha256": {
+    "odin.blend": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+    "odin_with_anime.blend": "c606825700df099f93ee1d39670d04371ce8cf71f9db77353a676f8de3b6c35e"
+  }
+}

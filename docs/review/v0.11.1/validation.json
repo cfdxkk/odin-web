@@ -1,0 +1,53 @@
+{
+  "version": "0.11.1",
+  "tag": "v0.11.1-rc.1",
+  "branch": "codex/odin-side-battery-v0.11.1",
+  "tests": {
+    "passed": 34,
+    "failed": 0
+  },
+  "assetVerification": "passed",
+  "staticGeneration": "passed",
+  "contactSweep": {
+    "samples": 101,
+    "gunArmorEvents": 0,
+    "group23Events": 0,
+    "group12Events": 0,
+    "armorFairingEvents": 0,
+    "forwardSliderHullEvents": 0
+  },
+  "models": [
+    {
+      "file": "odin.glb",
+      "bytes": 18600336,
+      "meshes": 175,
+      "animationClips": 0
+    },
+    {
+      "file": "odin-lite.glb",
+      "bytes": 8161124,
+      "meshes": 175,
+      "animationClips": 0
+    }
+  ],
+  "sha256": {
+    "assets/blender/odin_articulated_v0.11.1.blend": "d08dc768368ea00072557d5714e8338f36ab2153271667d67092d25f11b06105",
+    "public/models/odin.glb": "52b1342617ceae97e67af0960db0b73c439a495a4137bced7aaca6a116698db5",
+    "public/models/odin-lite.glb": "268b827dc387edb4710b08c12e272919028a79aaebb2721580bb8fb914a0687c",
+    "app/lib/odin-rig.ts": "829438f54dafad4fe994fe94f220f08d3ad91c55462d333eb9d2adf25fd141e8"
+  },
+  "browser": {
+    "url": "http://127.0.0.1:4173/?review=secondary",
+    "errors": [],
+    "checked": [
+      "four vertical flank batteries NAV/SCM",
+      "front and aft bore rest-parallel states",
+      "aft carriage intermediate pose",
+      "main dorsal open and ventral closed",
+      "bridge quad/PDC arms",
+      "aft twin defense NAV/SCM",
+      "bridge front"
+    ]
+  },
+  "originalBlendSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e"
+}

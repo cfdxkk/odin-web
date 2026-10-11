@@ -1,0 +1,125 @@
+{
+  "version": "0.11.43",
+  "baseline": "0.11.42",
+  "affectedJoints": 54,
+  "unaffectedJoints": 161,
+  "samples": 1203,
+  "maxPosePathError": 0,
+  "maxUnaffectedWorldError": 0,
+  "allAcceptedPosePathsPreserved": true,
+  "allOtherMotionUnchanged": true,
+  "runtimeMeshSweepPoses": 442,
+  "profile": {
+    "version": "0.11.43",
+    "quad": {
+      "knots": [
+        [
+          0,
+          0.03
+        ],
+        [
+          0.33,
+          0.18
+        ],
+        [
+          0.35,
+          0.2
+        ],
+        [
+          0.67,
+          0.56
+        ],
+        [
+          0.69,
+          0.8
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    "aftTwin": {
+      "knots": [
+        [
+          0,
+          0
+        ],
+        [
+          0.26,
+          0.05
+        ],
+        [
+          0.64,
+          0.52
+        ],
+        [
+          0.66,
+          0.65
+        ],
+        [
+          0.98,
+          0.94
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "speedChecks": [
+    {
+      "name": "PDC_Starboard_Arm_0",
+      "before": {
+        "stroke": 14.40237037037037,
+        "peakSpeedModelUnitsPerSecond": 22.157164618339046,
+        "tenToNinetySeconds": 0.5947499999999999
+      },
+      "after": {
+        "stroke": 14.40237037037037,
+        "peakSpeedModelUnitsPerSecond": 10.071556843342933,
+        "tenToNinetySeconds": 1.3032500000000002
+      }
+    },
+    {
+      "name": "PDC_Starboard_Carriage",
+      "before": {
+        "stroke": 10,
+        "peakSpeedModelUnitsPerSecond": 8.113477270405575,
+        "tenToNinetySeconds": 1.17
+      },
+      "after": {
+        "stroke": 10,
+        "peakSpeedModelUnitsPerSecond": 9.127629373488425,
+        "tenToNinetySeconds": 1.0432500000000005
+      }
+    },
+    {
+      "name": "Defense_05_NotchGate",
+      "before": {
+        "stroke": 5.914101791481104,
+        "peakSpeedModelUnitsPerSecond": 27.302986043979175,
+        "tenToNinetySeconds": 0.19824999999999998
+      },
+      "after": {
+        "stroke": 5.914101791481104,
+        "peakSpeedModelUnitsPerSecond": 5.251173482779074,
+        "tenToNinetySeconds": 1.03025
+      }
+    },
+    {
+      "name": "Defense_05_Carriage",
+      "before": {
+        "stroke": 12.917076797789814,
+        "peakSpeedModelUnitsPerSecond": 7.177824180306827,
+        "tenToNinetySeconds": 2.08325
+      },
+      "after": {
+        "stroke": 12.917076797789814,
+        "peakSpeedModelUnitsPerSecond": 8.877821032967992,
+        "tenToNinetySeconds": 1.68675
+      }
+    }
+  ]
+}

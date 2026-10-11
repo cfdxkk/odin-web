@@ -1,0 +1,22 @@
+{
+  "version": "0.10.0",
+  "poseSource": "Actual createOdinRig applied to exported static GLB joints at 1% intervals",
+  "samples": 101,
+  "hashes": {
+    "assets/blender/odin_articulated_v0.10.0.blend": "fcbb4444e163d8c8489cdeb39935d7f66c99f4402f249ceabe721c18f584e776",
+    "public/models/odin.glb": "7939583e4faac13550d1258af0def0ef537328fcfd487292b5eedf81b622987a",
+    "app/lib/odin-rig.ts": "93a9485b07dfe132d5b4fb58ff6dea03639e0306c064491572dd592d1947c5d5",
+    "work/v0100-review/candidate-poses.json": "35f063c73ae59ac9132cec91f3bf89459bff316764609aebaea3cb8cd6fbf1a3"
+  },
+  "scopedContacts": {
+    "singleGunOwnCoverEvents": 0,
+    "quadGunHullOrPetalEvents": 0,
+    "aftTwinGunGateEvents": 0,
+    "mainArmorHullEvents": 0
+  },
+  "fixedSourceContacts": {
+    "note": "Diagnostic only: source brackets, bearings and hull have embedded surfaces; these are not part of the zero-contact claim.",
+    "gunHullEvents": 855,
+    "coverHullEvents": 4210
+  }
+}

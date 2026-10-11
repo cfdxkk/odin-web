@@ -1,0 +1,38 @@
+{
+  "5": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 157,
+    "closedExteriorHullContacts": 0,
+    "unseatedExteriorControlContacts": 10
+  },
+  "6": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 195,
+    "closedExteriorHullContacts": 0,
+    "unseatedExteriorControlContacts": 45
+  },
+  "7": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 241,
+    "closedExteriorHullContacts": 0,
+    "unseatedExteriorControlContacts": 8
+  },
+  "8": {
+    "poses": 401,
+    "gunCoverContacts": [],
+    "railCoverContacts": [],
+    "scanEndpointContacts": [],
+    "unsunkControlContacts": 203,
+    "closedExteriorHullContacts": 0,
+    "unseatedExteriorControlContacts": 44
+  }
+}

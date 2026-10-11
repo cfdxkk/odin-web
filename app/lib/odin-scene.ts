@@ -6,11 +6,11 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
-import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js'
+import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
-import { sampleOdinCamera } from './odin-camera'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from './odin-camera'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
@@ -74,7 +74,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 4 })
   const composer = new EffectComposer(renderer, renderTarget)
   composer.addPass(new RenderPass(scene, camera))
-  const ao = new GTAOPass(scene, camera, 1, 1)
+  const ao = new OdinGTAOPass(scene, camera, 1, 1)
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
   ao.blendIntensity = .48
   composer.addPass(ao)
@@ -99,7 +99,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const modelPath = softwareRenderer || canvas.clientWidth < 700 ? '/models/odin-lite.glb' : '/models/odin.glb'
   canvas.dataset.asset = modelPath
   try {
-    gltf = await loader.loadAsync(modelPath + '?v=0.8.11', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
+    gltf = await loader.loadAsync(modelPath + '?v=0.11.43-rc.1', event => hooks.progress(event.total ? Math.min(96, event.loaded / event.total * 96) : 30))
   } catch (error) {
     controls.dispose(); composer.dispose(); environment.dispose(); renderer.dispose(); draco.dispose()
     throw error
@@ -167,10 +167,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     ship.add(cone)
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0x6ba6ff, transparent: true, opacity: .55, blending: THREE.AdditiveBlending, depthWrite: false }))
     glow.position.copy(position); glow.position.z += .015; glow.scale.setScalar(radius * 3.3); ship.add(glow)
+    ao.excludedObjects.add(cone); ao.excludedObjects.add(glow)
     exhausts.push({ cone, glow, radius, length, material: shader })
   }
 
-  let time = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
+  let time = 0, cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
   let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
@@ -182,7 +183,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     composer.setPixelRatio(ratio); composer.setSize(width, height)
     camera.aspect = width / height; camera.updateProjectionMatrix()
     ao.enabled = !hooks.state().lowPower && !softwareRenderer
-    camera.setViewOffset(width, height, 0, -height * (width < 700 ? 0 : .035), width, height)
+    camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
     renderer.shadowMap.enabled = !hooks.state().lowPower && !softwareRenderer
   }
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
@@ -200,14 +201,19 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const dt = Math.min((now - previous) / 1000, .05); previous = now
     if (document.hidden) return
     const state = hooks.state()
-    if (state.playing && !state.explore) time = (time + dt) % FILM_DURATION
+    if (state.playing && !state.explore) {
+      time = (time + dt) % FILM_DURATION
+      // A film wrap must not reset the faster camera orbit to another angle.
+      cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
+    }
     if (state.explore) explorationTime += dt
     if (!state.explore) {
-      sampleCamera(time)
+      sampleCamera(cameraTime)
       if (transitioning > 0) {
         transitioning = Math.max(0, transitioning - dt)
         const u = smooth(0, 1, 1 - transitioning / 1.25)
-        camera.position.copy(cameraFrom).lerp(desired, u); cameraAim.copy(aimFrom).lerp(target, u)
+        const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
+        camera.position.copy(pose.position); cameraAim.copy(pose.target)
       } else { camera.position.copy(desired); cameraAim.copy(target) }
       camera.lookAt(cameraAim)
       controls.target.copy(cameraAim)
@@ -230,21 +236,22 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       cone.userData.offset = factor * length / 2
       glow.material.opacity = power * .65
     })
-    ship.rotation.z = Math.sin(time * TAU / FILM_DURATION) * .014
-    stars.rotation.y = time * .0007
     grade.uniforms.time!.value = time
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
+    canvas.dataset.cameraTime = cameraTime.toFixed(4)
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
+    canvas.dataset.cameraPosition = camera.position.toArray().map(n => n.toFixed(6)).join(',')
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
   function seek(t: number) {
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = 1.25
-    time = clamp(t, 0, FILM_DURATION - .01); hooks.tick(time)
+    time = clamp(t, 0, FILM_DURATION - .01)
+    cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS; hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
     controls.enabled = enabled

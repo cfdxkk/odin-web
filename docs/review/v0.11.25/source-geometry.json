@@ -1,0 +1,272 @@
+{
+  "version": "0.11.25",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "meshes": [
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalTurretShell",
+      "sourceObject": "holo.001",
+      "polygons": 360,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalRearChannelSupports",
+      "sourceObject": "holo.001",
+      "polygons": 954,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalFrontCap",
+      "sourceObject": "holo.001",
+      "polygons": 45,
+      "maxCornerError": 0.0,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 517,
+      "maxCornerError": 7.63311891205376e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 170,
+      "maxCornerError": 3.932099843950709e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 171,
+      "maxCornerError": 7.62939453125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 519,
+      "maxCornerError": 2.384185791015625e-07,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 168,
+      "maxCornerError": 4.2649612623790745e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 169,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalTurretShell",
+      "sourceObject": "holo.001",
+      "polygons": 360,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalRearChannelSupports",
+      "sourceObject": "holo.001",
+      "polygons": 954,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalFrontCap",
+      "sourceObject": "holo.001",
+      "polygons": 45,
+      "maxCornerError": 0.0,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 519,
+      "maxCornerError": 2.384185791015625e-07,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 168,
+      "maxCornerError": 4.2649612623790745e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 169,
+      "maxCornerError": 1.9073486328125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 517,
+      "maxCornerError": 7.63311891205376e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 170,
+      "maxCornerError": 9.5367431640625e-07,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 171,
+      "maxCornerError": 7.62939453125e-06,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalTurretShell",
+      "sourceObject": "holo.001",
+      "polygons": 359,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalRearChannelSupports",
+      "sourceObject": "holo.001",
+      "polygons": 945,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalFrontCap",
+      "sourceObject": "holo.001",
+      "polygons": 44,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 521,
+      "maxCornerError": 1.7059845049516298e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 170,
+      "maxCornerError": 1.748113936628215e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 171,
+      "maxCornerError": 1.7059845049516298e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 527,
+      "maxCornerError": 0.0,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 168,
+      "maxCornerError": 3.4119690099032596e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 169,
+      "maxCornerError": 2.1913767341175117e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalTurretShell",
+      "sourceObject": "holo.023",
+      "polygons": 359,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalRearChannelSupports",
+      "sourceObject": "holo.001",
+      "polygons": 945,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalFrontCap",
+      "sourceObject": "holo.001",
+      "polygons": 44,
+      "maxCornerError": 3.1456798751605675e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 527,
+      "maxCornerError": 0.0,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 168,
+      "maxCornerError": 3.4119690099032596e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 169,
+      "maxCornerError": 2.1913767341175117e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 521,
+      "maxCornerError": 1.748113936628215e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 170,
+      "maxCornerError": 1.748113936628215e-05,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+      "sourceObject": "holo.001",
+      "polygons": 171,
+      "maxCornerError": 1.7059845049516298e-05,
+      "maxUvError": 0.0
+    }
+  ],
+  "originalMovingPolygons": 12294,
+  "duplicateMovingFacesOnFixedHull": {
+    "holo.001": 0,
+    "Flank24_OriginalFixedHull": 0,
+    "holo.023": 0
+  },
+  "fixedSourcePolygonsByMount": {
+    "SideBattery_2_Starboard": 4822,
+    "SideBattery_2_Port": 4822,
+    "SideBattery_4_Starboard": 4816,
+    "SideBattery_4_Port": 3226
+  },
+  "left4FixedBearingPolygons": 1590,
+  "originalUnchanged": true
+}

@@ -1,0 +1,93 @@
+{
+  "version": "v0.11.45-rc.1",
+  "baseline": "v0.11.44-rc.1",
+  "configurations": [
+    {
+      "aspect": 1.6,
+      "mobile": false,
+      "before": {
+        "samples": 6001,
+        "totalRadians": 6.2831853071795924,
+        "minimumRadiansPerSecond": 0.004385011739838074,
+        "maximumRadiansPerSecond": 0.36685827901514756,
+        "speedRatio": 83.66186929038749,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      },
+      "after": {
+        "samples": 6001,
+        "totalRadians": 6.283185307179585,
+        "minimumRadiansPerSecond": 0.10471975511952003,
+        "maximumRadiansPerSecond": 0.10471975511978648,
+        "speedRatio": 1.0000000000025444,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      }
+    },
+    {
+      "aspect": 0.9,
+      "mobile": false,
+      "before": {
+        "samples": 6001,
+        "totalRadians": 6.2831853071795924,
+        "minimumRadiansPerSecond": 0.004385011739826972,
+        "maximumRadiansPerSecond": 0.36685827901514756,
+        "speedRatio": 83.66186929059931,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      },
+      "after": {
+        "samples": 6001,
+        "totalRadians": 6.28318530717958,
+        "minimumRadiansPerSecond": 0.10471975511952003,
+        "maximumRadiansPerSecond": 0.10471975511978648,
+        "speedRatio": 1.0000000000025444,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      }
+    },
+    {
+      "aspect": 0.6,
+      "mobile": true,
+      "before": {
+        "samples": 6001,
+        "totalRadians": 6.283185307179598,
+        "minimumRadiansPerSecond": 0.004385011739826972,
+        "maximumRadiansPerSecond": 0.36685827901514756,
+        "speedRatio": 83.66186929059931,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      },
+      "after": {
+        "samples": 6001,
+        "totalRadians": 6.283185307179581,
+        "minimumRadiansPerSecond": 0.10471975511952003,
+        "maximumRadiansPerSecond": 0.10471975511978648,
+        "speedRatio": 1.0000000000025444,
+        "reverseOrbitSamples": 0,
+        "reverseViewSamples": 0
+      }
+    }
+  ],
+  "assets": {
+    "native": {
+      "path": "assets/blender/odin_articulated_v0.11.43.blend",
+      "sha256": "c7b0199320ba48b33e22b92e7bd7682ab38a052c147866ee042775b0b1d39d9a",
+      "unchanged": true
+    },
+    "high": {
+      "path": "public/models/odin.glb",
+      "sha256": "dcac0f6bb0ac4a72037151ed4c70fbd87f577b2c801dd144cb488937153123a4",
+      "unchanged": true
+    },
+    "lite": {
+      "path": "public/models/odin-lite.glb",
+      "sha256": "e25f49c041b6bb9b1d9642f00244ef83367259bcadbdbb8f3483368e2763f457",
+      "unchanged": true
+    }
+  },
+  "weaponMotionUnchanged": true,
+  "orbitDegreesPerSecond": 6,
+  "sternPassSeconds": 40,
+  "engineLightExcludedFromAODepth": true
+}

@@ -1,0 +1,270 @@
+{
+  "version": "0.11.42",
+  "baseline": "0.11.40",
+  "quadrants": [
+    {
+      "side": "Port",
+      "quadrant": 0,
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.98,
+        0.3
+      ],
+      "guideVector": [
+        0.0,
+        -1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 1,
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.98,
+        -0.3
+      ],
+      "guideVector": [
+        0.0,
+        -1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 2,
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.98,
+        0.3
+      ],
+      "guideVector": [
+        0.0,
+        1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 3,
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.98,
+        -0.3
+      ],
+      "guideVector": [
+        0.0,
+        1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 0,
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.98,
+        0.3
+      ],
+      "guideVector": [
+        0.0,
+        -1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 1,
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.98,
+        -0.3
+      ],
+      "guideVector": [
+        0.0,
+        -1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 2,
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.98,
+        0.3
+      ],
+      "guideVector": [
+        0.0,
+        1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 3,
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.98,
+        -0.3
+      ],
+      "guideVector": [
+        0.0,
+        1.38,
+        0.0
+      ],
+      "compactReleaseRelief": 0.6,
+      "compactReliefInterval": [
+        0.12,
+        0.15
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    }
+  ]
+}

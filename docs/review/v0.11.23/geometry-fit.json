@@ -1,0 +1,1489 @@
+{
+  "axial": {
+    "Axial_Stern": {
+      "crownDatum": [
+        -16.25,
+        5.22
+      ],
+      "crownRakeBefore": 0.0074682598954443615,
+      "crownRakeAfter": 0.01841614625514861,
+      "capRearBefore": [
+        [
+          0.014999999999999998,
+          10.550000000000022,
+          5.42000000000001
+        ],
+        [
+          0.45,
+          10.550000000000022,
+          5.42000000000001
+        ],
+        [
+          2.46,
+          10.55000000000002,
+          2.490000000000009
+        ]
+      ],
+      "capRearAfter": [
+        [
+          0.014999999999999998,
+          10.550000000000022,
+          5.713552719637983
+        ],
+        [
+          0.45,
+          10.550000000000022,
+          5.713552719637983
+        ],
+        [
+          2.46,
+          10.55000000000002,
+          2.490000000000009
+        ]
+      ],
+      "fixedReceiverProfile": [
+        [
+          0.014999999999999998,
+          18.71186770772573,
+          5.863862869058634
+        ],
+        [
+          0.4092712104320526,
+          18.675998129113342,
+          5.82763697803881
+        ],
+        [
+          2.462430000305176,
+          15.661143973053447,
+          2.86216900500934
+        ]
+      ]
+    },
+    "Axial_Keel": {
+      "crownDatum": [
+        -16.11,
+        4.68
+      ],
+      "crownRakeBefore": 0.0074682598954443615,
+      "crownRakeAfter": 0.018519187682876186,
+      "capRearBefore": [
+        [
+          0.01401219512195122,
+          10.69,
+          4.8800000000000034
+        ],
+        [
+          0.4203658536585366,
+          10.69,
+          4.8800000000000034
+        ],
+        [
+          2.298,
+          10.690000000000001,
+          1.9499999999999975
+        ]
+      ],
+      "capRearAfter": [
+        [
+          0.01401219512195122,
+          10.69,
+          5.176314229901082
+        ],
+        [
+          0.4203658536585366,
+          10.69,
+          5.176314229901082
+        ],
+        [
+          2.298,
+          10.690000000000001,
+          1.9499999999999975
+        ]
+      ],
+      "fixedReceiverProfile": [
+        [
+          0.01401219512195122,
+          18.852573615645845,
+          5.32747846266452
+        ],
+        [
+          0.24691254934508455,
+          18.805901172187596,
+          5.287508373764857
+        ],
+        [
+          2.296688984243461,
+          15.801824800690405,
+          2.3257913054350903
+        ]
+      ]
+    }
+  },
+  "flank": {
+    "SideBattery_2_Port": {
+      "template": "SideBattery_1_Starboard",
+      "crownLine": [
+        -17.63632439182829,
+        6.389506336307494,
+        -0.034417055468523874
+      ],
+      "segments": [
+        -17.63632439182829,
+        -8.244,
+        0.52,
+        9.565827618131348
+      ],
+      "foreProfile": [
+        [
+          0.015,
+          21.872645692580395,
+          5.0297239214081495
+        ],
+        [
+          0.34207006494394343,
+          21.872645692580395,
+          5.0297239214081495
+        ],
+        [
+          1.233782416792824,
+          20.57652114596778,
+          3.7682745629000496
+        ]
+      ],
+      "fixedLipLowerProfile": [
+        [
+          2.5469961776333703,
+          -17.085611424720646,
+          3.385387571752245
+        ],
+        [
+          2.5014546166450553,
+          -8.558940111097911,
+          3.497255341409303
+        ],
+        [
+          2.5003917648741285,
+          -8.279717441044241,
+          1.8326271550906372
+        ],
+        [
+          2.4548564397995296,
+          0.2883008206320399,
+          1.9424620776980528
+        ],
+        [
+          2.4548564397995296,
+          0.2883008206320399,
+          1.9424620776980528
+        ],
+        [
+          2.4977456069501365,
+          9.448946302491528,
+          1.982882914245545
+        ]
+      ],
+      "fixedLipHingeClearance": 0.08,
+      "leaves": [
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_00",
+          "rearProfile": [
+            [
+              -2.55,
+              -17.63632439182829,
+              3.6
+            ],
+            [
+              -0.45,
+              -17.63632439182829,
+              6.389506336307494
+            ],
+            [
+              -0.015,
+              -17.63632439182829,
+              6.389506336307494
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              -8.244000000000002,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244000000000002,
+              6.066250186735569
+            ],
+            [
+              -0.015,
+              -8.244000000000002,
+              6.066250186735569
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_01",
+          "rearProfile": [
+            [
+              -2.55,
+              -8.244000000000002,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244000000000002,
+              6.066250186735569
+            ],
+            [
+              -0.015,
+              -8.244000000000002,
+              6.066250186735569
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999987,
+              5.764619112609426
+            ],
+            [
+              -0.015,
+              0.5199999999999987,
+              5.764619112609426
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Port_02",
+          "rearProfile": [
+            [
+              -2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999987,
+              5.764619112609426
+            ],
+            [
+              -0.015,
+              0.5199999999999987,
+              5.764619112609426
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              9.565827618131348,
+              3.6
+            ],
+            [
+              -0.45,
+              9.565827618131348,
+              5.453288361717495
+            ],
+            [
+              -0.015,
+              9.565827618131348,
+              5.453288361717495
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_00",
+          "rearProfile": [
+            [
+              2.55,
+              -17.63632439182829,
+              3.6
+            ],
+            [
+              0.45,
+              -17.63632439182829,
+              6.389506336307494
+            ],
+            [
+              0.015,
+              -17.63632439182829,
+              6.389506336307494
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              -8.244000000000002,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244000000000002,
+              6.066250186735569
+            ],
+            [
+              0.015,
+              -8.244000000000002,
+              6.066250186735569
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_01",
+          "rearProfile": [
+            [
+              2.55,
+              -8.244000000000002,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244000000000002,
+              6.066250186735569
+            ],
+            [
+              0.015,
+              -8.244000000000002,
+              6.066250186735569
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999987,
+              5.764619112609426
+            ],
+            [
+              0.015,
+              0.5199999999999987,
+              5.764619112609426
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Port_Shutter_Starboard_02",
+          "rearProfile": [
+            [
+              2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999987,
+              5.764619112609426
+            ],
+            [
+              0.015,
+              0.5199999999999987,
+              5.764619112609426
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              9.565827618131348,
+              3.6
+            ],
+            [
+              0.45,
+              9.565827618131348,
+              5.453288361717495
+            ],
+            [
+              0.015,
+              9.565827618131348,
+              5.453288361717495
+            ]
+          ],
+          "vertices": 12
+        }
+      ],
+      "rearProfile": [
+        [
+          0.015,
+          9.585827618131347,
+          5.452600020608124
+        ],
+        [
+          0.45,
+          9.585827618131347,
+          5.452600020608124
+        ],
+        [
+          2.55,
+          9.585827618131347,
+          3.6
+        ]
+      ],
+      "capSourceVertices": 36,
+      "capSourceFaces": 45
+    },
+    "SideBattery_2_Starboard": {
+      "template": "SideBattery_1_Starboard",
+      "crownLine": [
+        -17.63632298268795,
+        6.38932126420973,
+        -0.03441237239008609
+      ],
+      "segments": [
+        -17.63632298268795,
+        -8.244,
+        0.52,
+        9.565827307954839
+      ],
+      "foreProfile": [
+        [
+          0.015,
+          21.872645692580395,
+          5.0297239214081495
+        ],
+        [
+          0.34207006494394343,
+          21.872645692580395,
+          5.0297239214081495
+        ],
+        [
+          1.233782416792824,
+          20.57652114596778,
+          3.7682745629000496
+        ]
+      ],
+      "fixedLipLowerProfile": [
+        [
+          2.5469961776333703,
+          -17.085611424720646,
+          3.385387571752245
+        ],
+        [
+          2.5014546166450553,
+          -8.558940111097911,
+          3.497255341409303
+        ],
+        [
+          2.5003917648741285,
+          -8.279717441044241,
+          1.8326271550906372
+        ],
+        [
+          2.4548564397995296,
+          0.2883008206320399,
+          1.9424620776980528
+        ],
+        [
+          2.4548564397995296,
+          0.2883008206320399,
+          1.9424620776980528
+        ],
+        [
+          2.4977456069501365,
+          9.448946302491528,
+          1.982882914245545
+        ]
+      ],
+      "fixedLipHingeClearance": 0.08,
+      "leaves": [
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_00",
+          "rearProfile": [
+            [
+              -2.55,
+              -17.63632298268795,
+              3.6
+            ],
+            [
+              -0.45,
+              -17.63632298268795,
+              6.38932126420973
+            ],
+            [
+              -0.015,
+              -17.63632298268795,
+              6.38932126420973
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              -8.244000000000002,
+              3.5999999999999996
+            ],
+            [
+              -0.45,
+              -8.244000000000002,
+              6.066109148121509
+            ],
+            [
+              -0.015,
+              -8.244000000000002,
+              6.066109148121509
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_01",
+          "rearProfile": [
+            [
+              -2.55,
+              -8.244000000000002,
+              3.5999999999999996
+            ],
+            [
+              -0.45,
+              -8.244000000000002,
+              6.066109148121509
+            ],
+            [
+              -0.015,
+              -8.244000000000002,
+              6.066109148121509
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              0.5199999999999978,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999978,
+              5.764519116494794
+            ],
+            [
+              -0.015,
+              0.5199999999999978,
+              5.764519116494794
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Port_02",
+          "rearProfile": [
+            [
+              -2.55,
+              0.5199999999999978,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999978,
+              5.764519116494794
+            ],
+            [
+              -0.015,
+              0.5199999999999978,
+              5.764519116494794
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              9.565827307954839,
+              3.6
+            ],
+            [
+              -0.45,
+              9.565827307954839,
+              5.453230738597042
+            ],
+            [
+              -0.015,
+              9.565827307954839,
+              5.453230738597042
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_00",
+          "rearProfile": [
+            [
+              2.55,
+              -17.63632298268795,
+              3.6
+            ],
+            [
+              0.45,
+              -17.63632298268795,
+              6.38932126420973
+            ],
+            [
+              0.015,
+              -17.63632298268795,
+              6.38932126420973
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              -8.244000000000002,
+              3.5999999999999996
+            ],
+            [
+              0.45,
+              -8.244000000000002,
+              6.066109148121509
+            ],
+            [
+              0.015,
+              -8.244000000000002,
+              6.066109148121509
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_01",
+          "rearProfile": [
+            [
+              2.55,
+              -8.244000000000002,
+              3.5999999999999996
+            ],
+            [
+              0.45,
+              -8.244000000000002,
+              6.066109148121509
+            ],
+            [
+              0.015,
+              -8.244000000000002,
+              6.066109148121509
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              0.5199999999999978,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999978,
+              5.764519116494794
+            ],
+            [
+              0.015,
+              0.5199999999999978,
+              5.764519116494794
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_2_Starboard_Shutter_Starboard_02",
+          "rearProfile": [
+            [
+              2.55,
+              0.5199999999999978,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999978,
+              5.764519116494794
+            ],
+            [
+              0.015,
+              0.5199999999999978,
+              5.764519116494794
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              9.565827307954839,
+              3.6
+            ],
+            [
+              0.45,
+              9.565827307954839,
+              5.453230738597042
+            ],
+            [
+              0.015,
+              9.565827307954839,
+              5.453230738597042
+            ]
+          ],
+          "vertices": 12
+        }
+      ],
+      "rearProfile": [
+        [
+          0.015,
+          9.585827307954839,
+          5.452542491149241
+        ],
+        [
+          0.45,
+          9.585827307954839,
+          5.452542491149241
+        ],
+        [
+          2.55,
+          9.585827307954839,
+          3.6
+        ]
+      ],
+      "capSourceVertices": 36,
+      "capSourceFaces": 45
+    },
+    "SideBattery_4_Port": {
+      "template": "SideBattery_1_Starboard",
+      "crownLine": [
+        -17.63937863228177,
+        6.419395123587315,
+        -0.0351531944010861
+      ],
+      "segments": [
+        -17.63937863228177,
+        -8.244,
+        0.52,
+        9.526247943332436
+      ],
+      "foreProfile": [
+        [
+          0.015,
+          21.871280184759375,
+          5.030469253276881
+        ],
+        [
+          0.3443283681380054,
+          21.871280184759375,
+          5.030469253276881
+        ],
+        [
+          1.2348080839565758,
+          20.574794437348885,
+          3.7718607106906816
+        ]
+      ],
+      "fixedLipLowerProfile": [
+        [
+          2.1163389367356613,
+          -15.761280183370326,
+          3.6433026240590753
+        ],
+        [
+          2.1151518577253454,
+          -8.737768787187893,
+          3.5366156391425236
+        ],
+        [
+          2.4989746566527717,
+          -8.281745042655388,
+          1.8319258918188566
+        ],
+        [
+          2.455386466492744,
+          0.28727668203833623,
+          1.942323646848351
+        ],
+        [
+          2.455386466492744,
+          0.28727668203833623,
+          1.942323646848351
+        ],
+        [
+          2.50273016111941,
+          9.450491307094891,
+          1.9840194757007072
+        ]
+      ],
+      "fixedLipHingeClearance": 0.08,
+      "leaves": [
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_00",
+          "rearProfile": [
+            [
+              -2.55,
+              -17.63937863228177,
+              3.6
+            ],
+            [
+              -0.45,
+              -17.63937863228177,
+              6.419395123587315
+            ],
+            [
+              -0.015,
+              -17.63937863228177,
+              6.419395123587315
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244,
+              6.089117552054904
+            ],
+            [
+              -0.015,
+              -8.244,
+              6.089117552054904
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_01",
+          "rearProfile": [
+            [
+              -2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244,
+              6.089117552054904
+            ],
+            [
+              -0.015,
+              -8.244,
+              6.089117552054904
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999987,
+              5.7810349563237855
+            ],
+            [
+              -0.015,
+              0.5199999999999987,
+              5.7810349563237855
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Port_02",
+          "rearProfile": [
+            [
+              -2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              -0.45,
+              0.5199999999999987,
+              5.7810349563237855
+            ],
+            [
+              -0.015,
+              0.5199999999999987,
+              5.7810349563237855
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              9.526247943332436,
+              3.6
+            ],
+            [
+              -0.45,
+              9.526247943332436,
+              5.464436571547438
+            ],
+            [
+              -0.015,
+              9.526247943332436,
+              5.464436571547438
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_00",
+          "rearProfile": [
+            [
+              2.55,
+              -17.63937863228177,
+              3.6
+            ],
+            [
+              0.45,
+              -17.63937863228177,
+              6.419395123587315
+            ],
+            [
+              0.015,
+              -17.63937863228177,
+              6.419395123587315
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244,
+              6.089117552054904
+            ],
+            [
+              0.015,
+              -8.244,
+              6.089117552054904
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_01",
+          "rearProfile": [
+            [
+              2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244,
+              6.089117552054904
+            ],
+            [
+              0.015,
+              -8.244,
+              6.089117552054904
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999987,
+              5.7810349563237855
+            ],
+            [
+              0.015,
+              0.5199999999999987,
+              5.7810349563237855
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Port_Shutter_Starboard_02",
+          "rearProfile": [
+            [
+              2.55,
+              0.5199999999999987,
+              3.6
+            ],
+            [
+              0.45,
+              0.5199999999999987,
+              5.7810349563237855
+            ],
+            [
+              0.015,
+              0.5199999999999987,
+              5.7810349563237855
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              9.526247943332436,
+              3.6
+            ],
+            [
+              0.45,
+              9.526247943332436,
+              5.464436571547438
+            ],
+            [
+              0.015,
+              9.526247943332436,
+              5.464436571547438
+            ]
+          ],
+          "vertices": 12
+        }
+      ],
+      "rearProfile": [
+        [
+          0.015,
+          9.546247943332435,
+          5.463733507659416
+        ],
+        [
+          0.45,
+          9.546247943332435,
+          5.463733507659416
+        ],
+        [
+          2.55,
+          9.546247943332435,
+          3.6
+        ]
+      ],
+      "capSourceVertices": 36,
+      "capSourceFaces": 44
+    },
+    "SideBattery_4_Starboard": {
+      "template": "SideBattery_1_Starboard",
+      "crownLine": [
+        -17.638756839380548,
+        6.399424895861866,
+        -0.034648300677333654
+      ],
+      "segments": [
+        -17.638756839380548,
+        -8.244,
+        0.52,
+        9.52622489599593
+      ],
+      "foreProfile": [
+        [
+          0.015,
+          21.871280184759375,
+          5.030469253276881
+        ],
+        [
+          0.3443283681380054,
+          21.871280184759375,
+          5.030469253276881
+        ],
+        [
+          1.2348080839565758,
+          20.574794437348885,
+          3.7718607106906816
+        ]
+      ],
+      "fixedLipLowerProfile": [
+        [
+          2.5440798384314194,
+          -17.086302694797045,
+          3.382552428509806
+        ],
+        [
+          2.5015512018873736,
+          -8.561533815789758,
+          3.4942604867830287
+        ],
+        [
+          2.4989746566527717,
+          -8.281745042655388,
+          1.8319258918188566
+        ],
+        [
+          2.455386466492744,
+          0.28727668203833623,
+          1.942323646848351
+        ],
+        [
+          2.455386466492744,
+          0.28727668203833623,
+          1.942323646848351
+        ],
+        [
+          2.50273016111941,
+          9.450491307094891,
+          1.9840194757007072
+        ]
+      ],
+      "fixedLipHingeClearance": 0.08,
+      "leaves": [
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_00",
+          "rearProfile": [
+            [
+              -2.55,
+              -17.638756839380548,
+              3.6
+            ],
+            [
+              -0.45,
+              -17.638756839380548,
+              6.399424895861866
+            ],
+            [
+              -0.015,
+              -17.638756839380548,
+              6.399424895861866
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244,
+              6.073912536100572
+            ],
+            [
+              -0.015,
+              -8.244,
+              6.073912536100572
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_01",
+          "rearProfile": [
+            [
+              -2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              -0.45,
+              -8.244,
+              6.073912536100572
+            ],
+            [
+              -0.015,
+              -8.244,
+              6.073912536100572
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              0.5199999999999996,
+              3.5999999999999996
+            ],
+            [
+              -0.45,
+              0.5199999999999996,
+              5.77025482896442
+            ],
+            [
+              -0.015,
+              0.5199999999999996,
+              5.77025482896442
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Port_02",
+          "rearProfile": [
+            [
+              -2.55,
+              0.5199999999999996,
+              3.5999999999999996
+            ],
+            [
+              -0.45,
+              0.5199999999999996,
+              5.77025482896442
+            ],
+            [
+              -0.015,
+              0.5199999999999996,
+              5.77025482896442
+            ]
+          ],
+          "foreProfile": [
+            [
+              -2.55,
+              9.52622489599593,
+              3.6
+            ],
+            [
+              -0.45,
+              9.52622489599593,
+              5.458204440800265
+            ],
+            [
+              -0.015,
+              9.52622489599593,
+              5.458204440800265
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_00",
+          "rearProfile": [
+            [
+              2.55,
+              -17.638756839380548,
+              3.6
+            ],
+            [
+              0.45,
+              -17.638756839380548,
+              6.399424895861866
+            ],
+            [
+              0.015,
+              -17.638756839380548,
+              6.399424895861866
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244,
+              6.073912536100572
+            ],
+            [
+              0.015,
+              -8.244,
+              6.073912536100572
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_01",
+          "rearProfile": [
+            [
+              2.55,
+              -8.244,
+              3.6
+            ],
+            [
+              0.45,
+              -8.244,
+              6.073912536100572
+            ],
+            [
+              0.015,
+              -8.244,
+              6.073912536100572
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              0.5199999999999996,
+              3.5999999999999996
+            ],
+            [
+              0.45,
+              0.5199999999999996,
+              5.77025482896442
+            ],
+            [
+              0.015,
+              0.5199999999999996,
+              5.77025482896442
+            ]
+          ],
+          "vertices": 12
+        },
+        {
+          "name": "SideBattery_4_Starboard_Shutter_Starboard_02",
+          "rearProfile": [
+            [
+              2.55,
+              0.5199999999999996,
+              3.5999999999999996
+            ],
+            [
+              0.45,
+              0.5199999999999996,
+              5.77025482896442
+            ],
+            [
+              0.015,
+              0.5199999999999996,
+              5.77025482896442
+            ]
+          ],
+          "foreProfile": [
+            [
+              2.55,
+              9.52622489599593,
+              3.6
+            ],
+            [
+              0.45,
+              9.52622489599593,
+              5.458204440800265
+            ],
+            [
+              0.015,
+              9.52622489599593,
+              5.458204440800265
+            ]
+          ],
+          "vertices": 12
+        }
+      ],
+      "rearProfile": [
+        [
+          0.015,
+          9.54622489599593,
+          5.457511474786719
+        ],
+        [
+          0.45,
+          9.54622489599593,
+          5.457511474786719
+        ],
+        [
+          2.55,
+          9.54622489599593,
+          3.6
+        ]
+      ],
+      "capSourceVertices": 36,
+      "capSourceFaces": 44
+    }
+  },
+  "changedMeshes": [
+    "Axial_Keel_FrontCap_Skin",
+    "Axial_Keel_Shutter_Port_00_FittedBacking",
+    "Axial_Keel_Shutter_Port_00_Skin",
+    "Axial_Keel_Shutter_Port_01_FittedBacking",
+    "Axial_Keel_Shutter_Port_01_Skin",
+    "Axial_Keel_Shutter_Port_02_FittedBacking",
+    "Axial_Keel_Shutter_Port_02_Skin",
+    "Axial_Keel_Shutter_Starboard_00_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_00_Skin",
+    "Axial_Keel_Shutter_Starboard_01_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_01_Skin",
+    "Axial_Keel_Shutter_Starboard_02_FittedBacking",
+    "Axial_Keel_Shutter_Starboard_02_Skin",
+    "Axial_Stern_FrontCap_Skin",
+    "Axial_Stern_Shutter_Port_00_FittedBacking",
+    "Axial_Stern_Shutter_Port_00_Skin",
+    "Axial_Stern_Shutter_Port_01_FittedBacking",
+    "Axial_Stern_Shutter_Port_01_Skin",
+    "Axial_Stern_Shutter_Port_02_FittedBacking",
+    "Axial_Stern_Shutter_Port_02_Skin",
+    "Axial_Stern_Shutter_Starboard_00_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_00_Skin",
+    "Axial_Stern_Shutter_Starboard_01_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_01_Skin",
+    "Axial_Stern_Shutter_Starboard_02_FittedBacking",
+    "Axial_Stern_Shutter_Starboard_02_Skin",
+    "SideBattery_2_Port_FixedSlotLips",
+    "SideBattery_2_Port_FrontCap_Skin",
+    "SideBattery_2_Port_Shutter_Port_00_FittedBacking",
+    "SideBattery_2_Port_Shutter_Port_00_Skin",
+    "SideBattery_2_Port_Shutter_Port_01_FittedBacking",
+    "SideBattery_2_Port_Shutter_Port_01_Skin",
+    "SideBattery_2_Port_Shutter_Port_02_FittedBacking",
+    "SideBattery_2_Port_Shutter_Port_02_Skin",
+    "SideBattery_2_Port_Shutter_Starboard_00_FittedBacking",
+    "SideBattery_2_Port_Shutter_Starboard_00_Skin",
+    "SideBattery_2_Port_Shutter_Starboard_01_FittedBacking",
+    "SideBattery_2_Port_Shutter_Starboard_01_Skin",
+    "SideBattery_2_Port_Shutter_Starboard_02_FittedBacking",
+    "SideBattery_2_Port_Shutter_Starboard_02_Skin",
+    "SideBattery_2_Starboard_FixedSlotLips",
+    "SideBattery_2_Starboard_FrontCap_Skin",
+    "SideBattery_2_Starboard_Shutter_Port_00_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Port_00_Skin",
+    "SideBattery_2_Starboard_Shutter_Port_01_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Port_01_Skin",
+    "SideBattery_2_Starboard_Shutter_Port_02_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Port_02_Skin",
+    "SideBattery_2_Starboard_Shutter_Starboard_00_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Starboard_00_Skin",
+    "SideBattery_2_Starboard_Shutter_Starboard_01_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Starboard_01_Skin",
+    "SideBattery_2_Starboard_Shutter_Starboard_02_FittedBacking",
+    "SideBattery_2_Starboard_Shutter_Starboard_02_Skin",
+    "SideBattery_4_Port_FixedSlotLips",
+    "SideBattery_4_Port_FrontCap_Skin",
+    "SideBattery_4_Port_Shutter_Port_00_FittedBacking",
+    "SideBattery_4_Port_Shutter_Port_00_Skin",
+    "SideBattery_4_Port_Shutter_Port_01_FittedBacking",
+    "SideBattery_4_Port_Shutter_Port_01_Skin",
+    "SideBattery_4_Port_Shutter_Port_02_FittedBacking",
+    "SideBattery_4_Port_Shutter_Port_02_Skin",
+    "SideBattery_4_Port_Shutter_Starboard_00_FittedBacking",
+    "SideBattery_4_Port_Shutter_Starboard_00_Skin",
+    "SideBattery_4_Port_Shutter_Starboard_01_FittedBacking",
+    "SideBattery_4_Port_Shutter_Starboard_01_Skin",
+    "SideBattery_4_Port_Shutter_Starboard_02_FittedBacking",
+    "SideBattery_4_Port_Shutter_Starboard_02_Skin",
+    "SideBattery_4_Starboard_FixedSlotLips",
+    "SideBattery_4_Starboard_FrontCap_Skin",
+    "SideBattery_4_Starboard_Shutter_Port_00_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Port_00_Skin",
+    "SideBattery_4_Starboard_Shutter_Port_01_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Port_01_Skin",
+    "SideBattery_4_Starboard_Shutter_Port_02_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Port_02_Skin",
+    "SideBattery_4_Starboard_Shutter_Starboard_00_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Starboard_00_Skin",
+    "SideBattery_4_Starboard_Shutter_Starboard_01_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Starboard_01_Skin",
+    "SideBattery_4_Starboard_Shutter_Starboard_02_FittedBacking",
+    "SideBattery_4_Starboard_Shutter_Starboard_02_Skin"
+  ],
+  "removedLegacyMeshes": 336,
+  "unchangedMeshes": 465,
+  "unchangedJointTransforms": 163,
+  "refittedContactJoints": [
+    "SideBattery_2_Port_Shutter_Port_00",
+    "SideBattery_2_Port_Shutter_Port_01",
+    "SideBattery_2_Port_Shutter_Port_02",
+    "SideBattery_2_Port_Shutter_Starboard_00",
+    "SideBattery_2_Port_Shutter_Starboard_01",
+    "SideBattery_2_Port_Shutter_Starboard_02",
+    "SideBattery_2_Starboard_Shutter_Port_00",
+    "SideBattery_2_Starboard_Shutter_Port_01",
+    "SideBattery_2_Starboard_Shutter_Port_02",
+    "SideBattery_2_Starboard_Shutter_Starboard_00",
+    "SideBattery_2_Starboard_Shutter_Starboard_01",
+    "SideBattery_2_Starboard_Shutter_Starboard_02",
+    "SideBattery_4_Port_Shutter_Port_00",
+    "SideBattery_4_Port_Shutter_Port_01",
+    "SideBattery_4_Port_Shutter_Port_02",
+    "SideBattery_4_Port_Shutter_Starboard_00",
+    "SideBattery_4_Port_Shutter_Starboard_01",
+    "SideBattery_4_Port_Shutter_Starboard_02",
+    "SideBattery_4_Starboard_Shutter_Port_00",
+    "SideBattery_4_Starboard_Shutter_Port_01",
+    "SideBattery_4_Starboard_Shutter_Port_02",
+    "SideBattery_4_Starboard_Shutter_Starboard_00",
+    "SideBattery_4_Starboard_Shutter_Starboard_01",
+    "SideBattery_4_Starboard_Shutter_Starboard_02"
+  ]
+}

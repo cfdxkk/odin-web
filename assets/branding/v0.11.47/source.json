@@ -1,0 +1,14 @@
+{
+  "version": "v0.11.47-rc.1",
+  "title": "Original RSI Odin Founders Club badge",
+  "sourceUrl": "https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png",
+  "sourceProfile": "https://robertsspaceindustries.com/en/citizens/twodog0321",
+  "sourceSha256": "60987981b7d41739304ad8cece78df2bdbd148f370a4dacc347e47941a2d7cfc",
+  "headerAsset": "public/images/odin-founders-badge-v0.11.47.png",
+  "headerFileUnmodified": true,
+  "iconTreatment": "Resize only; original colors, shape, transparency and composition preserved",
+  "icons": [
+    "public/images/odin-founders-icon-v0.11.47.png",
+    "public/images/odin-founders-touch-v0.11.47.png"
+  ]
+}

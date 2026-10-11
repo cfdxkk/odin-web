@@ -1,0 +1,85 @@
+{
+  "logo": {
+    "src": "http://127.0.0.1:4175/images/odin-founders-badge-v0.11.47.png",
+    "loaded": true,
+    "naturalSize": [
+      250,
+      250
+    ],
+    "displayedSize": [
+      52,
+      52
+    ]
+  },
+  "headerStatus": 200,
+  "icons": [
+    {
+      "rel": "icon",
+      "href": "/images/odin-founders-icon-v0.11.47.png",
+      "status": 200,
+      "contentType": "image/png",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "/images/odin-founders-touch-v0.11.47.png",
+      "status": 200,
+      "contentType": "image/png",
+      "size": [
+        180,
+        180
+      ]
+    }
+  ],
+  "attribution": "https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png",
+  "state": {
+    "engine": "three.js r186",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "asset": "/models/odin.glb",
+    "ready": "true",
+    "time": "0.00",
+    "cameraTime": "0.0000",
+    "deployment": "0.000",
+    "thrust": "0.000",
+    "joints": "215",
+    "quality": "high",
+    "cameraTarget": "0.000,0.240,0.000",
+    "cameraPosition": "-10.045895,3.700000,-5.800000",
+    "fps": "75"
+  },
+  "paused": true,
+  "version": "v0.11.47-rc.1",
+  "sourceSha256": "60987981b7d41739304ad8cece78df2bdbd148f370a4dacc347e47941a2d7cfc",
+  "originalHeaderFileUnmodified": true,
+  "cinematicAndWeaponCodeUnchanged": true,
+  "checks": {
+    "npmTest": {
+      "passed": 84,
+      "failed": 0
+    },
+    "verifyAsset": true,
+    "generate": true
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 1,
+    "warning": "Existing shader precision warning"
+  },
+  "resources": {
+    "previewServiceCount": 1,
+    "previewServicePids": [
+      43420
+    ],
+    "temporaryBrowserPidPresent": false,
+    "headlessBlenderJobs": 0
+  },
+  "temporaryBrowserClosed": true,
+  "userPreview": {
+    "url": "http://127.0.0.1:4175/?v=0.11.47-rc.1",
+    "paused": true,
+    "time": 0
+  }
+}

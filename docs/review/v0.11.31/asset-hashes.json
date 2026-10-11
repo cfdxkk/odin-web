@@ -1,0 +1,17 @@
+[
+  {
+    "path": "assets/blender/odin_articulated_v0.11.31.blend",
+    "bytes": 69410428,
+    "sha256": "7ea4430b0363c0490f8e39c34b1058acb1f05763b426f2848480e48858e0ac27"
+  },
+  {
+    "path": "public/models/odin.glb",
+    "bytes": 18776208,
+    "sha256": "6bc9991c0bd273582bf24d85811a7a22d19767e926cca194227c1b25ba7f2812"
+  },
+  {
+    "path": "public/models/odin-lite.glb",
+    "bytes": 8785372,
+    "sha256": "4795101b84e2af3d1d41eb76de495bc60588fdac4179bfbe3e8aeab431e8e160"
+  }
+]

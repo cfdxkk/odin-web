@@ -1,0 +1,61 @@
+{
+  "version": "0.11.40",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "nativeSha256": "9840384f60ef55210086c0c572a0dfe305a18130972d18defd4725d444eaf8c5",
+  "originalSourceUnchanged": true,
+  "allLowerFacesAndUVsPreservedExactlyOnce": true,
+  "unchangedOtherMeshes": 542,
+  "unchangedExistingJointTransforms": 215,
+  "unchangedOtherJointProperties": 211,
+  "animationClips": 0,
+  "stations": [
+    {
+      "station": 1,
+      "foundationSourceIsland": 71,
+      "foundationVertices": 140,
+      "foundationFaces": 145,
+      "movingLowerVertices": 8829,
+      "allLowerFacesAndUVsPreservedExactlyOnce": true,
+      "fixedFoundationWorldPoseMaxError": 5.960464477539063e-08,
+      "stationaryRampTangencyError": 1.1175870895385742e-07,
+      "cradleTranslationOnly": true,
+      "fixedInstallationDegrees": -1.7577880510884853
+    },
+    {
+      "station": 2,
+      "foundationSourceIsland": 70,
+      "foundationVertices": 140,
+      "foundationFaces": 145,
+      "movingLowerVertices": 8840,
+      "allLowerFacesAndUVsPreservedExactlyOnce": true,
+      "fixedFoundationWorldPoseMaxError": 3.814697265625e-06,
+      "stationaryRampTangencyError": 3.129243850708008e-07,
+      "cradleTranslationOnly": true,
+      "fixedInstallationDegrees": -1.9097782171282962
+    },
+    {
+      "station": 3,
+      "foundationSourceIsland": 71,
+      "foundationVertices": 140,
+      "foundationFaces": 145,
+      "movingLowerVertices": 8826,
+      "allLowerFacesAndUVsPreservedExactlyOnce": true,
+      "fixedFoundationWorldPoseMaxError": 1.9073486328125e-06,
+      "stationaryRampTangencyError": 2.60770320892334e-07,
+      "cradleTranslationOnly": true,
+      "fixedInstallationDegrees": 1.7577814190905072
+    },
+    {
+      "station": 4,
+      "foundationSourceIsland": 70,
+      "foundationVertices": 140,
+      "foundationFaces": 145,
+      "movingLowerVertices": 8840,
+      "allLowerFacesAndUVsPreservedExactlyOnce": true,
+      "fixedFoundationWorldPoseMaxError": 1.9073486328125e-06,
+      "stationaryRampTangencyError": 1.043081283569336e-07,
+      "cradleTranslationOnly": true,
+      "fixedInstallationDegrees": 1.909809692529486
+    }
+  ]
+}

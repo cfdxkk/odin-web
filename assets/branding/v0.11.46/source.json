@@ -1,0 +1,15 @@
+{
+  "version": "v0.11.46-rc.1",
+  "mode": "builtin imagegen",
+  "referenceTitle": "RSI Odin Founders Club badge",
+  "referenceImage": "https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png",
+  "referenceProfile": "https://robertsspaceindustries.com/en/citizens/twodog0321",
+  "referenceUse": "Shape and composition reference for a newly rendered fan-art emblem",
+  "prompt": "prompt.txt",
+  "master": "odin-club-mark.png",
+  "derivatives": [
+    "public/images/odin-club-mark-v0.11.46.webp",
+    "public/images/odin-club-icon-v0.11.46.png",
+    "public/images/odin-club-touch-v0.11.46.png"
+  ]
+}

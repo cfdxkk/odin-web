@@ -1,0 +1,70 @@
+{
+  "version": "0.11.43",
+  "baseline": "0.11.42",
+  "nativeSha256": "c7b0199320ba48b33e22b92e7bd7682ab38a052c147866ee042775b0b1d39d9a",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "allMeshesUnchanged": 550,
+  "allStaticRestFramesUnchanged": 215,
+  "allJointPropertiesUnchanged": true,
+  "originalSourceUnchanged": true,
+  "animationClips": 0,
+  "tempoProfile": {
+    "version": "0.11.43",
+    "quad": {
+      "knots": [
+        [
+          0,
+          0.03
+        ],
+        [
+          0.33,
+          0.18
+        ],
+        [
+          0.35,
+          0.2
+        ],
+        [
+          0.67,
+          0.56
+        ],
+        [
+          0.69,
+          0.8
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    "aftTwin": {
+      "knots": [
+        [
+          0,
+          0
+        ],
+        [
+          0.26,
+          0.05
+        ],
+        [
+          0.64,
+          0.52
+        ],
+        [
+          0.66,
+          0.65
+        ],
+        [
+          0.98,
+          0.94
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  }
+}

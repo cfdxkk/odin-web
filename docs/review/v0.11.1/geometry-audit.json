@@ -1,0 +1,71 @@
+{
+  "unchangedObjects": 508,
+  "changedOutsideScope": [],
+  "maximumFixedStructureMotion": 0.0,
+  "poseSamples": 101,
+  "mounts": {
+    "SideBattery_1_Starboard": {
+      "actualBoreRestAngleDegrees": 1.82574392216347e-06,
+      "actualBoreCenterError": 1.3722742210489076e-06,
+      "fixedStructures": 3,
+      "localClosureHalves": 6,
+      "nosePlaneMaximumError": 2.387709739815058e-06,
+      "redInnerGrates": 6,
+      "aftFirstPlateReceiverFit": {}
+    },
+    "SideBattery_1_Port": {
+      "actualBoreRestAngleDegrees": 1.874428383446269e-06,
+      "actualBoreCenterError": 1.443611627782726e-05,
+      "fixedStructures": 3,
+      "localClosureHalves": 6,
+      "nosePlaneMaximumError": 2.3877058421550856e-06,
+      "redInnerGrates": 6,
+      "aftFirstPlateReceiverFit": {}
+    },
+    "SideBattery_3_Starboard": {
+      "actualBoreRestAngleDegrees": 1.05710707289833e-06,
+      "actualBoreCenterError": 6.440677562599695e-06,
+      "fixedStructures": 3,
+      "localClosureHalves": 6,
+      "nosePlaneMaximumError": 1.4395718038739957e-06,
+      "redInnerGrates": 6,
+      "aftFirstPlateReceiverFit": {
+        "Port": {
+          "receiverLayer": "lower inner slot rim",
+          "originalRimVertexError": 7.105427357601002e-15,
+          "actualReturnEdgeError": 7.105427357601002e-15,
+          "planarRoofAndReturn": true
+        },
+        "Starboard": {
+          "receiverLayer": "lower inner slot rim",
+          "originalRimVertexError": 0.0,
+          "actualReturnEdgeError": 0.0,
+          "planarRoofAndReturn": true
+        }
+      }
+    },
+    "SideBattery_3_Port": {
+      "actualBoreRestAngleDegrees": 2.3288471598743346e-06,
+      "actualBoreCenterError": 3.22804912035914e-06,
+      "fixedStructures": 3,
+      "localClosureHalves": 6,
+      "nosePlaneMaximumError": 1.4395731406935397e-06,
+      "redInnerGrates": 6,
+      "aftFirstPlateReceiverFit": {
+        "Port": {
+          "receiverLayer": "lower inner slot rim",
+          "originalRimVertexError": 0.0,
+          "actualReturnEdgeError": 0.0,
+          "planarRoofAndReturn": true
+        },
+        "Starboard": {
+          "receiverLayer": "lower inner slot rim",
+          "originalRimVertexError": 3.552713678800501e-15,
+          "actualReturnEdgeError": 3.552713678800501e-15,
+          "planarRoofAndReturn": true
+        }
+      }
+    }
+  },
+  "originalSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e"
+}

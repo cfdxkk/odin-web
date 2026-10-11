@@ -1,0 +1,312 @@
+{
+  "version": "0.11.31",
+  "nativeSha256": "7ea4430b0363c0490f8e39c34b1058acb1f05763b426f2848480e48858e0ac27",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "sourceMeshParts": [
+    {
+      "mesh": "PDC_Port_OriginalSupport",
+      "sourceObject": "holo.016",
+      "vertices": 1602,
+      "faces": 2279,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_Casing",
+      "sourceObject": "holo.014",
+      "vertices": 1101,
+      "faces": 1631,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_ArmMesh_0",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 266,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_FixedFork_0",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_RootArmor_0",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 742,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_ArmMesh_1",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 265,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_FixedFork_1",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_RootArmor_1",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 738,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_ArmMesh_2",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 267,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_FixedFork_2",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_RootArmor_2",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 740,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_ArmMesh_3",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 265,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_FixedFork_3",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_RootArmor_3",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 737,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_HullPetal_0_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 38,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_HullPetal_1_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 38,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_HullPetal_2_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 37,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Port_HullPetal_3_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 37,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_OriginalSupport",
+      "sourceObject": "holo.016",
+      "vertices": 1602,
+      "faces": 2279,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_Casing",
+      "sourceObject": "holo.014",
+      "vertices": 1101,
+      "faces": 1631,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_ArmMesh_0",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 266,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_FixedFork_0",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_RootArmor_0",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 742,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_ArmMesh_1",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 265,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_FixedFork_1",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_RootArmor_1",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 738,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_ArmMesh_2",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 267,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_FixedFork_2",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_RootArmor_2",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 740,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_ArmMesh_3",
+      "sourceObject": "holo.014",
+      "vertices": 204,
+      "faces": 265,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_FixedFork_3",
+      "sourceObject": "holo.014",
+      "vertices": 116,
+      "faces": 120,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_RootArmor_3",
+      "sourceObject": "holo.014",
+      "vertices": 655,
+      "faces": 737,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_HullPetal_0_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 38,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_HullPetal_1_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 38,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_HullPetal_2_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 37,
+      "pointError": 0.0,
+      "uvError": 0.0
+    },
+    {
+      "mesh": "PDC_Starboard_HullPetal_3_Skin",
+      "sourceObject": "holo.001",
+      "vertices": 26,
+      "faces": 37,
+      "pointError": 0.0,
+      "uvError": 0.0
+    }
+  ],
+  "maxPointError": 0.0,
+  "maxUvError": 0.0,
+  "unchangedOtherMeshes": 494,
+  "unchangedOtherJoints": 171,
+  "beltGeometryUnchanged": true,
+  "completeSourceFaces": {
+    "Port": {
+      "holo.014": 6131,
+      "holo.016": 2279
+    },
+    "Starboard": {
+      "holo.014": 6131,
+      "holo.016": 2279
+    }
+  },
+  "originalSourceUnchanged": true,
+  "animationClips": 0
+}

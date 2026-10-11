@@ -1,0 +1,1011 @@
+{
+  "version": "0.11.28",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "stations": {
+    "SideBattery_2_Starboard": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 378,
+          "originalPolygons": 517,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              -0.6006837911998748,
+              -17.400000031649352,
+              4.436805624475453
+            ],
+            [
+              -0.5967082273093367,
+              -8.204999792274144,
+              4.376869832430431
+            ]
+          ],
+          "fittedInnerRibFeet": [
+            79,
+            80,
+            137,
+            138,
+            241,
+            242,
+            245,
+            246,
+            249,
+            252,
+            253
+          ]
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 170,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              -0.6214982102883868,
+              -8.184999341378255,
+              4.349111097849749
+            ],
+            [
+              -0.6684033665842393,
+              0.314999672266713,
+              4.237353670158576
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 171,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              -0.3151218945249424,
+              0.3349990965095745,
+              4.630807574687808
+            ],
+            [
+              -0.3,
+              9.415000693097197,
+              4.58409499514832
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 379,
+          "originalPolygons": 519,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              0.604788682495073,
+              -17.399999773751468,
+              4.432232328275238
+            ],
+            [
+              0.5952069288141298,
+              -8.204998410397321,
+              4.3785424322125746
+            ]
+          ],
+          "fittedInnerRibFeet": [
+            78,
+            79,
+            138,
+            139,
+            245,
+            246,
+            247,
+            250,
+            253,
+            254,
+            258
+          ]
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 168,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              0.6214354131094708,
+              -8.185000507438152,
+              4.349181068884678
+            ],
+            [
+              0.6666004954815647,
+              0.3149983684006027,
+              4.239362273354448
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 169,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              0.3133792497419837,
+              0.33500023815536195,
+              4.632749062108743
+            ],
+            [
+              0.3,
+              9.415001636950539,
+              4.584094988541347
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        }
+      ],
+      "capMesh": "SideBattery_2_Starboard_OriginalFrontCap",
+      "originalCapVertices": 36,
+      "originalCapPolygons": 45,
+      "capLeadingB": 21.891160635413524,
+      "crownIntercept": 4.65,
+      "crownLongitudinalSlope": -0.007,
+      "flatCrownWidth": 0.6,
+      "sideSlope": 1.1141085271317832,
+      "heightReduction": 0.9649999999999999,
+      "trimmedTurretCheekVertices": [
+        53,
+        92
+      ]
+    },
+    "SideBattery_2_Port": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 379,
+          "originalPolygons": 519,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              -0.604788682495073,
+              -17.399999773751468,
+              4.432232328275238
+            ],
+            [
+              -0.5952069288141298,
+              -8.204998410397321,
+              4.3785424322125746
+            ]
+          ],
+          "fittedInnerRibFeet": [
+            78,
+            79,
+            138,
+            139,
+            245,
+            246,
+            247,
+            250,
+            253,
+            254,
+            258
+          ]
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 168,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              -0.6214380037207705,
+              -8.185000311505377,
+              4.349178181291009
+            ],
+            [
+              -0.6666011666033516,
+              0.31499865049802467,
+              4.23936152367726
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 169,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              -0.3133792497419837,
+              0.33500023815536195,
+              4.632749062108743
+            ],
+            [
+              -0.3,
+              9.415001636950539,
+              4.584094988541347
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 378,
+          "originalPolygons": 517,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              0.6006837911998748,
+              -17.400000031649352,
+              4.436805624475453
+            ],
+            [
+              0.5967082273093367,
+              -8.204999792274144,
+              4.376869832430431
+            ]
+          ],
+          "fittedInnerRibFeet": [
+            79,
+            80,
+            137,
+            138,
+            241,
+            242,
+            245,
+            246,
+            249,
+            252,
+            253
+          ]
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 170,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              0.6214995525319607,
+              -8.184999905573099,
+              4.3491096063941015
+            ],
+            [
+              0.6684002349075954,
+              0.3149988227319479,
+              4.2373571651329724
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 171,
+          "exteriorHeightRatio": 0.7486586445798823,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.65,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              0.3151218945249424,
+              0.3349990965095745,
+              4.630807574687808
+            ],
+            [
+              0.3,
+              9.415000693097197,
+              4.58409499514832
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        }
+      ],
+      "capMesh": "SideBattery_2_Port_OriginalFrontCap",
+      "originalCapVertices": 36,
+      "originalCapPolygons": 45,
+      "capLeadingB": 21.891160635413524,
+      "crownIntercept": 4.65,
+      "crownLongitudinalSlope": -0.007,
+      "flatCrownWidth": 0.6,
+      "sideSlope": 1.1141085271317832,
+      "heightReduction": 0.9649999999999999,
+      "trimmedTurretCheekVertices": [
+        53,
+        92
+      ]
+    },
+    "SideBattery_4_Starboard": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 380,
+          "originalPolygons": 521,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              -0.6081888269662223,
+              -17.400008439787385,
+              4.622164591572977
+            ],
+            [
+              -0.6034541963518598,
+              -8.205001183133124,
+              4.5634781613086
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 170,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              -0.6288920949282687,
+              -8.185000970260825,
+              4.532828456967781
+            ],
+            [
+              -0.6706919194654863,
+              0.3149981017972463,
+              4.42319459639052
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 171,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              -0.3200544993928803,
+              0.3349929059887766,
+              4.84360208728547
+            ],
+            [
+              -0.3,
+              9.415000714765293,
+              4.804094994996643
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 383,
+          "originalPolygons": 527,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              0.60114546692306,
+              -17.399997712213928,
+              4.630612180556538
+            ],
+            [
+              0.5954773665068593,
+              -8.204996736856556,
+              4.573045379127444
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 168,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              0.623366289401755,
+              -8.184999272509403,
+              4.539455984859197
+            ],
+            [
+              0.6711609905553484,
+              0.31499752508474654,
+              4.422632006016473
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 169,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              0.3201310111966004,
+              0.3349952785073653,
+              4.843510303962557
+            ],
+            [
+              0.3,
+              9.415005778608881,
+              4.8040949595497375
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        }
+      ],
+      "capMesh": "SideBattery_4_Starboard_OriginalFrontCap",
+      "originalCapVertices": 36,
+      "originalCapPolygons": 44,
+      "capLeadingB": 21.892962625462886,
+      "crownIntercept": 4.87,
+      "crownLongitudinalSlope": -0.007,
+      "flatCrownWidth": 0.6,
+      "sideSlope": 1.1993798449612403,
+      "heightReduction": 0.7450000000000001,
+      "trimmedTurretCheekVertices": [
+        53,
+        92
+      ]
+    },
+    "SideBattery_4_Port": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 383,
+          "originalPolygons": 527,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              -0.60114546692306,
+              -17.399997712213928,
+              4.630612180556538
+            ],
+            [
+              -0.5954773665068593,
+              -8.204996736856556,
+              4.573045379127444
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 168,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              -0.623366289401755,
+              -8.184999272509403,
+              4.539455984859197
+            ],
+            [
+              -0.6711593172750303,
+              0.3149958159085542,
+              4.422634024879394
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 169,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              -0.3201310111966004,
+              0.3349952785073653,
+              4.843510303962557
+            ],
+            [
+              -0.3,
+              9.41500620590293,
+              4.8040949565586795
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 380,
+          "originalPolygons": 521,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "upperSourceEdge": [
+            [
+              0.608185195882734,
+              -17.400007117832715,
+              4.622168937367646
+            ],
+            [
+              0.6034469341848834,
+              -8.204998539223784,
+              4.563486852897937
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "originalPolygons": 170,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "upperSourceEdge": [
+            [
+              0.6288920949282687,
+              -8.185000970260825,
+              4.532828456967781
+            ],
+            [
+              0.6706923377855658,
+              0.31499767450319816,
+              4.423194097656905
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "originalPolygons": 171,
+          "exteriorHeightRatio": 0.8059592644684065,
+          "oldCrownAtB0": 5.615,
+          "newCrownAtB0": 4.87,
+          "crownHalfWidth": 0.3,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "upperSourceEdge": [
+            [
+              0.3200472372259037,
+              0.33499554989811675,
+              4.843610778874807
+            ],
+            [
+              0.3,
+              9.415000287471246,
+              4.8040949979877015
+            ]
+          ],
+          "fittedInnerRibFeet": []
+        }
+      ],
+      "capMesh": "SideBattery_4_Port_OriginalFrontCap",
+      "originalCapVertices": 36,
+      "originalCapPolygons": 44,
+      "capLeadingB": 21.892962625462886,
+      "crownIntercept": 4.87,
+      "crownLongitudinalSlope": -0.007,
+      "flatCrownWidth": 0.6,
+      "sideSlope": 1.1993798449612403,
+      "heightReduction": 0.7450000000000001,
+      "trimmedTurretCheekVertices": [
+        53,
+        92
+      ]
+    }
+  },
+  "fixedReceiverFit": [
+    {
+      "mesh": "holo.001",
+      "station": "SideBattery_2_Starboard",
+      "upperReceiverVertices": [
+        69275,
+        69276,
+        69281,
+        69282,
+        69288,
+        69289,
+        69290,
+        69299,
+        69300,
+        69301,
+        69302,
+        69303,
+        69304,
+        69305,
+        69308,
+        69309,
+        69310,
+        69311,
+        69317,
+        69318,
+        118742
+      ],
+      "roofVertices": [
+        69281,
+        69282,
+        69288,
+        69289,
+        69300,
+        69301,
+        69302,
+        69303,
+        69304,
+        69305,
+        69308,
+        69309,
+        69310,
+        69311,
+        69317,
+        69318
+      ]
+    },
+    {
+      "mesh": "holo.001",
+      "station": "SideBattery_2_Port",
+      "upperReceiverVertices": [
+        64454,
+        64455,
+        64460,
+        64461,
+        64467,
+        64468,
+        64469,
+        64478,
+        64479,
+        64480,
+        64481,
+        64482,
+        64483,
+        64484,
+        64487,
+        64488,
+        64489,
+        64490,
+        64496,
+        64497,
+        102470
+      ],
+      "roofVertices": [
+        64460,
+        64461,
+        64467,
+        64468,
+        64479,
+        64480,
+        64481,
+        64482,
+        64483,
+        64484,
+        64487,
+        64488,
+        64489,
+        64490,
+        64496,
+        64497
+      ]
+    },
+    {
+      "mesh": "holo.001",
+      "station": "SideBattery_4_Starboard",
+      "upperReceiverVertices": [
+        6622,
+        79351,
+        79352,
+        79357,
+        79358,
+        79364,
+        79365,
+        79366,
+        79375,
+        79376,
+        79377,
+        79378,
+        79379,
+        79380,
+        79381,
+        79384,
+        79385,
+        79386,
+        79387,
+        79393,
+        79394
+      ],
+      "roofVertices": [
+        79357,
+        79358,
+        79364,
+        79365,
+        79376,
+        79377,
+        79378,
+        79379,
+        79380,
+        79381,
+        79384,
+        79385,
+        79386,
+        79387,
+        79393,
+        79394
+      ]
+    },
+    {
+      "mesh": "holo.001",
+      "station": "SideBattery_4_Port",
+      "upperReceiverVertices": [
+        7018,
+        71272,
+        71273,
+        71278,
+        71279,
+        71285,
+        71286,
+        71287,
+        71296,
+        71297,
+        71298,
+        71299,
+        71300,
+        71301,
+        71302,
+        71305,
+        71306,
+        71307,
+        71308,
+        71314,
+        71315
+      ],
+      "roofVertices": [
+        71278,
+        71279,
+        71285,
+        71286,
+        71297,
+        71298,
+        71299,
+        71300,
+        71301,
+        71302,
+        71305,
+        71306,
+        71307,
+        71308,
+        71314,
+        71315
+      ]
+    }
+  ],
+  "removedFloatingTriangles": [
+    {
+      "mesh": "holo.001",
+      "face": 44592,
+      "pointsModel": [
+        [
+          63.204811096191406,
+          -183.64840698242188,
+          35.26979064941406
+        ],
+        [
+          63.421287536621094,
+          -183.5111083984375,
+          36.00379943847656
+        ],
+        [
+          63.52952575683594,
+          -182.92758178710938,
+          35.4300537109375
+        ]
+      ]
+    },
+    {
+      "mesh": "holo.001",
+      "face": 46198,
+      "pointsModel": [
+        [
+          -63.204811096191406,
+          -183.64840698242188,
+          35.26979064941406
+        ],
+        [
+          -63.52952575683594,
+          -182.92758178710938,
+          35.4300537109375
+        ],
+        [
+          -63.421287536621094,
+          -183.5111083984375,
+          36.00379943847656
+        ]
+      ]
+    }
+  ],
+  "unchangedOtherMeshes": 499,
+  "unchangedJointTransforms": 191,
+  "unchangedMechanicalMetadata": 191,
+  "animationClips": 0,
+  "changedMeshes": [
+    "SideBattery_2_Port_OriginalFrontCap",
+    "SideBattery_2_Port_OriginalTurretShell",
+    "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+    "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+    "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+    "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+    "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+    "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+    "SideBattery_2_Starboard_OriginalFrontCap",
+    "SideBattery_2_Starboard_OriginalTurretShell",
+    "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+    "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+    "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+    "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+    "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+    "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+    "SideBattery_4_Port_OriginalFrontCap",
+    "SideBattery_4_Port_OriginalTurretShell",
+    "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+    "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+    "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+    "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+    "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+    "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+    "SideBattery_4_Starboard_OriginalFrontCap",
+    "SideBattery_4_Starboard_OriginalTurretShell",
+    "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+    "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+    "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+    "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+    "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+    "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+    "holo.001"
+  ]
+}

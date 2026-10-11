@@ -1,0 +1,110 @@
+{
+  "Port": {
+    "poses": 442,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "tubePairContacts": [],
+    "maxTransverseDisplacementMismatch": 2.2036958460336536e-05,
+    "maxTubeAdvanceBeforePetalsOpen": 0.0,
+    "maxArmorVertexXChange": 0.0,
+    "maxArmorRotationRadians": 0.0,
+    "closedForwardSeams": [
+      {
+        "quadrant": 0,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 1.9580102842922636e-05,
+        "surfaceError": 2.7418136596679688e-06
+      },
+      {
+        "quadrant": 1,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 6.628819449353953e-06,
+        "surfaceError": 2.6226043701171875e-06
+      },
+      {
+        "quadrant": 2,
+        "endpointGap": 7.62939453125e-06,
+        "edgeAngleDegrees": 1.939074737496201e-05,
+        "surfaceError": 8.761882781982422e-06
+      },
+      {
+        "quadrant": 3,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 6.679473828321814e-06,
+        "surfaceError": 2.7418136596679688e-06
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "hiddenBehindArmor": 0.8271598815917969
+      },
+      {
+        "quadrant": 1,
+        "hiddenBehindArmor": 0.8295860290527344
+      },
+      {
+        "quadrant": 2,
+        "hiddenBehindArmor": 0.7438240051269531
+      },
+      {
+        "quadrant": 3,
+        "hiddenBehindArmor": 0.7412376403808594
+      }
+    ]
+  },
+  "Starboard": {
+    "poses": 442,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "tubePairContacts": [],
+    "maxTransverseDisplacementMismatch": 2.2036958460336536e-05,
+    "maxTubeAdvanceBeforePetalsOpen": 0.0,
+    "maxArmorVertexXChange": 0.0,
+    "maxArmorRotationRadians": 0.0,
+    "closedForwardSeams": [
+      {
+        "quadrant": 0,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 1.9580102842922636e-05,
+        "surfaceError": 2.7418136596679688e-06
+      },
+      {
+        "quadrant": 1,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 6.628819449353953e-06,
+        "surfaceError": 2.6226043701171875e-06
+      },
+      {
+        "quadrant": 2,
+        "endpointGap": 7.62939453125e-06,
+        "edgeAngleDegrees": 1.939074737496201e-05,
+        "surfaceError": 8.761882781982422e-06
+      },
+      {
+        "quadrant": 3,
+        "endpointGap": 0.0,
+        "edgeAngleDegrees": 6.679473828321814e-06,
+        "surfaceError": 2.7418136596679688e-06
+      }
+    ],
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "hiddenBehindArmor": 0.8271598815917969
+      },
+      {
+        "quadrant": 1,
+        "hiddenBehindArmor": 0.8295860290527344
+      },
+      {
+        "quadrant": 2,
+        "hiddenBehindArmor": 0.7438240051269531
+      },
+      {
+        "quadrant": 3,
+        "hiddenBehindArmor": 0.7412376403808594
+      }
+    ]
+  }
+}

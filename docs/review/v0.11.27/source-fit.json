@@ -1,0 +1,356 @@
+{
+  "version": "0.11.27",
+  "sourceSha256": "9ec8b6ee36e6315c7c0cae8576472879518cc5bf48b79382c2affbcbd71af15e",
+  "stations": {
+    "SideBattery_2_Starboard": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 378,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 365,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 19,
+          "unchangedGrateVertices": 184,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 379,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 366,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 185,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        }
+      ],
+      "capRearProfileB": 9.425,
+      "capLeadingEdgeUnchanged": true,
+      "flatCrownHalfWidth": 0.45,
+      "barrelAndJointMetadataUnchanged": true
+    },
+    "SideBattery_2_Port": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 379,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 366,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 185,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 378,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 365,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 19,
+          "unchangedGrateVertices": 184,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        }
+      ],
+      "capRearProfileB": 9.425,
+      "capLeadingEdgeUnchanged": true,
+      "flatCrownHalfWidth": 0.45,
+      "barrelAndJointMetadataUnchanged": true
+    },
+    "SideBattery_4_Starboard": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 380,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 367,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 19,
+          "unchangedGrateVertices": 184,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 383,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 370,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 185,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        }
+      ],
+      "capRearProfileB": 9.425,
+      "capLeadingEdgeUnchanged": true,
+      "flatCrownHalfWidth": 0.45,
+      "barrelAndJointMetadataUnchanged": true
+    },
+    "SideBattery_4_Port": {
+      "leaves": [
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+          "originalVertices": 383,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 370,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 185,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+          "originalVertices": 380,
+          "fittedSourceExteriorVertices": 13,
+          "unchangedGrateVertices": 367,
+          "closedBankRange": [
+            -17.4,
+            -8.205
+          ],
+          "seamLapWidth": 0
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+          "originalVertices": 203,
+          "fittedSourceExteriorVertices": 19,
+          "unchangedGrateVertices": 184,
+          "closedBankRange": [
+            -8.185,
+            0.315
+          ],
+          "seamLapWidth": 0.1
+        },
+        {
+          "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+          "originalVertices": 204,
+          "fittedSourceExteriorVertices": 18,
+          "unchangedGrateVertices": 186,
+          "closedBankRange": [
+            0.335,
+            9.415
+          ],
+          "seamLapWidth": 0.1
+        }
+      ],
+      "capRearProfileB": 9.425,
+      "capLeadingEdgeUnchanged": true,
+      "flatCrownHalfWidth": 0.45,
+      "barrelAndJointMetadataUnchanged": true
+    }
+  },
+  "removedLegacyHousing": {
+    "oldMesh": "Odin_Restored_Starboard_Housing",
+    "remainingMesh": "Flank_4_Starboard_FixedBearingPair",
+    "removedPolygons": 359,
+    "retainedBearingPolygons": 1590,
+    "retainedBearingIslands": 2,
+    "bearingCoordinatesUnchanged": true
+  },
+  "restoredGrayOuterEndFaces": {
+    "mesh": "holo.001",
+    "faces": [
+      131174,
+      163397
+    ],
+    "geometryAndUvsUnchanged": true
+  },
+  "grayOuterFloorBands": [
+    {
+      "station": "SideBattery_2_Starboard",
+      "sourceFloorFace": 194058,
+      "outerSide": -1,
+      "innerRedHalfWidth": 2.88,
+      "paintStandOff": 0.015,
+      "vertices": 3
+    },
+    {
+      "station": "SideBattery_2_Starboard",
+      "sourceFloorFace": 194058,
+      "outerSide": 1,
+      "innerRedHalfWidth": 2.88,
+      "paintStandOff": 0.015,
+      "vertices": 4
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "sourceFloorFace": 163402,
+      "outerSide": -1,
+      "innerRedHalfWidth": 2.88,
+      "paintStandOff": 0.015,
+      "vertices": 4
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "sourceFloorFace": 163402,
+      "outerSide": 1,
+      "innerRedHalfWidth": 2.88,
+      "paintStandOff": 0.015,
+      "vertices": 3
+    }
+  ],
+  "unchangedOtherMeshes": 502,
+  "unchangedJointTransforms": 191,
+  "unchangedJointMetadata": 191,
+  "animationClips": 0
+}

@@ -1,0 +1,137 @@
+{
+  "version": "0.11.38",
+  "stations": [
+    {
+      "station": 1,
+      "fixedHood": "Defense_01_FixedHood",
+      "hoodSourceIsland": 12,
+      "hoodVertices": 718,
+      "fixedHoodSourceFrame": 30,
+      "lowerCradle": "Defense_01_LowerCradle",
+      "supportSourceIslands": [
+        0,
+        1,
+        2,
+        9,
+        14,
+        15,
+        71
+      ],
+      "supportVertices": 8969,
+      "raisedOrigin": [
+        -21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "raiseInterval": [
+        0.52,
+        0.68
+      ],
+      "aimStart": 0.69
+    },
+    {
+      "station": 2,
+      "fixedHood": "Defense_02_FixedHood",
+      "hoodSourceIsland": 13,
+      "hoodVertices": 718,
+      "fixedHoodSourceFrame": 30,
+      "lowerCradle": "Defense_02_LowerCradle",
+      "supportSourceIslands": [
+        3,
+        4,
+        5,
+        6,
+        16,
+        17,
+        70
+      ],
+      "supportVertices": 8980,
+      "raisedOrigin": [
+        -27.713760375976562,
+        -64.0233154296875,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "raiseInterval": [
+        0.52,
+        0.68
+      ],
+      "aimStart": 0.69
+    },
+    {
+      "station": 3,
+      "fixedHood": "Defense_03_FixedHood",
+      "hoodSourceIsland": 12,
+      "hoodVertices": 718,
+      "fixedHoodSourceFrame": 30,
+      "lowerCradle": "Defense_03_LowerCradle",
+      "supportSourceIslands": [
+        0,
+        1,
+        2,
+        9,
+        14,
+        15,
+        71
+      ],
+      "supportVertices": 8966,
+      "raisedOrigin": [
+        21.868160247802734,
+        -35.60057830810547,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "raiseInterval": [
+        0.52,
+        0.68
+      ],
+      "aimStart": 0.69
+    },
+    {
+      "station": 4,
+      "fixedHood": "Defense_04_FixedHood",
+      "hoodSourceIsland": 13,
+      "hoodVertices": 718,
+      "fixedHoodSourceFrame": 30,
+      "lowerCradle": "Defense_04_LowerCradle",
+      "supportSourceIslands": [
+        3,
+        4,
+        5,
+        6,
+        16,
+        17,
+        70
+      ],
+      "supportVertices": 8980,
+      "raisedOrigin": [
+        27.719816207885742,
+        -64.032958984375,
+        52.27461624145508
+      ],
+      "stowDrop": 4.6,
+      "raiseInterval": [
+        0.52,
+        0.68
+      ],
+      "aimStart": 0.69
+    }
+  ],
+  "sourceFacesReassigned": [
+    {
+      "side": "Port",
+      "originalVertices": 41247,
+      "retainedRailVertices": 21862,
+      "reassignedVertices": 19385,
+      "geometryDeformed": false
+    },
+    {
+      "side": "Starboard",
+      "originalVertices": 41233,
+      "retainedRailVertices": 21851,
+      "reassignedVertices": 19382,
+      "geometryDeformed": false
+    }
+  ]
+}

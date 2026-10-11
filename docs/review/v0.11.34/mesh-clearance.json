@@ -1,0 +1,160 @@
+{
+  "Port": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "closedSourceCarriage": [
+      -22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "closedForwardSeams": [
+      {
+        "maxClosedSurfaceError": 2.7418136596679688e-06,
+        "joint": "PDC_Port_HullPetal_0",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 1.9580102842922636e-05,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 2.6226043701171875e-06,
+        "joint": "PDC_Port_HullPetal_1",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 6.628819449353953e-06,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 8.761882781982422e-06,
+        "joint": "PDC_Port_HullPetal_2",
+        "closedEdgeEndpointGap": 7.62939453125e-06,
+        "closedEdgeAngleDegrees": 1.939074737496201e-05,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 2.7418136596679688e-06,
+        "joint": "PDC_Port_HullPetal_3",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 6.679473828321814e-06,
+        "closedForemostCoordinate": 39.42605209350586
+      }
+    ],
+    "maxArmorVertexXChange": 0.0,
+    "maxArmorRotationRadians": 0.0,
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 38.59889221191406,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.8271598815917969,
+        "previous11PercentTubeTip": 38.598888479727286,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 38.596466064453125,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.8295860290527344,
+        "previous11PercentTubeTip": 38.59646233226635,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 38.682228088378906,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.7438240051269531,
+        "previous11PercentTubeTip": 38.68222435619213,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 38.684814453125,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.7412376403808594,
+        "previous11PercentTubeTip": 38.68481072093822,
+        "referenceTipError": 3.73218677651721e-06
+      }
+    ],
+    "sourceMeshesRemainRigid": true,
+    "maxArmorReturnStroke": 0.0,
+    "maxOpenEndpointDrift": 0.0
+  },
+  "Starboard": {
+    "poses": 401,
+    "barrelPetalContacts": [],
+    "cradlePairContacts": [],
+    "closedSourceCarriage": [
+      22.263671875,
+      -61.706565856933594,
+      105.91593933105469
+    ],
+    "closedForwardSeams": [
+      {
+        "maxClosedSurfaceError": 2.7418136596679688e-06,
+        "joint": "PDC_Starboard_HullPetal_0",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 1.9580102842922636e-05,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 2.6226043701171875e-06,
+        "joint": "PDC_Starboard_HullPetal_1",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 6.628819449353953e-06,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 8.761882781982422e-06,
+        "joint": "PDC_Starboard_HullPetal_2",
+        "closedEdgeEndpointGap": 7.62939453125e-06,
+        "closedEdgeAngleDegrees": 1.939074737496201e-05,
+        "closedForemostCoordinate": 39.42605209350586
+      },
+      {
+        "maxClosedSurfaceError": 2.7418136596679688e-06,
+        "joint": "PDC_Starboard_HullPetal_3",
+        "closedEdgeEndpointGap": 0.0,
+        "closedEdgeAngleDegrees": 6.679473828321814e-06,
+        "closedForemostCoordinate": 39.42605209350586
+      }
+    ],
+    "maxArmorVertexXChange": 0.0,
+    "maxArmorRotationRadians": 0.0,
+    "hiddenBarrelTips": [
+      {
+        "quadrant": 0,
+        "closedTubeTip": 38.59889221191406,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.8271598815917969,
+        "previous11PercentTubeTip": 38.598888479727286,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 1,
+        "closedTubeTip": 38.596466064453125,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.8295860290527344,
+        "previous11PercentTubeTip": 38.59646233226635,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 2,
+        "closedTubeTip": 38.682228088378906,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.7438240051269531,
+        "previous11PercentTubeTip": 38.68222435619213,
+        "referenceTipError": 3.73218677651721e-06
+      },
+      {
+        "quadrant": 3,
+        "closedTubeTip": 38.684814453125,
+        "closedArmorForemost": 39.42605209350586,
+        "hiddenBehindArmor": 0.7412376403808594,
+        "previous11PercentTubeTip": 38.68481072093822,
+        "referenceTipError": 3.73218677651721e-06
+      }
+    ],
+    "sourceMeshesRemainRigid": true,
+    "maxArmorReturnStroke": 0.0,
+    "maxOpenEndpointDrift": 0.0
+  }
+}

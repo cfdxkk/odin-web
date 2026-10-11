@@ -1,0 +1,172 @@
+{
+  "version": "0.11.42",
+  "baseline": "0.11.40",
+  "sides": {
+    "Port": {
+      "samples": 181,
+      "neverNarrower": true,
+      "examples": [
+        {
+          "progress": 0,
+          "previous": {
+            "foreAft": 4.483009238175839,
+            "vertical": 2.613111819033776
+          },
+          "current": {
+            "foreAft": 4.523009237281769,
+            "vertical": 2.613111819033776
+          }
+        },
+        {
+          "progress": 0.12,
+          "previous": {
+            "foreAft": 5.596947133277382,
+            "vertical": 2.780202503299023
+          },
+          "current": {
+            "foreAft": 5.625807753432305,
+            "vertical": 2.780202503299023
+          }
+        },
+        {
+          "progress": 0.13,
+          "previous": {
+            "foreAft": 6.023424790799687,
+            "vertical": 2.8441741519274046
+          },
+          "current": {
+            "foreAft": 6.426796625506626,
+            "vertical": 2.901564453613304
+          }
+        },
+        {
+          "progress": 0.14,
+          "previous": {
+            "foreAft": 6.588691731243273,
+            "vertical": 2.9289641929939307
+          },
+          "current": {
+            "foreAft": 7.441134569129808,
+            "vertical": 3.0552520208289593
+          }
+        },
+        {
+          "progress": 0.15,
+          "previous": {
+            "foreAft": 7.232080536729306,
+            "vertical": 3.025472513816851
+          },
+          "current": {
+            "foreAft": 7.987641418401211,
+            "vertical": 3.138056088900356
+          }
+        },
+        {
+          "progress": 0.16,
+          "previous": {
+            "foreAft": 7.848790279985856,
+            "vertical": 3.1179789753053058
+          },
+          "current": {
+            "foreAft": 8.2318584767308,
+            "vertical": 3.175058673495755
+          }
+        },
+        {
+          "progress": 0.18,
+          "previous": {
+            "foreAft": 8.483009148768872,
+            "vertical": 3.213111805622759
+          },
+          "current": {
+            "foreAft": 8.483009148768872,
+            "vertical": 3.213111805622759
+          }
+        }
+      ]
+    },
+    "Starboard": {
+      "samples": 181,
+      "neverNarrower": true,
+      "examples": [
+        {
+          "progress": 0,
+          "previous": {
+            "foreAft": 4.483009238175839,
+            "vertical": 2.613111819033776
+          },
+          "current": {
+            "foreAft": 4.523009237281769,
+            "vertical": 2.613111819033776
+          }
+        },
+        {
+          "progress": 0.12,
+          "previous": {
+            "foreAft": 5.596947133277382,
+            "vertical": 2.780202503299023
+          },
+          "current": {
+            "foreAft": 5.625807753432305,
+            "vertical": 2.780202503299023
+          }
+        },
+        {
+          "progress": 0.13,
+          "previous": {
+            "foreAft": 6.023424790799687,
+            "vertical": 2.8441741519274046
+          },
+          "current": {
+            "foreAft": 6.426796625506626,
+            "vertical": 2.901564453613304
+          }
+        },
+        {
+          "progress": 0.14,
+          "previous": {
+            "foreAft": 6.588691731243273,
+            "vertical": 2.9289641929939307
+          },
+          "current": {
+            "foreAft": 7.441134569129808,
+            "vertical": 3.0552520208289593
+          }
+        },
+        {
+          "progress": 0.15,
+          "previous": {
+            "foreAft": 7.232080536729306,
+            "vertical": 3.025472513816851
+          },
+          "current": {
+            "foreAft": 7.987641418401211,
+            "vertical": 3.138056088900356
+          }
+        },
+        {
+          "progress": 0.16,
+          "previous": {
+            "foreAft": 7.848790279985856,
+            "vertical": 3.1179789753053058
+          },
+          "current": {
+            "foreAft": 8.2318584767308,
+            "vertical": 3.175058673495755
+          }
+        },
+        {
+          "progress": 0.18,
+          "previous": {
+            "foreAft": 8.483009148768872,
+            "vertical": 3.213111805622759
+          },
+          "current": {
+            "foreAft": 8.483009148768872,
+            "vertical": 3.213111805622759
+          }
+        }
+      ]
+    }
+  }
+}

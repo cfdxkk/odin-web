@@ -1,0 +1,205 @@
+{
+  "version": "0.11.27",
+  "nativeSha256": "cbe14f569aba1f2f7c594883676459cf7e2674af0b207258d034fe19afaf9a14",
+  "unchangedOtherMeshes": 502,
+  "unchangedJointTransforms": 191,
+  "unchangedJointMetadata": 191,
+  "sourceArmorPolygonsAndUvs": [
+    {
+      "mesh": "SideBattery_2_Starboard_OriginalFrontCap",
+      "retainedPolygons": 65,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_00_OriginalArmor",
+      "retainedPolygons": 527,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_01_OriginalArmor",
+      "retainedPolygons": 180,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Port_02_OriginalArmor",
+      "retainedPolygons": 181,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "retainedPolygons": 529,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "retainedPolygons": 178,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "retainedPolygons": 179,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_OriginalFrontCap",
+      "retainedPolygons": 65,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_00_OriginalArmor",
+      "retainedPolygons": 529,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_01_OriginalArmor",
+      "retainedPolygons": 178,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Port_02_OriginalArmor",
+      "retainedPolygons": 179,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_00_OriginalArmor",
+      "retainedPolygons": 527,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_01_OriginalArmor",
+      "retainedPolygons": 180,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_2_Port_Shutter_Starboard_02_OriginalArmor",
+      "retainedPolygons": 181,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_OriginalFrontCap",
+      "retainedPolygons": 64,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_00_OriginalArmor",
+      "retainedPolygons": 531,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_01_OriginalArmor",
+      "retainedPolygons": 180,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Port_02_OriginalArmor",
+      "retainedPolygons": 181,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_00_OriginalArmor",
+      "retainedPolygons": 537,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_01_OriginalArmor",
+      "retainedPolygons": 178,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Starboard_Shutter_Starboard_02_OriginalArmor",
+      "retainedPolygons": 179,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_OriginalFrontCap",
+      "retainedPolygons": 64,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_00_OriginalArmor",
+      "retainedPolygons": 537,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_01_OriginalArmor",
+      "retainedPolygons": 178,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Port_02_OriginalArmor",
+      "retainedPolygons": 179,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_00_OriginalArmor",
+      "retainedPolygons": 531,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_01_OriginalArmor",
+      "retainedPolygons": 180,
+      "maxUvError": 0.0
+    },
+    {
+      "mesh": "SideBattery_4_Port_Shutter_Starboard_02_OriginalArmor",
+      "retainedPolygons": 181,
+      "maxUvError": 0.0
+    }
+  ],
+  "fixedBearingPolygons": 1590,
+  "legacyFixedHousingPolygons": 0,
+  "closedSeams": [
+    {
+      "station": "SideBattery_2_Starboard",
+      "rays": 1140,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxSurfaceDistanceError": 0.031583309173583984,
+      "centerCrownRays": 480,
+      "centerCrownMisses": [],
+      "centerCrownInteriorFirstHits": []
+    },
+    {
+      "station": "SideBattery_2_Port",
+      "rays": 1140,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxSurfaceDistanceError": 0.031583309173583984,
+      "centerCrownRays": 480,
+      "centerCrownMisses": [],
+      "centerCrownInteriorFirstHits": []
+    },
+    {
+      "station": "SideBattery_4_Starboard",
+      "rays": 1140,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxSurfaceDistanceError": 0.02959263324737549,
+      "centerCrownRays": 480,
+      "centerCrownMisses": [],
+      "centerCrownInteriorFirstHits": []
+    },
+    {
+      "station": "SideBattery_4_Port",
+      "rays": 1140,
+      "misses": [],
+      "interiorFirstHits": [],
+      "maxSurfaceDistanceError": 0.029628753662109375,
+      "centerCrownRays": 480,
+      "centerCrownMisses": [],
+      "centerCrownInteriorFirstHits": []
+    }
+  ],
+  "restoredGrayOuterEndFaces": [
+    131174,
+    163397
+  ],
+  "fixedHullCoordinatesAndUvsUnchanged": true,
+  "retainedOriginalFixedHullPolygons": 211590,
+  "grayOuterFloorBands": 4,
+  "originalFloorFacesStillRed": [
+    194058,
+    163402
+  ],
+  "originalSourceUnchanged": true
+}
