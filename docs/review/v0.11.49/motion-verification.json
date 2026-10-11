@@ -1,0 +1,51 @@
+{
+  "version": "v0.11.49-rc.1",
+  "baseline": "v0.11.48-rc.1",
+  "samples": 233,
+  "unchangedWorldJoints": 199,
+  "affectedJoints": [
+    "PDC_Port_Cradle_0",
+    "PDC_Port_Arm_0",
+    "PDC_Port_Cradle_1",
+    "PDC_Port_Arm_1",
+    "PDC_Port_Cradle_2",
+    "PDC_Port_Arm_2",
+    "PDC_Port_Cradle_3",
+    "PDC_Port_Arm_3",
+    "PDC_Starboard_Cradle_0",
+    "PDC_Starboard_Arm_0",
+    "PDC_Starboard_Cradle_1",
+    "PDC_Starboard_Arm_1",
+    "PDC_Starboard_Cradle_2",
+    "PDC_Starboard_Arm_2",
+    "PDC_Starboard_Cradle_3",
+    "PDC_Starboard_Arm_3"
+  ],
+  "maxUnchangedJointWorldError": 2.220446049250313e-16,
+  "maxAxialScheduleError": 0,
+  "maxRotationError": 6.664001874625056e-8,
+  "modelPacking": {
+    "horizontalBefore": 1.98,
+    "horizontalAfter": 0.495,
+    "verticalBefore": 0.3,
+    "verticalAfter": 0.32
+  },
+  "axialSeating": {
+    "previousTravel": 14.40237037037037,
+    "newTravel": 22.40237037037037,
+    "extensionTimelineInterval": [
+      0.08,
+      0.69
+    ],
+    "reason": "Shallow packing leaves receivers outside the casing, requiring clearance behind the fitted closing skins."
+  },
+  "codeHashes": {
+    "motionHelper": "fa8768d07b422817667e15132f1c706b907b1fbed5c6978b1801aa97b0fb95ec",
+    "rig": "87bf55b0d9626e6a250740f286f3b64c9bef831aa26d63ba319f80021cb58e25",
+    "tempo": "a5cc158f9503b3e2e88a030394da11284ad726f0c7ab72922984c55dc165be42"
+  },
+  "assetHashes": {
+    "high": "dcac0f6bb0ac4a72037151ed4c70fbd87f577b2c801dd144cb488937153123a4",
+    "lite": "e25f49c041b6bb9b1d9642f00244ef83367259bcadbdbb8f3483368e2763f457"
+  }
+}

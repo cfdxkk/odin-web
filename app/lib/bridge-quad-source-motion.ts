@@ -23,6 +23,35 @@ export function bridgeQuadTubeCompactAmount(data: Record<string, any>, deploymen
   return bridgeQuadCompactAmount(data, deployment) * (1 - relief)
 }
 
+// In a ship-side view, model Y is horizontal and model Z is vertical. Keep
+// the barrels beside the casing with only a small horizontal packing stroke.
+export function bridgeQuadTubeCompactVector(data: Record<string, any>): [number, number, number] {
+  const [x, y, z] = data.compactVector as [number, number, number]
+  return [x, y * .25, z * (16 / 15)]
+}
+
+// Shallow side-view packing keeps the tubes outside the central casing.
+// Seat their receivers behind the closing skins before packing; reversing
+// releases the skins before visible extension. One broad, smooth timeline
+// stroke avoids racing the longer tubes through the short packing interval.
+export function bridgeQuadTubeSlideAmount(deployment: number) {
+  return 1 - ease(.08, .69, deployment)
+}
+
+export function bridgeQuadTubeSlideVector(data: Record<string, any>): [number, number, number] {
+  const vector = data.slideVector as [number, number, number]
+  const length = Math.hypot(...vector)
+  return vector.map(value => value * (length + 8) / length) as [number, number, number]
+}
+
+// These long fixed forks are children of the moving bearings. Compensate for
+// their revised packing so each fork keeps its accepted world-space path.
+export function bridgeQuadGuideCompactVector(cradle: Record<string, any>, guide: Record<string, any>): [number, number, number] {
+  const original = cradle.compactVector as number[]
+  const corrected = bridgeQuadTubeCompactVector(cradle)
+  return original.map((value, axis) => value + Number(guide.compactVector[axis]) - corrected[axis]!) as [number, number, number]
+}
+
 // Original bridge turret action: 15–45, horizontal one-third Bezier handles.
 // Retain only frames 30–45: NAV is the source midpoint, not its deep stow.
 export function bridgeQuadCarriageAmount(data: Record<string, any>, deployment: number) {

@@ -283,7 +283,7 @@ test('original quad tubes retract independently while complete gray cradles reta
   assert.ok(Math.abs(pod.position.distanceTo(start) - 10) < 1e-6)
   arms.forEach((n, i) => {
     const travel = n.getWorldPosition(new THREE.Vector3()).distanceTo(locations[i])
-    assert.ok(travel > .243 && travel < .247, 'Tube stroke ends at the requested prior 11-percent reach plus the frame-30 carriage stroke')
+    assert.ok(travel > .323 && travel < .327, 'Tubes seat behind the closing covers while the carriage retains its frame-30 stroke')
   })
   cradles.forEach((n,i)=>assert.ok(n.getWorldPosition(new THREE.Vector3()).distanceTo(cradleLocations[i])>.099&&n.getWorldPosition(new THREE.Vector3()).distanceTo(cradleLocations[i])<.103,'Gray cradle follows the turret and small radial packing, without the tube slide'))
 })
@@ -1450,30 +1450,35 @@ test('bridge quads use the original frame-30 carriage seat and all original aimi
   }
 })
 
-test('bridge quads preserve the original axial stroke and shorter transverse packing on their accepted pose path', () => {
+test('bridge quads only pack slightly in side-view horizontal direction and remain seated during cover release', () => {
   const {root,rig}=loadRigAtPoseClock('quad')
   const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const tube=root.getObjectByName(`PDC_${side}_Arm_${i}`),cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`)
-    rig.apply(.78,0)
+    rig.apply(1,0)
     const t1=tube.position.clone(),c1=cradle.position.clone()
     assert.equal(tube.userData.slideStart,.03);assert.equal(tube.userData.slideEnd,.18)
     assert.equal(tube.userData.extendsAfterPetal,undefined)
     assert.equal(cradle.userData.synchronizedPetal,undefined)
-    const vector=map(cradle.userData.compactVector),old=map([0,(i<2?1:-1)*2,(i%2? -1:1)*.3])
+    const old=map(cradle.userData.compactVector)
     for(const d of [...Array.from({length:181},(_,n)=>n/1000),...Array.from({length:181},(_,n)=>(180-n)/1000)]) {
       rig.apply(d,0)
       const c=1-ease(.03,.18,d),original=c+2.5*c*(1-c)**2,shorter=original*(1-.60*ease(.12,.15,d))
-      assert.ok(cradle.position.clone().sub(c1).distanceTo(vector.clone().multiplyScalar(shorter))<1e-9)
-      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original+1e-9,'Center packing is never deeper than the original stroke')
-      assert.ok(tube.position.clone().sub(t1).distanceTo(map(tube.userData.slideVector).multiplyScalar(c))<1e-9,'Original axial travel and timing stay unchanged')
+      const shift=cradle.position.clone().sub(c1)
+      assert.equal(shift.x,0,'Packing must not add axial withdrawal')
+      assert.ok(Math.abs(shift.z)<=.50*shorter+1e-9,'Side-view horizontal packing is at most half a source unit')
+      assert.ok(Math.abs(shift.z)<=Math.abs(old.z)*shorter*.26+1e-9,'Horizontal packing is reduced to about one quarter')
+      assert.ok(Math.abs(shift.y)<=.321*shorter+1e-9,'Upper/lower packing stays below the gray bearing contact threshold')
+      assert.ok(Math.abs(shift.y)>=Math.abs(old.y)*shorter-1e-9,'Upper/lower packing is not reduced with the excessive horizontal stroke')
+      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original*.35+1e-9,'The total packing stroke is visibly shallow')
+      assert.ok(tube.position.distanceTo(t1)>14,'Barrels retain axial clearance behind the skins throughout transverse packing')
       if(d>=.15&&d<.18&&original>0)assert.ok(cradle.position.distanceTo(c1)<.401*old.length()*original,'Exposed tubes retain wider transverse spacing')
     }
   }
 })
 
-test('quad tubes keep the previous 11-percent reach; all gray armor stays unrotated and locks ship X in plan view', () => {
+test('quad tubes extend smoothly through released skins; all gray armor stays unrotated and locks ship X in plan view', () => {
   const ease=(a,b,d)=>{const t=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return t*t*(3-2*t)}
   const {root,rig,meshBounds}=loadRigAtPoseClock('quad'),travel=32*(1-ease(.03,.18,.11))
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
@@ -1497,30 +1502,61 @@ test('quad tubes keep the previous 11-percent reach; all gray armor stays unrota
       const compact=1-ease(.03,.18,d),center=(compact+2.5*compact*(1-compact)**2)**2,vector=petal.userData.compactVector
       const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
       assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
-      assert.ok(Math.abs(arm.position.distanceTo(a1)-travel*(1-ease(.03,.18,d)))<1e-6)
+      assert.ok(Math.abs(arm.position.distanceTo(a1)-(travel+8)*(1-ease(.08,.69,timelineForPose(d,'quad'))))<1e-6)
     }
   }
 })
 
-test('quad bearings follow the shorter tube packing while guides retain their original net endpoint', () => {
+test('quad fixed forks retain their complete accepted path as bearings use shallower anisotropic packing', () => {
   const {root,rig}=loadRigAtPoseClock('quad')
   const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`),guide=root.getObjectByName(`PDC_${side}_CradleGuide_${i}`)
     rig.apply(.78,0);const open=cradle.position.clone(),g1=guide.position.clone()
+    const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
+    const originalNet=map(cradle.userData.compactVector).add(map(guide.userData.compactVector))
     let previous=0
     for(let n=0;n<=400;n++) {
       const d=1-n/400;rig.apply(d,0)
       const c=1-ease(.03,.18,d),clock=(c+2.5*c*(1-c)**2)*(1-.60*ease(.12,.15,d))
-      const shift=cradle.position.clone().sub(open),expected=new THREE.Vector3(0,0,-guide.userData.compactVector[1]).multiplyScalar(clock)
+      const shift=cradle.position.clone().sub(open),net=shift.clone().add(guide.position.clone().sub(g1))
       assert.equal(shift.x,0)
-      assert.ok(guide.position.clone().sub(g1).distanceTo(expected)<1e-9)
+      assert.ok(net.distanceTo(originalNet.clone().multiplyScalar(clock))<1e-9,'Long fixed forks keep their original net path at every progress')
       assert.ok(shift.length()>=previous-1e-9,'The packing stroke never reverses')
       previous=shift.length()
     }
     const net=cradle.position.clone().sub(open).add(guide.position.clone().sub(g1))
     assert.ok(Math.abs(Math.abs(net.z)-.6)<1e-6)
     assert.ok(Math.abs(Math.abs(net.y)-.30)<1e-6)
+  }
+})
+
+test('shallow quad packing clears the actual casing, petals, tubes and bearings on both mirrored strokes', () => {
+  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.49/motion-verification.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.49/mesh-clearance.json',import.meta.url)))
+  const hash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex')
+  assert.equal(motion.codeHashes.motionHelper,hash('../app/lib/bridge-quad-source-motion.ts'))
+  assert.equal(motion.codeHashes.rig,hash('../app/lib/odin-rig.ts'))
+  assert.equal(motion.assetHashes.high,hash('../public/models/odin.glb'))
+  assert.equal(motion.assetHashes.lite,hash('../public/models/odin-lite.glb'))
+  assert.equal(clearance.nativeSha256,hash('../'+clearance.nativeFile))
+  assert.deepEqual(clearance.codeHashes,motion.codeHashes)
+  assert.equal(clearance.originalMeshesUnchanged,true)
+  assert.equal(clearance.reverseSamples,31)
+  assert.equal(motion.unchangedWorldJoints,199)
+  assert.ok(motion.maxUnchangedJointWorldError<1e-9)
+  for(const side of ['Port','Starboard']) {
+    const r=clearance.sides[side]
+    assert.equal(r.poses,motion.samples)
+    assert.deepEqual(r.tubeCasingContacts,[])
+    assert.deepEqual(r.tubePetalContacts,[])
+    assert.deepEqual(r.tubePairContacts,[])
+    assert.deepEqual(r.cradlePairContacts,[])
+    assert.ok(r.baselineTubeCasingContacts.length>0,'The audit detects the prior casing penetration as a positive control')
+    const closed=r.examples.find(e=>e.progress===0),open=r.examples.find(e=>e.progress===.5)
+    assert.ok(closed.foreAftSeparation>7.4,'Closed tubes retain a wide side-view horizontal gap')
+    assert.ok(open.foreAftSeparation-closed.foreAftSeparation<1.1,'The closing horizontal stroke is small')
+    assert.ok(closed.verticalSeparation>2.5,'Upper/lower tubes retain adequate clearance')
   }
 })
 

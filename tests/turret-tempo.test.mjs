@@ -44,7 +44,7 @@ test('quad release and carriage have comparable speeds; aft covers slow down whi
     for(let i=0;i<4;i++) {
       const tube=measure(rig,root.getObjectByName(`PDC_${side}_Arm_${i}`))
       assert.ok(tube.peak<11&&tube.peak/carriage.peak<1.25,'Tube release no longer races ahead of the carriage')
-      assert.ok(tube.span>1.2&&tube.span<1.4)
+      assert.ok(tube.span>2.3&&tube.span<2.5,'The longer seating stroke uses enough time to retain the accepted speed limit')
     }
   }
   for(let i=5;i<=8;i++) {
@@ -92,10 +92,14 @@ test('retimed mechanisms retrace exactly when reversed and remain continuous at 
   const forward=[]
   for(let n=0;n<=200;n++){rig.apply(n/200,20);forward.push(pose())}
   for(let n=200;n>=0;n--){rig.apply(n/200,20);assert.deepEqual(pose(),forward[n])}
-  for(const p of [.26,.33,.35,.64,.66,.67,.69,.98]) {
-    rig.apply(p-1e-7,20);const a=pose()
-    rig.apply(p+1e-7,20);const b=pose()
-    assert.ok(Math.max(...a.flatMap((row,i)=>row.map((v,j)=>Math.abs(v-b[i][j]))))<1e-5,'A handoff must not jump position or angle')
+  for(const p of [.08,.26,.33,.35,.64,.66,.67,.69,.98]) {
+    const delta=epsilon=>{
+      rig.apply(p-epsilon,20);const a=pose()
+      rig.apply(p+epsilon,20);const b=pose()
+      return Math.max(...a.flatMap((row,i)=>row.map((v,j)=>Math.abs(v-b[i][j]))))
+    }
+    const broad=delta(1e-7),narrow=delta(1e-8)
+    assert.ok(narrow<2e-6&&narrow<=broad*.11+1e-9,'Motion differences must shrink with the sampling interval, without a discontinuity')
   }
 })
 
