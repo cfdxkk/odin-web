@@ -150,21 +150,22 @@
     "Bridge quad extra tube travel ends at the former v0.11.31 11-percent tube position, shortening the stroke by 55 percent",
     "The eight original bridge quad petals make one monotonic vertical stroke and hold the open endpoint from 18 percent; no late descent, rotation or ship X displacement remains",
     "Each complete outer petal skin is fitted in Z to its actual adjoining roof face, retaining all original 26 vertices, source topology, UVs and X/Y footprint; the prior 32 fixed lip edits are unchanged",
+    "All eight quad armor skins share the adjoining Odin_Bridge_Armor material; complete original tubes, support, gray guide packing and the frame-30 carriage stop are retained",
     "Aft twin gates 5–8 match all four boundary layers of the original hull shell, including its complete upper lip and lower return; their inner skins meet the innermost source edges rather than the first thin layer",
     "Forward twin lower source foundation islands 70/71 stay fixed on the hull; the remaining complete cradle moves along their actual inclined planes without a late alignment turn; source tubes retain their separate horizontal withdrawal after seating",
-    "Both bridge quads retain complete original meshes and their frame-30 seat; four tubes and their source gray cradles use shorter center strokes synchronized to the fitted hull petal clock, removing the old early squeeze; the original tubes extend axially only after the petals reach their held open endpoint"
+    "Bridge quads restore v0.11.40 axial timing, carriage, aim and unchanged fitted armor; only tube center packing is relieved after armor clearance, with the source bearings staying attached and long guides retaining their accepted net stroke"
   ],
   "webOptimization": {
     "batchedMeshes": 214,
     "highTriangles": 2378203,
     "liteTriangles": 887275,
-    "highBytes": 19146400,
-    "liteBytes": 9125192,
+    "highBytes": 19146292,
+    "liteBytes": 9125084,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.41",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.41.blend",
+  "version": "0.11.42",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.42.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",

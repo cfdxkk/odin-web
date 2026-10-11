@@ -1,0 +1,734 @@
+{
+  "version": "v0.11.42-rc.1",
+  "highAssetSha256": "b9afeb42a5abd681a2867cbafd61f4d4b062957251289c24d4586833cc748848",
+  "quadStations": [
+    "Port",
+    "Starboard"
+  ],
+  "quadObservations": 80,
+  "quadScreenshotFiles": 64,
+  "views": [
+    "oblique",
+    "side",
+    "overhead",
+    "front"
+  ],
+  "forwardAndReverseSeeks": true,
+  "otherArmamentObservations": 34,
+  "otherArmamentStations": [
+    "bow",
+    "stern",
+    "keel",
+    "side-1",
+    "side-3",
+    "side-2-right",
+    "side-4-right",
+    "side-2-left",
+    "side-4-left",
+    "bridge-quad-pdc-right",
+    "bridge-quad-pdc-left",
+    "defense-aft",
+    "bridge-front",
+    "bridge-rear",
+    "main-hull-seam",
+    "main-dorsal",
+    "main-ventral"
+  ],
+  "explicitPauseRetained": true,
+  "idleRenderFrames": {
+    "quad": [
+      222,
+      222
+    ],
+    "other": [
+      304,
+      304
+    ]
+  },
+  "finalGeneratedPreview": {
+    "version": "0.11.42",
+    "meshCount": 214,
+    "animationClips": 0,
+    "bridgeArmorSlats": 0,
+    "finalGeneratedPreviewVerified": true,
+    "idleRenderFrames": [
+      316,
+      316
+    ]
+  },
+  "applicationConsoleErrors": 0,
+  "temporaryCheckingBrowserClosed": true,
+  "obsoleteChromePreviewClosed": true,
+  "headlessBlenderJobs": 0,
+  "userPreview": {
+    "tab": "2",
+    "station": "Quad starboard",
+    "progress": 0.14,
+    "paused": true
+  },
+  "staticPreviewService": {
+    "port": 4175,
+    "count": 1,
+    "pid": 43420
+  },
+  "checks": {
+    "npmTest": {
+      "passed": 71,
+      "failed": 0
+    },
+    "verifyAsset": true,
+    "generate": true
+  },
+  "captures": [
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-斜视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-right-斜视-0.06.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-right-斜视-0.12.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-斜视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-right-斜视-0.15.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-right-斜视-0.18.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-right-斜视-0.4.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-right-斜视-1.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-斜视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-斜视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-侧视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-right-侧视-0.06.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-right-侧视-0.12.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-侧视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-right-侧视-0.15.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-right-侧视-0.18.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-right-侧视-0.4.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-right-侧视-1.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-侧视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-侧视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-俯视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-right-俯视-0.06.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-right-俯视-0.12.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-俯视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-right-俯视-0.15.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-right-俯视-0.18.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-right-俯视-0.4.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-right-俯视-1.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-俯视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-俯视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-正视-0.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-right-正视-0.06.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-right-正视-0.12.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-正视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-right-正视-0.15.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-right-正视-0.18.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-right-正视-0.4.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-right-正视-1.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-right-正视-0.14.png"
+    },
+    {
+      "station": "quad-right",
+      "angle": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-right-正视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-斜视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-left-斜视-0.06.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-left-斜视-0.12.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-斜视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-left-斜视-0.15.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-left-斜视-0.18.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-left-斜视-0.4.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-left-斜视-1.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-斜视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "斜视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-斜视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-侧视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-left-侧视-0.06.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-left-侧视-0.12.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-侧视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-left-侧视-0.15.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-left-侧视-0.18.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-left-侧视-0.4.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-left-侧视-1.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-侧视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "侧视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-侧视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-俯视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-left-俯视-0.06.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-left-俯视-0.12.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-俯视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-left-俯视-0.15.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-left-俯视-0.18.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-left-俯视-0.4.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-left-俯视-1.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-俯视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "俯视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-俯视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-正视-0.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.06,
+      "path": "output/playwright/v01142/quad-left-正视-0.06.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.12,
+      "path": "output/playwright/v01142/quad-left-正视-0.12.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-正视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.15,
+      "path": "output/playwright/v01142/quad-left-正视-0.15.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.18,
+      "path": "output/playwright/v01142/quad-left-正视-0.18.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.4,
+      "path": "output/playwright/v01142/quad-left-正视-0.4.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 1,
+      "path": "output/playwright/v01142/quad-left-正视-1.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0.14,
+      "path": "output/playwright/v01142/quad-left-正视-0.14.png"
+    },
+    {
+      "station": "quad-left",
+      "angle": "正视",
+      "progress": 0,
+      "path": "output/playwright/v01142/quad-left-正视-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 0,
+      "path": "output/playwright/v01142/bow-0.png"
+    },
+    {
+      "station": "bow",
+      "progress": 1,
+      "path": "output/playwright/v01142/bow-1.png"
+    },
+    {
+      "station": "stern",
+      "progress": 0,
+      "path": "output/playwright/v01142/stern-0.png"
+    },
+    {
+      "station": "stern",
+      "progress": 1,
+      "path": "output/playwright/v01142/stern-1.png"
+    },
+    {
+      "station": "keel",
+      "progress": 0,
+      "path": "output/playwright/v01142/keel-0.png"
+    },
+    {
+      "station": "keel",
+      "progress": 1,
+      "path": "output/playwright/v01142/keel-1.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-1-0.png"
+    },
+    {
+      "station": "side-1",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-1-1.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-3-0.png"
+    },
+    {
+      "station": "side-3",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-3-1.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-2-right-0.png"
+    },
+    {
+      "station": "side-2-right",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-2-right-1.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-4-right-0.png"
+    },
+    {
+      "station": "side-4-right",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-4-right-1.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-2-left-0.png"
+    },
+    {
+      "station": "side-2-left",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-2-left-1.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 0,
+      "path": "output/playwright/v01142/side-4-left-0.png"
+    },
+    {
+      "station": "side-4-left",
+      "progress": 1,
+      "path": "output/playwright/v01142/side-4-left-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 0,
+      "path": "output/playwright/v01142/bridge-quad-pdc-right-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-right",
+      "progress": 1,
+      "path": "output/playwright/v01142/bridge-quad-pdc-right-1.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 0,
+      "path": "output/playwright/v01142/bridge-quad-pdc-left-0.png"
+    },
+    {
+      "station": "bridge-quad-pdc-left",
+      "progress": 1,
+      "path": "output/playwright/v01142/bridge-quad-pdc-left-1.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 0,
+      "path": "output/playwright/v01142/defense-aft-0.png"
+    },
+    {
+      "station": "defense-aft",
+      "progress": 1,
+      "path": "output/playwright/v01142/defense-aft-1.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 0,
+      "path": "output/playwright/v01142/bridge-front-0.png"
+    },
+    {
+      "station": "bridge-front",
+      "progress": 1,
+      "path": "output/playwright/v01142/bridge-front-1.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 0,
+      "path": "output/playwright/v01142/bridge-rear-0.png"
+    },
+    {
+      "station": "bridge-rear",
+      "progress": 1,
+      "path": "output/playwright/v01142/bridge-rear-1.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 0,
+      "path": "output/playwright/v01142/main-hull-seam-0.png"
+    },
+    {
+      "station": "main-hull-seam",
+      "progress": 1,
+      "path": "output/playwright/v01142/main-hull-seam-1.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 0,
+      "path": "output/playwright/v01142/main-dorsal-0.png"
+    },
+    {
+      "station": "main-dorsal",
+      "progress": 1,
+      "path": "output/playwright/v01142/main-dorsal-1.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 0,
+      "path": "output/playwright/v01142/main-ventral-0.png"
+    },
+    {
+      "station": "main-ventral",
+      "progress": 1,
+      "path": "output/playwright/v01142/main-ventral-1.png"
+    }
+  ]
+}

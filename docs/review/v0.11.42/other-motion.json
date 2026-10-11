@@ -1,0 +1,7 @@
+{
+  "version": "0.11.42",
+  "unaffectedJoints": 191,
+  "samples": 303,
+  "maxWorldMatrixError": 0,
+  "allOtherMotionUnchanged": true
+}

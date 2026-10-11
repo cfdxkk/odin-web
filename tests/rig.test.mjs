@@ -1431,32 +1431,26 @@ test('bridge quads use the original frame-30 carriage seat and all original aimi
   }
 })
 
-test('bridge quad tubes and cradles share armor progress before any axial extension', () => {
+test('bridge quads restore original axial timing and only shorten transverse center packing', () => {
   const {root,rig}=loadRig()
+  const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
+  const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
-    const tube=root.getObjectByName(`PDC_${side}_Arm_${i}`),cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`),petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
-    rig.apply(0,0);root.updateMatrixWorld(true)
-    const t0=tube.getWorldPosition(new THREE.Vector3()),r0=cradle.getWorldPosition(new THREE.Vector3()),p0=petal.getWorldPosition(new THREE.Vector3()),axial=tube.position.clone()
-    const turn=tube.getWorldQuaternion(new THREE.Quaternion())
-    rig.apply(.18,0);root.updateMatrixWorld(true)
-    const tubeStroke=tube.getWorldPosition(new THREE.Vector3()).sub(t0),cradleStroke=cradle.getWorldPosition(new THREE.Vector3()).sub(r0),armorStroke=petal.getWorldPosition(new THREE.Vector3()).sub(p0)
+    const tube=root.getObjectByName(`PDC_${side}_Arm_${i}`),cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`)
+    rig.apply(.78,0)
+    const t1=tube.position.clone(),c1=cradle.position.clone()
+    assert.equal(tube.userData.slideStart,.03);assert.equal(tube.userData.slideEnd,.18)
+    assert.equal(tube.userData.extendsAfterPetal,undefined)
+    assert.equal(cradle.userData.synchronizedPetal,undefined)
+    const vector=map(cradle.userData.compactVector),old=map([0,(i<2?1:-1)*2,(i%2? -1:1)*.3])
     for(const d of [...Array.from({length:181},(_,n)=>n/1000),...Array.from({length:181},(_,n)=>(180-n)/1000)]) {
-      rig.apply(d,0);root.updateMatrixWorld(true)
-      const amount=petal.getWorldPosition(new THREE.Vector3()).sub(p0).dot(armorStroke)/armorStroke.lengthSq()
-      assert.ok(tube.getWorldPosition(new THREE.Vector3()).sub(t0).distanceTo(tubeStroke.clone().multiplyScalar(amount))<1e-10,'Tube and armor start, finish and ease together')
-      assert.ok(cradle.getWorldPosition(new THREE.Vector3()).sub(r0).distanceTo(cradleStroke.clone().multiplyScalar(amount))<1e-10,'Gray cradle follows the same armor clock')
-      assert.ok(tube.position.distanceTo(axial)<1e-12,'Axial extension waits until armor is open')
-      assert.ok(tube.getWorldQuaternion(new THREE.Quaternion()).angleTo(turn)<1e-7)
-    }
-    rig.apply(.18,0);const open=petal.position.clone()
-    for(const d of [.20,.30,.40,.56,.78]) {
       rig.apply(d,0)
-      assert.ok(petal.position.distanceTo(open)<1e-12,'Armor holds while the tube extends')
-      if(d>.20)assert.ok(tube.position.distanceTo(axial)>0,'Axial extension follows the transverse release')
+      const c=1-ease(.03,.18,d),original=c+2.5*c*(1-c)**2,shorter=original*(1-.60*ease(.12,.15,d))
+      assert.ok(cradle.position.clone().sub(c1).distanceTo(vector.clone().multiplyScalar(shorter))<1e-9)
+      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original+1e-9,'Center packing is never deeper than the original stroke')
+      assert.ok(tube.position.clone().sub(t1).distanceTo(map(tube.userData.slideVector).multiplyScalar(c))<1e-9,'Original axial travel and timing stay unchanged')
+      if(d>=.15&&d<.18&&original>0)assert.ok(cradle.position.distanceTo(c1)<.401*old.length()*original,'Exposed tubes retain wider transverse spacing')
     }
-    rig.apply(.20,0)
-    assert.ok(tube.position.distanceTo(axial)<1e-12,'Reverse stroke retracts the tube fully before armor closure')
-    assert.ok(petal.position.distanceTo(open)<1e-12)
   }
 })
 
@@ -1484,32 +1478,30 @@ test('quad tubes keep the previous 11-percent reach; all gray armor stays unrota
       const compact=1-ease(.03,.18,d),center=(compact+2.5*compact*(1-compact)**2)**2,vector=petal.userData.compactVector
       const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
       assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
-      assert.ok(Math.abs(arm.position.distanceTo(a1)-travel*(1-ease(.20,.56,d)))<1e-6)
+      assert.ok(Math.abs(arm.position.distanceTo(a1)-travel*(1-ease(.03,.18,d)))<1e-6)
     }
   }
 })
 
-test('quad gray fork guides retain their accepted net stroke on the armor clock', () => {
+test('quad bearings follow the shorter tube packing while guides retain their original net endpoint', () => {
   const {root,rig}=loadRig()
+  const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
-    const cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`),guide=root.getObjectByName(`PDC_${side}_CradleGuide_${i}`),petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
-    rig.apply(.78,0);root.updateMatrixWorld(true)
-    const open=cradle.position.clone(),g1=guide.position.clone(),p1=petal.position.clone()
+    const cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`),guide=root.getObjectByName(`PDC_${side}_CradleGuide_${i}`)
+    rig.apply(.78,0);const open=cradle.position.clone(),g1=guide.position.clone()
     let previous=0
     for(let n=0;n<=400;n++) {
-      const d=1-n/400;rig.apply(d,0);root.updateMatrixWorld(true)
-      const shift=cradle.position.clone().sub(open)
-      assert.equal(shift.x,0,'No axial travel is assigned to the gray support')
-      const clock=(petal.position.y-p1.y)/petal.userData.compactVector[2]
-      const guideShift=new THREE.Vector3(guide.userData.compactVector[0],guide.userData.compactVector[2],-guide.userData.compactVector[1]).multiplyScalar(clock)
-      assert.ok(guide.position.clone().sub(g1).distanceTo(guideShift)<1e-9,'The long guide compensates on exactly the same armor clock')
-      assert.ok(shift.length()>=previous-1e-9,'The short transverse stroke never reverses')
+      const d=1-n/400;rig.apply(d,0)
+      const c=1-ease(.03,.18,d),clock=(c+2.5*c*(1-c)**2)*(1-.60*ease(.12,.15,d))
+      const shift=cradle.position.clone().sub(open),expected=new THREE.Vector3(0,0,-guide.userData.compactVector[1]).multiplyScalar(clock)
+      assert.equal(shift.x,0)
+      assert.ok(guide.position.clone().sub(g1).distanceTo(expected)<1e-9)
+      assert.ok(shift.length()>=previous-1e-9,'The packing stroke never reverses')
       previous=shift.length()
     }
-    assert.ok(previous<Math.hypot(2,.30),'The center packing endpoint is shorter than the former squeeze')
     const net=cradle.position.clone().sub(open).add(guide.position.clone().sub(g1))
-    assert.ok(Math.abs(Math.abs(net.z)-.6)<1e-6,'Gray fork retains the small accepted longitudinal guide stroke')
-    assert.ok(Math.abs(Math.abs(net.y)-.33)<1e-6,'The small vertical endpoint clears the fitted original skin during shared packing')
+    assert.ok(Math.abs(Math.abs(net.z)-.6)<1e-6)
+    assert.ok(Math.abs(Math.abs(net.y)-.30)<1e-6)
   }
 })
 
@@ -1586,7 +1578,7 @@ test('synchronized quad revision preserves source geometry and verifies the actu
   const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.41/source-geometry.json',import.meta.url)))
   const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.41/asset-hashes.json',import.meta.url)))
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.41/mesh-clearance.json',import.meta.url)))
-  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.41.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])
+  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.41.blend']])
     assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
   assert.equal(proof.nativeSha256,hashes.native.sha256)
   assert.equal(proof.allMeshesUnchanged,550)
@@ -1896,5 +1888,33 @@ test('inclined twin native surfaces are preserved and clear the fixed receiver t
     assert.deepEqual(sweep.hoodContacts,[])
     assert.deepEqual(sweep.upperGuideContacts,[])
     assert.ok(sweep.horizontalOnlyControlContacts.length>0,'Keeping the stroke horizontal must fail actual fixed-hood clearance')
+  }
+})
+
+test('limited quad packing preserves all source parts and restores every unrelated original trajectory', () => {
+  const proof=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/source-geometry.json',import.meta.url)))
+  const hashes=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/asset-hashes.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/mesh-clearance.json',import.meta.url)))
+  const other=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/other-motion.json',import.meta.url)))
+  const spacing=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/tube-spacing.json',import.meta.url)))
+  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.42.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])
+    assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
+  assert.equal(proof.nativeSha256,hashes.native.sha256)
+  assert.equal(proof.allMeshesUnchanged,550);assert.equal(proof.allStaticRestFramesUnchanged,215)
+  assert.equal(proof.unaffectedJointProperties,199);assert.equal(proof.modifiedJointProperties.length,16)
+  assert.equal(proof.allArmorGeometryAndMetadataUnchanged,true);assert.equal(proof.axialMotionMetadataUnchanged,true)
+  assert.equal(proof.originalSourceUnchanged,true);assert.equal(proof.animationClips,0)
+  assert.equal(other.unaffectedJoints,191);assert.equal(other.samples,303);assert.equal(other.maxWorldMatrixError,0)
+  for(const side of ['Port','Starboard']) {
+    assert.equal(spacing.sides[side].samples,181);assert.equal(spacing.sides[side].neverNarrower,true)
+    const visible=spacing.sides[side].examples.find(row=>row.progress===.14)
+    assert.ok(visible.current.foreAft-visible.previous.foreAft>.80,'Actual tube mesh centers have visibly wider spacing in the release stroke')
+    assert.ok(visible.current.vertical>visible.previous.vertical)
+    const sweep=clearance[side]
+    assert.equal(sweep.poses,442)
+    assert.deepEqual(sweep.barrelPetalContacts,[]);assert.deepEqual(sweep.cradlePairContacts,[]);assert.deepEqual(sweep.tubePairContacts,[])
+    assert.ok(sweep.maxPackingPathError<.00003);assert.ok(sweep.maxAxialMotionError<.00003)
+    assert.equal(sweep.maxArmorVertexXChange,0);assert.equal(sweep.maxArmorRotationRadians,0)
+    for(const seam of sweep.closedForwardSeams)assert.ok(seam.endpointGap<.00003&&seam.surfaceError<.00003&&seam.edgeAngleDegrees<.001)
   }
 })

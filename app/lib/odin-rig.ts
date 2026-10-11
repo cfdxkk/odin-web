@@ -3,7 +3,7 @@ import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
-import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount } from './bridge-quad-source-motion.ts'
+import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount, bridgeQuadTubeCompactAmount } from './bridge-quad-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -300,12 +300,11 @@ export function createOdinRig(root: THREE.Object3D) {
         ? bridgeQuadSourceAim(gimbalData, d) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
-        const petalData = joints.get(cradleData?.synchronizedPetal)?.object.userData
         if (cradleData?.quadCompact) pose(cradleName, v(...cradleData.compactVector as [number, number, number])
-          .multiplyScalar(petalData ? bridgeQuadPetalAmount(petalData, d) : bridgeQuadCompactAmount(cradleData, d)))
+          .multiplyScalar(bridgeQuadTubeCompactAmount(cradleData, d)))
         const guideName = `PDC_${side}_CradleGuide_${i}`, guideData = joints.get(guideName)?.object.userData
         if (guideData) pose(guideName, v(...guideData.compactVector as [number, number, number])
-          .multiplyScalar(petalData ? bridgeQuadPetalAmount(petalData, d) : bridgeQuadCompactAmount(guideData, d)))
+          .multiplyScalar(bridgeQuadTubeCompactAmount(guideData, d)))
         const armName = `PDC_${side}_Arm_${i}`, armData = joints.get(armName)?.object.userData
         const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), d)
         const slide = armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]

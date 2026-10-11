@@ -10,10 +10,17 @@ export function bridgeQuadCompactAmount(data: Record<string, any>, deployment: n
   return amount + Number(data.compactLead ?? 0) * amount * (1 - amount) ** 2
 }
 
-// The armor and its tube/cradle share the same packing clock. Each
-// assembly retains its own transverse direction and travel distance.
+// The fitted armor retains its original packing clock.
 export function bridgeQuadPetalAmount(data: Record<string, any>, deployment: number) {
   return bridgeQuadCompactAmount(data, deployment) ** Number(data.petalPackingExponent ?? 1)
+}
+
+// Relieve only tube packing once the fitted skins have cleared their corridor.
+// Keep the original stroke direction, axial motion and release endpoints.
+export function bridgeQuadTubeCompactAmount(data: Record<string, any>, deployment: number) {
+  const relief = Number(data.compactReleaseRelief ?? 0)
+    * ease(Number(data.compactReliefStart ?? .12), Number(data.compactReliefEnd ?? .15), deployment)
+  return bridgeQuadCompactAmount(data, deployment) * (1 - relief)
 }
 
 // Original bridge turret action: 15–45, horizontal one-third Bezier handles.
