@@ -11,8 +11,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#070b10' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/odin-club-icon-v0.11.46.png' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/odin-club-touch-v0.11.46.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/odin-founders-icon-v0.11.47.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/odin-founders-touch-v0.11.47.png' },
       ],
     },
   },
