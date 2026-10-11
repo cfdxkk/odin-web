@@ -48,7 +48,7 @@ for row in baseline_rows[:100]:
         if count:out['baselineTubeCasingContacts'].append({'progress':row['progress'],'contacts':count})
 for name,matrix in frames.items():assert np.max(abs(np.array(bpy.data.objects[name].matrix_local)-matrix))<.00005,name
 digest=lambda path:hashlib.sha256((root/path).read_bytes()).hexdigest()
-evidence={'version':'v0.11.49-rc.1','originalMeshesUnchanged':True,'forwardSamples':202,'reverseSamples':31,'nativeFile':'assets/blender/odin_articulated_v0.11.43.blend','nativeSha256':digest('assets/blender/odin_articulated_v0.11.43.blend'),'runtimePosesSha256':digest('work/v01149-review/runtime-poses.json'),'codeHashes':json.loads((root/'docs/review/v0.11.49/motion-verification.json').read_text())['codeHashes'],'sides':report}
+evidence={'version':'v0.11.49-rc.2','originalMeshesUnchanged':True,'forwardSamples':202,'reverseSamples':31,'nativeFile':'assets/blender/odin_articulated_v0.11.43.blend','nativeSha256':digest('assets/blender/odin_articulated_v0.11.43.blend'),'runtimePosesSha256':digest('work/v01149-review/runtime-poses.json'),'codeHashEncoding':'UTF-8 with LF newlines','codeHashes':json.loads((root/'docs/review/v0.11.49/motion-verification.json').read_text())['codeHashes'],'sides':report}
 (root/'docs/review/v0.11.49/mesh-clearance.json').write_text(json.dumps(evidence,indent=2)+'\n',encoding='utf8')
 print('QUAD_SHALLOW_CLEARANCE',[(s,r['poses'],len(r['tubeCasingContacts']),len(r['tubePetalContacts']),len(r['cradlePairContacts']),len(r['tubePairContacts']))for s,r in report.items()],flush=True)
 assert all(not r['tubeCasingContacts']and not r['tubePetalContacts']and not r['cradlePairContacts']and not r['tubePairContacts']for r in report.values())

@@ -1,5 +1,5 @@
 {
-  "version": "v0.11.49-rc.1",
+  "version": "v0.11.49-rc.2",
   "baseline": "v0.11.48-rc.1",
   "samples": 233,
   "unchangedWorldJoints": 199,
@@ -39,9 +39,10 @@
     ],
     "reason": "Shallow packing leaves receivers outside the casing, requiring clearance behind the fitted closing skins."
   },
+  "codeHashEncoding": "UTF-8 with LF newlines",
   "codeHashes": {
     "motionHelper": "fa8768d07b422817667e15132f1c706b907b1fbed5c6978b1801aa97b0fb95ec",
-    "rig": "87bf55b0d9626e6a250740f286f3b64c9bef831aa26d63ba319f80021cb58e25",
+    "rig": "db0e509768214f645490a7d168ae186478184899faccfe3042b7eff8a0d452f1",
     "tempo": "a5cc158f9503b3e2e88a030394da11284ad726f0c7ab72922984c55dc165be42"
   },
   "assetHashes": {

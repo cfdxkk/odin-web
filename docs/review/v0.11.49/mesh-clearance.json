@@ -1,5 +1,5 @@
 {
-  "version": "v0.11.49-rc.1",
+  "version": "v0.11.49-rc.2",
   "originalMeshesUnchanged": true,
   "forwardSamples": 202,
   "reverseSamples": 31,
@@ -8,7 +8,7 @@
   "runtimePosesSha256": "989614cae46dd7430dbf48c168aeae368a7c1a5702351a2403b72f0a1c90f8d9",
   "codeHashes": {
     "motionHelper": "fa8768d07b422817667e15132f1c706b907b1fbed5c6978b1801aa97b0fb95ec",
-    "rig": "87bf55b0d9626e6a250740f286f3b64c9bef831aa26d63ba319f80021cb58e25",
+    "rig": "db0e509768214f645490a7d168ae186478184899faccfe3042b7eff8a0d452f1",
     "tempo": "a5cc158f9503b3e2e88a030394da11284ad726f0c7ab72922984c55dc165be42"
   },
   "sides": {
@@ -932,5 +932,6 @@
         }
       ]
     }
-  }
+  },
+  "codeHashEncoding": "UTF-8 with LF newlines"
 }

@@ -1,5 +1,5 @@
 {
-  "version": "v0.11.49-rc.1",
+  "version": "v0.11.49-rc.2",
   "frames": [
     {
       "name": "after-starboard-0-0",
@@ -579,7 +579,7 @@
     }
   ],
   "playback": {
-    "version": "v0.11.49-rc.1",
+    "version": "v0.11.49-rc.2",
     "loops": [
       {
         "side": "右舷",
@@ -1385,5 +1385,6 @@
     ],
     "pausePersistsAcrossSeekAndMode": true,
     "errors": []
-  }
+  },
+  "sameRenderedRevision": "v0.11.49-rc.1"
 }

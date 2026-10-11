@@ -1,4 +1,4 @@
-# v0.11.49-rc.1 — Shallow bridge quad packing without casing penetration
+# v0.11.49-rc.2 — Shallow bridge quad packing without casing penetration
 
 Both bridge quad turrets now close with a small side-view horizontal stroke. Model Y packing falls from 1.98 to 0.495 source units per tube, a 75% reduction. Model Z packing increases only slightly, from 0.30 to 0.32, staying below the adjacent gray bearing contact limit. The closed tube-center fore/aft gap is approximately 7.50 units instead of 4.53. No rotation is added to the tubes or armor.
 
