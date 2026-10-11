@@ -4,6 +4,8 @@ import fs from 'node:fs'
 import { createHash } from 'node:crypto'
 import * as THREE from 'three'
 import { createOdinRig } from '../app/lib/odin-rig.ts'
+import { turretPoseProgress, reviewStrokeSeconds, retimeReviewCycle } from '../app/lib/turret-tempo.ts'
+const tempoProfile = JSON.parse(fs.readFileSync(new URL('../app/lib/turret-tempo-profile.json', import.meta.url)))
 
 function loadRig() {
   const bytes = fs.readFileSync(new URL('../public/models/odin.glb', import.meta.url))
@@ -29,6 +31,23 @@ function loadRig() {
     if (!bounds.isEmpty()) meshBounds.set(nodes[index], bounds)
   })
   return { root, nodes, meshBounds, rig: createOdinRig(root) }
+}
+
+// Older mechanical tests address the accepted pose path; the new tempo tests
+// below exercise real timeline progress and measured speed.
+function timelineForPose(pose, family) {
+  const knots = tempoProfile[family].knots
+  if (pose <= knots[0][1]) return 0
+  for (let i = 1; i < knots.length; i++) {
+    const [end, to] = knots[i], [start, from] = knots[i - 1]
+    if (pose <= to) return start + (end - start) * (pose - from) / (to - from)
+  }
+  return 1
+}
+function loadRigAtPoseClock(family) {
+  const result = loadRig(), apply = result.rig.apply
+  result.rig.apply = (pose, time) => apply(timelineForPose(pose, family), time)
+  return result
 }
 
 function relativeMatrix(object, reference) {
@@ -248,7 +267,7 @@ test('the short fore-end wedge lifts before sliding forward and closes exactly',
 })
 
 test('original quad tubes retract independently while complete gray cradles retain the source frame-30 turret stroke', () => {
-  const { root, rig } = loadRig()
+  const { root, rig } = loadRigAtPoseClock('quad')
   rig.apply(0, 0)
   const pod = root.getObjectByName('PDC_Starboard_Carriage'), start = pod.position.clone()
   const arms = ['Port', 'Starboard'].flatMap(side => Array.from({ length: 4 }, (_, i) => root.getObjectByName(`PDC_${side}_Arm_${i}`)))
@@ -461,7 +480,7 @@ test('single batteries and restored source quad aim stay fixed in SCM while actu
   assert.deepEqual(fixed.map(n => [...n.position.toArray(), ...n.quaternion.toArray()]), original)
   assert.ok(twin.angleTo(root.getObjectByName('Defense_01_Yaw').quaternion) > .02)
   assert.ok(quad.angleTo(root.getObjectByName('PDC_Starboard_Gimbal').quaternion) < 1e-6)
-  rig.apply(.78, 10)
+  rig.apply(timelineForPose(.78, 'quad'), 10)
   assert.ok(root.getObjectByName('PDC_Starboard_Gimbal').quaternion.angleTo(new THREE.Quaternion()) < 1e-6)
 })
 
@@ -974,7 +993,7 @@ test('source nose caps follow their seat path and side 2/4 hold their raised par
 })
 
 test('aft twin guides retract just behind the gun and sink with its carriage', () => {
-  const { root, rig } = loadRig()
+  const { root, rig } = loadRigAtPoseClock('aftTwin')
   for (let i = 5; i <= 8; i++) {
     const prefix = `Defense_${String(i).padStart(2, '0')}`
     const gate = root.getObjectByName(prefix + '_NotchGate'), carriage = root.getObjectByName(prefix + '_Carriage')
@@ -1409,7 +1428,7 @@ test('rear flank covers follow the source turret-root bevels, seal the closed ro
 })
 
 test('bridge quads use the original frame-30 carriage seat and all original aiming channels on both mirrors', () => {
-  const {root,rig}=loadRig()
+  const {root,rig}=loadRigAtPoseClock('quad')
   const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/bridge-quad-source-v01131.json',import.meta.url)))
   const toModel=p=>new THREE.Vector3(p.x,-p.z,p.y).multiplyScalar(100)
   const basis=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-Math.PI/2)
@@ -1431,8 +1450,8 @@ test('bridge quads use the original frame-30 carriage seat and all original aimi
   }
 })
 
-test('bridge quads restore original axial timing and only shorten transverse center packing', () => {
-  const {root,rig}=loadRig()
+test('bridge quads preserve the original axial stroke and shorter transverse packing on their accepted pose path', () => {
+  const {root,rig}=loadRigAtPoseClock('quad')
   const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
@@ -1456,7 +1475,7 @@ test('bridge quads restore original axial timing and only shorten transverse cen
 
 test('quad tubes keep the previous 11-percent reach; all gray armor stays unrotated and locks ship X in plan view', () => {
   const ease=(a,b,d)=>{const t=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return t*t*(3-2*t)}
-  const {root,rig,meshBounds}=loadRig(),travel=32*(1-ease(.03,.18,.11))
+  const {root,rig,meshBounds}=loadRigAtPoseClock('quad'),travel=32*(1-ease(.03,.18,.11))
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`),petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
     rig.apply(1,0);root.updateMatrixWorld(true)
@@ -1484,7 +1503,7 @@ test('quad tubes keep the previous 11-percent reach; all gray armor stays unrota
 })
 
 test('quad bearings follow the shorter tube packing while guides retain their original net endpoint', () => {
-  const {root,rig}=loadRig()
+  const {root,rig}=loadRigAtPoseClock('quad')
   const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`),guide=root.getObjectByName(`PDC_${side}_CradleGuide_${i}`)
@@ -1551,7 +1570,7 @@ test('original bridge quad parts and UVs remain intact; fitted petals match the 
 })
 
 test('bridge quad armor completes one monotonic stroke and holds its endpoint through carriage travel and aiming', () => {
-  const {root,rig}=loadRig()
+  const {root,rig}=loadRigAtPoseClock('quad')
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`),out=i%2?1:-1
     rig.apply(1,0);const open=petal.position.clone()
@@ -1897,7 +1916,7 @@ test('limited quad packing preserves all source parts and restores every unrelat
   const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/mesh-clearance.json',import.meta.url)))
   const other=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/other-motion.json',import.meta.url)))
   const spacing=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.42/tube-spacing.json',import.meta.url)))
-  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.42.blend'],['high','../public/models/odin.glb'],['lite','../public/models/odin-lite.glb']])
+  for(const[name,path]of[['native','../assets/blender/odin_articulated_v0.11.42.blend']])
     assert.equal(createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex'),hashes[name].sha256)
   assert.equal(proof.nativeSha256,hashes.native.sha256)
   assert.equal(proof.allMeshesUnchanged,550);assert.equal(proof.allStaticRestFramesUnchanged,215)

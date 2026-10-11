@@ -4,6 +4,7 @@ import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
 import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount, bridgeQuadTubeCompactAmount } from './bridge-quad-source-motion.ts'
+import { turretPoseProgress } from './turret-tempo.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -33,6 +34,8 @@ export function createOdinRig(root: THREE.Object3D) {
   const sternRestWeb = sternJoint && sternMount ? sternJoint.position.clone().add(sternMount.position) : undefined
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
+    const quadProgress = turretPoseProgress(d, 'quad')
+    const aftProgress = turretPoseProgress(d, 'aftTwin')
     // All five armor pieces clear the bore corridor before any gun movement.
     // The long skins translate to their exposed outboard resting position;
     // aft fillers turn around the fixed hull lips, and the nose lifts over its
@@ -196,8 +199,8 @@ export function createOdinRig(root: THREE.Object3D) {
           .add(v(...data.settleVector as [number, number, number]).multiplyScalar(data.sourceOpenPose ? 1 - settle : settle)))
       }
       if (data.system === 'pdc-hull-petal') {
-        const center = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, d) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
-        const compact = data.translationOnly ? bridgeQuadPetalAmount(data, d) : center
+        const center = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, quadProgress) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), quadProgress)
+        const compact = data.translationOnly ? bridgeQuadPetalAmount(data, quadProgress) : center
         const move = v(...(data.sourceQuadPetal ? data.compactVector : data.stowVector) as [number, number, number]).multiplyScalar(compact)
         if (data.translationOnly) {
           // Lock ship X (port/starboard in plan view) for every vertex:
@@ -207,11 +210,11 @@ export function createOdinRig(root: THREE.Object3D) {
           return
         }
         if (data.clearanceVector) move.add(v(...data.clearanceVector as [number, number, number])
-          .multiplyScalar((1 - ease(Number(data.clearanceStart), Number(data.clearanceEnd), d)) * (1 - compact ** 3)))
+          .multiplyScalar((1 - ease(Number(data.clearanceStart), Number(data.clearanceEnd), quadProgress)) * (1 - compact ** 3)))
         let turn = identity
         if (data.compactRotationWXYZ) {
           const [w,x,y,z] = data.compactRotationWXYZ as number[]
-          const alignment = data.sourceCenteredPetal ? 1 - ease(Number(data.alignStart), Number(data.alignEnd), d) : compact
+          const alignment = data.sourceCenteredPetal ? 1 - ease(Number(data.alignStart), Number(data.alignEnd), quadProgress) : compact
           const modelTurn = new THREE.Quaternion().slerp(new THREE.Quaternion(x,y,z,w).normalize(), alignment)
           turn = basis.clone().multiply(modelTurn).multiply(basis.clone().invert())
         }
@@ -220,16 +223,15 @@ export function createOdinRig(root: THREE.Object3D) {
     })
     // The keel mount is baked at the former 14% carriage position. Only its
     // seven armor covers and barrel articulate; the complete bay stays fixed.
-    // The aft twins begin descending at 40% while still retracting. Their
-    // former late ring lift is removed entirely. Rails follow the same slow
-    // vertical curve; hull gates close only after the assembly seats at 5%.
-    const aftFinal = ease(.05, .20, d)
-    const aftCarriage = .2 * aftFinal + .8 * ease(.20, .52, d)
-    const aftSink = 1 - ease(.05, .40, d)
-    const gate = ease(0, .05, d), carriage = ease(.24, .52, d), gun = ease(.65, .94, d)
+    // Aft cover release, complete carriage travel and aiming share a retimed
+    // clock. Reversing still seats the gun and rails before the gates close.
+    const aftFinal = ease(.05, .20, aftProgress)
+    const aftCarriage = .2 * aftFinal + .8 * ease(.20, .52, aftProgress)
+    const aftSink = 1 - ease(.05, .40, aftProgress)
+    const gate = ease(0, .05, aftProgress), carriage = ease(.24, .52, d), gun = ease(.65, .94, aftProgress)
     for (let i = 5; i <= 8; i++) {
       const name = `Defense_${String(i).padStart(2, '0')}_NotchGate`, data = joints.get(name)?.object.userData
-      if (data?.slideVector) pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(gate).add(v(...data.releaseVector as [number, number, number]).multiplyScalar(ease(0, .04, d))))
+      if (data?.slideVector) pose(name, v(...data.slideVector as [number, number, number]).multiplyScalar(gate).add(v(...data.releaseVector as [number, number, number]).multiplyScalar(ease(0, .04, aftProgress))))
     }
     for (const station of ['Forward', 'Aft']) for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const name = `DefenseRail_${station}_${side}`
@@ -277,7 +279,7 @@ export function createOdinRig(root: THREE.Object3D) {
           : v(sign * ((9.903 + inward) * aftCarriage - inward), -1.392 * aftCarriage, -finalSink))
       }
       const heading = [16, -12, 16, -12, 22, -16, 22, -16][i]!
-      const scan = Math.sin(time * .10 + i * .7) * 3 * aim
+      const scan = Math.sin(time * .10 + i * .7) * 3 * (forward ? aim : ease(.95, 1, aftProgress))
       pose(prefix + '_Yaw', v(0, 0, 0), rotation(0, 0, sign * heading * gunMotion + scan))
       const elevation = joints.get(prefix + '_Elevation')?.object.userData
       const axis = elevation?.hingeAxisModel
@@ -287,26 +289,26 @@ export function createOdinRig(root: THREE.Object3D) {
     // curves. Closing neutralizes aim and seats the turret at source frame 30,
     // then withdraws the tubes before the cradles and petals close together.
     // Opening releases each cradle with its own petal first, then extends tubes.
-    const pdcArms = ease(.03, .18, d)
+    const pdcArms = ease(.03, .18, quadProgress)
     for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const carriageName = `PDC_${side}_Carriage`, carriageData = joints.get(carriageName)?.object.userData
       if (carriageData?.sourceQuadCarriage) {
         const closed = v(...carriageData.sourceClosedOrigin as [number, number, number])
         const deployed = v(...carriageData.sourceDeployedOrigin as [number, number, number])
-        pose(carriageName, closed.sub(deployed).multiplyScalar(1 - bridgeQuadCarriageAmount(carriageData, d)))
-      } else pose(carriageName, v(sign * (18 + 2 * ease(.10, .40, d)), 0, 0))
+        pose(carriageName, closed.sub(deployed).multiplyScalar(1 - bridgeQuadCarriageAmount(carriageData, quadProgress)))
+      } else pose(carriageName, v(sign * (18 + 2 * ease(.10, .40, quadProgress)), 0, 0))
       const gimbalName = `PDC_${side}_Gimbal`, gimbalData = joints.get(gimbalName)?.object.userData
       pose(gimbalName, v(0, 0, 0), gimbalData?.sourceQuadAim
-        ? bridgeQuadSourceAim(gimbalData, d) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
+        ? bridgeQuadSourceAim(gimbalData, quadProgress) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
         if (cradleData?.quadCompact) pose(cradleName, v(...cradleData.compactVector as [number, number, number])
-          .multiplyScalar(bridgeQuadTubeCompactAmount(cradleData, d)))
+          .multiplyScalar(bridgeQuadTubeCompactAmount(cradleData, quadProgress)))
         const guideName = `PDC_${side}_CradleGuide_${i}`, guideData = joints.get(guideName)?.object.userData
         if (guideData) pose(guideName, v(...guideData.compactVector as [number, number, number])
-          .multiplyScalar(bridgeQuadTubeCompactAmount(guideData, d)))
+          .multiplyScalar(bridgeQuadTubeCompactAmount(guideData, quadProgress)))
         const armName = `PDC_${side}_Arm_${i}`, armData = joints.get(armName)?.object.userData
-        const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), d)
+        const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), quadProgress)
         const slide = armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]
         pose(armName, v(...slide as [number, number, number]).multiplyScalar(1 - armOpen))
       }

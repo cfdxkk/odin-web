@@ -148,24 +148,24 @@
     "The original tubes retract farther independently of their gray rear cradles; after carriage stow, four cradles and four unpainted original hull petals compact toward each quad center together",
     "Side-2 original outer rail belt panels recover their source light top and dark side materials",
     "Bridge quad extra tube travel ends at the former v0.11.31 11-percent tube position, shortening the stroke by 55 percent",
-    "The eight original bridge quad petals make one monotonic vertical stroke and hold the open endpoint from 18 percent; no late descent, rotation or ship X displacement remains",
+    "The eight original bridge quad petals make one monotonic vertical stroke and hold the open endpoint after the retimed armor release; no late descent, rotation or ship X displacement remains",
     "Each complete outer petal skin is fitted in Z to its actual adjoining roof face, retaining all original 26 vertices, source topology, UVs and X/Y footprint; the prior 32 fixed lip edits are unchanged",
     "All eight quad armor skins share the adjoining Odin_Bridge_Armor material; complete original tubes, support, gray guide packing and the frame-30 carriage stop are retained",
     "Aft twin gates 5–8 match all four boundary layers of the original hull shell, including its complete upper lip and lower return; their inner skins meet the innermost source edges rather than the first thin layer",
     "Forward twin lower source foundation islands 70/71 stay fixed on the hull; the remaining complete cradle moves along their actual inclined planes without a late alignment turn; source tubes retain their separate horizontal withdrawal after seating",
-    "Bridge quads restore v0.11.40 axial timing, carriage, aim and unchanged fitted armor; only tube center packing is relieved after armor clearance, with the source bearings staying attached and long guides retaining their accepted net stroke"
+    "Retimed complete bridge-quad and aft-twin 5–8 pose paths: slower armor and tube release, quicker aft turret travel and short mechanical handoffs; accepted source geometry, reduced tube packing, endpoints and clearances retained"
   ],
   "webOptimization": {
     "batchedMeshes": 214,
     "highTriangles": 2378203,
     "liteTriangles": 887275,
-    "highBytes": 19146292,
-    "liteBytes": 9125084,
+    "highBytes": 19146648,
+    "liteBytes": 9125436,
     "highTextureResolution": 2048,
     "highPositionQuantization": 18
   },
-  "version": "0.11.42",
-  "articulatedSource": "assets/blender/odin_articulated_v0.11.42.blend",
+  "version": "0.11.43",
+  "articulatedSource": "assets/blender/odin_articulated_v0.11.43.blend",
   "bridgeArmorSlats": 0,
   "rigSystems": [
     "main",
@@ -185,5 +185,64 @@
     "pdc-hull-petal",
     "bow-receiver",
     "single-source-carriage"
-  ]
+  ],
+  "turretTempoProfile": {
+    "version": "0.11.43",
+    "quad": {
+      "knots": [
+        [
+          0,
+          0.03
+        ],
+        [
+          0.33,
+          0.18
+        ],
+        [
+          0.35,
+          0.2
+        ],
+        [
+          0.67,
+          0.56
+        ],
+        [
+          0.69,
+          0.8
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    "aftTwin": {
+      "knots": [
+        [
+          0,
+          0
+        ],
+        [
+          0.26,
+          0.05
+        ],
+        [
+          0.64,
+          0.52
+        ],
+        [
+          0.66,
+          0.65
+        ],
+        [
+          0.98,
+          0.94
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  }
 }

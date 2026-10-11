@@ -1,0 +1,999 @@
+{
+  "version": "v0.11.43-rc.1",
+  "highAssetSha256": "dcac0f6bb0ac4a72037151ed4c70fbd87f577b2c801dd144cb488937153123a4",
+  "affectedStations": [
+    "quad-right",
+    "quad-left",
+    "twin-5",
+    "twin-6",
+    "twin-7",
+    "twin-8"
+  ],
+  "affectedObservations": 108,
+  "views": [
+    "oblique",
+    "side",
+    "overhead"
+  ],
+  "fullForwardAndReversePlayback": true,
+  "playback": [
+    {
+      "station": "quad-right",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.383,
+          "progress": 0.053
+        },
+        {
+          "seconds": 0.893,
+          "progress": 0.133
+        },
+        {
+          "seconds": 1.246,
+          "progress": 0.187
+        },
+        {
+          "seconds": 1.599,
+          "progress": 0.24
+        },
+        {
+          "seconds": 1.952,
+          "progress": 0.295
+        },
+        {
+          "seconds": 2.446,
+          "progress": 0.371
+        },
+        {
+          "seconds": 2.802,
+          "progress": 0.427
+        },
+        {
+          "seconds": 3.161,
+          "progress": 0.482
+        },
+        {
+          "seconds": 3.517,
+          "progress": 0.536
+        },
+        {
+          "seconds": 4.028,
+          "progress": 0.616
+        },
+        {
+          "seconds": 4.38,
+          "progress": 0.669
+        },
+        {
+          "seconds": 4.739,
+          "progress": 0.724
+        },
+        {
+          "seconds": 5.091,
+          "progress": 0.778
+        },
+        {
+          "seconds": 5.601,
+          "progress": 0.858
+        },
+        {
+          "seconds": 5.956,
+          "progress": 0.911
+        },
+        {
+          "seconds": 6.309,
+          "progress": 0.966
+        },
+        {
+          "seconds": 6.662,
+          "progress": 1
+        },
+        {
+          "seconds": 7.154,
+          "progress": 1
+        },
+        {
+          "seconds": 7.508,
+          "progress": 1
+        },
+        {
+          "seconds": 7.862,
+          "progress": 0.949
+        },
+        {
+          "seconds": 8.218,
+          "progress": 0.894
+        },
+        {
+          "seconds": 8.709,
+          "progress": 0.818
+        },
+        {
+          "seconds": 9.062,
+          "progress": 0.765
+        },
+        {
+          "seconds": 9.415,
+          "progress": 0.709
+        },
+        {
+          "seconds": 9.769,
+          "progress": 0.656
+        },
+        {
+          "seconds": 10.261,
+          "progress": 0.58
+        },
+        {
+          "seconds": 10.627,
+          "progress": 0.525
+        },
+        {
+          "seconds": 10.983,
+          "progress": 0.469
+        },
+        {
+          "seconds": 11.339,
+          "progress": 0.414
+        },
+        {
+          "seconds": 11.819,
+          "progress": 0.34
+        },
+        {
+          "seconds": 12.176,
+          "progress": 0.285
+        },
+        {
+          "seconds": 12.53,
+          "progress": 0.231
+        },
+        {
+          "seconds": 12.886,
+          "progress": 0.176
+        },
+        {
+          "seconds": 13.382,
+          "progress": 0.1
+        },
+        {
+          "seconds": 13.74,
+          "progress": 0.045
+        },
+        {
+          "seconds": 14.094,
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "station": "quad-left",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.384,
+          "progress": 0.053
+        },
+        {
+          "seconds": 0.878,
+          "progress": 0.129
+        },
+        {
+          "seconds": 1.233,
+          "progress": 0.185
+        },
+        {
+          "seconds": 1.589,
+          "progress": 0.24
+        },
+        {
+          "seconds": 1.956,
+          "progress": 0.295
+        },
+        {
+          "seconds": 2.45,
+          "progress": 0.371
+        },
+        {
+          "seconds": 2.805,
+          "progress": 0.427
+        },
+        {
+          "seconds": 3.164,
+          "progress": 0.482
+        },
+        {
+          "seconds": 3.519,
+          "progress": 0.536
+        },
+        {
+          "seconds": 4.011,
+          "progress": 0.611
+        },
+        {
+          "seconds": 4.367,
+          "progress": 0.667
+        },
+        {
+          "seconds": 4.725,
+          "progress": 0.722
+        },
+        {
+          "seconds": 5.083,
+          "progress": 0.778
+        },
+        {
+          "seconds": 5.582,
+          "progress": 0.854
+        },
+        {
+          "seconds": 5.936,
+          "progress": 0.909
+        },
+        {
+          "seconds": 6.292,
+          "progress": 0.962
+        },
+        {
+          "seconds": 6.645,
+          "progress": 1
+        },
+        {
+          "seconds": 7.139,
+          "progress": 1
+        },
+        {
+          "seconds": 7.504,
+          "progress": 1
+        },
+        {
+          "seconds": 7.856,
+          "progress": 0.949
+        },
+        {
+          "seconds": 8.223,
+          "progress": 0.894
+        },
+        {
+          "seconds": 8.714,
+          "progress": 0.818
+        },
+        {
+          "seconds": 9.067,
+          "progress": 0.765
+        },
+        {
+          "seconds": 9.422,
+          "progress": 0.709
+        },
+        {
+          "seconds": 9.777,
+          "progress": 0.654
+        },
+        {
+          "seconds": 10.277,
+          "progress": 0.578
+        },
+        {
+          "seconds": 10.632,
+          "progress": 0.523
+        },
+        {
+          "seconds": 10.99,
+          "progress": 0.467
+        },
+        {
+          "seconds": 11.344,
+          "progress": 0.414
+        },
+        {
+          "seconds": 11.838,
+          "progress": 0.338
+        },
+        {
+          "seconds": 12.204,
+          "progress": 0.281
+        },
+        {
+          "seconds": 12.557,
+          "progress": 0.227
+        },
+        {
+          "seconds": 12.913,
+          "progress": 0.172
+        },
+        {
+          "seconds": 13.391,
+          "progress": 0.098
+        },
+        {
+          "seconds": 13.748,
+          "progress": 0.045
+        },
+        {
+          "seconds": 14.106,
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "station": "twin-5",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.393,
+          "progress": 0.055
+        },
+        {
+          "seconds": 0.873,
+          "progress": 0.129
+        },
+        {
+          "seconds": 1.232,
+          "progress": 0.185
+        },
+        {
+          "seconds": 1.589,
+          "progress": 0.24
+        },
+        {
+          "seconds": 1.943,
+          "progress": 0.293
+        },
+        {
+          "seconds": 2.423,
+          "progress": 0.367
+        },
+        {
+          "seconds": 2.779,
+          "progress": 0.423
+        },
+        {
+          "seconds": 3.138,
+          "progress": 0.478
+        },
+        {
+          "seconds": 3.493,
+          "progress": 0.531
+        },
+        {
+          "seconds": 3.989,
+          "progress": 0.609
+        },
+        {
+          "seconds": 4.346,
+          "progress": 0.663
+        },
+        {
+          "seconds": 4.703,
+          "progress": 0.718
+        },
+        {
+          "seconds": 5.06,
+          "progress": 0.774
+        },
+        {
+          "seconds": 5.543,
+          "progress": 0.847
+        },
+        {
+          "seconds": 5.898,
+          "progress": 0.903
+        },
+        {
+          "seconds": 6.254,
+          "progress": 0.956
+        },
+        {
+          "seconds": 6.608,
+          "progress": 1
+        },
+        {
+          "seconds": 7.087,
+          "progress": 1
+        },
+        {
+          "seconds": 7.44,
+          "progress": 1
+        },
+        {
+          "seconds": 7.797,
+          "progress": 0.96
+        },
+        {
+          "seconds": 8.151,
+          "progress": 0.904
+        },
+        {
+          "seconds": 8.658,
+          "progress": 0.826
+        },
+        {
+          "seconds": 9.013,
+          "progress": 0.773
+        },
+        {
+          "seconds": 9.366,
+          "progress": 0.718
+        },
+        {
+          "seconds": 9.72,
+          "progress": 0.664
+        },
+        {
+          "seconds": 10.23,
+          "progress": 0.584
+        },
+        {
+          "seconds": 10.595,
+          "progress": 0.529
+        },
+        {
+          "seconds": 10.95,
+          "progress": 0.473
+        },
+        {
+          "seconds": 11.303,
+          "progress": 0.42
+        },
+        {
+          "seconds": 11.792,
+          "progress": 0.344
+        },
+        {
+          "seconds": 12.144,
+          "progress": 0.291
+        },
+        {
+          "seconds": 12.511,
+          "progress": 0.233
+        },
+        {
+          "seconds": 12.877,
+          "progress": 0.178
+        },
+        {
+          "seconds": 13.366,
+          "progress": 0.102
+        },
+        {
+          "seconds": 13.721,
+          "progress": 0.049
+        },
+        {
+          "seconds": 14.077,
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "station": "twin-6",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.383,
+          "progress": 0.053
+        },
+        {
+          "seconds": 0.861,
+          "progress": 0.127
+        },
+        {
+          "seconds": 1.217,
+          "progress": 0.183
+        },
+        {
+          "seconds": 1.574,
+          "progress": 0.238
+        },
+        {
+          "seconds": 1.926,
+          "progress": 0.291
+        },
+        {
+          "seconds": 2.421,
+          "progress": 0.367
+        },
+        {
+          "seconds": 2.772,
+          "progress": 0.421
+        },
+        {
+          "seconds": 3.139,
+          "progress": 0.478
+        },
+        {
+          "seconds": 3.505,
+          "progress": 0.533
+        },
+        {
+          "seconds": 3.997,
+          "progress": 0.609
+        },
+        {
+          "seconds": 4.35,
+          "progress": 0.665
+        },
+        {
+          "seconds": 4.707,
+          "progress": 0.718
+        },
+        {
+          "seconds": 5.061,
+          "progress": 0.774
+        },
+        {
+          "seconds": 5.541,
+          "progress": 0.847
+        },
+        {
+          "seconds": 5.9,
+          "progress": 0.903
+        },
+        {
+          "seconds": 6.255,
+          "progress": 0.958
+        },
+        {
+          "seconds": 6.61,
+          "progress": 1
+        },
+        {
+          "seconds": 7.093,
+          "progress": 1
+        },
+        {
+          "seconds": 7.447,
+          "progress": 1
+        },
+        {
+          "seconds": 7.803,
+          "progress": 0.958
+        },
+        {
+          "seconds": 8.157,
+          "progress": 0.904
+        },
+        {
+          "seconds": 8.638,
+          "progress": 0.83
+        },
+        {
+          "seconds": 8.993,
+          "progress": 0.775
+        },
+        {
+          "seconds": 9.35,
+          "progress": 0.72
+        },
+        {
+          "seconds": 9.707,
+          "progress": 0.666
+        },
+        {
+          "seconds": 10.205,
+          "progress": 0.588
+        },
+        {
+          "seconds": 10.563,
+          "progress": 0.533
+        },
+        {
+          "seconds": 10.916,
+          "progress": 0.48
+        },
+        {
+          "seconds": 11.275,
+          "progress": 0.424
+        },
+        {
+          "seconds": 11.757,
+          "progress": 0.35
+        },
+        {
+          "seconds": 12.114,
+          "progress": 0.295
+        },
+        {
+          "seconds": 12.472,
+          "progress": 0.24
+        },
+        {
+          "seconds": 12.831,
+          "progress": 0.184
+        },
+        {
+          "seconds": 13.327,
+          "progress": 0.108
+        },
+        {
+          "seconds": 13.684,
+          "progress": 0.053
+        },
+        {
+          "seconds": 14.04,
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "station": "twin-7",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.389,
+          "progress": 0.055
+        },
+        {
+          "seconds": 0.867,
+          "progress": 0.129
+        },
+        {
+          "seconds": 1.223,
+          "progress": 0.183
+        },
+        {
+          "seconds": 1.577,
+          "progress": 0.238
+        },
+        {
+          "seconds": 1.932,
+          "progress": 0.291
+        },
+        {
+          "seconds": 2.431,
+          "progress": 0.369
+        },
+        {
+          "seconds": 2.792,
+          "progress": 0.425
+        },
+        {
+          "seconds": 3.147,
+          "progress": 0.48
+        },
+        {
+          "seconds": 3.506,
+          "progress": 0.536
+        },
+        {
+          "seconds": 4.003,
+          "progress": 0.611
+        },
+        {
+          "seconds": 4.357,
+          "progress": 0.665
+        },
+        {
+          "seconds": 4.714,
+          "progress": 0.72
+        },
+        {
+          "seconds": 5.069,
+          "progress": 0.776
+        },
+        {
+          "seconds": 5.557,
+          "progress": 0.849
+        },
+        {
+          "seconds": 5.912,
+          "progress": 0.905
+        },
+        {
+          "seconds": 6.278,
+          "progress": 0.96
+        },
+        {
+          "seconds": 6.632,
+          "progress": 1
+        },
+        {
+          "seconds": 7.111,
+          "progress": 1
+        },
+        {
+          "seconds": 7.464,
+          "progress": 1
+        },
+        {
+          "seconds": 7.831,
+          "progress": 0.954
+        },
+        {
+          "seconds": 8.183,
+          "progress": 0.9
+        },
+        {
+          "seconds": 8.671,
+          "progress": 0.824
+        },
+        {
+          "seconds": 9.024,
+          "progress": 0.771
+        },
+        {
+          "seconds": 9.376,
+          "progress": 0.716
+        },
+        {
+          "seconds": 9.742,
+          "progress": 0.66
+        },
+        {
+          "seconds": 10.229,
+          "progress": 0.584
+        },
+        {
+          "seconds": 10.584,
+          "progress": 0.531
+        },
+        {
+          "seconds": 10.938,
+          "progress": 0.475
+        },
+        {
+          "seconds": 11.293,
+          "progress": 0.422
+        },
+        {
+          "seconds": 11.789,
+          "progress": 0.344
+        },
+        {
+          "seconds": 12.146,
+          "progress": 0.291
+        },
+        {
+          "seconds": 12.506,
+          "progress": 0.235
+        },
+        {
+          "seconds": 12.862,
+          "progress": 0.18
+        },
+        {
+          "seconds": 13.345,
+          "progress": 0.106
+        },
+        {
+          "seconds": 13.699,
+          "progress": 0.051
+        },
+        {
+          "seconds": 14.055,
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "station": "twin-8",
+      "fullDeploymentSeen": true,
+      "reverseStrokeSeen": true,
+      "observations": [
+        {
+          "seconds": 0.385,
+          "progress": 0.053
+        },
+        {
+          "seconds": 0.876,
+          "progress": 0.129
+        },
+        {
+          "seconds": 1.231,
+          "progress": 0.185
+        },
+        {
+          "seconds": 1.584,
+          "progress": 0.238
+        },
+        {
+          "seconds": 1.943,
+          "progress": 0.293
+        },
+        {
+          "seconds": 2.435,
+          "progress": 0.369
+        },
+        {
+          "seconds": 2.788,
+          "progress": 0.425
+        },
+        {
+          "seconds": 3.146,
+          "progress": 0.478
+        },
+        {
+          "seconds": 3.503,
+          "progress": 0.533
+        },
+        {
+          "seconds": 3.997,
+          "progress": 0.609
+        },
+        {
+          "seconds": 4.354,
+          "progress": 0.665
+        },
+        {
+          "seconds": 4.708,
+          "progress": 0.72
+        },
+        {
+          "seconds": 5.065,
+          "progress": 0.774
+        },
+        {
+          "seconds": 5.561,
+          "progress": 0.851
+        },
+        {
+          "seconds": 5.913,
+          "progress": 0.905
+        },
+        {
+          "seconds": 6.268,
+          "progress": 0.96
+        },
+        {
+          "seconds": 6.623,
+          "progress": 1
+        },
+        {
+          "seconds": 7.105,
+          "progress": 1
+        },
+        {
+          "seconds": 7.458,
+          "progress": 1
+        },
+        {
+          "seconds": 7.812,
+          "progress": 0.958
+        },
+        {
+          "seconds": 8.166,
+          "progress": 0.902
+        },
+        {
+          "seconds": 8.647,
+          "progress": 0.828
+        },
+        {
+          "seconds": 9.004,
+          "progress": 0.773
+        },
+        {
+          "seconds": 9.357,
+          "progress": 0.72
+        },
+        {
+          "seconds": 9.713,
+          "progress": 0.664
+        },
+        {
+          "seconds": 10.194,
+          "progress": 0.59
+        },
+        {
+          "seconds": 10.554,
+          "progress": 0.535
+        },
+        {
+          "seconds": 10.908,
+          "progress": 0.482
+        },
+        {
+          "seconds": 11.262,
+          "progress": 0.426
+        },
+        {
+          "seconds": 11.757,
+          "progress": 0.35
+        },
+        {
+          "seconds": 12.112,
+          "progress": 0.295
+        },
+        {
+          "seconds": 12.466,
+          "progress": 0.242
+        },
+        {
+          "seconds": 12.823,
+          "progress": 0.186
+        },
+        {
+          "seconds": 13.313,
+          "progress": 0.11
+        },
+        {
+          "seconds": 13.666,
+          "progress": 0.057
+        },
+        {
+          "seconds": 14.019,
+          "progress": 0.002
+        }
+      ]
+    }
+  ],
+  "otherArmamentObservations": 34,
+  "otherArmamentStations": [
+    "bow",
+    "stern",
+    "keel",
+    "side-1",
+    "side-3",
+    "side-2-right",
+    "side-4-right",
+    "side-2-left",
+    "side-4-left",
+    "bridge-quad-pdc-right",
+    "bridge-quad-pdc-left",
+    "defense-aft",
+    "bridge-front",
+    "bridge-rear",
+    "main-hull-seam",
+    "main-dorsal",
+    "main-ventral"
+  ],
+  "explicitPauseRetained": true,
+  "idleRenderFrames": [
+    [
+      2156,
+      2156
+    ],
+    [
+      4305,
+      4305
+    ],
+    [
+      6451,
+      6451
+    ],
+    [
+      6533,
+      6533
+    ]
+  ],
+  "finalGeneratedPreview": {
+    "version": "0.11.43",
+    "joints": "215",
+    "animationClips": 0,
+    "playingStationSwitchJump": 0.003999999999999976,
+    "explicitPauseRetained": true,
+    "idleRenderFrames": [
+      6609,
+      6609
+    ]
+  },
+  "applicationConsoleErrors": 0,
+  "temporaryCheckingBrowserClosed": true,
+  "headlessBlenderJobs": 0,
+  "userPreview": {
+    "tab": "2",
+    "station": "Quad starboard",
+    "progress": 0,
+    "paused": true
+  },
+  "staticPreviewService": {
+    "port": 4175,
+    "count": 1,
+    "pid": 43420
+  },
+  "checks": {
+    "npmTest": {
+      "passed": 76,
+      "failed": 0
+    },
+    "verifyAsset": true,
+    "generate": true
+  }
+}

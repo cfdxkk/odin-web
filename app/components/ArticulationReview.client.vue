@@ -5,6 +5,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { createOdinRig } from '~/lib/odin-rig'
+import { reviewStrokeSeconds, retimeReviewCycle } from '~/lib/turret-tempo'
 
 type Shot = { name: string; point: [number, number, number]; view: [number, number, number]; width: number }
 const shots: Shot[] = [
@@ -32,7 +33,8 @@ const canvas = ref<HTMLCanvasElement>(), selected = ref(0), angle = ref('斜视'
 const deployment = ref(0), playing = ref(false), loading = ref(0), ready = ref(false), error = ref('')
 let focus: (() => void) | undefined, cleanup: (() => void) | undefined, disposed = false, cycle = 0
 watch([selected,angle], () => focus?.())
-function seek(value: number) { deployment.value=value; playing.value=false; cycle=value*3 }
+watch(selected, (next, previous) => { cycle=retimeReviewCycle(cycle,reviewStrokeSeconds(previous),reviewStrokeSeconds(next)) })
+function seek(value: number) { deployment.value=value; playing.value=false; cycle=value*reviewStrokeSeconds(selected.value) }
 function scrub(event: Event) { seek(Number((event.target as HTMLInputElement).value)) }
 onMounted(async () => {
   const el = canvas.value!
@@ -78,7 +80,7 @@ onMounted(async () => {
     geometries.forEach(g=>g.dispose());materials.forEach(m=>{Object.values(m).forEach(v=>{if(v instanceof THREE.Texture)textures.add(v)});m.dispose()});textures.forEach(t=>t.dispose());renderer.dispose()
   }
   try {
-    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.42-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
+    const gltf=await loader.loadAsync('/models/odin.glb?v=0.11.43-rc.1',e=>{loading.value=e.total?Math.round(e.loaded/e.total*100):30})
     scene.add(gltf.scene)
     if(disposed){cleanup();return}
     const rig=createOdinRig(gltf.scene)
@@ -87,7 +89,11 @@ onMounted(async () => {
     function render(now: number) {
       frame=requestAnimationFrame(render);const dt=Math.min((now-previous)/1000,.05);previous=now
       if(document.hidden){needsRender=true;return}
-      if(playing.value){elapsed+=dt;cycle=(cycle+dt)%8;deployment.value=cycle<3?cycle/3:cycle<4?1:cycle<7?1-(cycle-4)/3:0}
+      if(playing.value){
+        const stroke=reviewStrokeSeconds(selected.value)
+        elapsed+=dt;cycle=(cycle+dt)%(2*stroke+2)
+        deployment.value=cycle<stroke?cycle/stroke:cycle<stroke+1?1:cycle<2*stroke+1?1-(cycle-stroke-1)/stroke:0
+      }
       controls.update()
       if(!needsRender&&!playing.value)return
       rig.apply(deployment.value,elapsed);renderer.render(scene,camera);needsRender=false
@@ -103,7 +109,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.42</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.43</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视','正视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>
