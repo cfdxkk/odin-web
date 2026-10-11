@@ -6,7 +6,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
-import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js'
+import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
@@ -74,7 +74,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 4 })
   const composer = new EffectComposer(renderer, renderTarget)
   composer.addPass(new RenderPass(scene, camera))
-  const ao = new GTAOPass(scene, camera, 1, 1)
+  const ao = new OdinGTAOPass(scene, camera, 1, 1)
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
   ao.blendIntensity = .48
   composer.addPass(ao)
@@ -167,6 +167,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     ship.add(cone)
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0x6ba6ff, transparent: true, opacity: .55, blending: THREE.AdditiveBlending, depthWrite: false }))
     glow.position.copy(position); glow.position.z += .015; glow.scale.setScalar(radius * 3.3); ship.add(glow)
+    ao.excludedObjects.add(cone); ao.excludedObjects.add(glow)
     exhausts.push({ cone, glow, radius, length, material: shader })
   }
 

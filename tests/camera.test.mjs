@@ -32,6 +32,16 @@ test('cinematic orbit and viewing direction advance one way through the complete
   }
 })
 
+test('orbit advances at a uniform six degrees per second throughout the loop', () => {
+  const delta = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b))
+  const angle = t => { const p = sampleOdinCamera(t).position; return Math.atan2(p.z, p.x) }
+  const step = .01, expected = Math.PI / 30
+  for (let n = 1; n <= 6000; n++) {
+    const speed = delta(angle(n * step), angle((n - 1) * step)) / step
+    assert.ok(Math.abs(speed - expected) < 1e-10, `Orbit speeds up or slows down at ${n * step}s`)
+  }
+})
+
 test('orbit angular speed remains continuous across shot boundaries and the 60-second wrap', () => {
   const angle = t => { const p = sampleOdinCamera(t).position; return Math.atan2(p.z, p.x) }
   const delta = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b))
@@ -47,7 +57,20 @@ test('orbit angular speed remains continuous across shot boundaries and the 60-s
   assert.ok(Math.abs(leaving - arriving) < .00001, 'Loop wrap preserves angular speed')
 })
 
-test('camera direction fix retains the authored zoom, elevation and framing at every inspection shot', () => {
+test('framing velocity stays smooth across shot joins and the loop wrap', () => {
+  const dt = .00001
+  const velocity = (a, b) => {
+    const before = sampleOdinCamera(a), after = sampleOdinCamera(b)
+    return [...after.position.clone().sub(before.position).divideScalar(dt).toArray(),
+      ...after.target.clone().sub(before.target).divideScalar(dt).toArray()]
+  }
+  for (const t of [7, 12, 18, 24, 30, 36, 43, 50, 56, 60]) {
+    const left = velocity(t - dt, t), right = t === 60 ? velocity(0, dt) : velocity(t, t + dt)
+    left.forEach((value, axis) => assert.ok(Math.abs(value - right[axis]) < .0001, `Framing velocity jumps at ${t}s on axis ${axis}`))
+  }
+})
+
+test('evenly paced orbit retains the authored zoom, elevation and framing at every inspection shot', () => {
   for (const [time, radius, height, aimY, aimZ] of [
     [0, 11.6, 3.7, .24, 0], [7, 10.7, 2.9, .28, -.20],
     [12, 8.9, 4.4, .38, -.70], [18, 7.7, 3.7, .45, -.50],
