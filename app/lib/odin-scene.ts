@@ -239,6 +239,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
+    canvas.dataset.cameraPosition = camera.position.toArray().map(n => n.toFixed(6)).join(',')
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
