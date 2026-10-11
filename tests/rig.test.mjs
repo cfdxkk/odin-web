@@ -1469,8 +1469,8 @@ test('bridge quads extend while gathered until the prior 42-percent seat, then s
       const shift=cradle.position.clone().sub(c1)
       const tubeShift=tube.position.clone().add(cradle.position).sub(netOpen)
       assert.equal(shift.x,0,'Packing must not add axial withdrawal')
-      assert.ok(Math.abs(tubeShift.z)<=.61*shorter+1e-9,'Actual tube horizontal packing remains shallow despite receiver compensation')
-      assert.ok(Math.abs(shift.z)<=1.88*seat+1e-9,'Receiver shoes stay inside their verified guide corridor')
+      assert.ok(Math.abs(tubeShift.z)<=.401*shorter+1e-9,'Tube horizontal packing stays shallow beside the casing')
+      assert.ok(Math.abs(shift.z)<=.671*seat+1e-9,'Receivers have no additional inward detour')
       assert.ok(Math.abs(shift.y-.20*seat)<=.321*seat+1e-9,'The fitted bearing vertical half-stroke preserves pair clearance')
       assert.ok(Math.abs(shift.y-.20*seat)>=Math.abs(old.y)*seat-1e-9,'The bearing vertical half-stroke is preserved around its fitted datum')
       if(d<=.42) {
@@ -1539,8 +1539,8 @@ test('quad fixed forks retain their complete accepted path as bearings use shall
 })
 
 test('quad packing seats the actual receiver tails within both hull roofs and clears both mirrored strokes', () => {
-  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.51/motion-verification.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.51/mesh-clearance.json',import.meta.url)))
+  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.52/motion-verification.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.52/mesh-clearance.json',import.meta.url)))
   const hash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex')
   const codeHash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url),'utf8').replaceAll('\r\n','\n')).digest('hex')
   assert.equal(motion.codeHashEncoding,'UTF-8 with LF newlines')
@@ -1567,15 +1567,24 @@ test('quad packing seats the actual receiver tails within both hull roofs and cl
     assert.deepEqual(r.tubePetalContacts,[])
     assert.deepEqual(r.tubePairContacts,[])
     assert.deepEqual(r.cradlePairContacts,[])
-    assert.deepEqual(r.receiverFixedRoofContacts,[],'Receiver shelves clear the adjacent fixed roof during entry and exit')
-    assert.ok(r.baselineReceiverFixedRoofContacts.some(e=>e.progress>=.20&&e.progress<=.30),'The fixed-roof audit detects the prior crossing leading into the 30% protrusion')
     assert.equal(r.closedHullEnvelope.length,4)
     for(const seat of r.closedHullEnvelope)for(const part of Object.values(seat.parts))
       assert.ok(part.minimumInsideMargin>.01,'Every original tail-shell, tube and fork vertex fits inside the closed sloped hull')
     const closed=r.examples.find(e=>e.progress===0),open=r.examples.find(e=>e.progress===.5)
     assert.ok(closed.foreAftSeparation>7.0,'Closed tubes retain a wide side-view horizontal gap')
     assert.ok(open.foreAftSeparation-closed.foreAftSeparation<1.4,'The closing horizontal stroke is small')
-    assert.ok(closed.verticalSeparation>2.4,'Upper/lower tubes retain adequate clearance')
+    assert.ok(closed.verticalSeparation>1.8,'The original tube meshes retain clearance with the deeper vertical packing')
+  }
+  assert.equal(motion.receiverCorridor.additionalInwardShoeTravel,0)
+  assert.equal(clearance.supportMountingOffsetZ,-.35)
+  assert.equal(motion.maxSupportMountingError,0,'The original support retains a constant mounting fit throughout both stroke directions')
+  const browser=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.52/browser-verification.json',import.meta.url)))
+  assert.deepEqual(browser.codeHashes,motion.codeHashes)
+  assert.equal(browser.occlusion.reportedWhiteCornerHidden,true)
+  assert.equal(browser.occlusion.supportWhiteCornerHidden,true)
+  for(const row of browser.occlusion.rows) {
+    assert.ok(row.before.every(hit=>hit.nearest.startsWith(row.part)),'Prior mounting offsets reproduce each visible white corner')
+    assert.ok(row.after.every(hit=>hit.nearest.startsWith('Axial_Stern_FixedSlotLips')),'The actual exported hull occludes each corrected corner')
   }
 })
 

@@ -31,11 +31,12 @@ export function bridgeQuadTubePackingAmount(deployment: number) {
   return 1 - ease(.42, .64, deployment)
 }
 
-// In a ship-side view, model Y is horizontal and model Z is vertical. Keep
-// the gathered tubes within the straight axial corridor beside the casing.
+// In a ship-side view, model Y is horizontal and model Z is vertical. The
+// upper rear tube must pass below the curved bridge roof, not just the flat
+// armor seam. Keep horizontal packing shallow to clear the central casing.
 export function bridgeQuadTubeCompactVector(data: Record<string, any>): [number, number, number] {
   const [x, y, z] = data.compactVector as [number, number, number]
-  return [x, y * (.60 / 1.98), z * (16 / 15) + .20]
+  return [x, y * (.40 / 1.98), z * (.65 / .30)]
 }
 
 // The lower receiver corners previously escaped the sloped closed hull.
@@ -46,15 +47,13 @@ export function bridgeQuadBearingCompactVector(data: Record<string, any>): [numb
   return [x, y * (.67 / 1.98), z * (16 / 15) + .20]
 }
 
-// The sloped fixed lip narrows toward the outside. Keep the receiver shelves
-// seated while the carriage passes it, gathering only their short inner shoes
-// further into the bay. Release them once the carriage is clear. The tubes and
-// long forks compensate this local motion to retain their own accepted paths.
+// Receivers retain their shallow fitted seat until the carriage clears.
+// No extra inward detour: it pulled the entire root component into the casing
+// before pulling it back out. Tubes and forks keep their separate compensation.
 export function bridgeQuadBearingPackingOffset(data: Record<string, any>, deployment: number): [number, number, number] {
   const seat = 1 - ease(.60, .69, deployment)
   const [x, y, z] = bridgeQuadBearingCompactVector(data)
-  const corridor = Math.sign(y) * 1.20 * ease(.35, .50, deployment) * seat
-  return [x * seat, y * seat + corridor, z * seat]
+  return [x * seat, y * seat, z * seat]
 }
 
 // Shallow side-view packing keeps the tubes outside the central casing.

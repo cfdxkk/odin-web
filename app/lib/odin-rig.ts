@@ -32,6 +32,12 @@ export function createOdinRig(root: THREE.Object3D) {
   const sternJoint = joints.get('Axial_Stern_Barrel')?.object
   const sternMount = joints.get('Axial_Stern_Mount')?.object
   const sternRestWeb = sternJoint && sternMount ? sternJoint.position.clone().add(sternMount.position) : undefined
+  // Seat the restored support's thin upper feet below the fixed bridge roof.
+  // This is a constant mounting fit, so the support follows the carriage
+  // without an independent withdrawal or late vertical correction.
+  for (const side of ['Port', 'Starboard']) {
+    root.getObjectByName(`PDC_${side}_OriginalSupport`)?.position.add(v(0, 0, -.35))
+  }
   function apply(deployment: number, time: number) {
     const d = THREE.MathUtils.clamp(deployment, 0, 1)
     const quadProgress = turretPoseProgress(d, 'quad')
