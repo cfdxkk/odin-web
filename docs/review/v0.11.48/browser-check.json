@@ -1,0 +1,543 @@
+{
+  "version": "v0.11.48-rc.1",
+  "viewports": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "shots": [
+        {
+          "time": 0,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "0.00",
+            "cameraTime": "0.0000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-9.699485,2.888000,-5.600000",
+            "fps": "64"
+          }
+        },
+        {
+          "time": 7.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "7.50",
+            "cameraTime": "7.5000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-0.000000,2.888000,-11.200000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 15,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "15.00",
+            "cameraTime": "15.0000",
+            "deployment": "0.442",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "9.699485,2.888000,-5.600000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 22.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "22.50",
+            "cameraTime": "22.5000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "9.699485,2.888000,5.600000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 30,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "30.00",
+            "cameraTime": "30.0000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "0.000000,2.888000,11.200000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 37.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "37.50",
+            "cameraTime": "37.5000",
+            "deployment": "0.064",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-9.699485,2.888000,5.600000",
+            "fps": "75"
+          }
+        }
+      ]
+    },
+    {
+      "name": "21-9",
+      "viewport": {
+        "width": 2560,
+        "height": 1080
+      },
+      "shots": [
+        {
+          "time": 0,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "0.00",
+            "cameraTime": "0.0000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-8.045230,2.429560,-4.644916",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 7.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "7.50",
+            "cameraTime": "7.5000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-0.000000,2.429560,-9.289832",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 15,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "15.00",
+            "cameraTime": "15.0000",
+            "deployment": "0.442",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "8.045230,2.429560,-4.644916",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 22.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "22.50",
+            "cameraTime": "22.5000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "8.045230,2.429560,4.644916",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 30,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "30.00",
+            "cameraTime": "30.0000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "0.000000,2.429560,9.289832",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 37.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "37.50",
+            "cameraTime": "37.5000",
+            "deployment": "0.064",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-8.045230,2.429560,4.644916",
+            "fps": "75"
+          }
+        }
+      ]
+    },
+    {
+      "name": "32-9",
+      "viewport": {
+        "width": 3200,
+        "height": 900
+      },
+      "shots": [
+        {
+          "time": 0,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "0.00",
+            "cameraTime": "0.0000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-6.983629,2.135360,-4.032000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 7.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "7.50",
+            "cameraTime": "7.5000",
+            "deployment": "0.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-0.000000,2.135360,-8.064000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 15,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "15.00",
+            "cameraTime": "15.0000",
+            "deployment": "0.442",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "6.983629,2.135360,-4.032000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 22.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "22.50",
+            "cameraTime": "22.5000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "6.983629,2.135360,4.032000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 30,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "30.00",
+            "cameraTime": "30.0000",
+            "deployment": "1.000",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "0.000000,2.135360,8.064000",
+            "fps": "75"
+          }
+        },
+        {
+          "time": 37.5,
+          "state": {
+            "engine": "three.js r186",
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "asset": "/models/odin.glb",
+            "ready": "true",
+            "time": "37.50",
+            "cameraTime": "37.5000",
+            "deployment": "0.064",
+            "thrust": "0.000",
+            "joints": "215",
+            "quality": "high",
+            "cameraTarget": "0.000,0.200,0.000",
+            "cameraPosition": "-6.983629,2.135360,4.032000",
+            "fps": "75"
+          }
+        }
+      ]
+    }
+  ],
+  "loops": [
+    {
+      "kind": "camera",
+      "wrapSeen": true,
+      "speeds": [
+        0.13962621364523542,
+        0.13962634270549348,
+        0.1396264500343323,
+        0.13962635799832387,
+        0.13962601261295848,
+        0.13962668377275603,
+        0.13962628913233785,
+        0.13962623726565715,
+        0.13962617967079094,
+        0.13962648552498644,
+        0.13962662239272258,
+        0.13962615943705087,
+        0.1396262175819656,
+        0.13962633485037332,
+        0.13962654847740233,
+        0.13962634811762006,
+        0.1396261561537541,
+        0.13962629070102683,
+        0.13962660468320198,
+        0.13962613973062593
+      ],
+      "steadyHeight": true,
+      "steadyAim": true
+    },
+    {
+      "kind": "weapon-film",
+      "wrapSeen": true,
+      "speeds": [
+        0.13962673853610227,
+        0.13962603025185233,
+        0.13962640506270682,
+        0.13962664759872612,
+        0.13962613837034726,
+        0.13962593826604067,
+        0.1396267983290119,
+        0.1396260645873786,
+        0.1396266571570661,
+        0.1396260548775067,
+        0.13962658276513945,
+        0.13962615285501667,
+        0.13962654223286333,
+        0.1396263287009296,
+        0.13962642638390269,
+        0.1396262152273677,
+        0.13962614544572058,
+        0.13962653524347068,
+        0.13962619658314876,
+        0.1396262145006971
+      ],
+      "steadyHeight": true,
+      "steadyAim": true
+    }
+  ],
+  "caption": "武备收起，切换至航行配置。",
+  "plainCopy": true,
+  "officialLogo": {
+    "loaded": true,
+    "src": "http://127.0.0.1:4175/images/odin-founders-badge-v0.11.47.png"
+  },
+  "explicitPauseHeld": true,
+  "finalState": {
+    "engine": "three.js r186",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "asset": "/models/odin.glb",
+    "ready": "true",
+    "time": "0.00",
+    "cameraTime": "0.0000",
+    "deployment": "0.000",
+    "thrust": "0.000",
+    "joints": "215",
+    "quality": "high",
+    "cameraTarget": "0.000,0.200,0.000",
+    "cameraPosition": "-9.699485,2.888000,-5.600000",
+    "fps": "75"
+  },
+  "tallUltrawide": {
+    "viewport": {
+      "width": 3440,
+      "height": 1440
+    },
+    "states": [
+      {
+        "time": 0,
+        "frame": {
+          "width": 3440,
+          "height": 1440
+        },
+        "state": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "ready": "true",
+          "time": "0.00",
+          "cameraTime": "0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.000,0.200,0.000",
+          "cameraPosition": "-8.004637,2.418310,-4.621479",
+          "fps": "63"
+        }
+      },
+      {
+        "time": 24,
+        "frame": {
+          "width": 3440,
+          "height": 1440
+        },
+        "state": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "24.0000",
+          "deployment": "1.000",
+          "thrust": "0.000",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.000,0.200,0.000",
+          "cameraPosition": "6.868857,2.418310,6.184747",
+          "fps": "75"
+        }
+      },
+      {
+        "time": 44,
+        "frame": {
+          "width": 3440,
+          "height": 1440
+        },
+        "state": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "ready": "true",
+          "time": "44.00",
+          "cameraTime": "44.0000",
+          "deployment": "0.000",
+          "thrust": "1.000",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.000,0.200,0.000",
+          "cameraPosition": "-8.569922,2.418310,-3.462473",
+          "fps": "75"
+        }
+      }
+    ],
+    "explicitPauseHeld": true
+  },
+  "checks": {
+    "tests": {
+      "passed": 85,
+      "failed": 0
+    },
+    "verifyAsset": true,
+    "generate": true
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "assetHashes": {
+    "odin.glb": "dcac0f6bb0ac4a72037151ed4c70fbd87f577b2c801dd144cb488937153123a4",
+    "odin-lite.glb": "e25f49c041b6bb9b1d9642f00244ef83367259bcadbdbb8f3483368e2763f457"
+  },
+  "geometryAndWeaponTrajectoriesUnchanged": true,
+  "resources": {
+    "previewServiceCount": 1,
+    "previewServicePids": [
+      57504
+    ],
+    "temporaryBrowserProcesses": 0,
+    "cameraAuditRunning": false,
+    "headlessBlenderJobs": 0
+  },
+  "temporaryBrowserClosed": true,
+  "userPreview": {
+    "url": "http://127.0.0.1:4175/?v=0.11.48-rc.1",
+    "paused": true,
+    "time": 0
+  }
+}

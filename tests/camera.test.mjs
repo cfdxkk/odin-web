@@ -1,17 +1,19 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera } from '../app/lib/odin-camera.ts'
+import { PerspectiveCamera, Vector3 } from 'three'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from '../app/lib/odin-camera.ts'
 
 const cameraTime = authoredTime => authoredTime * ODIN_CAMERA_ORBIT_SECONDS / 60
-test('authored flight changes elevation, distance and aim without positional cuts', () => {
-  const shots = [0, 12, 24, 43, 60].map(t => sampleOdinCamera(cameraTime(t)))
-  assert.ok(Math.abs(shots[0].position.length() - shots[2].position.length()) > 3)
-  assert.ok(shots[0].target.distanceTo(shots[2].target) > .5)
-  assert.ok(shots[0].position.distanceTo(shots[4].position) < 1e-6)
+test('the complete orbit keeps its distance, elevation and aim steady without cuts', () => {
+  const initial = sampleOdinCamera(0)
+  assert.ok(initial.position.distanceTo(sampleOdinCamera(ODIN_CAMERA_ORBIT_SECONDS).position) < 1e-6)
   for (let t = .02; t <= ODIN_CAMERA_ORBIT_SECONDS; t += .02) {
     const a = sampleOdinCamera(t), b = sampleOdinCamera(t - .02)
     assert.ok(a.position.distanceTo(b.position) < .09, `camera continuity at ${t}`)
-    assert.ok(a.target.distanceTo(b.target) < .02)
+    assert.ok(a.target.distanceTo(initial.target) < 1e-9, 'The view should not track different points of the hull')
+    assert.ok(Math.abs(a.position.y - initial.position.y) < 1e-9, 'The view should not climb and descend')
+    assert.ok(Math.abs(a.position.distanceTo(a.target) - initial.position.distanceTo(initial.target)) < 1e-9,
+      'The view should not zoom in and out during the orbit')
   }
 })
 
@@ -72,18 +74,33 @@ test('framing velocity stays smooth across shot joins and the loop wrap', () => 
   }
 })
 
-test('evenly paced orbit retains the authored zoom, elevation and framing at every inspection shot', () => {
-  for (const [time, radius, height, aimY, aimZ] of [
-    [0, 11.6, 3.7, .24, 0], [7, 10.7, 2.9, .28, -.20],
-    [12, 8.9, 4.4, .38, -.70], [18, 7.7, 3.7, .45, -.50],
-    [24, 7.0, 2.8, .76, .40], [30, 8.6, 2.1, .56, .45],
-    [36, 10.1, 3.5, .32, .20], [43, 11.0, 2.5, .20, 0],
-    [50, 11.6, 4.2, .25, -.20], [56, 12.0, 4.5, .24, 0], [60, 11.6, 3.7, .24, 0],
-  ]) {
-    const { position: p, target: q } = sampleOdinCamera(cameraTime(time))
-    assert.ok(Math.abs(Math.hypot(p.x, p.z) - radius) < 1e-9)
-    assert.ok(Math.abs(p.y - height) < 1e-9)
-    assert.ok(Math.abs(q.y - aimY) < 1e-9 && Math.abs(q.z - aimZ) < 1e-9)
+test('ultrawide framing gives the hull a useful screen width and keeps its silhouette visible', () => {
+  const silhouette = [[0, -.13, -3.8], [0, .2, 3.5], [-1, -.2, 0], [1, -.2, 0], [0, 1.39, .8]].map(p => new Vector3(...p))
+  for (const [aspect, minimumWidth] of [[16 / 9, .5], [21 / 9, .45], [32 / 9, .35]]) {
+    const pose = sampleOdinCamera(0, aspect)
+    const camera = new PerspectiveCamera(33, aspect, .035, 500)
+    camera.setViewOffset(aspect * 900, 900, 0, 900 * odinCameraFraming(aspect).viewOffsetY, aspect * 900, 900)
+    camera.position.copy(pose.position); camera.lookAt(pose.target); camera.updateMatrixWorld(true)
+    const points = silhouette.map(p => p.clone().project(camera))
+    const width = (Math.max(...points.map(p => p.x)) - Math.min(...points.map(p => p.x))) / 2
+    assert.ok(width > minimumWidth, `The ship is too small at aspect ${aspect}: ${width}`)
+    for (const p of points) assert.ok(Math.abs(p.x) < .95 && Math.abs(p.y) < .8, 'The opening silhouette must remain in view')
+    const offset = pose.position.clone().sub(pose.target).normalize()
+    assert.ok(offset.distanceTo(sampleOdinCamera(0, 16 / 9).position.sub(sampleOdinCamera(0, 16 / 9).target).normalize()) < 1e-9,
+      'Adapting to a wider screen must not change the viewing angle')
+  }
+})
+
+test('opposite-side seeks stay outside the ship and preserve their endpoint views', () => {
+  for (const toTime of [12, ODIN_CAMERA_ORBIT_SECONDS / 2, 32, 44]) {
+    const from = sampleOdinCamera(0, 32 / 9), to = sampleOdinCamera(toTime, 32 / 9)
+    const minimumDistance = Math.min(from.position.distanceTo(from.target), to.position.distanceTo(to.target))
+    for (let n = 0; n <= 100; n++) {
+      const pose = interpolateOdinCamera(from, to, n / 100)
+      assert.ok(pose.position.distanceTo(pose.target) >= minimumDistance - 1e-9, 'A chapter change must not cut through the hull')
+      if (n === 0) assert.ok(pose.position.distanceTo(from.position) < 1e-9)
+      if (n === 100) assert.ok(pose.position.distanceTo(to.position) < 1e-9)
+    }
   }
 })
 

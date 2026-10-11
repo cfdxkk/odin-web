@@ -1,48 +1,46 @@
 import * as THREE from 'three'
-// The camera completes one uniform turn in 45 seconds, independently of the
-// weapon film. Periodic framing tangents keep every camera loop smooth.
+
+// A steady orbit avoids combining rotation with repeated zooms, climbs and
+// moving targets. Its clock remains independent of the weapon film.
 export const ODIN_CAMERA_ORBIT_SECONDS = 45
-const shots = [
-  [0, 11.6, 3.7, .24, 0],
-  [7, 10.7, 2.9, .28, -.20],
-  [12, 8.9, 4.4, .38, -.70],
-  [18, 7.7, 3.7, .45, -.50],
-  [24, 7.0, 2.8, .76, .40],
-  [30, 8.6, 2.1, .56, .45],
-  [36, 10.1, 3.5, .32, .20],
-  [43, 11.0, 2.5, .20, 0],
-  [50, 11.6, 4.2, .25, -.20],
-  [56, 12.0, 4.5, .24, 0],
-  [60, 11.6, 3.7, .24, 0],
-] as const
-const intervals = shots.slice(1).map((shot, i) => shot[0] - shots[i]![0])
-const framingTangents = Array.from({ length: 4 }, (_, axis) => {
-  const speeds = shots.slice(1).map((shot, i) => (shot[axis + 1]! - shots[i]![axis + 1]!) / intervals[i]!)
-  return shots.map((_, i) => {
-    const previous = (i - 1 + speeds.length) % speeds.length, next = i % speeds.length
-    const before = speeds[previous]!, after = speeds[next]!
-    if (before * after <= 0) return 0
-    const w1 = 2 * intervals[next]! + intervals[previous]!, w2 = intervals[next]! + 2 * intervals[previous]!
-    return (w1 + w2) / (w1 / before + w2 / after)
-  })
-})
-const orbitSpeed = Math.PI * 2 / ODIN_CAMERA_ORBIT_SECONDS
 const startAngle = -5 * Math.PI / 6
-export function sampleOdinCamera(time: number, aspect = 1.6, mobile = false) {
-  const orbitTime = THREE.MathUtils.euclideanModulo(time, ODIN_CAMERA_ORBIT_SECONDS)
-  const t = orbitTime * 60 / ODIN_CAMERA_ORBIT_SECONDS
-  let index = shots.findIndex(s => s[0] > t) - 1
-  if (index < 0) index = t >= 60 ? shots.length - 2 : 0
-  const u = (t - shots[index]![0]) / (shots[index + 1]![0] - shots[index]![0])
-  const start = shots[index]!, end = shots[index + 1]!, span = intervals[index]!
-  const u2 = u * u, u3 = u2 * u
-  const angle = startAngle + orbitTime * orbitSpeed
-  const [radius, height, aimY, aimZ] = framingTangents.map((tangents, axis) =>
-    (2 * u3 - 3 * u2 + 1) * start[axis + 1]! + (u3 - 2 * u2 + u) * span * tangents[index]!
-    + (-2 * u3 + 3 * u2) * end[axis + 1]! + (u3 - u2) * span * tangents[index + 1]!)
-  const distance = radius! * (mobile ? 1.60 : Math.max(1, 1.25 / aspect))
+const orbitRadius = 11.2
+const orbitSlope = .24
+const aimHeight = .20
+export type OdinCameraPose = { position: THREE.Vector3; target: THREE.Vector3 }
+
+export function odinCameraFraming(aspect: number, mobile = false) {
+  if (mobile) return { distanceScale: 1.60, viewOffsetY: 0 }
+  const wideScale = Math.max(.72, Math.pow((16 / 9) / Math.max(16 / 9, aspect), .65))
   return {
-    position: new THREE.Vector3(Math.cos(angle) * distance, height!, Math.sin(angle) * distance),
-    target: new THREE.Vector3(0, aimY!, aimZ!),
+    distanceScale: wideScale * Math.max(1, 1.25 / aspect),
+    // Lift the enlarged silhouette clear of playback controls on wide screens.
+    viewOffsetY: .06 * THREE.MathUtils.smoothstep(aspect, 16 / 9, 21 / 9),
   }
+}
+
+export function sampleOdinCamera(time: number, aspect = 1.6, mobile = false): OdinCameraPose {
+  const phase = THREE.MathUtils.euclideanModulo(time, ODIN_CAMERA_ORBIT_SECONDS)
+  const angle = startAngle + phase * Math.PI * 2 / ODIN_CAMERA_ORBIT_SECONDS
+  const radius = orbitRadius * odinCameraFraming(aspect, mobile).distanceScale
+  return {
+    position: new THREE.Vector3(Math.cos(angle) * radius, aimHeight + radius * orbitSlope, Math.sin(angle) * radius),
+    target: new THREE.Vector3(0, aimHeight, 0),
+  }
+}
+
+// Seeking follows an arc; a straight blend between opposite-side views can
+// cut through the hull. This also handles returning from free exploration.
+export function interpolateOdinCamera(from: OdinCameraPose, to: OdinCameraPose, progress: number): OdinCameraPose {
+  const u = THREE.MathUtils.clamp(progress, 0, 1)
+  const start = new THREE.Spherical().setFromVector3(from.position.clone().sub(from.target))
+  const end = new THREE.Spherical().setFromVector3(to.position.clone().sub(to.target))
+  const turn = THREE.MathUtils.euclideanModulo(end.theta - start.theta + Math.PI, Math.PI * 2) - Math.PI
+  const target = from.target.clone().lerp(to.target, u)
+  const offset = new THREE.Vector3().setFromSpherical(new THREE.Spherical(
+    THREE.MathUtils.lerp(start.radius, end.radius, u),
+    THREE.MathUtils.lerp(start.phi, end.phi, u),
+    start.theta + turn * u,
+  ))
+  return { position: target.clone().add(offset), target }
 }

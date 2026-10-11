@@ -10,7 +10,7 @@ import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
-import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera } from './odin-camera'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from './odin-camera'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
@@ -183,7 +183,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     composer.setPixelRatio(ratio); composer.setSize(width, height)
     camera.aspect = width / height; camera.updateProjectionMatrix()
     ao.enabled = !hooks.state().lowPower && !softwareRenderer
-    camera.setViewOffset(width, height, 0, -height * (width < 700 ? 0 : .035), width, height)
+    camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
     renderer.shadowMap.enabled = !hooks.state().lowPower && !softwareRenderer
   }
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
@@ -212,7 +212,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       if (transitioning > 0) {
         transitioning = Math.max(0, transitioning - dt)
         const u = smooth(0, 1, 1 - transitioning / 1.25)
-        camera.position.copy(cameraFrom).lerp(desired, u); cameraAim.copy(aimFrom).lerp(target, u)
+        const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
+        camera.position.copy(pose.position); cameraAim.copy(pose.target)
       } else { camera.position.copy(desired); cameraAim.copy(target) }
       camera.lookAt(cameraAim)
       controls.target.copy(cameraAim)
@@ -235,8 +236,6 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       cone.userData.offset = factor * length / 2
       glow.material.opacity = power * .65
     })
-    ship.rotation.z = Math.sin(time * TAU / FILM_DURATION) * .014
-    stars.rotation.y = time * .0007
     grade.uniforms.time!.value = time
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
