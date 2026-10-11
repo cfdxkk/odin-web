@@ -15,27 +15,46 @@ export function bridgeQuadPetalAmount(data: Record<string, any>, deployment: num
   return bridgeQuadCompactAmount(data, deployment) ** Number(data.petalPackingExponent ?? 1)
 }
 
-// Relieve only tube packing once the fitted skins have cleared their corridor.
-// Keep the original stroke direction, axial motion and release endpoints.
+// Preserve the accepted early transverse clock for the long fixed forks.
+// Moving receivers use the later packing clock below; guide compensation
+// keeps those forks on their existing world-space trajectories.
 export function bridgeQuadTubeCompactAmount(data: Record<string, any>, deployment: number) {
   const relief = Number(data.compactReleaseRelief ?? 0)
     * ease(Number(data.compactReliefStart ?? .12), Number(data.compactReliefEnd ?? .15), deployment)
   return bridgeQuadCompactAmount(data, deployment) * (1 - relief)
 }
 
+// Keep the tubes and receivers gathered until their axial stroke reaches the
+// previous 42% pose. Then spread before original aiming begins at 69%.
+// The same clock gathers them before the final axial withdrawal on closing.
+export function bridgeQuadTubePackingAmount(deployment: number) {
+  return 1 - ease(.42, .64, deployment)
+}
+
 // In a ship-side view, model Y is horizontal and model Z is vertical. Keep
-// the barrels beside the casing with only a small horizontal packing stroke.
+// the gathered tubes within the straight axial corridor beside the casing.
 export function bridgeQuadTubeCompactVector(data: Record<string, any>): [number, number, number] {
   const [x, y, z] = data.compactVector as [number, number, number]
-  return [x, y * (.67 / 1.98), z * (4 / 3) + .20]
+  return [x, y * (.60 / 1.98), z * (16 / 15) + .20]
 }
 
 // The lower receiver corners previously escaped the sloped closed hull.
 // Recenter the quartet on that envelope, retaining the bearing pair's gap.
-// Tubes get a little extra vertical packing inside their roomy receivers.
+// Receivers keep their fitted seat while tubes clear the central casing.
 export function bridgeQuadBearingCompactVector(data: Record<string, any>): [number, number, number] {
   const [x, y, z] = data.compactVector as [number, number, number]
   return [x, y * (.67 / 1.98), z * (16 / 15) + .20]
+}
+
+// The sloped fixed lip narrows toward the outside. Keep the receiver shelves
+// seated while the carriage passes it, gathering only their short inner shoes
+// further into the bay. Release them once the carriage is clear. The tubes and
+// long forks compensate this local motion to retain their own accepted paths.
+export function bridgeQuadBearingPackingOffset(data: Record<string, any>, deployment: number): [number, number, number] {
+  const seat = 1 - ease(.60, .69, deployment)
+  const [x, y, z] = bridgeQuadBearingCompactVector(data)
+  const corridor = Math.sign(y) * 1.20 * ease(.35, .50, deployment) * seat
+  return [x * seat, y * seat + corridor, z * seat]
 }
 
 // Shallow side-view packing keeps the tubes outside the central casing.

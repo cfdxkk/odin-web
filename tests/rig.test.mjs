@@ -1450,31 +1450,36 @@ test('bridge quads use the original frame-30 carriage seat and all original aimi
   }
 })
 
-test('bridge quads only pack slightly in side-view horizontal direction and remain seated during cover release', () => {
-  const {root,rig}=loadRigAtPoseClock('quad')
+test('bridge quads extend while gathered until the prior 42-percent seat, then spread before aiming', () => {
+  const {root,rig}=loadRig()
   const ease=(a,b,d)=>{const u=THREE.MathUtils.clamp((d-a)/(b-a),0,1);return u*u*(3-2*u)}
   const map=([x,y,z])=>new THREE.Vector3(x,z,-y)
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const tube=root.getObjectByName(`PDC_${side}_Arm_${i}`),cradle=root.getObjectByName(`PDC_${side}_Cradle_${i}`)
-    rig.apply(1,0)
-    const t1=tube.position.clone(),c1=cradle.position.clone()
+    rig.apply(1,0);const t1=tube.position.clone(),c1=cradle.position.clone(),netOpen=t1.clone().add(c1)
+    rig.apply(0,0);root.updateMatrixWorld(true)
+    const closedTube=tube.position.clone(),closedWorld=tube.getWorldPosition(new THREE.Vector3())
     assert.equal(tube.userData.slideStart,.03);assert.equal(tube.userData.slideEnd,.18)
     assert.equal(tube.userData.extendsAfterPetal,undefined)
     assert.equal(cradle.userData.synchronizedPetal,undefined)
     const old=map(cradle.userData.compactVector)
-    for(const d of [...Array.from({length:181},(_,n)=>n/1000),...Array.from({length:181},(_,n)=>(180-n)/1000)]) {
-      rig.apply(d,0)
-      const c=1-ease(.03,.18,d),original=c+2.5*c*(1-c)**2,shorter=original*(1-.60*ease(.12,.15,d))
+    for(const d of [...Array.from({length:201},(_,n)=>n/200),...Array.from({length:201},(_,n)=>(200-n)/200)]) {
+      rig.apply(d,0);root.updateMatrixWorld(true)
+      const shorter=1-ease(.42,.64,d),seat=1-ease(.60,.69,d)
       const shift=cradle.position.clone().sub(c1)
+      const tubeShift=tube.position.clone().add(cradle.position).sub(netOpen)
       assert.equal(shift.x,0,'Packing must not add axial withdrawal')
-      assert.ok(Math.abs(shift.z)<=.68*shorter+1e-9,'Side-view horizontal packing remains below one source unit')
-      assert.ok(Math.abs(shift.z)<=Math.abs(old.z)*shorter*.35+1e-9,'Horizontal packing stays far below the former excessive stroke')
-      assert.ok(Math.abs(shift.y-.20*shorter)<=.321*shorter+1e-9,'Recentering preserves the gray bearing pair clearance')
-      assert.ok(Math.abs(shift.y-.20*shorter)>=Math.abs(old.y)*shorter-1e-9,'The bearing vertical half-stroke is preserved around its fitted datum')
-      assert.ok(cradle.position.distanceTo(c1)<=old.length()*original*.43+1e-9,'The total packing stroke is visibly shallow')
-      assert.ok(Math.abs(tube.position.y-t1.y)<=.081*shorter+1e-9,'Only a small extra vertical stroke occurs within the receiver')
-      assert.ok(tube.position.distanceTo(t1)>14,'Barrels retain axial clearance behind the skins throughout transverse packing')
-      if(d>=.15&&d<.18&&original>0)assert.ok(cradle.position.distanceTo(c1)<.401*old.length()*original,'Exposed tubes retain wider transverse spacing')
+      assert.ok(Math.abs(tubeShift.z)<=.61*shorter+1e-9,'Actual tube horizontal packing remains shallow despite receiver compensation')
+      assert.ok(Math.abs(shift.z)<=1.88*seat+1e-9,'Receiver shoes stay inside their verified guide corridor')
+      assert.ok(Math.abs(shift.y-.20*seat)<=.321*seat+1e-9,'The fitted bearing vertical half-stroke preserves pair clearance')
+      assert.ok(Math.abs(shift.y-.20*seat)>=Math.abs(old.y)*seat-1e-9,'The bearing vertical half-stroke is preserved around its fitted datum')
+      if(d<=.42) {
+        const world=tube.getWorldPosition(new THREE.Vector3())
+        assert.ok(Math.abs(world.y-closedWorld.y)<1e-9&&Math.abs(world.z-closedWorld.z)<1e-9,'Initial extension is axial in world space')
+        if(d>=.42)assert.ok(Math.abs(tube.position.x-closedTube.x)>13,'Tubes extend to the previous 42% axial position before spreading')
+      }
+      if(d>=.64)assert.ok(Math.abs(tubeShift.y)<1e-9&&Math.abs(tubeShift.z)<1e-9,'Tube spreading completes before the original aiming stage')
+      if(d>=.69)assert.ok(cradle.position.distanceTo(c1)<1e-9,'Receivers settle before aiming')
     }
   }
 })
@@ -1485,7 +1490,7 @@ test('quad tubes extend smoothly through released skins; all gray armor stays un
   for(const side of ['Port','Starboard'])for(let i=0;i<4;i++) {
     const arm=root.getObjectByName(`PDC_${side}_Arm_${i}`),petal=root.getObjectByName(`PDC_${side}_HullPetal_${i}`)
     rig.apply(1,0);root.updateMatrixWorld(true)
-    const a1=arm.position.clone(),p1=petal.position.clone(),restTurn=petal.quaternion.clone()
+    const a1=arm.position.clone(),netOpen=a1.clone().add(arm.parent.position),p1=petal.position.clone(),restTurn=petal.quaternion.clone()
     const skin=petal.children.find(o=>meshBounds.has(o)),box=meshBounds.get(skin)
     const corners=[box.min.x,box.max.x].flatMap(x=>[box.min.y,box.max.y].flatMap(y=>[box.min.z,box.max.z].map(z=>new THREE.Vector3(x,y,z))))
     const openX=corners.map(p=>p.clone().applyMatrix4(skin.matrixWorld).x)
@@ -1504,7 +1509,7 @@ test('quad tubes extend smoothly through released skins; all gray armor stays un
       const expected=new THREE.Vector3(0,vector[2],-vector[1]).multiplyScalar(center)
       assert.ok(petal.position.clone().sub(p1).distanceTo(expected)<1e-6)
       assert.ok(Math.abs(Math.abs(arm.position.x-a1.x)-(travel+8)*(1-ease(.08,.69,timelineForPose(d,'quad'))))<1e-6,'The approved axial distance and clock remain unchanged')
-      assert.equal(arm.position.z,a1.z,'The extra tube stroke does not introduce relative horizontal motion')
+      assert.ok(Math.abs(arm.position.z+arm.parent.position.z-netOpen.z)<=.601,'Receiver compensation retains the actual tube corridor')
     }
   }
 })
@@ -1524,8 +1529,8 @@ test('quad fixed forks retain their complete accepted path as bearings use shall
       const shift=cradle.position.clone().sub(open),net=shift.clone().add(guide.position.clone().sub(g1))
       assert.equal(shift.x,0)
       assert.ok(net.distanceTo(originalNet.clone().multiplyScalar(clock))<1e-9,'Long fixed forks keep their original net path at every progress')
-      assert.ok(shift.length()>=previous-1e-9,'The packing stroke never reverses')
-      previous=shift.length()
+      assert.ok(net.length()>=previous-1e-9,'The accepted fork stroke never reverses')
+      previous=net.length()
     }
     const net=cradle.position.clone().sub(open).add(guide.position.clone().sub(g1))
     assert.ok(Math.abs(Math.abs(net.z)-.6)<1e-6)
@@ -1534,8 +1539,8 @@ test('quad fixed forks retain their complete accepted path as bearings use shall
 })
 
 test('quad packing seats the actual receiver tails within both hull roofs and clears both mirrored strokes', () => {
-  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.50/motion-verification.json',import.meta.url)))
-  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.50/mesh-clearance.json',import.meta.url)))
+  const motion=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.51/motion-verification.json',import.meta.url)))
+  const clearance=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.11.51/mesh-clearance.json',import.meta.url)))
   const hash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url))).digest('hex')
   const codeHash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url),'utf8').replaceAll('\r\n','\n')).digest('hex')
   assert.equal(motion.codeHashEncoding,'UTF-8 with LF newlines')
@@ -1551,6 +1556,8 @@ test('quad packing seats the actual receiver tails within both hull roofs and cl
   assert.ok(motion.maxUnchangedJointWorldError<1e-9)
   assert.equal(motion.maxAxialScheduleError,0)
   assert.equal(motion.maxDeployedWorldError,0)
+  assert.ok(motion.maxEarlySpread<1e-9)
+  assert.deepEqual(motion.spreadingTimelineInterval,[.42,.64])
   assert.equal(motion.axialSeating.unchanged,true)
   assert.equal(motion.axialSeating.previousTravel,motion.axialSeating.newTravel)
   for(const side of ['Port','Starboard']) {
@@ -1560,7 +1567,8 @@ test('quad packing seats the actual receiver tails within both hull roofs and cl
     assert.deepEqual(r.tubePetalContacts,[])
     assert.deepEqual(r.tubePairContacts,[])
     assert.deepEqual(r.cradlePairContacts,[])
-    assert.ok(r.baselineClosedHullEnvelope.some(seat=>seat.parts.RootArmor.maximumOutsideHeight>.10),'The roof envelope detects the prior receiver protrusion as a positive control')
+    assert.deepEqual(r.receiverFixedRoofContacts,[],'Receiver shelves clear the adjacent fixed roof during entry and exit')
+    assert.ok(r.baselineReceiverFixedRoofContacts.some(e=>e.progress>=.20&&e.progress<=.30),'The fixed-roof audit detects the prior crossing leading into the 30% protrusion')
     assert.equal(r.closedHullEnvelope.length,4)
     for(const seat of r.closedHullEnvelope)for(const part of Object.values(seat.parts))
       assert.ok(part.minimumInsideMargin>.01,'Every original tail-shell, tube and fork vertex fits inside the closed sloped hull')

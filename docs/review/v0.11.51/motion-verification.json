@@ -1,0 +1,73 @@
+{
+  "version": "v0.11.51-rc.1",
+  "baseline": "v0.11.50-rc.1",
+  "samples": 233,
+  "unchangedWorldJoints": 199,
+  "affectedJoints": [
+    "PDC_Port_Cradle_0",
+    "PDC_Port_Arm_0",
+    "PDC_Port_Cradle_1",
+    "PDC_Port_Arm_1",
+    "PDC_Port_Cradle_2",
+    "PDC_Port_Arm_2",
+    "PDC_Port_Cradle_3",
+    "PDC_Port_Arm_3",
+    "PDC_Starboard_Cradle_0",
+    "PDC_Starboard_Arm_0",
+    "PDC_Starboard_Cradle_1",
+    "PDC_Starboard_Arm_1",
+    "PDC_Starboard_Cradle_2",
+    "PDC_Starboard_Arm_2",
+    "PDC_Starboard_Cradle_3",
+    "PDC_Starboard_Arm_3"
+  ],
+  "maxUnchangedJointWorldError": 2.220446049250313e-16,
+  "maxArmPoseError": 0,
+  "maxAxialScheduleError": 0,
+  "maxRotationError": 6.664001874625056e-8,
+  "maxDeployedWorldError": 0,
+  "maxEarlySpread": 0,
+  "modelPacking": {
+    "horizontalBefore": 0.67,
+    "horizontalAfter": 0.6,
+    "tubeVerticalHalfStrokeBefore": 0.4,
+    "tubeVerticalHalfStrokeAfter": 0.32,
+    "bearingHorizontalStroke": 0.67,
+    "bearingVerticalHalfStroke": 0.32,
+    "stowDatumZ": 0.2
+  },
+  "spreadingTimelineInterval": [
+    0.42,
+    0.64
+  ],
+  "receiverCorridor": {
+    "additionalInwardShoeTravel": 1.2,
+    "entryTimelineInterval": [
+      0.35,
+      0.5
+    ],
+    "releaseTimelineInterval": [
+      0.6,
+      0.69
+    ]
+  },
+  "axialSeating": {
+    "previousTravel": 22.40237037037037,
+    "newTravel": 22.40237037037037,
+    "extensionTimelineInterval": [
+      0.08,
+      0.69
+    ],
+    "unchanged": true
+  },
+  "codeHashEncoding": "UTF-8 with LF newlines",
+  "codeHashes": {
+    "motionHelper": "be10edd4b5526fdca19ce2ec43329c53b86fb73c43f0f9b4ba7533e41df4d2c3",
+    "rig": "5d230dc8ab5fe2aedbc98ded0408015fdfb2a39e6cfbf9cf4a2dad939cc9f620",
+    "tempo": "a5cc158f9503b3e2e88a030394da11284ad726f0c7ab72922984c55dc165be42"
+  },
+  "assetHashes": {
+    "high": "dcac0f6bb0ac4a72037151ed4c70fbd87f577b2c801dd144cb488937153123a4",
+    "lite": "e25f49c041b6bb9b1d9642f00244ef83367259bcadbdbb8f3483368e2763f457"
+  }
+}
