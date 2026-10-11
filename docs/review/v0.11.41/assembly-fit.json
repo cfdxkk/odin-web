@@ -1,0 +1,237 @@
+{
+  "version": "0.11.41",
+  "quadrants": [
+    {
+      "side": "Port",
+      "quadrant": 0,
+      "petal": "PDC_Port_HullPetal_0",
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.95,
+        0.33
+      ],
+      "guideVector": [
+        0.0,
+        -1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 1,
+      "petal": "PDC_Port_HullPetal_1",
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.95,
+        -0.33
+      ],
+      "guideVector": [
+        0.0,
+        -1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 2,
+      "petal": "PDC_Port_HullPetal_2",
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.95,
+        0.33
+      ],
+      "guideVector": [
+        0.0,
+        1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Port",
+      "quadrant": 3,
+      "petal": "PDC_Port_HullPetal_3",
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.95,
+        -0.33
+      ],
+      "guideVector": [
+        0.0,
+        1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 0,
+      "petal": "PDC_Starboard_HullPetal_0",
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.95,
+        0.33
+      ],
+      "guideVector": [
+        0.0,
+        -1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 1,
+      "petal": "PDC_Starboard_HullPetal_1",
+      "previousCompactVector": [
+        0.0,
+        2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        1.95,
+        -0.33
+      ],
+      "guideVector": [
+        0.0,
+        -1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 2,
+      "petal": "PDC_Starboard_HullPetal_2",
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.95,
+        0.33
+      ],
+      "guideVector": [
+        0.0,
+        1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    },
+    {
+      "side": "Starboard",
+      "quadrant": 3,
+      "petal": "PDC_Starboard_HullPetal_3",
+      "previousCompactVector": [
+        0.0,
+        -2.0,
+        -0.3
+      ],
+      "compactVector": [
+        0.0,
+        -1.95,
+        -0.33
+      ],
+      "guideVector": [
+        0.0,
+        1.35,
+        0.0
+      ],
+      "packingInterval": [
+        0.03,
+        0.18
+      ],
+      "tubeExtensionInterval": [
+        0.2,
+        0.56
+      ],
+      "tubeAxialTravel": 14.40237037037037
+    }
+  ]
+}

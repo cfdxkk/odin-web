@@ -3,7 +3,7 @@ import { ease } from './odin-motion.ts'
 import { bowSourceMotion } from './bow-source-motion.ts'
 import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
-import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount } from './bridge-quad-source-motion.ts'
+import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount } from './bridge-quad-source-motion.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -197,7 +197,7 @@ export function createOdinRig(root: THREE.Object3D) {
       }
       if (data.system === 'pdc-hull-petal') {
         const center = data.sourceCenteredPetal ? bridgeQuadCompactAmount(data, d) : 1 - ease(Number(data.compactStart ?? .03), Number(data.compactEnd ?? .14), d)
-        const compact = data.translationOnly ? center ** Number(data.petalPackingExponent ?? 1) : center
+        const compact = data.translationOnly ? bridgeQuadPetalAmount(data, d) : center
         const move = v(...(data.sourceQuadPetal ? data.compactVector : data.stowVector) as [number, number, number]).multiplyScalar(compact)
         if (data.translationOnly) {
           // Lock ship X (port/starboard in plan view) for every vertex:
@@ -285,7 +285,8 @@ export function createOdinRig(root: THREE.Object3D) {
     }
     // Restore the complete original bridge quads and their source carriage/aim
     // curves. Closing neutralizes aim and seats the turret at source frame 30,
-    // then retracts the tubes and compacts all four cradles and petals together.
+    // then withdraws the tubes before the cradles and petals close together.
+    // Opening releases each cradle with its own petal first, then extends tubes.
     const pdcArms = ease(.03, .18, d)
     for (const [side, sign] of [['Port', -1], ['Starboard', 1]] as const) {
       const carriageName = `PDC_${side}_Carriage`, carriageData = joints.get(carriageName)?.object.userData
@@ -299,11 +300,12 @@ export function createOdinRig(root: THREE.Object3D) {
         ? bridgeQuadSourceAim(gimbalData, d) : rotation(0, 0, Math.sin(time * .10 + sign) * 8 * aim))
       for (let i = 0; i < 4; i++) {
         const cradleName = `PDC_${side}_Cradle_${i}`, cradleData = joints.get(cradleName)?.object.userData
+        const petalData = joints.get(cradleData?.synchronizedPetal)?.object.userData
         if (cradleData?.quadCompact) pose(cradleName, v(...cradleData.compactVector as [number, number, number])
-          .multiplyScalar(bridgeQuadCompactAmount(cradleData, d)))
+          .multiplyScalar(petalData ? bridgeQuadPetalAmount(petalData, d) : bridgeQuadCompactAmount(cradleData, d)))
         const guideName = `PDC_${side}_CradleGuide_${i}`, guideData = joints.get(guideName)?.object.userData
         if (guideData) pose(guideName, v(...guideData.compactVector as [number, number, number])
-          .multiplyScalar(bridgeQuadCompactAmount(guideData, d)))
+          .multiplyScalar(petalData ? bridgeQuadPetalAmount(petalData, d) : bridgeQuadCompactAmount(guideData, d)))
         const armName = `PDC_${side}_Arm_${i}`, armData = joints.get(armName)?.object.userData
         const armOpen = ease(Number(armData?.slideStart ?? .36), Number(armData?.slideEnd ?? .88), d)
         const slide = armData?.slideVector ?? [-sign * Number(armData?.stowTravel || 13.5), 0, 0]

@@ -10,6 +10,12 @@ export function bridgeQuadCompactAmount(data: Record<string, any>, deployment: n
   return amount + Number(data.compactLead ?? 0) * amount * (1 - amount) ** 2
 }
 
+// The armor and its tube/cradle share the same packing clock. Each
+// assembly retains its own transverse direction and travel distance.
+export function bridgeQuadPetalAmount(data: Record<string, any>, deployment: number) {
+  return bridgeQuadCompactAmount(data, deployment) ** Number(data.petalPackingExponent ?? 1)
+}
+
 // Original bridge turret action: 15–45, horizontal one-third Bezier handles.
 // Retain only frames 30–45: NAV is the source midpoint, not its deep stow.
 export function bridgeQuadCarriageAmount(data: Record<string, any>, deployment: number) {
