@@ -10,10 +10,12 @@ import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
 import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from './odin-camera'
+import { clampTourIndex, sampleTourCamera, ODIN_TOUR } from './odin-tour'
+import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 
-type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
+type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
-export type OdinExperience = { seek: (t: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
+export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
 
@@ -31,34 +33,27 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   renderer.shadowMap.type = THREE.PCFShadowMap
   const scene = new THREE.Scene()
   // A neutral equipment display well keeps the original hull paint readable.
-  scene.background = new THREE.Color('#d9ddd9')
+  scene.background = new THREE.Color(ODIN_DISPLAY_BACKGROUND)
   const camera = new THREE.PerspectiveCamera(33, 1, .035, 500)
   const cameraAim = new THREE.Vector3(0, .24, 0)
   const controls = createExplorationControls(camera, canvas)
+  controls.minDistance = .4
   controls.target.copy(cameraAim)
 
   const pmrem = new THREE.PMREMGenerator(renderer)
   const environmentScene = new RoomEnvironment()
   const environment = pmrem.fromScene(environmentScene, .15)
   scene.environment = environment.texture
-  scene.environmentIntensity = .38
+  scene.environmentIntensity = ODIN_ENVIRONMENT_INTENSITY
   environmentScene.dispose(); pmrem.dispose()
-  scene.add(new THREE.HemisphereLight(0xc9d1da, 0x34373c, .45))
-  const key = new THREE.DirectionalLight(0xfff3e6, 2.4); key.position.set(4, 7, -4); scene.add(key)
-  key.castShadow = true
-  key.shadow.mapSize.set(4096, 4096)
-  Object.assign(key.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: .5, far: 25 })
-  key.shadow.bias = -.00008; key.shadow.normalBias = .003
-  const rim = new THREE.DirectionalLight(0xb7c7df, .9); rim.position.set(-5, 2, 1); scene.add(rim)
-  const fill = new THREE.DirectionalLight(0xd7cbb9, .45); fill.position.set(3, -1.3, 4); scene.add(fill)
-  const bow = new THREE.DirectionalLight(0xc6ced4, .25); bow.position.set(-1, 1, -8); scene.add(bow)
+  addOdinDisplayLighting(scene, true)
 
   const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 4 })
   const composer = new EffectComposer(renderer, renderTarget)
   composer.addPass(new RenderPass(scene, camera))
   const ao = new OdinGTAOPass(scene, camera, 1, 1)
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
-  ao.blendIntensity = .48
+  ao.blendIntensity = .35
   composer.addPass(ao)
   // Preserve local engine effects and AO; the panel needs no screen-wide halo,
   // vignette, bloom, or animated film grain.
@@ -107,6 +102,14 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   })
   const find = (name: string) => gltf.scene.getObjectByName(name)
   const rig = createOdinRig(gltf.scene)
+  // Use the actual deployed quad assembly as its photographic anchor. The
+  // source carriage origin lies behind the visible barrels and cradles.
+  const chapterAnchors = new Map<number, THREE.Vector3>()
+  rig.apply(1, 24)
+  gltf.scene.updateWorldMatrix(true, true)
+  const quad = find('PDC_Starboard_Carriage')
+  if (quad) chapterAnchors.set(7, new THREE.Box3().setFromObject(quad).getCenter(new THREE.Vector3()))
+  rig.apply(0, 0)
 
   const glowCanvas = document.createElement('canvas'); glowCanvas.width = glowCanvas.height = 128
   const gc = glowCanvas.getContext('2d')!
@@ -144,27 +147,35 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
 
   let time = 0, cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
+  let viewIndex = hooks.state().viewIndex
+  let needsRender = true, renderedFrames = 0
+  let stateKey = ''
+  controls.addEventListener('change', () => { needsRender = true })
   let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
   function resize() {
+    needsRender = true
     const bounds = canvas.getBoundingClientRect(); width = Math.max(1, bounds.width); height = Math.max(1, bounds.height)
     const ratio = hooks.state().lowPower || softwareRenderer ? 1 : Math.min(2, Math.max(1.5, window.devicePixelRatio))
     renderer.setPixelRatio(ratio); renderer.setSize(width, height, false)
     composer.setPixelRatio(ratio); composer.setSize(width, height)
     camera.aspect = width / height; camera.updateProjectionMatrix()
     ao.enabled = !hooks.state().lowPower && !softwareRenderer
-    camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
+    if (viewIndex === undefined) camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
+    else camera.clearViewOffset()
     renderer.shadowMap.enabled = !hooks.state().lowPower && !softwareRenderer
   }
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = sampleOdinCamera(t, camera.aspect, width < 700)
+    const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourCamera(viewIndex, camera.aspect)
     target.copy(shot.target); desired.copy(shot.position)
+    const anchor = viewIndex === undefined ? undefined : chapterAnchors.get(viewIndex)
+    if (anchor) { desired.sub(target).add(anchor); target.copy(anchor) }
     // The enclosure gives the model a shorter viewport than the former
     // full-screen scene. Tighten its lens without changing the orbit or rig.
-    camera.fov = width < 700 ? 34 : 28
+    camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 32
     camera.updateProjectionMatrix()
   }
 
@@ -172,8 +183,15 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (!alive) return
     frame = requestAnimationFrame(animate)
     const dt = Math.min((now - previous) / 1000, .05); previous = now
-    if (document.hidden) return
+    if (document.hidden) { needsRender = true; return }
     const state = hooks.state()
+    const nextStateKey = `${state.playing}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}`
+    if (nextStateKey !== stateKey) { needsRender = true; stateKey = nextStateKey }
+    if (state.active === false) { needsRender = true; return }
+    if (state.explore) controls.update()
+    const manualMoving = state.explore && (Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
+    // Paused chapters and a viewport scrolled off screen use no GPU frames.
+    if (!needsRender && !state.playing && !manualMoving && transitioning <= 0) return
     if (state.playing && !state.explore) {
       time = (time + dt) % FILM_DURATION
       // A film wrap must not reset the faster camera orbit to another angle.
@@ -190,7 +208,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       } else { camera.position.copy(desired); cameraAim.copy(target) }
       camera.lookAt(cameraAim)
       controls.target.copy(cameraAim)
-    } else { controls.update(); cameraAim.copy(controls.target) }
+    } else { cameraAim.copy(controls.target) }
 
     const motion = sampleOdinMotion(time)
     if (state.explore) manualMotion = advanceManualMotion(manualMotion, state.deployed, dt)
@@ -211,6 +229,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     })
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
+    needsRender = false
+    canvas.dataset.renderedFrames = String(++renderedFrames)
+    canvas.dataset.view = viewIndex === undefined ? 'film' : ODIN_TOUR[viewIndex]!.id
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
     canvas.dataset.cameraTime = cameraTime.toFixed(4)
     canvas.dataset.cameraFov = camera.fov.toFixed(2)
@@ -222,20 +243,29 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
   function seek(t: number) {
-    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = 1.25
+    needsRender = true
+    if (viewIndex === undefined) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = hooks.state().reducedMotion ? 0 : 1.25 }
     time = clamp(t, 0, FILM_DURATION - .01)
     cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS; hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
+    needsRender = true
     controls.enabled = enabled
     if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
-    else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = 1.25 }
+    else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = hooks.state().reducedMotion ? 0 : 1.25 }
+  }
+  function setView(index: number) {
+    viewIndex = clampTourIndex(index)
+    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
+    transitioning = hooks.state().reducedMotion ? 0 : 1.25
+    needsRender = true
+    camera.clearViewOffset()
   }
   resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target)
   controls.target.copy(target); controls.update()
   hooks.progress(100); frame = requestAnimationFrame(animate)
   return {
-    seek, setExplore, resize,
+    seek, setView, setExplore, resize,
     dispose() {
       alive = false; cancelAnimationFrame(frame); resizeObserver.disconnect(); controls.dispose(); draco.dispose()
       const geometries = new Set<THREE.BufferGeometry>(), textures = new Set<THREE.Texture>(), allMaterials = new Set<THREE.Material>()
