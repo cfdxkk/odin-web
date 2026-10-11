@@ -41,7 +41,7 @@ onMounted(async () => {
   const renderer = new THREE.WebGLRenderer({ canvas: el, antialias: true, powerPreference: 'high-performance' })
   renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.outputColorSpace=THREE.SRGBColorSpace
   renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1
-  const scene = new THREE.Scene(); scene.background=new THREE.Color('#1b222a')
+  const scene = new THREE.Scene(); scene.background=new THREE.Color('#d9ddd9')
   const camera=new THREE.OrthographicCamera(-1,1,1,-1,.001,50)
   const controls=new OrbitControls(camera,el); controls.enableDamping=true; controls.dampingFactor=.08; controls.minZoom=.15; controls.maxZoom=12
   controls.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.DOLLY,RIGHT:THREE.MOUSE.PAN}
@@ -109,7 +109,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" aria-label="奥丁武备动画预览，左键旋转、右键平移、滚轮缩放" />
-    <header><div><span class="review-kicker">ODIN / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.11.52</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
+    <header><div><span class="review-kicker">OD—77 / ARTICULATION REVIEW</span><h1>武备与舰桥 <small>v0.12.0</small></h1></div><a href="/">返回舰船展示 ↗</a></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `正在载入高精度模型 ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>查看部位 <select v-model.number="selected" aria-label="查看部位"><option v-for="(shot,i) in shots" :key="shot.name" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in ['斜视','侧视','俯视','正视']" :key="view" :aria-pressed="angle===view" @click="angle=view">{{ view }}</button></div></div>
@@ -121,5 +121,35 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 </template>
 
 <style scoped>
-.articulation-review{position:fixed;inset:0;background:#1b222a;color:#e9edf0;z-index:100}.articulation-review canvas{width:100%;height:100%;display:block;touch-action:none}.articulation-review header{position:absolute;inset:28px 36px auto;display:flex;justify-content:space-between;pointer-events:none}.articulation-review header a{pointer-events:auto;color:#d3d9df;font-size:13px}.review-kicker{font-size:10px;letter-spacing:.25em;color:#c39775}.articulation-review h1{font-size:24px;margin:8px 0;font-weight:500}.articulation-review small{font-size:12px;color:#909ca7;margin-left:8px}.review-controls{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:min(720px,94vw);padding:18px 24px 10px;background:#10171ee8;border:1px solid #3a4651;backdrop-filter:blur(12px)}.review-row,.review-play{display:flex;align-items:center;gap:12px;justify-content:space-between}.review-row label{font-size:12px;color:#a7b1bb}.review-row select{margin-left:10px;padding:8px;background:#202a33;color:#edf1f4;border:1px solid #4d5964;max-width:260px}.review-angles{display:flex;gap:5px}.review-controls button{border:1px solid #49535b;padding:8px 12px;color:#d9e0e4;background:#18222c;cursor:pointer;font-size:12px}.review-controls button[aria-pressed=true]{border-color:#ce7547;color:#fff}.review-controls button:disabled{opacity:.45}.review-play{margin-top:15px;gap:8px;justify-content:start}.review-play output{margin-left:auto;color:#bdc9d4;font:12px monospace}.review-controls input{width:100%;accent-color:#d27a4b;margin:15px 0 4px}.review-controls p{font-size:11px;color:#80909e;margin:2px 0}.review-loading{position:absolute;left:50%;top:45%;transform:translateX(-50%)}@media(max-width:620px){.articulation-review header{inset:20px}.review-controls{padding:12px}.review-row{align-items:start;flex-direction:column}.review-play{flex-wrap:wrap}.review-row select{max-width:220px}}
+.articulation-review { position: fixed; inset: 0; background: var(--viewport); color: var(--text); z-index: 100; }
+.articulation-review canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.articulation-review header { position: absolute; inset: 24px 28px auto; display: flex; justify-content: space-between; align-items: center; pointer-events: none; padding: 15px 20px; border: 1px solid var(--ink-line); background: var(--panel); }
+.articulation-review header a { pointer-events: auto; font-size: 12px; min-height: 44px; display: flex; align-items: center; }
+.review-kicker { font: 9px var(--mono); letter-spacing: .09em; }
+.articulation-review h1 { font-size: 21px; margin: 7px 0 0; font-weight: 500; }
+.articulation-review small { font: 10px var(--mono); color: var(--muted); margin-left: 8px; }
+.review-controls { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); width: min(760px, 94vw); padding: 20px 24px 13px; background: var(--panel); border: 1px solid var(--ink-line); }
+.review-controls::before { content: ""; position: absolute; top: 5px; left: 5px; width: 5px; height: 5px; border: 1px solid #7b7c70; border-radius: 50%; background: #c9c4b8; }
+.review-row, .review-play { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+.review-row label { font-size: 12px; }
+.review-row select { margin-left: 10px; padding: 9px; min-height: 40px; background: var(--bg); color: var(--text); border: 1px solid var(--ink-line); max-width: 280px; }
+.review-angles { display: flex; gap: 5px; }
+.review-controls button { border: 1px solid var(--ink-line); padding: 10px 13px; min-height: 40px; color: var(--text); background: var(--panel); cursor: pointer; font-size: 12px; }
+.review-controls button:hover, .review-controls button[aria-pressed=true] { color: var(--panel); background: var(--text); }
+.review-controls button:disabled { opacity: .45; }
+.review-play { margin-top: 14px; gap: 8px; justify-content: start; }
+.review-play button:first-child { background: var(--accent); border-color: #b12c21; color: #fff9f0; }
+.review-play output { margin-left: auto; font: 12px var(--mono); }
+.review-controls input { width: 100%; accent-color: var(--accent); margin: 14px 0 8px; touch-action: none; }
+.review-controls p { font-size: 10px; color: var(--muted); margin: 2px 0; }
+.review-loading { position: absolute; left: 50%; top: 45%; transform: translateX(-50%); padding: 18px; background: var(--panel); border: 1px solid var(--ink-line); }
+@media (max-width: 620px) {
+  .articulation-review header { inset: 15px; padding: 12px; }
+  .articulation-review header a { font-size: 10px; }
+  .articulation-review h1 { font-size: 18px; }
+  .review-controls { padding: 15px; }
+  .review-row { align-items: start; flex-direction: column; }
+  .review-play { flex-wrap: wrap; }
+  .review-row select { max-width: 220px; }
+}
 </style>

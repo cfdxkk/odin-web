@@ -5,7 +5,6 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
 import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
@@ -15,7 +14,6 @@ import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpo
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
 export type OdinExperience = { seek: (t: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
-const TAU = Math.PI * 2
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
 
@@ -32,7 +30,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color('#070b12')
+  // A neutral equipment display well keeps the original hull paint readable.
+  scene.background = new THREE.Color('#d9ddd9')
   const camera = new THREE.PerspectiveCamera(33, 1, .035, 500)
   const cameraAim = new THREE.Vector3(0, .24, 0)
   const controls = createExplorationControls(camera, canvas)
@@ -54,23 +53,6 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const fill = new THREE.DirectionalLight(0xd7cbb9, .45); fill.position.set(3, -1.3, 4); scene.add(fill)
   const bow = new THREE.DirectionalLight(0xc6ced4, .25); bow.position.set(-1, 1, -8); scene.add(bow)
 
-  // A deterministic, sparse star field. No network images or video backgrounds.
-  let seed = 7729
-  const random = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646 }
-  const starGeo = new THREE.BufferGeometry()
-  const positions: number[] = [], colors: number[] = []
-  for (let i = 0; i < 1250; i++) {
-    const az = random() * TAU, y = random() * 2 - 1, r = 65 + random() * 100
-    const cross = Math.sqrt(1 - y * y)
-    positions.push(Math.cos(az) * cross * r, y * r, Math.sin(az) * cross * r)
-    const value = .16 + random() * .34
-    colors.push(value * .75, value * .87, value)
-  }
-  starGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  starGeo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-  const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ size: .10, vertexColors: true, transparent: true, opacity: .7, depthWrite: false }))
-  scene.add(stars)
-
   const renderTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: softwareRenderer ? 0 : 4 })
   const composer = new EffectComposer(renderer, renderTarget)
   composer.addPass(new RenderPass(scene, camera))
@@ -78,20 +60,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
   ao.blendIntensity = .48
   composer.addPass(ao)
-  // Engine glow is rendered locally. Full-scene bloom made moving hull
-  // reflections and tiny emissive details erupt into distracting flashes.
-  const grade = new ShaderPass({
-    uniforms: { tDiffuse: { value: null }, time: { value: 0 } },
-    vertexShader: `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-    fragmentShader: `uniform sampler2D tDiffuse; uniform float time; varying vec2 vUv;
-      void main(){vec3 c=texture2D(tDiffuse,vUv).rgb;
-      float halo=exp(-length((vUv-vec2(.61,.54))*vec2(1.1,1.7))*6.);
-      c+=vec3(.013,.025,.039)*halo;
-      float vig=1.-.28*smoothstep(.25,.78,length(vUv-.5));
-      float grain=fract(sin(dot(vUv*900.,vec2(12.9898,78.233))+floor(time*12.))*43758.5453)-.5;
-      gl_FragColor=vec4(max(c*vig+grain*.0015,0.),1.);}`,
-  })
-  composer.addPass(grade); composer.addPass(new OutputPass())
+  // Preserve local engine effects and AO; the panel needs no screen-wide halo,
+  // vignette, bloom, or animated film grain.
+  composer.addPass(new OutputPass())
 
   const draco = new DRACOLoader().setDecoderPath('/draco/').setWorkerLimit(2)
   const loader = new GLTFLoader().setDRACOLoader(draco)
@@ -191,7 +162,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   function sampleCamera(t: number) {
     const shot = sampleOdinCamera(t, camera.aspect, width < 700)
     target.copy(shot.target); desired.copy(shot.position)
-    camera.fov = 33 + (width < 700 ? 16 : 0)
+    // The enclosure gives the model a shorter viewport than the former
+    // full-screen scene. Tighten its lens without changing the orbit or rig.
+    camera.fov = width < 700 ? 34 : 28
     camera.updateProjectionMatrix()
   }
 
@@ -236,11 +209,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       cone.userData.offset = factor * length / 2
       glow.material.opacity = power * .65
     })
-    grade.uniforms.time!.value = time
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
     canvas.dataset.cameraTime = cameraTime.toFixed(4)
+    canvas.dataset.cameraFov = camera.fov.toFixed(2)
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
@@ -273,7 +246,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       })
       allMaterials.forEach(m => { Object.values(m).forEach(v => { if (v instanceof THREE.Texture) textures.add(v) }); m.dispose() })
       geometries.forEach(g => g.dispose()); textures.forEach(t => t.dispose()); glowTex.dispose()
-      environment.dispose(); ao.dispose(); grade.dispose(); composer.dispose(); renderer.dispose()
+      environment.dispose(); ao.dispose(); composer.dispose(); renderer.dispose()
     },
   }
 }
