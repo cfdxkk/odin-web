@@ -1,6 +1,7 @@
 import * as THREE from 'three'
-// One evenly paced orbit. Inspection framing still varies in radius, height
-// and aim, with periodic tangents keeping the 60-second wrap smooth.
+// The camera completes one uniform turn in 45 seconds, independently of the
+// weapon film. Periodic framing tangents keep every camera loop smooth.
+export const ODIN_CAMERA_ORBIT_SECONDS = 45
 const shots = [
   [0, 11.6, 3.7, .24, 0],
   [7, 10.7, 2.9, .28, -.20],
@@ -25,18 +26,17 @@ const framingTangents = Array.from({ length: 4 }, (_, axis) => {
     return (w1 + w2) / (w1 / before + w2 / after)
   })
 })
-const orbitSpeed = Math.PI * 2 / 60
-// Pass the stern during NAV ignition instead of spending the opening eighteen
-// seconds on one quarter and rushing through the remainder of the orbit.
-const startAngle = Math.PI / 2 - 40 * orbitSpeed
+const orbitSpeed = Math.PI * 2 / ODIN_CAMERA_ORBIT_SECONDS
+const startAngle = -5 * Math.PI / 6
 export function sampleOdinCamera(time: number, aspect = 1.6, mobile = false) {
-  const t = THREE.MathUtils.clamp(time, 0, 60)
+  const orbitTime = THREE.MathUtils.euclideanModulo(time, ODIN_CAMERA_ORBIT_SECONDS)
+  const t = orbitTime * 60 / ODIN_CAMERA_ORBIT_SECONDS
   let index = shots.findIndex(s => s[0] > t) - 1
   if (index < 0) index = t >= 60 ? shots.length - 2 : 0
   const u = (t - shots[index]![0]) / (shots[index + 1]![0] - shots[index]![0])
   const start = shots[index]!, end = shots[index + 1]!, span = intervals[index]!
   const u2 = u * u, u3 = u2 * u
-  const angle = startAngle + t * orbitSpeed
+  const angle = startAngle + orbitTime * orbitSpeed
   const [radius, height, aimY, aimZ] = framingTangents.map((tangents, axis) =>
     (2 * u3 - 3 * u2 + 1) * start[axis + 1]! + (u3 - 2 * u2 + u) * span * tangents[index]!
     + (-2 * u3 + 3 * u2) * end[axis + 1]! + (u3 - u2) * span * tangents[index + 1]!)

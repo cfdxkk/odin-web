@@ -10,7 +10,7 @@ import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
-import { sampleOdinCamera } from './odin-camera'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera } from './odin-camera'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
@@ -171,7 +171,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     exhausts.push({ cone, glow, radius, length, material: shader })
   }
 
-  let time = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
+  let time = 0, cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
   let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
@@ -201,10 +201,14 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const dt = Math.min((now - previous) / 1000, .05); previous = now
     if (document.hidden) return
     const state = hooks.state()
-    if (state.playing && !state.explore) time = (time + dt) % FILM_DURATION
+    if (state.playing && !state.explore) {
+      time = (time + dt) % FILM_DURATION
+      // A film wrap must not reset the faster camera orbit to another angle.
+      cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
+    }
     if (state.explore) explorationTime += dt
     if (!state.explore) {
-      sampleCamera(time)
+      sampleCamera(cameraTime)
       if (transitioning > 0) {
         transitioning = Math.max(0, transitioning - dt)
         const u = smooth(0, 1, 1 - transitioning / 1.25)
@@ -237,6 +241,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     composer.render()
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
+    canvas.dataset.cameraTime = cameraTime.toFixed(4)
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
@@ -246,7 +251,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   }
   function seek(t: number) {
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = 1.25
-    time = clamp(t, 0, FILM_DURATION - .01); hooks.tick(time)
+    time = clamp(t, 0, FILM_DURATION - .01)
+    cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS; hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
     controls.enabled = enabled

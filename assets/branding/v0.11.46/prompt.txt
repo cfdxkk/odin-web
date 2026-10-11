@@ -1,0 +1,7 @@
+Redesign the attached official Odin Founders Club badge into a polished, compact website emblem for an independent Anvil Odin fan-art site. The attached image is a visual reference, not a request to reproduce its low-resolution pixels.
+
+Keep the recognisable composition: a vertical, pointed gold oval ring with elongated north and south tips, encircling a symmetrical top-down silhouette of the Anvil Odin battlecruiser. Keep the ship's sharp spear-like bow pointing upward, broad angular midship shoulders, narrow aft spine, and clean mechanical cutouts. Draw the ship as a strong, deliberately simplified, readable heraldic silhouette rather than a tiny detailed spaceship rendering.
+
+Art direction: precise, restrained naval insignia; warm satin brass/gold outer ring with a very subtle bevel; pale titanium silver ship with graphite details; balanced dark negative space. Crisp geometric contours, correct bilateral symmetry, a premium medal feeling without ornate decoration, gemstones, wings, swords, extra symbols, microtexture, scratches or glow. The emblem must still read clearly at 44 pixels high on a near-black website header.
+
+Single centred emblem, straight-on flat graphic layout, no perspective tilt, no surrounding scene, no shadow beyond the badge, no words, no letters, no wordmark, no mockup. Entire badge visible with a small, even transparent margin. Render high-quality antialiased edges on a genuinely transparent background. Square canvas, usable as a website logo and favicon.
