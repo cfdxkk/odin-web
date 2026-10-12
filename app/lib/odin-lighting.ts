@@ -1,12 +1,11 @@
 import * as THREE from 'three'
 
-// A neutral studio rig for the light page. Broad fills keep
-// the underside legible without changing the model's original paint colors.
-export const ODIN_DISPLAY_BACKGROUND = '#f4f2ed'
-export const ODIN_ENVIRONMENT_INTENSITY = .58
+// Restore the original dark showcase rig and the model's native paint colors.
+export const ODIN_DISPLAY_BACKGROUND = '#070b10'
+export const ODIN_ENVIRONMENT_INTENSITY = .38
 export function addOdinDisplayLighting(scene: THREE.Scene, shadows = false) {
-  scene.add(new THREE.HemisphereLight(0xf2f0e7, 0x9a958b, 1.15))
-  const key = new THREE.DirectionalLight(0xfff7e8, 1.85)
+  scene.add(new THREE.HemisphereLight(0xc9d1da, 0x34373c, .45))
+  const key = new THREE.DirectionalLight(0xfff3e6, 2.4)
   key.position.set(4, 7, -4)
   key.castShadow = shadows
   key.shadow.mapSize.set(2048, 2048)
@@ -14,13 +13,13 @@ export function addOdinDisplayLighting(scene: THREE.Scene, shadows = false) {
   key.shadow.bias = -.00008
   key.shadow.normalBias = .003
   scene.add(key)
-  const fill = new THREE.DirectionalLight(0xe9edeb, .9)
+  const fill = new THREE.DirectionalLight(0xb7c7df, .9)
   fill.position.set(-5, 2, 1)
   scene.add(fill)
-  const lower = new THREE.DirectionalLight(0xe6dfd0, .75)
-  lower.position.set(3, -2, 4)
+  const lower = new THREE.DirectionalLight(0xd7cbb9, .45)
+  lower.position.set(3, -1.3, 4)
   scene.add(lower)
-  const bow = new THREE.DirectionalLight(0xf3eee1, .35)
+  const bow = new THREE.DirectionalLight(0xc6ced4, .25)
   bow.position.set(-1, 1, -8)
   scene.add(bow)
 }

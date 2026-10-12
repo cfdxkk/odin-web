@@ -33,7 +33,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   const scene = new THREE.Scene()
-  // A neutral equipment display well keeps the original hull paint readable.
+  // A full-screen dark backdrop preserves the original showcase palette.
   scene.background = new THREE.Color(ODIN_DISPLAY_BACKGROUND)
   const camera = new THREE.PerspectiveCamera(33, 1, .035, 500)
   const cameraAim = new THREE.Vector3(0, .24, 0)
@@ -56,8 +56,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   ao.updateGtaoMaterial({ radius: .065, distanceExponent: 1, thickness: .10, scale: .8, samples: 12 })
   ao.blendIntensity = .35
   composer.addPass(ao)
-  // Preserve local engine effects and AO; the panel needs no screen-wide halo,
-  // vignette, bloom, or animated film grain.
+  // Keep local engine effects and AO without a screen-wide halo or bloom.
   composer.addPass(new OutputPass())
 
   const draco = new DRACOLoader().setDecoderPath('/draco/').setWorkerLimit(2)
@@ -153,6 +152,12 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
+  function frameCamera() {
+    if (hooks.state().explore) camera.clearViewOffset()
+    else if (viewIndex === undefined) camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
+    else if (width > 700) camera.setViewOffset(width, height, -width * .08, 0, width, height)
+    else camera.clearViewOffset()
+  }
   function resize() {
     needsRender = true
     const bounds = canvas.getBoundingClientRect(); width = Math.max(1, bounds.width); height = Math.max(1, bounds.height)
@@ -161,8 +166,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     composer.setPixelRatio(ratio); composer.setSize(width, height)
     camera.aspect = width / height; camera.updateProjectionMatrix()
     ao.enabled = !hooks.state().lowPower && !softwareRenderer
-    if (viewIndex === undefined) camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
-    else camera.clearViewOffset()
+    frameCamera()
     renderer.shadowMap.enabled = !hooks.state().lowPower && !softwareRenderer
   }
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
@@ -170,9 +174,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   function sampleCamera(t: number) {
     const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourCamera(viewIndex, camera.aspect)
     target.copy(shot.target); desired.copy(shot.position)
-    // The enclosure gives the model a shorter viewport than the former
-    // full-screen scene. Tighten its lens without changing the orbit or rig.
-    camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 32
+    // The full-screen lens leaves room for the overlay and keeps the hull intact.
+    camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 33
     camera.updateProjectionMatrix()
   }
 
@@ -267,6 +270,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     needsRender = true
     motionTransition = undefined
     controls.enabled = enabled
+    frameCamera()
     if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
     else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
   }
@@ -281,7 +285,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     motionTransition = !hooks.state().reducedMotion && nextMotion.duration > 0 ? nextMotion : undefined
     if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
     needsRender = true
-    camera.clearViewOffset()
+    frameCamera()
   }
   resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target)
   controls.target.copy(target); controls.update()

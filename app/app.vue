@@ -58,11 +58,11 @@ function keyboard(event: KeyboardEvent) {
 watch(activeChapter, () => {
   explore.value = false
 })
-let viewportObserver: IntersectionObserver | undefined, scrollFrame = 0
+let scrollFrame = 0
 let wheelAmount = 0, wheelLastAt = 0, wheelCommitted = false
 function tourAnchor() {
-  const header = document.querySelector('.site-header')?.getBoundingClientRect().height || 80
-  return window.innerWidth <= 800 ? (modelPanel.value?.getBoundingClientRect().bottom || header) + 16 : header + 32
+  // Each chapter occupies a whole viewport; the canvas fills that viewport too.
+  return 0
 }
 function onTourWheel(event: WheelEvent) {
   const element = event.target as Element
@@ -85,12 +85,17 @@ function onTourWheel(event: WheelEvent) {
 function updateChapter() {
   scrollFrame = 0
   if (reviewMode.value) return
+  const tour = document.getElementById('tour')?.getBoundingClientRect()
+  const header = document.querySelector('.site-header')?.getBoundingClientRect().height || 92
+  // Once the canvas has scrolled behind the fixed header, it is no longer
+  // visible. Observing its full box alone would keep rendering that hidden strip.
+  viewportActive.value = !!tour && tour.bottom > header + 1 && tour.top < window.innerHeight
   const anchor = tourAnchor()
   const tops = ODIN_TOUR.map(shot => document.getElementById(shot.id)?.getBoundingClientRect().top ?? Infinity)
   activeChapter.value = selectTourChapter(tops, anchor)
 }
 function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
-const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.14.0-rc.1`)
+const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.15.0-rc.1`)
 onMounted(() => {
   reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
   reducedMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -104,8 +109,6 @@ onMounted(() => {
   window.addEventListener('resize', onScroll, { passive: true })
   nextTick(() => {
     if (!modelPanel.value) return
-    viewportObserver = new IntersectionObserver(entries => { viewportActive.value = !!entries[0]?.isIntersecting && entries[0].intersectionRatio > .05 }, { threshold: [0, .05] })
-    viewportObserver.observe(modelPanel.value.querySelector('.scene-wrap')!)
     updateChapter()
   })
 })
@@ -117,7 +120,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('wheel', onTourWheel)
   window.removeEventListener('resize', onScroll)
-  viewportObserver?.disconnect()
   cancelAnimationFrame(scrollFrame)
 })
 </script>
@@ -128,7 +130,7 @@ onBeforeUnmount(() => {
     <header class="site-header">
       <a href="#overview" class="brand" :aria-label="c.home" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="46" height="46" /><span>ODIN<small>{{ c.brandSub }}</small></span></a>
       <nav :aria-label="c.navLabel"><a href="#overview" @click.prevent="goToChapter(0)"><span>01</span>{{ c.navTour }}</a><a href="#archive"><span>02</span>{{ c.navArt }}</a><button @click="showAbout = true"><span>03</span>{{ c.navAbout }}</button></nav>
-      <div class="header-right"><span class="header-meta">2026 / {{ c.document }}</span><button class="language-switch" :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }} <span aria-hidden="true">↔</span></button></div>
+      <div class="header-right"><span class="header-meta">{{ c.fanArt }}</span><button class="language-switch" :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }} <span aria-hidden="true">↔</span></button></div>
     </header>
 
     <main>
@@ -137,6 +139,7 @@ onBeforeUnmount(() => {
           <div class="panel-toprail"><span>{{ c.realTime }}</span><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
           <div class="scene-wrap">
             <ClientOnly><OdinScene ref="viewer" :playing="playing" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
+            <div class="scene-shade" aria-hidden="true" />
             <div class="viewport-status">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : playing ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
             <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">OD—77 / {{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
             <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
@@ -152,12 +155,14 @@ onBeforeUnmount(() => {
         </section>
         <div class="story-rail">
           <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
+            <div class="chapter-content">
             <div class="chapter-topline"><span class="eyebrow">{{ c.guide }}</span><span class="folio">{{ String(index + 1).padStart(2, '0') }} / {{ String(chapters.length).padStart(2, '0') }}</span></div>
             <div class="chapter-heading"><p class="eyebrow">{{ String(index + 1).padStart(2, '0') }} / {{ chapter.label }}</p><h1 v-if="index === 0" :id="`${chapter.id}-title`">ODIN</h1><h2 v-else :id="`${chapter.id}-title`">{{ chapter.title }}</h2><p v-if="index === 0" class="vehicle-class">{{ c.vehicleClass }}<span>{{ c.manufacturer }}</span></p></div>
             <p class="chapter-body">{{ chapter.body }}</p><p class="chapter-detail">{{ chapter.detail }}</p>
             <dl class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
             <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="next-chapter" @click="goToChapter(index + 1)">{{ index === 0 ? c.scrollHint : c.nextChapter }} ↓</button><a v-else class="next-chapter" href="#archive">{{ c.viewArchive }} ↓</a></div>
             <p v-if="index === 0" class="concept-notice">{{ c.conceptNotice }}</p>
+            </div>
           </article>
         </div>
       </div>
@@ -172,9 +177,9 @@ onBeforeUnmount(() => {
     <footer id="footer" class="site-footer">
       <div class="footer-content"><div class="footer-intro"><a class="footer-wordmark" href="#overview" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="44" height="44" />ODIN</a><p>{{ c.footerBody }}</p><span class="eyebrow">{{ c.footerTag }} / OD—77</span><div class="identity-stripe" aria-hidden="true"><i /><i /><i /><i /></div></div><div class="footer-column"><h2>{{ c.footerTour }}</h2><a href="#overview" @click.prevent="goToChapter(0)">{{ c.footerTop }}</a><a href="#batteries" @click.prevent="goToChapter(1)">{{ c.footerMain }}</a><a href="#bridge" @click.prevent="goToChapter(2)">{{ c.footerSecondary }}</a><a href="#engines" @click.prevent="goToChapter(3)">{{ c.footerPropulsion }}</a><a href="#archive">{{ c.footerGallery }}</a></div><div class="footer-column"><h2>{{ c.footerProject }}</h2><button @click="showAbout = true">{{ c.sourceNotes }}</button><a :href="reviewUrl">{{ c.review }}</a><a href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer">{{ c.community }} ↗</a><button @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ c.switchLanguage }} ↔</button></div><div class="footer-column"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} ↗</a></div></div>
       <div class="footer-legal"><p>{{ c.legal }}</p><a class="community-mark" href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" :alt="c.communityAlt" width="64" height="64" /></a></div>
-      <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.13.0.webp" :alt="c.footerImageAlt" width="2048" height="683" loading="lazy" /><figcaption><span>{{ c.document }} / {{ c.edition }}</span><a href="#overview" @click.prevent="goToChapter(0)">{{ c.end }} ↑</a></figcaption></figure>
+      <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.15.0.webp" :alt="c.footerImageAlt" width="2172" height="724" loading="lazy" /><figcaption><span>{{ c.document }} / {{ c.edition }}</span><a href="#overview" @click.prevent="goToChapter(0)">{{ c.end }} ↑</a></figcaption></figure>
     </footer>
 
-    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">{{ c.inspiration }} ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">{{ c.developerShow }} ↗</a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.shipSource }} ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.badgeSource }} ↗</a><a href="https://www.nasa.gov/wp-content/uploads/2015/01/nasa_graphics_manual_nhb_1430-2_jan_1976.pdf" target="_blank" rel="noopener noreferrer">{{ c.nasaSource }} ↗</a><a href="https://bethesda.net/en-US/news/starfield-gameplay-reveal" target="_blank" rel="noopener noreferrer">{{ c.starfieldSource }} ↗</a></div><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
+    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">{{ c.inspiration }} ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">{{ c.developerShow }} ↗</a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.shipSource }} ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.badgeSource }} ↗</a></div><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
   </div>
 </template>

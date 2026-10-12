@@ -1,0 +1,178 @@
+{
+  "checks": {
+    "originalDarkPalette": true,
+    "originalTypography": true,
+    "nativeModelArtworkAndBadgeColors": true,
+    "viewportFilled": true,
+    "textOverlaysCanvas": true,
+    "documentNeverSnaps": true,
+    "darkFooter": true,
+    "newHalftoneFooter": true,
+    "oneGestureOneStage": true,
+    "alignedAtViewportTop": true,
+    "fullScreenDuringScroll": true,
+    "fullScreenFinalStage": true,
+    "lastStageReleasesWheel": true,
+    "reentryAlignsLast": true,
+    "galleryScrollsFreely": true,
+    "footerImageLoaded": true,
+    "hiddenRendererStops": true,
+    "footerScrollsFreely": true,
+    "englishFooter": true,
+    "manualWheelZoom": true,
+    "noOverflow": true,
+    "fullScreenAtAllWidths": true
+  },
+  "failures": [],
+  "style": {
+    "background": "rgb(7, 11, 16)",
+    "accent": "#ed7045",
+    "font": "\"Barlow Condensed\", \"Arial Narrow\", sans-serif",
+    "modelFilter": "none",
+    "artFilter": "none",
+    "badgeFilter": "none",
+    "rootSnap": "none",
+    "tourDisplay": "block",
+    "canvasPosition": "absolute",
+    "overlay": true,
+    "footerBackground": "rgb(7, 11, 16)",
+    "footerColor": "rgb(198, 206, 213)",
+    "footerSrc": "/images/odin-mountain-footer-v0.15.0.webp",
+    "fontsLoaded": true
+  },
+  "wheels": [
+    {
+      "area": "tour exit",
+      "before": 3000,
+      "after": 3240,
+      "delta": 240
+    },
+    {
+      "area": "art archive",
+      "before": 3908,
+      "after": 4138,
+      "delta": 230
+    },
+    {
+      "area": "footer",
+      "before": 4760,
+      "after": 4940,
+      "delta": 180
+    }
+  ],
+  "sizes": [
+    {
+      "width": 320,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1000,
+        "viewportWidth": 320,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1000,
+        "viewportWidth": 390,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 700,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 700,
+        "height": 1000,
+        "viewportWidth": 700,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 701,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 701,
+        "height": 1000,
+        "viewportWidth": 701,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 800,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 800,
+        "height": 1000,
+        "viewportWidth": 800,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 1024,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 1000,
+        "viewportWidth": 1024,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 1440,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1000,
+        "viewportWidth": 1440,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 2560,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1000,
+        "viewportWidth": 2560,
+        "viewportHeight": 1000
+      }
+    },
+    {
+      "width": 3440,
+      "overflow": 0,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 3440,
+        "height": 1000,
+        "viewportWidth": 3440,
+        "viewportHeight": 1000
+      }
+    }
+  ],
+  "footerDimensions": {
+    "width": 2172,
+    "height": 724
+  },
+  "errors": []
+}

@@ -1,0 +1,15 @@
+# Dark mountain footer
+
+Created with the built-in Imagegen tool, using the previous mountain footer as an edit target. The original image remains unchanged.
+
+- Editable source: [odin-dark-mountain-footer-master.png](./odin-dark-mountain-footer-master.png)
+- Website asset: [odin-mountain-footer-v0.15.0.webp](../../../public/images/odin-mountain-footer-v0.15.0.webp)
+- The WebP is an encoded delivery copy of the generated PNG, with no additional image editing.
+
+## First prompt
+
+Use case: style-transfer. Asset type: wide 3:1 website footer illustration. Edit this existing illustration for a DARK website. Preserve the same Odin spacecraft identity, silhouette, bridge tower, broad layered hull, bow pointing to the right, its size and position, and the layered mountain-valley composition. Change the light paper to a very dark graphite/navy black #070B10. Use restrained pale slate gray #83909D and light gray #C6CED5 print dots on that dark ground. Mountains should retain their atmospheric layered peaks and dense-to-sparse halftone dot artwork. Crucially, re-render ALL surfaces of the Odin spaceship in the SAME clearly visible fine halftone / stipple printing dots as the mountains: hull highlights, mechanical surfaces, bridge, shading, contour edges and undersides must be patterned with visible dots, not a smooth pasted-in 3D render. Single coherent screen-print / dithered engraving style across spacecraft and landscape. Ship recognizable and readable at medium scale, dots visible throughout the ship at native size. Restrained two-ink print character on black with no green, no cream paper, no gradients or continuous smooth shading. Keep upper quarter empty flat #070B10 so it joins the dark page naturally; lower mountains gently dissolve upward into sparse dots against the same black. Edge-to-edge full bleed. No text, no logo, no UI, no borders, no neon, no glow, no stars, no decorative added objects. One image only.
+
+## Final refinement prompt
+
+Targeted edit: keep this dark 3:1 Odin-in-mountain-valley footer composition, palette, spacecraft silhouette, its exact shape and location, and the mountain dot illustration unchanged. Strengthen ONLY the ship's halftone treatment so it matches the visibly dotted mountain artwork. Every light or gray hull surface, including the wide flat top armor plates and bow, must be rendered as pale round print DOTS separated by clearly visible dark black ground. Use recognizable coarse regular halftone dots, about 2-3 px diameter with 4-5 px pitch at 2048 px image width. All smooth flat gray filled areas on the ship must disappear and be replaced by this discrete visible dot screen. Shading varies the dot size or density; there are no smooth gradients or smooth solid gray 3D surfaces on the ship. Keep the Odin mechanical form and silhouette fully recognizable. Uniform coherent dotted print illustration, no smooth photographic patch pasted in. Mountain dots and ship dots should be comparable in scale, not microscopic noise. Preserve the clean dark #070B10 upper blank quarter, monochrome slate grays, all landscape features, and image dimensions. No text, no borders, no new objects, no glow.
