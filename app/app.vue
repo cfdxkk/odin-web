@@ -9,6 +9,7 @@ const viewer = ref<{ seek: (t: number) => void }>()
 const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElement>()
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const viewportActive = ref(true), reducedMotion = ref(false)
+const changingView = ref(false)
 // Guided views start still. Playing the sequence is an explicit, persistent choice.
 const playback = ref({ userPaused: true, scrubbing: false })
 const playing = computed(() => isPlaying(playback.value))
@@ -54,10 +55,8 @@ function keyboard(event: KeyboardEvent) {
   if (event.code === 'Space' && viewportActive.value) { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
   if (event.key.toLowerCase() === 'r' && !explore.value && viewportActive.value) viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time)
 }
-watch([activeChapter, ready], () => {
-  if (!ready.value) return
+watch(activeChapter, () => {
   explore.value = false
-  viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time)
 })
 let viewportObserver: IntersectionObserver | undefined, scrollFrame = 0
 function updateChapter() {
@@ -68,7 +67,7 @@ function updateChapter() {
   activeChapter.value = selectTourChapter(ODIN_TOUR.map(shot => document.getElementById(shot.id)?.getBoundingClientRect().top ?? Infinity), anchor)
 }
 function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
-const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.13.0-rc.1`)
+const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.13.1-rc.1`)
 onMounted(() => {
   reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
   reducedMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -113,9 +112,9 @@ onBeforeUnmount(() => {
         <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id">
           <div class="panel-toprail"><span><i class="hazard-mark" aria-hidden="true" />{{ c.realTime }}</span><span>{{ String(activeChapter + 1).padStart(2, '0') }} / {{ String(chapters.length).padStart(2, '0') }}</span></div>
           <div class="scene-wrap">
-            <ClientOnly><OdinScene ref="viewer" :playing="playing" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @fail="error = $event" /></ClientOnly>
+            <ClientOnly><OdinScene ref="viewer" :playing="playing" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
             <div class="viewport-direction" aria-hidden="true">↑ {{ c.thisSideUp }}<span>{{ c.stow }}</span></div><div class="viewport-corners" aria-hidden="true"><i /><i /><i /><i /></div>
-            <div class="viewport-status"><span class="status-dot" />{{ !ready ? c.loading : explore ? c.manualView : playing ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
+            <div class="viewport-status"><span class="status-dot" />{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : playing ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
             <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">OD—77 / {{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
             <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
             <button v-if="ready" class="explore-button" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5" /></svg>{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↗</span></button>
@@ -150,7 +149,7 @@ onBeforeUnmount(() => {
     </main>
 
     <footer id="footer" class="site-footer">
-      <div class="footer-content"><div class="footer-intro"><a class="footer-wordmark" href="#overview" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="44" height="44" />ODIN</a><p>{{ c.footerBody }}</p><span class="eyebrow">{{ c.footerTag }} / OD—77</span><div class="identity-stripe" aria-hidden="true"><i /><i /><i /><i /></div></div><div class="footer-column"><h2>{{ c.footerTour }}</h2><a href="#overview" @click.prevent="goToChapter(0)">{{ c.footerTop }}</a><a href="#upper" @click.prevent="goToChapter(2)">{{ c.footerMain }}</a><a href="#single" @click.prevent="goToChapter(4)">{{ c.footerSecondary }}</a><a href="#quad" @click.prevent="goToChapter(7)">{{ c.footerBridge }}</a><a href="#archive">{{ c.footerGallery }}</a></div><div class="footer-column"><h2>{{ c.footerProject }}</h2><button @click="showAbout = true">{{ c.sourceNotes }}</button><a :href="reviewUrl">{{ c.review }}</a><a href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer">{{ c.community }} ↗</a><button @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ c.switchLanguage }} ↔</button></div><div class="footer-column"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} ↗</a></div></div>
+      <div class="footer-content"><div class="footer-intro"><a class="footer-wordmark" href="#overview" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="44" height="44" />ODIN</a><p>{{ c.footerBody }}</p><span class="eyebrow">{{ c.footerTag }} / OD—77</span><div class="identity-stripe" aria-hidden="true"><i /><i /><i /><i /></div></div><div class="footer-column"><h2>{{ c.footerTour }}</h2><a href="#overview" @click.prevent="goToChapter(0)">{{ c.footerTop }}</a><a href="#batteries" @click.prevent="goToChapter(1)">{{ c.footerMain }}</a><a href="#bridge" @click.prevent="goToChapter(2)">{{ c.footerSecondary }}</a><a href="#engines" @click.prevent="goToChapter(3)">{{ c.footerPropulsion }}</a><a href="#archive">{{ c.footerGallery }}</a></div><div class="footer-column"><h2>{{ c.footerProject }}</h2><button @click="showAbout = true">{{ c.sourceNotes }}</button><a :href="reviewUrl">{{ c.review }}</a><a href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer">{{ c.community }} ↗</a><button @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ c.switchLanguage }} ↔</button></div><div class="footer-column"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} ↗</a></div></div>
       <div class="footer-legal"><p>{{ c.legal }}</p><a class="community-mark" href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" :alt="c.communityAlt" width="64" height="64" /></a></div>
       <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.13.0.webp" :alt="c.footerImageAlt" width="2048" height="683" loading="lazy" /><figcaption><span>{{ c.document }} / {{ c.edition }}</span><a href="#overview" @click.prevent="goToChapter(0)">{{ c.end }} ↑</a></figcaption></figure>
     </footer>

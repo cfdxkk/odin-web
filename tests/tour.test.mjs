@@ -1,7 +1,8 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
-import { ODIN_TOUR, sampleTourCamera, selectTourChapter, clampTourIndex } from '../app/lib/odin-tour.ts'
+import { ODIN_TOUR, sampleTourCamera, selectTourChapter, clampTourIndex, createTourTransition, sampleTourTransition } from '../app/lib/odin-tour.ts'
+import { sampleOdinMotion, DEPLOY_SECONDS } from '../app/lib/odin-motion.ts'
 import { SITE_COPY, CHAPTER_COPY, resolveOdinLocale } from '../app/lib/odin-copy.ts'
 import { ODIN_ARTWORK } from '../app/lib/odin-artwork.ts'
 
@@ -22,7 +23,8 @@ test('scrolling selects whole chapters in both directions, with no continuous mo
   assert.equal(clampTourIndex(NaN), 0)
 })
 
-test('guided cameras frame upper, lower and bridge weapons in the correct source axes', () => {
+test('four guided chapters frame the hull, batteries, bridge and engines in source axes', () => {
+  assert.deepEqual(ODIN_TOUR.map(shot => shot.id), ['overview', 'batteries', 'bridge', 'engines'])
   for (let index = 0; index < ODIN_TOUR.length; index++) {
     const shot = ODIN_TOUR[index]
     for (const aspect of [.6, 1.4, 2.4, 3.5]) {
@@ -32,11 +34,58 @@ test('guided cameras frame upper, lower and bridge weapons in the correct source
       assert.ok(pose.position.distanceTo(pose.target) > .5)
     }
   }
-  const upper = sampleTourCamera(2), lower = sampleTourCamera(3)
-  assert.ok(upper.position.y > upper.target.y)
-  assert.ok(lower.position.y < lower.target.y)
-  assert.ok(sampleTourCamera(7).target.y > upper.target.y)
+  const batteries = sampleTourCamera(1), bridge = sampleTourCamera(2), engines = sampleTourCamera(3)
+  assert.ok(batteries.target.z < 0, 'Main batteries are forward of the center')
+  assert.ok(bridge.target.y > batteries.target.y, 'Bridge view is above the main deck')
+  assert.ok(engines.position.z > engines.target.z, 'Stern view looks forward from behind the nozzles')
   assert.ok(sampleTourCamera(0, .6).position.distanceTo(sampleTourCamera(0, .6).target) > sampleTourCamera(0, 2).position.distanceTo(sampleTourCamera(0, 2).target))
+})
+
+test('chapter transitions retain the native deployment duration and show intermediate poses', () => {
+  const opening = createTourTransition(sampleOdinMotion(0), 24)
+  assert.equal(opening.duration, DEPLOY_SECONDS)
+  assert.equal(sampleTourTransition(opening, 0).deployment, 0)
+  assert.equal(sampleTourTransition(opening, opening.duration / 2).deployment, .5)
+  assert.deepEqual(sampleTourTransition(opening, opening.duration), { deployment: 1, thrust: 0, time: 24 })
+  const samePose = createTourTransition(sampleOdinMotion(24), 24)
+  assert.equal(samePose.duration, 0, 'Moving to the next weapon view must not restart deployment')
+})
+
+test('both navigation directions interlock engines with the complete weapon stow sequence', () => {
+  for (const fromTime of [0, 24, 46]) for (const toTime of [0, 24, 46]) {
+    const transition = createTourTransition(sampleOdinMotion(fromTime), toTime)
+    const initial = sampleOdinMotion(fromTime), target = sampleOdinMotion(toTime)
+    for (let i = 0; i <= 100; i++) {
+      const pose = sampleTourTransition(transition, transition.duration * i / 100)
+      assert.ok(pose.deployment >= 0 && pose.deployment <= 1)
+      assert.ok(pose.thrust >= 0 && pose.thrust <= 1)
+      assert.ok(pose.thrust === 0 || pose.deployment === 0, 'Thrust cannot appear before armor is closed')
+      const film = sampleOdinMotion(pose.time)
+      assert.ok(Math.abs(film.deployment - pose.deployment) < 1e-9, 'Scrubbing starts from the currently rendered deployment')
+      assert.ok(Math.abs(film.thrust - pose.thrust) < 1e-9)
+      if (transition.duration && i === 0) { assert.equal(pose.deployment, initial.deployment); assert.equal(pose.thrust, initial.thrust) }
+      if (i === 100) { assert.equal(pose.deployment, target.deployment); assert.equal(pose.thrust, target.thrust) }
+    }
+  }
+})
+
+test('rapid chapter reversals start at the visible pose instead of an endpoint', () => {
+  const opening = createTourTransition(sampleOdinMotion(0), 24)
+  const partial = sampleTourTransition(opening, 2.3)
+  const reverse = createTourTransition(partial, 46)
+  const start = sampleTourTransition(reverse, 0)
+  assert.equal(start.deployment, partial.deployment)
+  assert.equal(start.thrust, partial.thrust)
+  for (let elapsed = .01; elapsed < reverse.duration; elapsed += .07) {
+    const pose = sampleTourTransition(reverse, elapsed)
+    assert.ok(pose.deployment <= partial.deployment)
+    assert.ok(pose.deployment === 0 || pose.thrust === 0)
+  }
+  const extinguishing = createTourTransition(sampleOdinMotion(46), 24)
+  const power = sampleTourTransition(extinguishing, .5)
+  assert.ok(power.thrust > 0 && power.thrust < 1 && power.deployment === 0)
+  const switchAgain = createTourTransition(power, 0)
+  assert.equal(sampleTourTransition(switchAgain, 0).thrust, power.thrust)
 })
 
 function strings(value) { return typeof value === 'string' ? [value] : Object.values(value).flatMap(strings) }

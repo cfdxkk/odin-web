@@ -10,11 +10,12 @@ import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
 import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from './odin-camera'
-import { clampTourIndex, sampleTourCamera, ODIN_TOUR } from './odin-tour'
+import { clampTourIndex, sampleTourCamera, ODIN_TOUR, ODIN_TOUR_CAMERA_SECONDS, createTourTransition, sampleTourTransition } from './odin-tour'
+import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 
 type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
-type Hooks = { progress: (p: number) => void; tick: (t: number) => void; state: () => State }
+type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; state: () => State }
 export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
@@ -102,14 +103,6 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   })
   const find = (name: string) => gltf.scene.getObjectByName(name)
   const rig = createOdinRig(gltf.scene)
-  // Use the actual deployed quad assembly as its photographic anchor. The
-  // source carriage origin lies behind the visible barrels and cradles.
-  const chapterAnchors = new Map<number, THREE.Vector3>()
-  rig.apply(1, 24)
-  gltf.scene.updateWorldMatrix(true, true)
-  const quad = find('PDC_Starboard_Carriage')
-  if (quad) chapterAnchors.set(7, new THREE.Box3().setFromObject(quad).getCenter(new THREE.Vector3()))
-  rig.apply(0, 0)
 
   const glowCanvas = document.createElement('canvas'); glowCanvas.width = glowCanvas.height = 128
   const gc = glowCanvas.getContext('2d')!
@@ -145,9 +138,15 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     exhausts.push({ cone, glow, radius, length, material: shader })
   }
 
-  let time = 0, cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
+  let time = ODIN_TOUR[clampTourIndex(hooks.state().viewIndex ?? 0)]!.time as number
+  let cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
   let viewIndex = hooks.state().viewIndex
+  let cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
+  let motionTransition: TourTransition | undefined, motionElapsed = 0, guideFromAnimationTime = time
+  let renderedMotion: { deployment: number; thrust: number } = sampleOdinMotion(time)
+  let renderedAnimationTime = time, lastPlaying = hooks.state().playing
+  let lastTransitionActive = false
   let needsRender = true, renderedFrames = 0
   let stateKey = ''
   controls.addEventListener('change', () => { needsRender = true })
@@ -171,8 +170,6 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   function sampleCamera(t: number) {
     const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourCamera(viewIndex, camera.aspect)
     target.copy(shot.target); desired.copy(shot.position)
-    const anchor = viewIndex === undefined ? undefined : chapterAnchors.get(viewIndex)
-    if (anchor) { desired.sub(target).add(anchor); target.copy(anchor) }
     // The enclosure gives the model a shorter viewport than the former
     // full-screen scene. Tighten its lens without changing the orbit or rig.
     camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 32
@@ -185,14 +182,24 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const dt = Math.min((now - previous) / 1000, .05); previous = now
     if (document.hidden) { needsRender = true; return }
     const state = hooks.state()
+    // Explicit playback and timeline actions take control of a finite guide
+    // transition without changing the user's persistent pause preference.
+    if (state.playing !== lastPlaying) { motionTransition = undefined; lastPlaying = state.playing; needsRender = true }
     const nextStateKey = `${state.playing}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}`
     if (nextStateKey !== stateKey) { needsRender = true; stateKey = nextStateKey }
     if (state.active === false) { needsRender = true; return }
     if (state.explore) controls.update()
     const manualMoving = state.explore && (Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
     // Paused chapters and a viewport scrolled off screen use no GPU frames.
-    if (!needsRender && !state.playing && !manualMoving && transitioning <= 0) return
-    if (state.playing && !state.explore) {
+    if (!needsRender && !state.playing && !manualMoving && transitioning <= 0 && !motionTransition) return
+    let guidedMotion: ReturnType<typeof sampleTourTransition> | undefined
+    if (motionTransition && !state.explore) {
+      motionElapsed += dt
+      guidedMotion = sampleTourTransition(motionTransition, motionElapsed)
+      time = guidedMotion.time
+      renderedAnimationTime = THREE.MathUtils.lerp(guideFromAnimationTime, motionTransition.targetTime, smooth(0, 1, motionElapsed / motionTransition.duration))
+      if (motionElapsed >= motionTransition.duration) motionTransition = undefined
+    } else if (state.playing && !state.explore) {
       time = (time + dt) % FILM_DURATION
       // A film wrap must not reset the faster camera orbit to another angle.
       cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
@@ -202,7 +209,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       sampleCamera(cameraTime)
       if (transitioning > 0) {
         transitioning = Math.max(0, transitioning - dt)
-        const u = smooth(0, 1, 1 - transitioning / 1.25)
+        const u = smooth(0, 1, 1 - transitioning / cameraTransitionSeconds)
         const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
         camera.position.copy(pose.position); cameraAim.copy(pose.target)
       } else { camera.position.copy(desired); cameraAim.copy(target) }
@@ -210,10 +217,12 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       controls.target.copy(cameraAim)
     } else { cameraAim.copy(controls.target) }
 
-    const motion = sampleOdinMotion(time)
+    const motion = guidedMotion ?? sampleOdinMotion(time)
     if (state.explore) manualMotion = advanceManualMotion(manualMotion, state.deployed, dt)
     deployment = state.explore ? manualMotion.deployment : motion.deployment
-    const animationTime = state.explore ? explorationTime : time
+    const animationTime = state.explore ? explorationTime : guidedMotion ? renderedAnimationTime : time
+    renderedAnimationTime = animationTime
+    renderedMotion = { deployment: deployment, thrust: state.explore ? manualMotion.thrust : motion.thrust }
     const mechanism = rig.apply(deployment, animationTime)
     const power = state.explore ? manualMotion.thrust : motion.thrust
     engineMaterials.forEach(material => { material.emissiveIntensity = power * 4 })
@@ -228,12 +237,16 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       glow.material.opacity = power * .65
     })
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
+    const transitionActive = transitioning > 0 || !!motionTransition
+    if (transitionActive !== lastTransitionActive) { hooks.transition?.(transitionActive); lastTransitionActive = transitionActive }
     composer.render()
     needsRender = false
     canvas.dataset.renderedFrames = String(++renderedFrames)
     canvas.dataset.view = viewIndex === undefined ? 'film' : ODIN_TOUR[viewIndex]!.id
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
     canvas.dataset.cameraTime = cameraTime.toFixed(4)
+    canvas.dataset.cameraTransition = (transitioning > 0).toString()
+    canvas.dataset.motionTransition = (!!motionTransition).toString()
     canvas.dataset.cameraFov = camera.fov.toFixed(2)
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
@@ -244,20 +257,29 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   }
   function seek(t: number) {
     needsRender = true
-    if (viewIndex === undefined) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = hooks.state().reducedMotion ? 0 : 1.25 }
+    motionTransition = undefined
+    if (viewIndex === undefined) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
     time = clamp(t, 0, FILM_DURATION - .01)
+    renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time
     cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS; hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
     needsRender = true
+    motionTransition = undefined
     controls.enabled = enabled
     if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
-    else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); transitioning = hooks.state().reducedMotion ? 0 : 1.25 }
+    else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
   }
   function setView(index: number) {
     viewIndex = clampTourIndex(index)
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
-    transitioning = hooks.state().reducedMotion ? 0 : 1.25
+    cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
+    transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
+    const targetTime = ODIN_TOUR[viewIndex]!.time
+    const nextMotion = createTourTransition(renderedMotion, targetTime)
+    guideFromAnimationTime = renderedAnimationTime; motionElapsed = 0
+    motionTransition = !hooks.state().reducedMotion && nextMotion.duration > 0 ? nextMotion : undefined
+    if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
     needsRender = true
     camera.clearViewOffset()
   }

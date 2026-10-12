@@ -4,6 +4,7 @@ const emit = defineEmits<{
   ready: []
   progress: [value: number]
   tick: [time: number]
+  transition: [active: boolean]
   fail: [message: string]
 }>()
 const props = defineProps<{ playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
@@ -15,7 +16,7 @@ onMounted(async () => {
     const { createOdinExperience } = await import('~/lib/odin-scene')
     if (disposed || !canvas.value) return
     experience = await createOdinExperience(canvas.value, {
-      progress: p => emit('progress', p), tick: t => emit('tick', t),
+      progress: p => emit('progress', p), tick: t => emit('tick', t), transition: active => emit('transition', active),
       state: () => ({ ...props }),
     })
     if (disposed) { experience.dispose(); return }

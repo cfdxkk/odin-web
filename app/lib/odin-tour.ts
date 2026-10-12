@@ -1,23 +1,17 @@
 import * as THREE from 'three'
+import { DEPLOY_SECONDS, ease, sampleOdinMotion } from './odin-motion.ts'
 
 // Points use the source model's axes: X across ship, +Y bow, +Z up.
 // Each chapter has a fixed shot. Scrolling selects a chapter, never a camera
 // interpolation fraction or a weapon deployment fraction.
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
-  { id: 'hull', point: [18, 15, 6], view: [2.3, .6, .65], distance: 10, time: 24 },
-  { id: 'upper', point: [0, 124, 45], view: [1, 1, 1.05], distance: 2.1, time: 24 },
-  { id: 'lower', point: [0, 76, -56], view: [1, 1, -.95], distance: 2.15, time: 24 },
-  { id: 'single', point: [55, 16, 30], view: [2, 1, .65], distance: 1.4, time: 24 },
-  { id: 'twinfore', point: [28, -48, 53], view: [2, 1, .9], distance: 1.5, time: 24 },
-  { id: 'twinrear', point: [18, -202, 43], view: [2, 1, .9], distance: 1.5, time: 24 },
-  { id: 'quad', point: [60, -58, 105], view: [1, 1, .55], distance: .9, time: 24 },
-  { id: 'pdc', point: [67, 76, 5], view: [2, .6, .85], distance: 2.05, time: 24 },
-  { id: 'launchers', point: [0, 235, 20], view: [1, 2, .8], distance: 2.15, time: 24 },
-  { id: 'bridge', point: [0, -46, 120], view: [1.15, 1.4, .55], distance: 1.9, time: 24 },
+  { id: 'batteries', point: [0, 126, 32], view: [1.25, 1, .65], distance: 4.1, time: 24 },
+  { id: 'bridge', point: [27, -59, 74], view: [2.1, .9, .75], distance: 3.3, time: 24 },
   { id: 'engines', point: [0, -245, 15], view: [.75, -2, .55], distance: 3.7, time: 46 },
 ] as const
 
+export const ODIN_TOUR_CAMERA_SECONDS = 2.8
 export type TourId = typeof ODIN_TOUR[number]['id']
 export function clampTourIndex(index: number) {
   return Math.max(0, Math.min(ODIN_TOUR.length - 1, Math.round(Number.isFinite(index) ? index : 0)))
@@ -40,4 +34,38 @@ export function sampleTourCamera(index: number, aspect = 1.6) {
   const framing = Math.max(.62, Math.pow(1.6 / Math.max(1.6, aspect), .7)) * Math.max(1, 1.25 / Math.max(aspect, .01))
   const position = new THREE.Vector3(vx, vz, -vy).normalize().multiplyScalar(shot.distance * framing).add(target)
   return { position, target }
+}
+
+type TourMotion = { deployment: number; thrust: number }
+export type TourTransition = {
+  from: TourMotion; to: TourMotion; targetTime: number
+  fadeSeconds: number; moveSeconds: number; igniteSeconds: number; duration: number
+}
+// A chapter change is a finite pose transition, independent of film playback.
+// Fade thrust before moving the rig; light the engines only after full stowage.
+export function createTourTransition(from: TourMotion, targetTime: number): TourTransition {
+  const to = sampleOdinMotion(targetTime)
+  const fadeSeconds = from.thrust > 0 && (to.deployment > 0 || to.thrust < from.thrust) ? from.thrust * 1.2 : 0
+  const moveSeconds = Math.abs(to.deployment - from.deployment) * DEPLOY_SECONDS
+  const igniteSeconds = Math.max(0, to.thrust - (fadeSeconds ? 0 : from.thrust)) * 2.5
+  return { from: { ...from }, to, targetTime, fadeSeconds, moveSeconds, igniteSeconds, duration: fadeSeconds + moveSeconds + igniteSeconds }
+}
+function inverseEase(value: number) {
+  return .5 - Math.sin(Math.asin(1 - 2 * THREE.MathUtils.clamp(value, 0, 1)) / 3)
+}
+export function sampleTourTransition(transition: TourTransition, elapsed: number) {
+  const { from, to, fadeSeconds, moveSeconds, igniteSeconds, duration, targetTime } = transition
+  const t = Math.max(0, elapsed)
+  if (t >= duration) return { deployment: to.deployment, thrust: to.thrust, time: targetTime }
+  let deployment = from.deployment, thrust = from.thrust
+  if (fadeSeconds) thrust = from.thrust * (1 - ease(0, fadeSeconds, t))
+  if (t >= fadeSeconds) {
+    if (moveSeconds) deployment = THREE.MathUtils.lerp(from.deployment, to.deployment, ease(0, moveSeconds, t - fadeSeconds))
+    if (igniteSeconds) thrust = THREE.MathUtils.lerp(fadeSeconds ? 0 : from.thrust, to.thrust, ease(0, igniteSeconds, t - fadeSeconds - moveSeconds))
+  }
+  const time = thrust > 0 ? 32 + DEPLOY_SECONDS + 2.5 * inverseEase(thrust)
+    : to.deployment > from.deployment ? 12 + DEPLOY_SECONDS * inverseEase(deployment)
+    : deployment > 0 ? 32 + DEPLOY_SECONDS * inverseEase(1 - deployment)
+    : to.thrust > 0 ? 32 + DEPLOY_SECONDS : targetTime
+  return { deployment, thrust, time }
 }
