@@ -8,6 +8,7 @@ const clips = [
 ] as const
 const root = ref<HTMLElement>()
 const videos: HTMLVideoElement[] = []
+const selected = ref(0)
 const active = ref(-1)
 let visible = false, observer: IntersectionObserver | undefined
 function stop(index = active.value) {
@@ -17,6 +18,7 @@ function stop(index = active.value) {
   if (active.value === index) active.value = -1
 }
 async function start(index: number) {
+  selected.value = index
   if (!visible || document.hidden) return
   if (active.value !== index) stop()
   active.value = index
@@ -24,6 +26,9 @@ async function start(index: number) {
   if (!video) return
   video.muted = true
   try { await video.play() } catch { if (active.value === index) active.value = -1 }
+}
+function leaveFocus(event: FocusEvent) {
+  if (!root.value?.contains(event.relatedTarget as Node | null)) stop()
 }
 function visibility() { if (document.hidden) stop() }
 onMounted(() => {
@@ -42,10 +47,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="root" class="weapon-videos" :aria-label="locale === 'zh' ? '官方炮塔演示视频' : 'Official turret demonstrations'">
-    <button v-for="(clip, index) in clips" :key="clip.id" class="weapon-video" :class="{ 'is-playing': active === index }" :aria-label="`${clip[props.locale]} / ${locale === 'zh' ? '预览视频' : 'Preview video'}`" @pointerenter="start(index)" @pointerleave="stop(index)" @focus="start(index)" @blur="stop(index)" @click="active === index ? stop(index) : start(index)">
-      <video :ref="el => { if (el) videos[index] = el as HTMLVideoElement }" :src="`/videos/odin/${clip.id}.mp4`" :poster="`/videos/odin/${clip.id}.webp`" :class="{ mirrored: clip.mirror }" preload="none" muted loop playsinline disablepictureinpicture tabindex="-1" aria-hidden="true" />
-      <span class="video-caption"><span>{{ String(index + 1).padStart(2, '0') }}</span>{{ clip[locale] }}<svg v-if="active !== index" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 4 9 6-9 6Z" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4v12M13 4v12" /></svg></span>
-    </button>
+  <div ref="root" class="weapon-videos" :class="{ 'is-playing': active !== -1 }" :aria-label="locale === 'zh' ? '官方炮塔演示视频' : 'Official turret demonstrations'" @pointerleave="stop()" @focusout="leaveFocus">
+    <div class="weapon-preview" @pointerenter="start(selected)">
+      <video v-for="(clip, index) in clips" v-show="selected === index" :key="clip.id" :ref="el => { if (el) videos[index] = el as HTMLVideoElement }" :src="`/videos/odin/${clip.id}.mp4`" :poster="`/videos/odin/${clip.id}.webp`" :class="{ mirrored: clip.mirror }" preload="none" muted loop playsinline disablepictureinpicture tabindex="-1" aria-hidden="true" />
+      <span class="preview-indicator" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m6 4 9 6-9 6Z" /></svg></span>
+    </div>
+    <div class="weapon-choices">
+      <button v-for="(clip, index) in clips" :key="clip.id" class="weapon-choice" :aria-pressed="selected === index" :aria-label="`${clip[props.locale]} / ${locale === 'zh' ? '预览视频' : 'Preview video'}`" @pointerenter="start(index)" @focus="start(index)" @click="start(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span>{{ clip[locale] }}<span class="choice-arrow" aria-hidden="true">↗</span></button>
+    </div>
   </div>
 </template>

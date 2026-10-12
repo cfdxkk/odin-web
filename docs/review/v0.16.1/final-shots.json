@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "wheelReachesGallery": true,
+    "reverseWheelReturnsToStageFour": true,
+    "realModelPrintLoaded": true,
+    "finalFooterFits": true,
+    "reducedMotionStillPauses": true
+  },
+  "sizes": [
+    {
+      "width": 320,
+      "height": 700,
+      "overflow": 0,
+      "visible": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": 0,
+      "visible": true
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "overflow": 0,
+      "visible": true
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": 0,
+      "visible": true
+    },
+    {
+      "width": 2560,
+      "height": 1080,
+      "overflow": 0,
+      "visible": true
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "overflow": 0,
+      "visible": true
+    }
+  ]
+}

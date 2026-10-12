@@ -13,6 +13,8 @@ import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpo
 import { clampTourIndex, sampleTourDisplayCamera, ODIN_TOUR, ODIN_TOUR_CAMERA_SECONDS, createTourTransition, sampleTourTransition } from './odin-tour'
 import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
+import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
+import type { OdinExhaust } from './odin-exhaust'
 
 type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; state: () => State }
@@ -109,7 +111,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   gradient.addColorStop(0, 'rgba(148,209,255,1)'); gradient.addColorStop(.16, 'rgba(41,117,255,.6)'); gradient.addColorStop(.5, 'rgba(20,63,229,.12)'); gradient.addColorStop(1, 'rgba(0,0,0,0)')
   gc.fillStyle = gradient; gc.fillRect(0, 0, 128, 128)
   const glowTex = new THREE.CanvasTexture(glowCanvas)
-  const exhausts: { cone: THREE.Mesh; glow: THREE.Sprite; radius: number; length: number; material: THREE.ShaderMaterial }[] = []
+  const exhausts: OdinExhaust[] = []
   scene.updateMatrixWorld(true)
   for (let i = 0; i < 13; i++) {
     const engineCore = find(`EngineCore_${String(i).padStart(2, '0')}`)
@@ -117,28 +119,14 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const position = engineCore.getWorldPosition(new THREE.Vector3())
     const radius = Number(engineCore.userData.radius || 3) * .01
     const length = radius * (i === 0 ? 15 : 11)
-    const shader = new THREE.ShaderMaterial({
-      uniforms: { time: { value: 0 }, power: { value: 1 } },
-      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-      vertexShader: `varying vec2 vUv; varying vec3 vNormal; varying vec3 vView;
-        void main(){vUv=uv;vec4 p=modelViewMatrix*vec4(position,1.);vNormal=normalize(normalMatrix*normal);vView=-p.xyz;gl_Position=projectionMatrix*p;}`,
-      fragmentShader: `varying vec2 vUv; varying vec3 vNormal; varying vec3 vView; uniform float time; uniform float power;
-        void main(){float f=pow(clamp(1.-vUv.y,0.,1.),1.8);float bands=.94+.06*sin(vUv.y*42.-time*8.);
-        float edge=pow(smoothstep(.02,.7,abs(dot(normalize(vNormal),normalize(vView)))),1.6);
-        float a=f*bands*edge*.68*power;
-        gl_FragColor=vec4(mix(vec3(.025,.10,.45),vec3(.15,.75,1.8),f),a);}`,
-    })
-    const cone = new THREE.Mesh(new THREE.ConeGeometry(radius * .82, length, 24, 1, true), shader)
-    cone.rotation.x = Math.PI / 2; cone.position.copy(position); cone.position.z += length / 2
-    ship.add(cone)
-    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: 0x6ba6ff, transparent: true, opacity: .55, blending: THREE.AdditiveBlending, depthWrite: false }))
-    glow.position.copy(position); glow.position.z += .015; glow.scale.setScalar(radius * 3.3); ship.add(glow)
-    ao.excludedObjects.add(cone); ao.excludedObjects.add(glow)
-    exhausts.push({ cone, glow, radius, length, material: shader })
+    const effect = createOdinExhaust(radius, length, i, glowTex)
+    effect.group.position.copy(position); ship.add(effect.group)
+    effect.lightSurfaces.forEach(surface => ao.excludedObjects.add(surface))
+    exhausts.push(effect)
   }
 
   let time = ODIN_TOUR[clampTourIndex(hooks.state().viewIndex ?? 0)]!.time as number
-  let cameraTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
+  let cameraTime = 0, effectTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
   let viewIndex = hooks.state().viewIndex
   let cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
@@ -153,8 +141,12 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
+  let manualFraming: { x: number; y: number } | undefined
   function frameCamera() {
-    if (hooks.state().explore) camera.clearViewOffset()
+    if (hooks.state().explore) {
+      if (manualFraming) camera.setViewOffset(width, height, width * manualFraming.x, height * manualFraming.y, width, height)
+      else camera.clearViewOffset()
+    }
     else if (viewIndex === undefined) camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
     else if (width > 700) camera.setViewOffset(width, height, -width * .08, 0, width, height)
     else camera.clearViewOffset()
@@ -198,7 +190,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (state.explore) controls.update()
     const manualMoving = state.explore && (Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
     // Paused chapters and a viewport scrolled off screen use no GPU frames.
-    if (!needsRender && !filmPlaying && !manualMoving && transitioning <= 0 && !motionTransition) return
+    const exhaustMoving = state.playing && renderedMotion.thrust > .001
+    if (!needsRender && !filmPlaying && !manualMoving && !exhaustMoving && transitioning <= 0 && !motionTransition) return
+    if (state.playing) effectTime += dt
     if (filmPlaying && !state.explore && (viewIndex === undefined || viewIndex === 0)) {
       // The 45-second orbit has its own clock, including during pose handoffs.
       cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
@@ -235,16 +229,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const mechanism = rig.apply(deployment, animationTime)
     const power = state.explore ? manualMotion.thrust : motion.thrust
     engineMaterials.forEach(material => { material.emissiveIntensity = power * 4 })
-    exhausts.forEach(({ cone, glow, length, material }, i) => {
-      cone.visible = glow.visible = power > .001
-      material.uniforms.time!.value = animationTime + i; material.uniforms.power!.value = power
-      const factor = .12 + power * 1.23 + Math.sin(animationTime * 9 + i) * .008 * power
-      cone.scale.y = factor
-      // Scale around the nozzle, not around the exhaust's midpoint.
-      cone.position.z += (factor * length / 2 - Number(cone.userData.offset || length / 2))
-      cone.userData.offset = factor * length / 2
-      glow.material.opacity = power * .65
-    })
+    exhausts.forEach(effect => updateOdinExhaust(effect, power, effectTime))
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
     const transitionActive = transitioning > 0 || !!motionTransition
     if (transitionActive !== lastTransitionActive) { hooks.transition?.(transitionActive); lastTransitionActive = transitionActive }
@@ -259,7 +244,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.cameraTransition = (transitioning > 0).toString()
     canvas.dataset.motionTransition = (!!motionTransition).toString()
     canvas.dataset.cameraFov = camera.fov.toFixed(2)
+    canvas.dataset.cameraOffset = camera.view?.enabled ? `${(camera.view.offsetX / camera.view.fullWidth).toFixed(4)},${(camera.view.offsetY / camera.view.fullHeight).toFixed(4)}` : '0.0000,0.0000'
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
+    canvas.dataset.exhaustLayers = String(exhausts.length * 3); canvas.dataset.exhaustTime = effectTime.toFixed(3)
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
     canvas.dataset.cameraPosition = camera.position.toArray().map(n => n.toFixed(6)).join(',')
@@ -269,18 +256,32 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   function seek(t: number) {
     needsRender = true
     motionTransition = undefined
-    if (viewIndex === undefined) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
+    const orbit = viewIndex === undefined || viewIndex === 0
+    if (orbit) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
     time = clamp(t, 0, FILM_DURATION - .01)
     renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time
-    if (viewIndex === undefined) cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS
+    if (orbit) cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS
     hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
     needsRender = true
     motionTransition = undefined
     controls.enabled = enabled
+    if (enabled) {
+      const framing = camera.view
+      manualFraming = framing?.enabled ? { x: framing.offsetX / framing.fullWidth, y: framing.offsetY / framing.fullHeight } : undefined
+    }
     frameCamera()
-    if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
+    if (enabled) {
+      transitioning = 0
+      manualMotion = { ...renderedMotion }; explorationTime = time
+      // OrbitControls can retain damped rotation/pan from an earlier manual
+      // session. Flush it, then restore the exact pose before enabling input.
+      const heldPosition = camera.position.clone(), heldAim = cameraAim.clone()
+      controls.target.copy(heldAim); controls.enableDamping = false; controls.update()
+      camera.position.copy(heldPosition); controls.target.copy(heldAim); controls.update()
+      controls.enableDamping = true
+    }
     else {
       cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
       if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })

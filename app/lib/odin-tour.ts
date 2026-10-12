@@ -7,9 +7,9 @@ import { sampleOdinCamera } from './odin-camera.ts'
 // interpolation fraction or a weapon deployment fraction.
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
-  { id: 'batteries', point: [0, 230, 20], view: [1.35, .7, .8], distance: 5.2, time: 24 },
-  { id: 'bridge', point: [27, -59, 74], view: [2.1, .9, .75], distance: 3.3, time: 24 },
-  { id: 'engines', point: [0, -245, 15], view: [.75, -2, .55], distance: 3.7, time: 46 },
+  { id: 'batteries', point: [0, 160, 20], view: [1.35, .7, .8], distance: 6.4, time: 24 },
+  { id: 'bridge', point: [0, -59, 100], view: [2.1, .9, .6], distance: 2.35, time: 24 },
+  { id: 'engines', point: [0, -140, 32], view: [1.65, -.8, .52], distance: 5.8, time: 46 },
 ] as const
 
 export const ODIN_TOUR_CAMERA_SECONDS = 2.8
@@ -58,13 +58,14 @@ export type TourTransition = {
   fadeSeconds: number; moveSeconds: number; igniteSeconds: number; duration: number
 }
 // A chapter change is a finite pose transition, independent of film playback.
-// Fade thrust before moving the rig; light the engines only after full stowage.
+// Entering propulsion lights the engines while the weapons stow. On the return
+// to a weapon view, finish fading the exhaust before starting deployment.
 export function createTourTransition(from: TourMotion, targetTime: number): TourTransition {
   const to = sampleOdinMotion(targetTime)
   const fadeSeconds = from.thrust > 0 && (to.deployment > 0 || to.thrust < from.thrust) ? from.thrust * 1.2 : 0
   const moveSeconds = Math.abs(to.deployment - from.deployment) * DEPLOY_SECONDS
   const igniteSeconds = Math.max(0, to.thrust - (fadeSeconds ? 0 : from.thrust)) * 2.5
-  return { from: { ...from }, to, targetTime, fadeSeconds, moveSeconds, igniteSeconds, duration: fadeSeconds + moveSeconds + igniteSeconds }
+  return { from: { ...from }, to, targetTime, fadeSeconds, moveSeconds, igniteSeconds, duration: fadeSeconds + Math.max(moveSeconds, igniteSeconds) }
 }
 function inverseEase(value: number) {
   return .5 - Math.sin(Math.asin(1 - 2 * THREE.MathUtils.clamp(value, 0, 1)) / 3)
@@ -77,11 +78,12 @@ export function sampleTourTransition(transition: TourTransition, elapsed: number
   if (fadeSeconds) thrust = from.thrust * (1 - ease(0, fadeSeconds, t))
   if (t >= fadeSeconds) {
     if (moveSeconds) deployment = THREE.MathUtils.lerp(from.deployment, to.deployment, ease(0, moveSeconds, t - fadeSeconds))
-    if (igniteSeconds) thrust = THREE.MathUtils.lerp(fadeSeconds ? 0 : from.thrust, to.thrust, ease(0, igniteSeconds, t - fadeSeconds - moveSeconds))
+    if (igniteSeconds) thrust = THREE.MathUtils.lerp(fadeSeconds ? 0 : from.thrust, to.thrust, ease(0, igniteSeconds, t - fadeSeconds))
   }
-  const time = thrust > 0 ? 32 + DEPLOY_SECONDS + 2.5 * inverseEase(thrust)
-    : to.deployment > from.deployment ? 12 + DEPLOY_SECONDS * inverseEase(deployment)
-    : deployment > 0 ? 32 + DEPLOY_SECONDS * inverseEase(1 - deployment)
+  // During concurrent stow/ignition the rig's film time follows deployment;
+  // thrust is an independent presentation channel, supplied above.
+  const time = deployment > 0 || to.deployment > from.deployment && thrust === 0 ? to.deployment > from.deployment ? 12 + DEPLOY_SECONDS * inverseEase(deployment) : 32 + DEPLOY_SECONDS * inverseEase(1 - deployment)
+    : thrust > 0 ? 32 + DEPLOY_SECONDS + 2.5 * inverseEase(thrust)
     : to.thrust > 0 ? 32 + DEPLOY_SECONDS : targetTime
   return { deployment, thrust, time }
 }

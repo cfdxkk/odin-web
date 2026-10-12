@@ -116,32 +116,20 @@ html[lang=zh-CN] .chapter-heading h2 { font: 400 clamp(28px,2.35vw,45px)/1.5 var
 .is-exploring + .story-rail .next-chapter { pointer-events: none; }
 
 .art-archive { position: relative; z-index: 2; background: var(--panel); border-top: 1px solid var(--line); padding: 100px 7vw 80px; scroll-margin-top: var(--header-height); }
-.archive-heading { display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px 9%; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 40px; }
-.archive-heading > div { grid-row: 1 / span 2; }
+.archive-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; border-bottom: 1px solid var(--line); padding-bottom: 32px; }
 .archive-heading h2 { font: 500 clamp(40px,5vw,84px)/1.15 var(--display); letter-spacing: .045em; margin-top: 25px; }
 html[lang=zh-CN] .archive-heading h2 { font-family: var(--sans); font-size: clamp(32px,3.2vw,54px); font-weight: 400; line-height: 1.5; }
-.archive-heading > p { font-size: 14px; line-height: 1.9; color: #9aa9b9; }
 .text-link { display: inline-flex; align-items: center; min-height: 38px; width: fit-content; font-size: 13px; color: #c2cbd5; border-bottom: 1px solid #4b5c6c; padding-bottom: 8px; }
 .text-link:hover { color: var(--accent); border-color: var(--accent); }
-.gallery-layout { display: grid; grid-template-columns: 2.3fr 1fr; gap: 5%; margin-top: 44px; }
+.gallery-layout { margin-top: 32px; }
 .artwork-figure { min-width: 0; }
-.artwork-well { height: clamp(340px,56svh,900px); background: #070b10; display: flex; align-items: center; justify-content: center; }
+.artwork-well { height: clamp(300px,64svh,1000px); background: #070b10; display: flex; align-items: center; justify-content: center; }
 .artwork-well img { width: 100%; height: 100%; object-fit: contain; }
-.artwork-figure figcaption { display: flex; justify-content: space-between; gap: 24px; font-size: 10px; color: #657588; padding: 14px 0; }
-.gallery-ledger { display: flex; flex-direction: column; align-items: start; gap: 22px; }
-.gallery-ledger > .eyebrow { color: var(--accent); font-size: 9px; }
-.gallery-ledger h3 { font: 500 clamp(28px,2.6vw,46px)/1.25 var(--display); letter-spacing: .025em; }
-html[lang=zh-CN] .gallery-ledger h3 { font-family: var(--sans); font-weight: 400; font-size: clamp(23px,2vw,36px); line-height: 1.5; }
-.gallery-ledger > p:not(.eyebrow) { font-size: 13px; line-height: 1.9; color: #8b9cae; }
-.gallery-controls { width: 100%; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 20px; margin-top: auto; border-top: 1px solid var(--line); padding-top: 24px; }
+.artwork-figure figcaption { display: flex; justify-content: space-between; align-items: center; gap: 24px; font-size: 10px; color: #657588; padding: 18px 0 0; }
+.gallery-controls { width: 220px; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 20px; color: var(--text); }
 .gallery-controls button { width: 44px; height: 44px; font-size: 24px; text-align: center; border: 1px solid #3d4b5a; }
 .gallery-controls button:hover { color: var(--accent); border-color: var(--accent); }
 .gallery-controls > span { font-size: 16px; font-variant-numeric: tabular-nums; text-align: center; }.gallery-controls small { font-size: 11px; color: #657588; }
-.art-thumbnails { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #4b5c6c var(--bg); padding-bottom: 12px; margin-top: 24px; }
-.art-thumbnails button { flex: 0 0 105px; position: relative; height: 64px; background: var(--bg); opacity: .6; }
-.art-thumbnails button img { width: 100%; height: 100%; object-fit: cover; }
-.art-thumbnails button > span { position: absolute; bottom: 0; left: 0; padding: 3px 5px; font-size: 9px; background: #070b10cc; }
-.art-thumbnails button[aria-pressed=true] { outline: 1px solid var(--accent); outline-offset: -1px; opacity: 1; }.art-thumbnails button:hover { opacity: 1; }
 
 .about-dialog { width: min(680px,92vw); border: 1px solid #344353; padding: 0; color: var(--text); background: #101824; max-height: 90dvh; }
 .about-dialog::backdrop { background: #02060de0; }
@@ -181,7 +169,7 @@ html[lang=zh-CN] .gallery-ledger h3 { font-family: var(--sans); font-weight: 400
   .explore-tools { padding: 12px; margin-bottom: 10px; gap: 12px; }.explore-tools p { font-size: 9px; }.explore-tools button { font-size: 10px; }
   .loading-state, .error-state { left: 50%; top: 55%; }
   .art-archive { padding: 58px 7vw 40px; }.archive-heading { display: block; padding-bottom: 28px; }.archive-heading h2, html[lang=zh-CN] .archive-heading h2 { font-size: 35px; margin: 20px 0 25px; }.archive-heading > p { font-size: 13px; }.archive-heading > .text-link { margin-top: 20px; }
-  .gallery-layout { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }.artwork-well { height: 32svh; min-height: 210px; }.artwork-figure figcaption { font-size: 8px; }.gallery-ledger { gap: 18px; }.gallery-ledger h3, html[lang=zh-CN] .gallery-ledger h3 { font-size: 27px; }.gallery-controls { max-width: 280px; margin-top: 5px; padding-top: 18px; }
+  .gallery-layout { margin-top: 28px; }.artwork-well { height: 40svh; min-height: 210px; }.artwork-figure figcaption { font-size: 8px; gap: 12px; }.gallery-controls { width: 160px; grid-template-columns: 38px 1fr 38px; gap: 8px; }.gallery-controls button { width: 38px; height: 38px; }
   .art-thumbnails button { flex-basis: 85px; height: 55px; }.about-dialog section { padding: 40px 24px 24px; }.about-dialog h2 { font-size: 26px; }
 }
 @media (max-width: 360px) {

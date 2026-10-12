@@ -97,7 +97,7 @@ test('chapter transitions retain the native deployment duration and show interme
   assert.equal(samePose.duration, 0, 'Moving to the next weapon view must not restart deployment')
 })
 
-test('both navigation directions interlock engines with the complete weapon stow sequence', () => {
+test('propulsion ignites during stowage while the return to weapons fades exhaust first', () => {
   for (const fromTime of [0, 24, 46]) for (const toTime of [0, 24, 46]) {
     const transition = createTourTransition(sampleOdinMotion(fromTime), toTime)
     const initial = sampleOdinMotion(fromTime), target = sampleOdinMotion(toTime)
@@ -105,14 +105,25 @@ test('both navigation directions interlock engines with the complete weapon stow
       const pose = sampleTourTransition(transition, transition.duration * i / 100)
       assert.ok(pose.deployment >= 0 && pose.deployment <= 1)
       assert.ok(pose.thrust >= 0 && pose.thrust <= 1)
-      assert.ok(pose.thrust === 0 || pose.deployment === 0, 'Thrust cannot appear before armor is closed')
+      if (toTime === 24) assert.ok(pose.thrust === 0 || pose.deployment === initial.deployment, 'Fade exhaust before deploying weapons')
       const film = sampleOdinMotion(pose.time)
       assert.ok(Math.abs(film.deployment - pose.deployment) < 1e-9, 'Scrubbing starts from the currently rendered deployment')
-      assert.ok(Math.abs(film.thrust - pose.thrust) < 1e-9)
+      if (pose.deployment === 0) assert.ok(Math.abs(film.thrust - pose.thrust) < 1e-9)
       if (transition.duration && i === 0) { assert.equal(pose.deployment, initial.deployment); assert.equal(pose.thrust, initial.thrust) }
       if (i === 100) { assert.equal(pose.deployment, target.deployment); assert.equal(pose.thrust, target.thrust) }
     }
   }
+})
+
+test('the engine chapter starts stowage and ignition together without adding their durations', () => {
+  const transition = createTourTransition(sampleOdinMotion(24), 46)
+  assert.equal(transition.duration, DEPLOY_SECONDS)
+  const early = sampleTourTransition(transition, .5)
+  assert.ok(early.deployment < 1 && early.deployment > 0)
+  assert.ok(early.thrust > 0 && early.thrust < 1)
+  const lit = sampleTourTransition(transition, 2.5)
+  assert.equal(lit.thrust, 1)
+  assert.ok(lit.deployment > 0, 'The engines are fully lit before the weapons finish stowing')
 })
 
 test('rapid chapter reversals start at the visible pose instead of an endpoint', () => {
@@ -125,7 +136,7 @@ test('rapid chapter reversals start at the visible pose instead of an endpoint',
   for (let elapsed = .01; elapsed < reverse.duration; elapsed += .07) {
     const pose = sampleTourTransition(reverse, elapsed)
     assert.ok(pose.deployment <= partial.deployment)
-    assert.ok(pose.deployment === 0 || pose.thrust === 0)
+    assert.ok(pose.thrust >= start.thrust && pose.thrust <= 1)
   }
   const extinguishing = createTourTransition(sampleOdinMotion(46), 24)
   const power = sampleTourTransition(extinguishing, .5)

@@ -36,7 +36,6 @@ const formatTime = (t: number) => `${String(Math.floor(t / 60)).padStart(2, '0')
 const clock = computed(() => formatTime(filmTime.value))
 const artworkIndex = ref(0)
 const artwork = computed(() => ODIN_WALLPAPERS[artworkIndex.value]!)
-const artworkCaption = computed(() => artwork.value[locale.value])
 function changeArtwork(index: number) { artworkIndex.value = (index + ODIN_WALLPAPERS.length) % ODIN_WALLPAPERS.length }
 function goToChapter(index: number) {
   const next = clampTourIndex(index), element = document.getElementById(ODIN_TOUR[next]!.id)
@@ -174,7 +173,7 @@ onBeforeUnmount(() => {
             <div class="chapter-topline"><span class="eyebrow">{{ c.guide }}</span><span class="folio">{{ String(index + 1).padStart(2, '0') }} / {{ String(chapters.length).padStart(2, '0') }}</span></div>
             <div class="chapter-heading"><p class="eyebrow">{{ String(index + 1).padStart(2, '0') }} / {{ chapter.label }}</p><h1 v-if="index === 0" :id="`${chapter.id}-title`">ODIN</h1><h2 v-else :id="`${chapter.id}-title`">{{ chapter.title }}</h2><p v-if="index === 0" class="vehicle-class">{{ c.vehicleClass }}<span>{{ c.manufacturer }}</span></p></div>
             <p v-if="index > 0" class="chapter-body">{{ chapter.body }}</p>
-            <dl class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
+            <dl v-if="chapter.specs.length" class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
             <WeaponVideos v-if="index === 1" :locale="locale" />
             <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="c.nextChapter" @click="goToChapter(index + 1)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
             </div>
@@ -183,14 +182,13 @@ onBeforeUnmount(() => {
       </div>
 
       <section id="archive" class="art-archive" :aria-label="c.gallery">
-        <div class="archive-heading"><div><p class="eyebrow">02 / {{ c.artArchive }}</p><h2>{{ c.artTitle }}</h2></div><p>{{ c.artBody }}</p><a class="text-link" href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.artSource }} ↗</a></div>
-        <div class="gallery-layout"><figure class="artwork-figure"><div class="artwork-well"><img :key="artwork.src" :src="artwork.src" :alt="artworkCaption.alt" :width="artwork.width" :height="artwork.height" loading="lazy" decoding="async" /></div><figcaption><span>{{ String(artworkIndex + 1).padStart(2, '0') }} / {{ ODIN_WALLPAPERS.length }}</span><span>© Cloud Imperium Games</span></figcaption></figure><div class="gallery-ledger"><p class="eyebrow">{{ c.artCategory }} / {{ artworkCaption.category }}</p><h3>{{ artworkCaption.title }}</h3><p>{{ artworkCaption.alt }}</p><a class="text-link" :href="artwork.source" target="_blank" rel="noopener noreferrer">{{ c.originalArt }} ↗</a><div class="gallery-controls"><button :aria-label="c.previousArt" @click="changeArtwork(artworkIndex - 1)">←</button><span>{{ String(artworkIndex + 1).padStart(2, '0') }}<small> / {{ ODIN_WALLPAPERS.length }}</small></span><button class="next-art" :aria-label="c.nextArt" @click="changeArtwork(artworkIndex + 1)">→</button></div></div></div>
-        <div class="art-thumbnails" :aria-label="c.artThumbnails"><button v-for="(art, index) in ODIN_WALLPAPERS" :key="art.src" :aria-label="`${c.selectArt} ${index + 1}: ${art[locale].title}`" :aria-pressed="artworkIndex === index" @click="changeArtwork(index)"><img :src="art.thumb" alt="" width="160" height="90" loading="lazy" /><span>{{ String(index + 1).padStart(2, '0') }}</span></button></div>
+        <div class="archive-heading"><div><p class="eyebrow">02 / {{ c.artArchive }}</p><h2>{{ c.artTitle }}</h2></div><a class="text-link" href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.artSource }} ↗</a></div>
+        <div class="gallery-layout"><figure class="artwork-figure"><div class="artwork-well"><img :key="artwork.src" :src="artwork.src" :alt="`${c.artTitle} ${artworkIndex + 1}`" :width="artwork.width" :height="artwork.height" loading="lazy" decoding="async" /></div><figcaption><span>© Cloud Imperium Games</span><div class="gallery-controls"><button :aria-label="c.previousArt" @click="changeArtwork(artworkIndex - 1)">←</button><span>{{ String(artworkIndex + 1).padStart(2, '0') }}<small> / {{ ODIN_WALLPAPERS.length }}</small></span><button class="next-art" :aria-label="c.nextArt" @click="changeArtwork(artworkIndex + 1)">→</button></div></figcaption></figure></div>
       </section>
     </main>
 
     <footer id="footer" class="site-footer">
-      <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.16.0.svg?print=4&amp;v=0.16.0-rc.1" :alt="c.footerImageAlt" width="2400" height="900" loading="lazy" /></figure>
+      <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.16.1.png?v=0.16.1-rc.1" :alt="c.footerImageAlt" width="3600" height="1200" loading="lazy" /></figure>
       <div class="footer-content">
         <div class="footer-intro">
           <a class="footer-wordmark" href="#overview" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="44" height="44" />ODIN</a>
@@ -198,7 +196,7 @@ onBeforeUnmount(() => {
           <span class="eyebrow">{{ c.footerCreator }} / 2026</span><div class="identity-stripe" aria-hidden="true"><i /><i /><i /><i /></div>
         </div>
         <div class="footer-column footer-sources"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} ↗</a></div>
-        <div class="footer-colophon"><span>{{ c.document }} / {{ c.edition }}</span><a href="#overview" @click.prevent="goToChapter(0)" :aria-label="c.footerTop">↑</a></div>
+        <div class="footer-colophon"><span>{{ c.document }} / {{ c.edition }}</span><div class="footer-marks"><a class="community-mark" href="https://robertsspaceindustries.com/community" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" :alt="c.communityAlt" width="56" height="56" loading="lazy" /></a><a href="#overview" @click.prevent="goToChapter(0)" :aria-label="c.footerTop">↑</a></div></div>
       </div>
     </footer>
 
