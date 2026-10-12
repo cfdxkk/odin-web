@@ -10,10 +10,15 @@ const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElem
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const viewportActive = ref(true), reducedMotion = ref(false)
 const changingView = ref(false)
-// Guided views start still. Playing the sequence is an explicit, persistent choice.
-const playback = ref({ userPaused: true, scrubbing: false })
+// The homepage autoplays; an explicit pause remains in force across chapters.
+const playback = ref({ userPaused: false, scrubbing: false })
+const sequenceOverride = ref(false)
 const playing = computed(() => isPlaying(playback.value))
-const togglePlayback = () => { playback.value = nextPlayback(playback.value, 'toggle') }
+const filmPlaying = computed(() => !explore.value && playing.value && (activeChapter.value === 0 || sequenceOverride.value))
+function togglePlayback() {
+  if (filmPlaying.value) playback.value = nextPlayback(playback.value, 'toggle')
+  else { playback.value = { ...playback.value, userPaused: false }; sequenceOverride.value = true }
+}
 const beginScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-start') }
 const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end') }
 const filmTime = ref(0), error = ref(''), showAbout = ref(false)
@@ -36,7 +41,7 @@ function goToChapter(index: number) {
 }
 function choosePhase(index: number) {
   explore.value = false
-  viewer.value?.seek(playing.value ? MODES[index]!.time : [0, 24, 46][index]!)
+  viewer.value?.seek(filmPlaying.value ? MODES[index]!.time : [0, 24, 46][index]!)
 }
 watch(locale, () => {
   if (!viewportActive.value || reviewMode.value) return
@@ -57,6 +62,7 @@ function keyboard(event: KeyboardEvent) {
 }
 watch(activeChapter, () => {
   explore.value = false
+  sequenceOverride.value = false
 })
 let scrollFrame = 0
 let wheelAmount = 0, wheelLastAt = 0, wheelCommitted = false
@@ -95,10 +101,11 @@ function updateChapter() {
   activeChapter.value = selectTourChapter(tops, anchor)
 }
 function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
-const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.15.0-rc.1`)
+const reviewUrl = computed(() => `/?review=secondary&lang=${locale.value}&v=0.15.1-rc.1`)
 onMounted(() => {
   reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
   reducedMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reducedMotion.value) playback.value = { ...playback.value, userPaused: true }
   lowPower.value = window.innerWidth < 700
   window.addEventListener('keydown', keyboard)
   window.addEventListener('pointerup', endScrub)
@@ -138,16 +145,16 @@ onBeforeUnmount(() => {
         <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id">
           <div class="panel-toprail"><span>{{ c.realTime }}</span><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
           <div class="scene-wrap">
-            <ClientOnly><OdinScene ref="viewer" :playing="playing" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
+            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
             <div class="scene-shade" aria-hidden="true" />
-            <div class="viewport-status">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : playing ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
+            <div class="viewport-status">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : filmPlaying ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
             <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">OD—77 / {{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
             <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
             <button v-if="ready" class="explore-button" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5" /></svg>{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↗</span></button>
           </div>
           <div class="viewer-console">
             <div v-if="explore" class="explore-tools"><p>{{ c.controlsHint }}</p><button @click="deployed = !deployed">{{ deployed ? c.switchNav : c.switchScm }} →</button></div>
-            <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="playing ? c.pause : c.play" @click="togglePlayback"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
+            <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="filmPlaying ? c.pause : c.play" @click="togglePlayback"><svg v-if="filmPlaying" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
             <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="filmTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${filmTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
             <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)"><span>0{{ index + 1 }}</span>{{ phase }}</button></div>
           </div>

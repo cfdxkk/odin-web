@@ -9,12 +9,12 @@ import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, sampleOdinMotion, advanceManualMotion } from './odin-motion'
-import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from './odin-camera'
-import { clampTourIndex, sampleTourCamera, ODIN_TOUR, ODIN_TOUR_CAMERA_SECONDS, createTourTransition, sampleTourTransition } from './odin-tour'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera, odinCameraPhase } from './odin-camera'
+import { clampTourIndex, sampleTourDisplayCamera, ODIN_TOUR, ODIN_TOUR_CAMERA_SECONDS, createTourTransition, sampleTourTransition } from './odin-tour'
 import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 
-type State = { playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
+type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; state: () => State }
 export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
 const clamp = THREE.MathUtils.clamp
@@ -145,6 +145,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let motionTransition: TourTransition | undefined, motionElapsed = 0, guideFromAnimationTime = time
   let renderedMotion: { deployment: number; thrust: number } = sampleOdinMotion(time)
   let renderedAnimationTime = time, lastPlaying = hooks.state().playing
+  let lastFilmPlaying = hooks.state().film ?? lastPlaying
   let lastTransitionActive = false
   let needsRender = true, renderedFrames = 0
   let stateKey = ''
@@ -172,7 +173,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourCamera(viewIndex, camera.aspect)
+    const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
     target.copy(shot.target); desired.copy(shot.position)
     // The full-screen lens leaves room for the overlay and keeps the hull intact.
     camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 33
@@ -185,16 +186,23 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const dt = Math.min((now - previous) / 1000, .05); previous = now
     if (document.hidden) { needsRender = true; return }
     const state = hooks.state()
+    const filmPlaying = state.film ?? state.playing
     // Explicit playback and timeline actions take control of a finite guide
     // transition without changing the user's persistent pause preference.
-    if (state.playing !== lastPlaying) { motionTransition = undefined; lastPlaying = state.playing; needsRender = true }
-    const nextStateKey = `${state.playing}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}`
+    if (state.playing !== lastPlaying || filmPlaying !== lastFilmPlaying) {
+      motionTransition = undefined; lastPlaying = state.playing; lastFilmPlaying = filmPlaying; needsRender = true
+    }
+    const nextStateKey = `${state.playing}/${filmPlaying}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}`
     if (nextStateKey !== stateKey) { needsRender = true; stateKey = nextStateKey }
     if (state.active === false) { needsRender = true; return }
     if (state.explore) controls.update()
     const manualMoving = state.explore && (Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
     // Paused chapters and a viewport scrolled off screen use no GPU frames.
-    if (!needsRender && !state.playing && !manualMoving && transitioning <= 0 && !motionTransition) return
+    if (!needsRender && !filmPlaying && !manualMoving && transitioning <= 0 && !motionTransition) return
+    if (filmPlaying && !state.explore && (viewIndex === undefined || viewIndex === 0)) {
+      // The 45-second orbit has its own clock, including during pose handoffs.
+      cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
+    }
     let guidedMotion: ReturnType<typeof sampleTourTransition> | undefined
     if (motionTransition && !state.explore) {
       motionElapsed += dt
@@ -202,10 +210,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       time = guidedMotion.time
       renderedAnimationTime = THREE.MathUtils.lerp(guideFromAnimationTime, motionTransition.targetTime, smooth(0, 1, motionElapsed / motionTransition.duration))
       if (motionElapsed >= motionTransition.duration) motionTransition = undefined
-    } else if (state.playing && !state.explore) {
+    } else if (filmPlaying && !state.explore) {
       time = (time + dt) % FILM_DURATION
-      // A film wrap must not reset the faster camera orbit to another angle.
-      cameraTime = (cameraTime + dt) % ODIN_CAMERA_ORBIT_SECONDS
     }
     if (state.explore) explorationTime += dt
     if (!state.explore) {
@@ -248,6 +254,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.view = viewIndex === undefined ? 'film' : ODIN_TOUR[viewIndex]!.id
     canvas.dataset.ready = 'true'; canvas.dataset.time = time.toFixed(2)
     canvas.dataset.cameraTime = cameraTime.toFixed(4)
+    canvas.dataset.cameraMode = state.explore ? 'manual' : viewIndex === undefined || viewIndex === 0 ? 'orbit' : 'detail'
+    canvas.dataset.filmPlaying = (filmPlaying && !state.explore).toString()
     canvas.dataset.cameraTransition = (transitioning > 0).toString()
     canvas.dataset.motionTransition = (!!motionTransition).toString()
     canvas.dataset.cameraFov = camera.fov.toFixed(2)
@@ -264,7 +272,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (viewIndex === undefined) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
     time = clamp(t, 0, FILM_DURATION - .01)
     renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time
-    cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS; hooks.tick(time)
+    if (viewIndex === undefined) cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS
+    hooks.tick(time)
   }
   function setExplore(enabled: boolean) {
     needsRender = true
@@ -272,11 +281,19 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     controls.enabled = enabled
     frameCamera()
     if (enabled) { manualMotion = { ...sampleOdinMotion(time) }; explorationTime = time; controls.target.copy(cameraAim); controls.update() }
-    else { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
+    else {
+      cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
+      if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })
+      cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
+    }
   }
   function setView(index: number) {
     viewIndex = clampTourIndex(index)
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
+    if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })
+    // Chapter selection changes effective film playback without changing the
+    // user's pause preference. Keep the new guided handoff alive in that case.
+    lastFilmPlaying = hooks.state().film ?? hooks.state().playing
     cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
     transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
     const targetTime = ODIN_TOUR[viewIndex]!.time

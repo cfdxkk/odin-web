@@ -9,6 +9,13 @@ const orbitSlope = .24
 const aimHeight = .20
 export type OdinCameraPose = { position: THREE.Vector3; target: THREE.Vector3 }
 
+// Rejoin the orbit from the visible heading instead of turning back to phase zero.
+export function odinCameraPhase(pose: OdinCameraPose) {
+  const offset = pose.position.clone().sub(pose.target)
+  const angle = Math.atan2(offset.z, offset.x)
+  return THREE.MathUtils.euclideanModulo(angle - startAngle, Math.PI * 2) * ODIN_CAMERA_ORBIT_SECONDS / (Math.PI * 2)
+}
+
 export function odinCameraFraming(aspect: number, mobile = false) {
   if (mobile) return { distanceScale: 1.60, viewOffsetY: 0 }
   const wideScale = Math.max(.72, Math.pow((16 / 9) / Math.max(16 / 9, aspect), .65))

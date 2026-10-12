@@ -1,10 +1,30 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
-import { ODIN_TOUR, sampleTourCamera, selectTourChapter, clampTourIndex, createTourTransition, sampleTourTransition, tourWheelTarget } from '../app/lib/odin-tour.ts'
+import { ODIN_TOUR, sampleTourCamera, sampleTourDisplayCamera, selectTourChapter, clampTourIndex, createTourTransition, sampleTourTransition, tourWheelTarget } from '../app/lib/odin-tour.ts'
+import { sampleOdinCamera, ODIN_CAMERA_ORBIT_SECONDS } from '../app/lib/odin-camera.ts'
 import { sampleOdinMotion, DEPLOY_SECONDS } from '../app/lib/odin-motion.ts'
 import { SITE_COPY, CHAPTER_COPY, resolveOdinLocale } from '../app/lib/odin-copy.ts'
 import { ODIN_ARTWORK } from '../app/lib/odin-artwork.ts'
+
+test('the homepage uses the original orbit while every detail chapter holds its inspection shot', () => {
+  for (const [aspect, mobile] of [[.6, true], [16 / 9, false], [32 / 9, false]]) {
+    for (const time of [0, 1, 22.5, 44.99, 45, 59.99, 60, 135]) {
+      const opening = sampleTourDisplayCamera(0, time, aspect, mobile)
+      const original = sampleOdinCamera(time, aspect, mobile)
+      assert.deepEqual(opening.position.toArray(), original.position.toArray())
+      assert.deepEqual(opening.target.toArray(), original.target.toArray())
+      for (let index = 1; index < ODIN_TOUR.length; index++) {
+        const detail = sampleTourDisplayCamera(index, time, aspect, mobile)
+        const held = sampleTourCamera(index, aspect)
+        assert.deepEqual(detail.position.toArray(), held.position.toArray())
+        assert.deepEqual(detail.target.toArray(), held.target.toArray())
+      }
+    }
+    assert.ok(sampleTourDisplayCamera(0, 0, aspect, mobile).position.distanceTo(sampleTourDisplayCamera(0, 1, aspect, mobile).position) > .1)
+    assert.ok(sampleTourDisplayCamera(0, 0, aspect, mobile).position.distanceTo(sampleTourDisplayCamera(0, ODIN_CAMERA_ORBIT_SECONDS, aspect, mobile).position) < 1e-9)
+  }
+})
 
 test('scrolling selects whole chapters in both directions, with no continuous motion fraction', () => {
   const selected = []

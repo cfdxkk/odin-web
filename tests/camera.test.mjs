@@ -1,9 +1,26 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera } from '../app/lib/odin-camera.ts'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera, odinCameraPhase } from '../app/lib/odin-camera.ts'
 
 const cameraTime = authoredTime => authoredTime * ODIN_CAMERA_ORBIT_SECONDS / 60
+test('returning to the homepage orbit preserves the visible heading at every phase', () => {
+  for (const [aspect, mobile] of [[.6, true], [16 / 9, false], [32 / 9, false]]) {
+    for (let time = 0; time < ODIN_CAMERA_ORBIT_SECONDS; time += .17) {
+      const visible = sampleOdinCamera(time, aspect, mobile)
+      const resumed = sampleOdinCamera(odinCameraPhase(visible), aspect, mobile)
+      assert.ok(resumed.position.distanceTo(visible.position) < 1e-9, `Orbit resets at ${time}s`)
+    }
+    for (const angle of [-Math.PI, -.5, 0, 1.4, Math.PI]) {
+      const target = new Vector3(.27, .74, .59)
+      const visible = { target, position: target.clone().add(new Vector3(Math.cos(angle) * 3, 2, Math.sin(angle) * 3)) }
+      const resumed = sampleOdinCamera(odinCameraPhase(visible), aspect, mobile)
+      const heading = pose => pose.position.clone().sub(pose.target).setY(0).normalize()
+      assert.ok(heading(visible).distanceTo(heading(resumed)) < 1e-9, 'Rejoining from a closeup or manual view must keep its heading')
+    }
+  }
+})
+
 test('the complete orbit keeps its distance, elevation and aim steady without cuts', () => {
   const initial = sampleOdinCamera(0)
   assert.ok(initial.position.distanceTo(sampleOdinCamera(ODIN_CAMERA_ORBIT_SECONDS).position) < 1e-6)

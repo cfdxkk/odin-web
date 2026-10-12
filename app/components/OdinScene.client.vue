@@ -7,7 +7,7 @@ const emit = defineEmits<{
   transition: [active: boolean]
   fail: [message: string]
 }>()
-const props = defineProps<{ playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
+const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
 const canvas = ref<HTMLCanvasElement>()
 let experience: OdinExperience | undefined
 let disposed = false

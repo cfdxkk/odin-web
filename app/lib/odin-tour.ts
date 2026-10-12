@@ -1,8 +1,9 @@
 import * as THREE from 'three'
 import { DEPLOY_SECONDS, ease, sampleOdinMotion } from './odin-motion.ts'
+import { sampleOdinCamera } from './odin-camera.ts'
 
 // Points use the source model's axes: X across ship, +Y bow, +Z up.
-// Each chapter has a fixed shot. Scrolling selects a chapter, never a camera
+// Scrolling selects an inspection shot (or the opening orbit), never a camera
 // interpolation fraction or a weapon deployment fraction.
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
@@ -42,6 +43,12 @@ export function sampleTourCamera(index: number, aspect = 1.6) {
   const framing = Math.max(.62, Math.pow(1.6 / Math.max(1.6, aspect), .7)) * Math.max(1, 1.25 / Math.max(aspect, .01))
   const position = new THREE.Vector3(vx, vz, -vy).normalize().multiplyScalar(shot.distance * framing).add(target)
   return { position, target }
+}
+
+// The first chapter restores the original film orbit; later chapters hold
+// their inspection shots while the mechanical transition finishes.
+export function sampleTourDisplayCamera(index: number, cameraTime: number, aspect = 1.6, mobile = false) {
+  return clampTourIndex(index) === 0 ? sampleOdinCamera(cameraTime, aspect, mobile) : sampleTourCamera(index, aspect)
 }
 
 type TourMotion = { deployment: number; thrust: number }
