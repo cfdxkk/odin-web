@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 
-// A warm-neutral studio rig for the light equipment panel. Broad fills keep
+// A neutral studio rig for the light page. Broad fills keep
 // the underside legible without changing the model's original paint colors.
-export const ODIN_DISPLAY_BACKGROUND = '#d9dcd5'
+export const ODIN_DISPLAY_BACKGROUND = '#f4f2ed'
 export const ODIN_ENVIRONMENT_INTENSITY = .58
 export function addOdinDisplayLighting(scene: THREE.Scene, shadows = false) {
   scene.add(new THREE.HemisphereLight(0xf2f0e7, 0x9a958b, 1.15))

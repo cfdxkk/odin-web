@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
-import { ODIN_TOUR, sampleTourCamera, selectTourChapter, clampTourIndex, createTourTransition, sampleTourTransition } from '../app/lib/odin-tour.ts'
+import { ODIN_TOUR, sampleTourCamera, selectTourChapter, clampTourIndex, createTourTransition, sampleTourTransition, tourWheelTarget } from '../app/lib/odin-tour.ts'
 import { sampleOdinMotion, DEPLOY_SECONDS } from '../app/lib/odin-motion.ts'
 import { SITE_COPY, CHAPTER_COPY, resolveOdinLocale } from '../app/lib/odin-copy.ts'
 import { ODIN_ARTWORK } from '../app/lib/odin-artwork.ts'
@@ -39,6 +39,16 @@ test('four guided chapters frame the hull, batteries, bridge and engines in sour
   assert.ok(bridge.target.y > batteries.target.y, 'Bridge view is above the main deck')
   assert.ok(engines.position.z > engines.target.z, 'Stern view looks forward from behind the nozzles')
   assert.ok(sampleTourCamera(0, .6).position.distanceTo(sampleTourCamera(0, .6).target) > sampleTourCamera(0, 2).position.distanceTo(sampleTourCamera(0, 2).target))
+})
+
+test('staged wheel navigation releases both tour boundaries to ordinary document scrolling', () => {
+  assert.equal(tourWheelTarget(0, 1, 112, 112), 1)
+  assert.equal(tourWheelTarget(1, 1, 112, 112), 2)
+  assert.equal(tourWheelTarget(2, -1, 112, 112), 1)
+  assert.equal(tourWheelTarget(3, 1, 112, 112), undefined, 'The artwork and footer must scroll freely after stage four')
+  assert.equal(tourWheelTarget(0, -1, 112, 112), undefined)
+  assert.equal(tourWheelTarget(3, -1, -200, 112), 3, 'Returning from the archive first aligns the last stage')
+  assert.equal(tourWheelTarget(1, 1, 250, 112), 1, 'A partly visible stage is aligned before advancing')
 })
 
 test('chapter transitions retain the native deployment duration and show intermediate poses', () => {

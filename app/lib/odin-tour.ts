@@ -26,6 +26,14 @@ export function selectTourChapter(tops: number[], viewportAnchor: number) {
   })
   return selected
 }
+export function tourWheelTarget(index: number, direction: -1 | 1, currentTop: number, viewportAnchor: number) {
+  const current = clampTourIndex(index)
+  // Return from ordinary scrolling to the current stage before advancing.
+  if (direction < 0 && currentTop < viewportAnchor - 48 || direction > 0 && currentTop > viewportAnchor + 48) return current
+  const next = current + direction
+  // At either end, hand the wheel back to ordinary document scrolling.
+  return next < 0 || next >= ODIN_TOUR.length ? undefined : next
+}
 export function sampleTourCamera(index: number, aspect = 1.6) {
   const shot = ODIN_TOUR[clampTourIndex(index)]!
   const [x, y, z] = shot.point
