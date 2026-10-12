@@ -7,7 +7,7 @@ import { sampleOdinCamera } from './odin-camera.ts'
 // interpolation fraction or a weapon deployment fraction.
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
-  { id: 'batteries', point: [0, 126, 32], view: [1.25, 1, .65], distance: 4.1, time: 24 },
+  { id: 'batteries', point: [0, 230, 20], view: [1.35, .7, .8], distance: 5.2, time: 24 },
   { id: 'bridge', point: [27, -59, 74], view: [2.1, .9, .75], distance: 3.3, time: 24 },
   { id: 'engines', point: [0, -245, 15], view: [.75, -2, .55], distance: 3.7, time: 46 },
 ] as const
@@ -27,11 +27,12 @@ export function selectTourChapter(tops: number[], viewportAnchor: number) {
   })
   return selected
 }
-export function tourWheelTarget(index: number, direction: -1 | 1, currentTop: number, viewportAnchor: number) {
+export function tourWheelTarget(index: number, direction: -1 | 1, currentTop: number, viewportAnchor: number, includeArchive = false) {
   const current = clampTourIndex(index)
   // Return from ordinary scrolling to the current stage before advancing.
   if (direction < 0 && currentTop < viewportAnchor - 48 || direction > 0 && currentTop > viewportAnchor + 48) return current
   const next = current + direction
+  if (includeArchive && next === ODIN_TOUR.length) return next
   // At either end, hand the wheel back to ordinary document scrolling.
   return next < 0 || next >= ODIN_TOUR.length ? undefined : next
 }

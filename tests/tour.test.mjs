@@ -5,7 +5,7 @@ import { ODIN_TOUR, sampleTourCamera, sampleTourDisplayCamera, selectTourChapter
 import { sampleOdinCamera, ODIN_CAMERA_ORBIT_SECONDS } from '../app/lib/odin-camera.ts'
 import { sampleOdinMotion, DEPLOY_SECONDS } from '../app/lib/odin-motion.ts'
 import { SITE_COPY, CHAPTER_COPY, resolveOdinLocale } from '../app/lib/odin-copy.ts'
-import { ODIN_ARTWORK } from '../app/lib/odin-artwork.ts'
+import { ODIN_ARTWORK, ODIN_WALLPAPERS } from '../app/lib/odin-artwork.ts'
 
 test('the homepage uses the original orbit while every detail chapter holds its inspection shot', () => {
   for (const [aspect, mobile] of [[.6, true], [16 / 9, false], [32 / 9, false]]) {
@@ -69,6 +69,22 @@ test('staged wheel navigation releases both tour boundaries to ordinary document
   assert.equal(tourWheelTarget(0, -1, 112, 112), undefined)
   assert.equal(tourWheelTarget(3, -1, -200, 112), 3, 'Returning from the archive first aligns the last stage')
   assert.equal(tourWheelTarget(1, 1, 250, 112), 1, 'A partly visible stage is aligned before advancing')
+})
+
+test('the final ship stage can hand one wheel gesture to the wallpaper stage', () => {
+  assert.equal(tourWheelTarget(3, 1, 0, 0, true), 4)
+  assert.equal(tourWheelTarget(3, 1, 250, 0, true), 3, 'Align the current stage before leaving it')
+  assert.equal(tourWheelTarget(0, -1, 0, 0, true), undefined)
+  assert.equal(tourWheelTarget(2, 1, 0, 0, true), 3)
+})
+
+test('the wallpaper gallery keeps the four official wide exterior scenes', () => {
+  assert.equal(ODIN_WALLPAPERS.length, 4)
+  assert.deepEqual(ODIN_WALLPAPERS.map(art => art.sourceName), ['sc-anvil-odin-exterior-3.jpg', 'sc-anvil-odin-exterior-4.jpg', 'sc-anvil-odin-exterior-5.jpg', 'sc-anvil-odin-exterior-7.jpg'])
+  for (const art of ODIN_WALLPAPERS) {
+    assert.ok(art.width / art.height > 2)
+    assert.equal(art.en.category, 'Exterior')
+  }
 })
 
 test('chapter transitions retain the native deployment duration and show intermediate poses', () => {

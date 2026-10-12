@@ -1,0 +1,361 @@
+{
+  "page": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+  "content": "https://robertsspaceindustries.com/alexandria/html/69ef2ec59ef77a475163b694/6a3994472dea961c0b5d6e02/LgmHGGefS6_arxT5OVYGSCM3eqo-en",
+  "verifiedDate": "2026-10-12",
+  "validation": {
+    "allFourVideosDecodeCompletely": true,
+    "tool": "FFmpeg 7.1, single-thread complete decode to the null muxer",
+    "allFourPostersDecode": true,
+    "downloadedVideoBytesMatchManifestSha256": true
+  },
+  "officialContentSha256": "b4584163f135376657dc7ae28626bb11e3d114b3a9ad03092212485eb77ab2d8",
+  "scope": "Four individual official armament loops downloaded for local hosting; no additional invented turret clips. Four landscape exterior scene artworks retained for the wallpaper-only gallery.",
+  "downloadChoice": "Use the exact official 1280x720 MP4 rendition bytes for compact 2x2 cards. This avoids downloading and decoding 40.8 MB of source masters; the four chosen files total 2.93 MB. Source master URLs and byte sizes are recorded for provenance.",
+  "presentationRequirements": {
+    "autoplay": false,
+    "nativeControls": false,
+    "initialGrayscale": true,
+    "hover": "Remove grayscale and play muted in a loop only while hovered/focused; pause when pointer leaves, card is hidden, chapter changes or document is hidden.",
+    "additionalMirrors": [
+      "main-battery",
+      "quad-turret"
+    ]
+  },
+  "videos": [
+    {
+      "id": "main-battery",
+      "category": {
+        "en": "Main battery (triple barrel)",
+        "zh": "三联装主炮"
+      },
+      "src": "/videos/odin/main-battery.mp4",
+      "poster": "/videos/odin/main-battery.webp",
+      "officialMediaId": "3813878",
+      "officialDataPath": "properties[2].componentProps.gridOptions.uiData.elements[13].data.video.heapVideo",
+      "sourceName": "S8-High0001-0180_1_FLIP.mp4",
+      "sourceFileNameHasFlip": true,
+      "additionalPresentationMirrorX": true,
+      "mirrorNote": "Apply scaleX(-1) to the video/poster display only; preserve the downloaded video bytes.",
+      "downloadUrl": "https://media.robertsspaceindustries.com/ns6umeu6gb7w5/mp4_1280.mp4",
+      "originalMasterUrl": "https://media.robertsspaceindustries.com/ns6umeu6gb7w5/source.mp4",
+      "originalMasterBytes": 14412740,
+      "sourceLastUpdated": "2026-05-21 13:33:03",
+      "downloadIsUnmodifiedOfficialRendition": true,
+      "bytes": 1021567,
+      "sha256": "322cdc61453986e46211d5550427d0eae238aeb070f9e62c071ab24d17f28c6d",
+      "durationSeconds": 7.5,
+      "width": 1280,
+      "height": 720,
+      "hasAudio": false,
+      "posterGeneration": {
+        "method": "Single decoded video frame, uncropped, scaled to 640px width and encoded as WebP using existing FFmpeg 7.1.",
+        "frameSeconds": 3.0,
+        "width": 640,
+        "height": 360,
+        "bytes": 29170,
+        "sha256": "93e3bbf2c4c1fa8f4aa79c674783382673ff33bd38444488149ec1eb01e5c8c7"
+      }
+    },
+    {
+      "id": "quad-turret",
+      "category": {
+        "en": "Bridge quad turret",
+        "zh": "舰桥四联装炮塔"
+      },
+      "src": "/videos/odin/quad-turret.mp4",
+      "poster": "/videos/odin/quad-turret.webp",
+      "officialMediaId": "3813880",
+      "officialDataPath": "properties[2].componentProps.gridOptions.uiData.elements[9].data.video.heapVideo",
+      "sourceName": "S8-High0001-0180_FLIP.mp4",
+      "sourceFileNameHasFlip": true,
+      "additionalPresentationMirrorX": true,
+      "mirrorNote": "Apply scaleX(-1) to the video/poster display only; preserve the downloaded video bytes.",
+      "downloadUrl": "https://media.robertsspaceindustries.com/meqm0flrf1683/mp4_1280.mp4",
+      "originalMasterUrl": "https://media.robertsspaceindustries.com/meqm0flrf1683/source.mp4",
+      "originalMasterBytes": 12803917,
+      "sourceLastUpdated": "2026-05-21 13:32:24",
+      "downloadIsUnmodifiedOfficialRendition": true,
+      "bytes": 564074,
+      "sha256": "63481d410c05b326fdda50f042f67d1d318572469c2202d92679b0c1530f0497",
+      "durationSeconds": 7.5,
+      "width": 1280,
+      "height": 720,
+      "hasAudio": false,
+      "posterGeneration": {
+        "method": "Single decoded video frame, uncropped, scaled to 640px width and encoded as WebP using existing FFmpeg 7.1.",
+        "frameSeconds": 3.0,
+        "width": 640,
+        "height": 360,
+        "bytes": 16458,
+        "sha256": "0051072909b3a3101539b74e7746db574fd00baf56d0190fa07feb750eca9994"
+      }
+    },
+    {
+      "id": "pdc",
+      "category": {
+        "en": "Side-hull point-defense mounts",
+        "zh": "侧舷 PDC 防御炮位"
+      },
+      "src": "/videos/odin/pdc.mp4",
+      "poster": "/videos/odin/pdc.webp",
+      "officialMediaId": "3812799",
+      "officialDataPath": "properties[2].componentProps.gridOptions.uiData.elements[5].data.video.heapVideo",
+      "sourceName": "PDCs0001-0110.mp4",
+      "sourceFileNameHasFlip": false,
+      "additionalPresentationMirrorX": false,
+      "mirrorNote": "No additional display mirroring.",
+      "downloadUrl": "https://media.robertsspaceindustries.com/907z65lvckcie/mp4_1280.mp4",
+      "originalMasterUrl": "https://media.robertsspaceindustries.com/907z65lvckcie/source.mp4",
+      "originalMasterBytes": 10967781,
+      "sourceLastUpdated": "2026-05-20 14:21:56",
+      "downloadIsUnmodifiedOfficialRendition": true,
+      "bytes": 705534,
+      "sha256": "19e623f6e7f391ce440930bce2d3ebdfa4d84e3d7cda90461c65e162626b27b5",
+      "durationSeconds": 4.58,
+      "width": 1280,
+      "height": 720,
+      "hasAudio": false,
+      "posterGeneration": {
+        "method": "Single decoded video frame, uncropped, scaled to 640px width and encoded as WebP using existing FFmpeg 7.1.",
+        "frameSeconds": 2.519,
+        "width": 640,
+        "height": 360,
+        "bytes": 28344,
+        "sha256": "95349a5d37ef0414d7ad09b9c05c3dbd7c205d3704ea7cfd477ebe546eb30585"
+      }
+    },
+    {
+      "id": "bow-laser",
+      "category": {
+        "en": "Bow laser emitter array",
+        "zh": "舰艏激光发射阵列"
+      },
+      "src": "/videos/odin/bow-laser.mp4",
+      "poster": "/videos/odin/bow-laser.webp",
+      "officialMediaId": "3812453",
+      "officialDataPath": "properties[2].componentProps.gridOptions.uiData.elements[15].data.video.heapVideo",
+      "sourceName": "0110000-0200.mp4",
+      "sourceFileNameHasFlip": false,
+      "additionalPresentationMirrorX": false,
+      "mirrorNote": "No additional display mirroring.",
+      "downloadUrl": "https://media.robertsspaceindustries.com/3p246qbd4kwlp/mp4_1280.mp4",
+      "originalMasterUrl": "https://media.robertsspaceindustries.com/3p246qbd4kwlp/source.mp4",
+      "originalMasterBytes": 2599245,
+      "sourceLastUpdated": "2026-05-20 06:47:17",
+      "downloadIsUnmodifiedOfficialRendition": true,
+      "bytes": 638853,
+      "sha256": "4a66c418679e30a129e0945457b5f76a61c690f2356e046bc817328d78b0678d",
+      "durationSeconds": 8.38,
+      "width": 1280,
+      "height": 720,
+      "hasAudio": false,
+      "posterGeneration": {
+        "method": "Single decoded video frame, uncropped, scaled to 640px width and encoded as WebP using existing FFmpeg 7.1.",
+        "frameSeconds": 3.0,
+        "width": 640,
+        "height": 360,
+        "bytes": 16564,
+        "sha256": "3e7947d67cd13d799e43f3d107e63d0cd3a08cfdd492a1503d0c22918d2fd457"
+      }
+    }
+  ],
+  "wallpaperSelection": {
+    "sourceManifest": "docs/review/v0.13.0/artwork-sources.json",
+    "indexConvention": "Zero-based ODIN_ARTWORK indices before this revision filters the array.",
+    "method": "Semantic and visual selection of landscape exterior scene artwork, not simply width > height: wide interior images, technical stills and product images are excluded.",
+    "keepIndices": [
+      0,
+      2,
+      3,
+      4
+    ],
+    "kept": [
+      {
+        "odinArtworkIndexZeroBased": 0,
+        "src": "/images/official/v0.13.0/13-sc-anvil-odin-exterior-3.webp",
+        "thumb": "/images/official/v0.13.0/thumb-13-sc-anvil-odin-exterior-3.webp",
+        "sourceName": "sc-anvil-odin-exterior-3.jpg",
+        "source": "https://robertsspaceindustries.com/i/d3699aecd34fcfa0f6bc78222f3e2d4e7d306dea/ADdPNihJzmPbNuTnFsH1DqUeqBRpXdSXVVtgJTyDDgscGKrzJuoFjReskUPPk4LKumYRcqhGh4m8vUFUvCUmYtAeS/sc-anvil-odin-exterior-3.jpg",
+        "width": 2400,
+        "height": 1013,
+        "selectionReason": "Landscape exterior scene artwork, suitable for the requested wallpaper-only gallery."
+      },
+      {
+        "odinArtworkIndexZeroBased": 2,
+        "src": "/images/official/v0.13.0/20-sc-anvil-odin-exterior-4.webp",
+        "thumb": "/images/official/v0.13.0/thumb-20-sc-anvil-odin-exterior-4.webp",
+        "sourceName": "sc-anvil-odin-exterior-4.jpg",
+        "source": "https://robertsspaceindustries.com/i/ff44af4cd7d4bd9496f28632f87238d270f9d649/ADdPNihJzmPbNuTnFsH1DqUeqBRpXdSXVVtgJTyDDgscGKrzJuoFjReskYac35ebVwGVkKrDCbRrkXeG6XR234oSE/sc-anvil-odin-exterior-4.jpg",
+        "width": 2400,
+        "height": 1013,
+        "selectionReason": "Landscape exterior scene artwork, suitable for the requested wallpaper-only gallery."
+      },
+      {
+        "odinArtworkIndexZeroBased": 3,
+        "src": "/images/official/v0.13.0/27-sc-anvil-odin-exterior-5.webp",
+        "thumb": "/images/official/v0.13.0/thumb-27-sc-anvil-odin-exterior-5.webp",
+        "sourceName": "sc-anvil-odin-exterior-5.jpg",
+        "source": "https://robertsspaceindustries.com/i/92464b9a4a08700e3f1d5ebe480cae1fa638d409/ADdPNihJzmPbNuTnFsH1DqUeqBRpXdSXVVtgJTyDDgscGKrzJuoFjReskkKzCYnuqQ3jevzU8GNTomaHY7hPKDKYS/sc-anvil-odin-exterior-5.jpg",
+        "width": 2400,
+        "height": 1029,
+        "selectionReason": "Landscape exterior scene artwork, suitable for the requested wallpaper-only gallery."
+      },
+      {
+        "odinArtworkIndexZeroBased": 4,
+        "src": "/images/official/v0.13.0/06-sc-anvil-odin-exterior-7.webp",
+        "thumb": "/images/official/v0.13.0/thumb-06-sc-anvil-odin-exterior-7.webp",
+        "sourceName": "sc-anvil-odin-exterior-7.jpg",
+        "source": "https://robertsspaceindustries.com/i/dec2e6bae1185a35dc2088b195084911f4772c3e/ADdPNihJzmPbNuTnFsH1DqUeqBRpXdSXVVtgJTyDDgscGKrzJuoFjReseYm4uyEx2dqguvhDTPZtjPYuBkRPp5h5G/sc-anvil-odin-exterior-7.jpg",
+        "width": 2400,
+        "height": 1013,
+        "selectionReason": "Landscape exterior scene artwork, suitable for the requested wallpaper-only gallery."
+      }
+    ],
+    "excluded": [
+      {
+        "odinArtworkIndexZeroBased": 1,
+        "src": "/images/official/v0.13.0/15-sc-anvil-odin-exterior-2.webp",
+        "sourceName": "sc-anvil-odin-exterior-2.jpg",
+        "reason": "Square exterior detail rather than a landscape wallpaper."
+      },
+      {
+        "odinArtworkIndexZeroBased": 5,
+        "src": "/images/official/v0.13.0/14-sc-anvil-odin-interior-5.webp",
+        "sourceName": "sc-anvil-odin-interior-5.jpg",
+        "reason": "Interior room or corridor artwork, outside the requested landscape exterior wallpaper scope."
+      },
+      {
+        "odinArtworkIndexZeroBased": 6,
+        "src": "/images/official/v0.13.0/16-sc-anvil-odin-interior-9.webp",
+        "sourceName": "sc-anvil-odin-interior-9.jpg",
+        "reason": "Interior room or corridor artwork, outside the requested landscape exterior wallpaper scope."
+      },
+      {
+        "odinArtworkIndexZeroBased": 7,
+        "src": "/images/official/v0.13.0/17-sc-anvil-odin-interior-7.webp",
+        "sourceName": "sc-anvil-odin-interior-7.jpg",
+        "reason": "Interior room or corridor artwork, outside the requested landscape exterior wallpaper scope."
+      },
+      {
+        "odinArtworkIndexZeroBased": 8,
+        "src": "/images/official/v0.13.0/19-75-copy.webp",
+        "sourceName": "75-copy.jpg",
+        "reason": "Interior room or corridor artwork, outside the requested landscape exterior wallpaper scope."
+      },
+      {
+        "odinArtworkIndexZeroBased": 9,
+        "src": "/images/official/v0.13.0/18-78.webp",
+        "sourceName": "78.jpg",
+        "reason": "Interior room or corridor artwork, outside the requested landscape exterior wallpaper scope."
+      },
+      {
+        "odinArtworkIndexZeroBased": 10,
+        "src": "/images/official/v0.13.0/04-the-pinnacle-of-propulsion.webp",
+        "sourceName": "the-pinnacle-of-propulsion.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 11,
+        "src": "/images/official/v0.13.0/05-pdcs0001-0110.webp",
+        "sourceName": "pdcs0001-0110.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 12,
+        "src": "/images/official/v0.13.0/07-arming-a-garrison.webp",
+        "sourceName": "arming-a-garrison.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 13,
+        "src": "/images/official/v0.13.0/08-at-the-core-of-combat.webp",
+        "sourceName": "at-the-core-of-combat.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 14,
+        "src": "/images/official/v0.13.0/09-unveiling-destruction.webp",
+        "sourceName": "unveiling-destruction.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 15,
+        "src": "/images/official/v0.13.0/10-the-all-killing-eye.webp",
+        "sourceName": "the-all-killing-eye.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 16,
+        "src": "/images/official/v0.13.0/12-all-weapons-opening0001-0240.webp",
+        "sourceName": "all-weapons-opening0001-0240.jpg",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 17,
+        "src": "/images/official/v0.13.0/11-ship-topdown.webp",
+        "sourceName": "ship-topdown.png",
+        "reason": "Armament, propulsion, top-down technical view or video still, rather than a wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 18,
+        "src": "/images/official/v0.13.0/21-01.webp",
+        "sourceName": "01.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 19,
+        "src": "/images/official/v0.13.0/22-03.webp",
+        "sourceName": "03.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 20,
+        "src": "/images/official/v0.13.0/23-17.webp",
+        "sourceName": "17.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 21,
+        "src": "/images/official/v0.13.0/24-33.webp",
+        "sourceName": "33.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 22,
+        "src": "/images/official/v0.13.0/25-36.webp",
+        "sourceName": "36.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 23,
+        "src": "/images/official/v0.13.0/26-37.webp",
+        "sourceName": "37.jpg",
+        "reason": "Livery/product display render, rather than a landscape wallpaper scene."
+      },
+      {
+        "odinArtworkIndexZeroBased": 24,
+        "src": "/images/official/v0.13.0/02-odin-ship-overlay.webp",
+        "sourceName": "odin-ship-overlay.png",
+        "reason": "Isolated hull compositing layer."
+      },
+      {
+        "odinArtworkIndexZeroBased": 25,
+        "src": "/images/official/v0.13.0/01-sc-odin-key-background-2.webp",
+        "sourceName": "sc-odin-key-background-2.jpg",
+        "reason": "Page background compositing layer rather than standalone hull wallpaper."
+      },
+      {
+        "odinArtworkIndexZeroBased": 26,
+        "src": "/images/official/v0.13.0/03-the-fight-within.webp",
+        "sourceName": "the-fight-within.jpg",
+        "reason": "Cropped combat/deck detail used to illustrate a feature."
+      }
+    ],
+    "labelCorrection": {
+      "index": 4,
+      "suggestedZhTitle": "舰体全景",
+      "suggestedEnTitle": "Hull overview",
+      "reason": "The image shows Odin beside large space-facility structures, not an empty deep-space scene."
+    }
+  }
+}

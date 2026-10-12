@@ -1,0 +1,20 @@
+{
+  "source": "assets/illustrations/v0.16.0/odin-mountain-grayscale-source.png",
+  "target": "public/images/odin-mountain-footer-v0.16.0.svg",
+  "width": 2400,
+  "height": 900,
+  "pitch": 4,
+  "gridOrigin": [
+    2,
+    2
+  ],
+  "dots": 57983,
+  "inks": [
+    "#070b10",
+    "#dce2e7"
+  ],
+  "sampling": "5x5 mean luminance",
+  "amplitudeModulated": true,
+  "randomJitter": false,
+  "randomDensity": false
+}

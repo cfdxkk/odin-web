@@ -80,12 +80,12 @@ export const ODIN_ARTWORK = [
     "source": "https://robertsspaceindustries.com/i/dec2e6bae1185a35dc2088b195084911f4772c3e/ADdPNihJzmPbNuTnFsH1DqUeqBRpXdSXVVtgJTyDDgscGKrzJuoFjReseYm4uyEx2dqguvhDTPZtjPYuBkRPp5h5G/sc-anvil-odin-exterior-7.jpg",
     "sourceName": "sc-anvil-odin-exterior-7.jpg",
     "zh": {
-      "title": "深空中的奥丁",
+      "title": "舰体全景",
       "category": "外观",
       "alt": "奥丁穿行在深色太空环境中的官方艺术图。"
     },
     "en": {
-      "title": "Odin in deep space",
+      "title": "Hull panorama",
       "category": "Exterior",
       "alt": "Official artwork of Odin crossing a dark space environment."
     }
@@ -487,3 +487,6 @@ export const ODIN_ARTWORK = [
     }
   }
 ] as const
+
+// The four official landscape scene wallpapers; the complete source archive stays preserved above.
+export const ODIN_WALLPAPERS = [0, 2, 3, 4].map(index => ODIN_ARTWORK[index]!)
