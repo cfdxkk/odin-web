@@ -3,6 +3,7 @@ import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from 
 import { ODIN_TOUR, clampTourIndex, selectTourChapter, tourWheelTarget } from '~/lib/odin-tour'
 import { CHAPTER_COPY } from '~/lib/odin-copy'
 import { ODIN_WALLPAPERS } from '~/lib/odin-artwork'
+import { WEAPON_TOUR, clampWeaponStep } from '~/lib/odin-weapon-tour'
 
 const { locale, copy: c, setLocale } = useOdinLocale()
 const viewer = ref<{ seek: (t: number) => void }>()
@@ -10,6 +11,10 @@ const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElem
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const viewportActive = ref(true), reducedMotion = ref(false)
 const changingView = ref(false)
+const weaponStep = ref(0)
+type WeaponAnchor = { x: number; y: number; visible: boolean }
+const weaponAnchor = ref<WeaponAnchor>({ x: 0, y: 0, visible: false })
+const weaponConnector = ref({ width: 1, height: 1, path: '', x: 0, y: 0, visible: false })
 const chromeVisible = computed(() => activeChapter.value === 0 && viewportActive.value)
 const archiveActive = ref(false)
 const headerVisible = computed(() => chromeVisible.value || archiveActive.value)
@@ -19,6 +24,11 @@ const sequenceOverride = ref(false)
 const playing = computed(() => isPlaying(playback.value))
 const filmPlaying = computed(() => !explore.value && playing.value && (activeChapter.value === 0 || sequenceOverride.value))
 function togglePlayback() {
+  if (activeChapter.value === 1) {
+    playback.value = nextPlayback(playback.value, 'toggle')
+    sequenceOverride.value = false
+    return
+  }
   if (filmPlaying.value) playback.value = nextPlayback(playback.value, 'toggle')
   else { playback.value = { ...playback.value, userPaused: false }; sequenceOverride.value = true }
 }
@@ -39,7 +49,22 @@ const artwork = computed(() => ODIN_WALLPAPERS[artworkIndex.value]!)
 function changeArtwork(index: number) { artworkIndex.value = (index + ODIN_WALLPAPERS.length) % ODIN_WALLPAPERS.length }
 function goToChapter(index: number) {
   const next = clampTourIndex(index), element = document.getElementById(ODIN_TOUR[next]!.id)
+  if (next === 1 && activeChapter.value !== 1) selectWeaponStep(activeChapter.value < 1 ? 0 : WEAPON_TOUR.length - 1)
   element?.scrollIntoView({ block: 'start', behavior: reducedMotion.value || Math.abs(next - activeChapter.value) > 1 ? 'instant' : 'smooth' })
+}
+function selectWeaponStep(index: number) {
+  const next = clampWeaponStep(index)
+  if (next === weaponStep.value) { scheduleWeaponConnector(); return }
+  weaponStep.value = next
+  weaponAnchor.value = { ...weaponAnchor.value, visible: false }
+  scheduleWeaponConnector()
+}
+function advanceChapter(index: number) {
+  if (index === 1 && weaponStep.value < WEAPON_TOUR.length - 1) selectWeaponStep(weaponStep.value + 1)
+  else goToChapter(index + 1)
+}
+function nextStepLabel(index: number) {
+  return index === 1 && weaponStep.value < WEAPON_TOUR.length - 1 ? locale.value === 'zh' ? '下一项武备' : 'Next weapon' : c.value.nextChapter
 }
 function goToArchive() { document.getElementById('archive')?.scrollIntoView({ block: 'start', behavior: reducedMotion.value ? 'instant' : 'smooth' }) }
 function choosePhase(index: number) {
@@ -52,6 +77,7 @@ watch(locale, () => {
   nextTick(() => document.getElementById(ODIN_TOUR[chapter]!.id)?.scrollIntoView({ block: 'start', behavior: 'instant' }))
 })
 function toggleExplore() {
+  if (changingView.value) return
   if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).deployment > .5
   explore.value = !explore.value
 }
@@ -63,11 +89,38 @@ function keyboard(event: KeyboardEvent) {
   if (event.code === 'Space' && viewportActive.value) { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
   if (event.key.toLowerCase() === 'r' && !explore.value && viewportActive.value) viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time)
 }
-watch(activeChapter, () => {
+watch(activeChapter, (chapter, previous) => {
   explore.value = false
   sequenceOverride.value = false
+  if (chapter === 1 && previous !== 1) selectWeaponStep(previous < 1 ? 0 : WEAPON_TOUR.length - 1)
+  else { weaponAnchor.value = { ...weaponAnchor.value, visible: false }; scheduleWeaponConnector() }
 })
 let scrollFrame = 0
+let connectorFrame = 0
+function scheduleWeaponConnector() {
+  if (!import.meta.client || connectorFrame) return
+  connectorFrame = requestAnimationFrame(updateWeaponConnector)
+}
+function updateWeaponConnector() {
+  connectorFrame = 0
+  const origin = document.querySelector<HTMLElement>('#batteries .weapon-callout-origin')
+  const canvas = modelPanel.value?.querySelector<HTMLCanvasElement>('.odin-canvas')
+  if (activeChapter.value !== 1 || !viewportActive.value || !ready.value || !weaponAnchor.value.visible || !origin || !canvas) {
+    weaponConnector.value = { ...weaponConnector.value, visible: false }
+    return
+  }
+  const bounds = canvas.getBoundingClientRect(), label = origin.getBoundingClientRect()
+  const startX = label.left + label.width / 2 - bounds.left
+  const startY = label.top + label.height / 2 - bounds.top
+  const { x, y } = weaponAnchor.value
+  const kneeX = startX + (x >= startX ? 36 : -36)
+  weaponConnector.value = { width: bounds.width, height: bounds.height, path: `M ${startX} ${startY} H ${kneeX} V ${y} H ${x}`, x, y, visible: bounds.width > 0 && bounds.height > 0 && label.width > 0 && label.height > 0 }
+}
+function onWeaponAnchor(anchor: WeaponAnchor) {
+  weaponAnchor.value = anchor
+  scheduleWeaponConnector()
+}
+watch([locale, ready, viewportActive], () => nextTick(scheduleWeaponConnector))
 let wheelAmount = 0, wheelLastAt = 0, wheelCommitted = false
 function tourAnchor() {
   // Each chapter occupies a whole viewport; the canvas fills that viewport too.
@@ -84,6 +137,9 @@ function onTourWheel(event: WheelEvent) {
   if (top === undefined) return
   const next = fromArchive ? 3 : tourWheelTarget(activeChapter.value, event.deltaY > 0 ? 1 : -1, top, tourAnchor(), true)
   if (next === undefined) return
+  const direction = event.deltaY > 0 ? 1 : -1
+  const nextWeapon = weaponStep.value + direction
+  const advanceWeapon = !fromArchive && activeChapter.value === 1 && next !== activeChapter.value && Math.abs(top - tourAnchor()) <= 48 && nextWeapon >= 0 && nextWeapon < WEAPON_TOUR.length
   event.preventDefault()
   const now = performance.now()
   if (now - wheelLastAt > 180) { wheelAmount = 0; wheelCommitted = false }
@@ -92,7 +148,8 @@ function onTourWheel(event: WheelEvent) {
   wheelAmount += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1)
   if (Math.abs(wheelAmount) < 40) return
   wheelCommitted = true
-  if (next === ODIN_TOUR.length) goToArchive()
+  if (advanceWeapon) selectWeaponStep(nextWeapon)
+  else if (next === ODIN_TOUR.length) goToArchive()
   else goToChapter(next)
 }
 function updateChapter() {
@@ -107,6 +164,7 @@ function updateChapter() {
   const anchor = tourAnchor()
   const tops = ODIN_TOUR.map(shot => document.getElementById(shot.id)?.getBoundingClientRect().top ?? Infinity)
   activeChapter.value = selectTourChapter(tops, anchor)
+  scheduleWeaponConnector()
 }
 function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
 onMounted(() => {
@@ -135,6 +193,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('wheel', onTourWheel)
   window.removeEventListener('resize', onScroll)
   cancelAnimationFrame(scrollFrame)
+  cancelAnimationFrame(connectorFrame)
 })
 </script>
 
@@ -149,33 +208,34 @@ onBeforeUnmount(() => {
 
     <main>
       <div id="tour" class="tour-layout">
-        <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore, 'has-home-controls': chromeVisible }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id">
-          <div class="panel-toprail"><span>{{ c.realTime }}</span><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
+        <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore, 'has-home-controls': chromeVisible }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id" :data-weapon-step="activeChapter === 1 ? weaponStep : undefined">
+          <div class="panel-toprail"><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
           <div class="scene-wrap">
-            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
+            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :weapon-step="activeChapter === 1 ? weaponStep : undefined" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @transition="changingView = $event" @anchor="onWeaponAnchor" @fail="error = $event" /></ClientOnly>
             <div class="scene-shade" aria-hidden="true" />
+            <svg v-if="activeChapter === 1 && viewportActive && ready" v-show="weaponConnector.visible" class="weapon-connector" :viewBox="`0 0 ${weaponConnector.width} ${weaponConnector.height}`" preserveAspectRatio="none" aria-hidden="true"><path :d="weaponConnector.path" /><circle :cx="weaponConnector.x" :cy="weaponConnector.y" r="3" /></svg>
             <div class="viewport-status" :aria-hidden="!chromeVisible">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : filmPlaying ? c.playing : c.paused }}<span>{{ configuration }} / {{ c.config }}</span></div>
             <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">OD—77 / {{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
             <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
-            <button v-if="ready" class="explore-button" :inert="!chromeVisible" :aria-hidden="!chromeVisible" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5" /></svg>{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↗</span></button>
           </div>
           <div class="viewer-console" :inert="!chromeVisible" :aria-hidden="!chromeVisible">
+            <button v-if="ready" class="explore-button" :disabled="changingView" :inert="!chromeVisible" :aria-hidden="!chromeVisible" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5" /></svg>{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↗</span></button>
             <div v-if="explore" class="explore-tools"><p>{{ c.controlsHint }}</p><button @click="deployed = !deployed">{{ deployed ? c.switchNav : c.switchScm }} →</button></div>
             <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="filmPlaying ? c.pause : c.play" @click="togglePlayback"><svg v-if="filmPlaying" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
             <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="filmTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${filmTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
-            <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)"><span>0{{ index + 1 }}</span>{{ phase }}</button></div>
+            <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)">{{ phase }}</button></div>
           </div>
-          <div class="panel-footrail" :aria-hidden="!chromeVisible"><span>{{ c.shortcuts }}</span><span>{{ explore ? c.manualView : currentChapter.label }}</span></div>
         </section>
         <div class="story-rail">
-          <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
+          <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, 'weapon-chapter': index === 1, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
             <div class="chapter-content">
-            <div class="chapter-topline"><span class="eyebrow">{{ c.guide }}</span><span class="folio">{{ String(index + 1).padStart(2, '0') }} / {{ String(chapters.length).padStart(2, '0') }}</span></div>
+            <WeaponStory v-if="index === 1" :step="weaponStep" :locale="locale" :active="activeChapter === 1 && viewportActive" @select="selectWeaponStep" />
+            <template v-else>
             <div class="chapter-heading"><p class="eyebrow">{{ String(index + 1).padStart(2, '0') }} / {{ chapter.label }}</p><h1 v-if="index === 0" :id="`${chapter.id}-title`">ODIN</h1><h2 v-else :id="`${chapter.id}-title`">{{ chapter.title }}</h2><p v-if="index === 0" class="vehicle-class">{{ c.vehicleClass }}<span>{{ c.manufacturer }}</span></p></div>
             <p v-if="index > 0" class="chapter-body">{{ chapter.body }}</p>
             <dl v-if="chapter.specs.length" class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
-            <WeaponVideos v-if="index === 1" :locale="locale" />
-            <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="c.nextChapter" @click="goToChapter(index + 1)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
+            </template>
+            <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="nextStepLabel(index)" @click="advanceChapter(index)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
             </div>
           </article>
         </div>
@@ -188,14 +248,14 @@ onBeforeUnmount(() => {
     </main>
 
     <footer id="footer" class="site-footer">
-      <figure class="footer-landscape"><img src="/images/odin-mountain-footer-v0.16.1.png?v=0.16.1-rc.1" :alt="c.footerImageAlt" width="3600" height="1200" loading="lazy" /></figure>
+      <figure class="footer-landscape"><FooterPrint :alt="c.footerImageAlt" /></figure>
       <div class="footer-content">
         <div class="footer-intro">
           <a class="footer-wordmark" href="#overview" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="44" height="44" />ODIN</a>
           <h2>{{ c.footerThanks }}</h2><p>{{ c.footerBody }}</p>
           <span class="eyebrow">{{ c.footerCreator }} / 2026</span><div class="identity-stripe" aria-hidden="true"><i /><i /><i /><i /></div>
         </div>
-        <div class="footer-column footer-sources"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} ↗</a></div>
+        <div class="footer-column footer-sources"><h2>{{ c.footerSources }}</h2><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin <span aria-hidden="true">↗</span></a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live <span aria-hidden="true">↗</span></a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.founder }} <span aria-hidden="true">↗</span></a></div>
         <div class="footer-colophon"><span>{{ c.document }} / {{ c.edition }}</span><div class="footer-marks"><a class="community-mark" href="https://robertsspaceindustries.com/community" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" :alt="c.communityAlt" width="56" height="56" loading="lazy" /></a><a href="#overview" @click.prevent="goToChapter(0)" :aria-label="c.footerTop">↑</a></div></div>
       </div>
     </footer>
@@ -203,3 +263,9 @@ onBeforeUnmount(() => {
     <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">{{ c.inspiration }} ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">{{ c.developerShow }} ↗</a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.shipSource }} ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.badgeSource }} ↗</a></div><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
   </div>
 </template>
+
+<style scoped>
+.weapon-connector { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; overflow: hidden; }
+.weapon-connector path { fill: none; stroke: rgba(235, 239, 241, .64); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.weapon-connector circle { fill: #edf0f2; stroke: rgba(0, 0, 0, .65); stroke-width: 1; vector-effect: non-scaling-stroke; }
+</style>

@@ -1,0 +1,45 @@
+/* The weapon tour shares the same text measure as the other chapters.
+   Its screen placement belongs to the parent chapter, not each substep. */
+.weapon-story { width: 100%; max-width: var(--story-width); min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.weapon-section-label .eyebrow { color: var(--accent); font-size: 10px; letter-spacing: .09em; }
+.weapon-step-nav { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; pointer-events: auto; }
+.weapon-step-nav button { min-width: 0; min-height: 38px; text-align: left; font: 400 11px/1 var(--sans); font-variant-numeric: tabular-nums; color: #86939c; border-bottom: 1px solid var(--line); }
+.weapon-step-nav button[aria-current=step] { border-color: var(--accent); color: var(--text); }
+.weapon-step-nav button:hover { color: var(--accent); }
+.weapon-step-nav button:focus-visible, .weapon-film:focus-visible, .weapon-source:focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+.weapon-copy { display: flex; flex-direction: column; gap: 16px; }
+.weapon-title-row { position: relative; }
+.weapon-title-row h2 { min-height: 2.3em; margin: 0; font: 400 clamp(32px,3vw,48px)/1.12 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+html[lang=zh-CN] .weapon-title-row h2 { font: 400 clamp(30px,2.5vw,42px)/1.35 var(--sans); letter-spacing: -.025em; min-height: 2.7em; }
+.weapon-callout-origin { position: absolute; top: .65em; left: calc(100% + 16px); width: 1px; height: 1px; color: #b3bbb9; font-size: clamp(32px,3vw,48px); pointer-events: none; }
+.weapon-callout-origin::before { content: ''; position: absolute; top: 0; right: 0; width: 28px; border-top: 1px solid currentColor; }
+.weapon-copy .chapter-body { min-height: 5.55em; }
+.weapon-spec { padding-top: 13px; border-top: 1px solid var(--line); font-size: 11px; line-height: 1.75; color: #a7b1b9; }
+.weapon-video-slot { width: 100%; min-width: 0; margin-top: 2px; }
+.weapon-film { display: block; position: relative; width: 100%; aspect-ratio: 16 / 9; padding: 0; overflow: hidden; background: #080c10; pointer-events: auto; }
+.weapon-film video { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.74); transition: filter .3s; }
+.weapon-film video.mirrored { transform: scaleX(-1); }
+.weapon-film.is-playing video { filter: grayscale(0) brightness(1); }
+.weapon-film .preview-indicator { color: #e2e7e9; }
+.weapon-film-caption { display: flex; justify-content: space-between; gap: 16px; margin-top: 9px; font-size: 9px; line-height: 1.5; color: #8f9aa3; }
+.weapon-film-caption > span:last-child { color: #71808c; }
+.weapon-source { display: inline-flex; align-items: center; gap: 16px; align-self: flex-start; min-height: 30px; font-size: 10px; line-height: 1.5; color: #a7b2ba; pointer-events: auto; }
+.weapon-source span { color: #7f8d97; }
+.weapon-source:hover { color: var(--text); }
+@media (min-width: 1900px) { .weapon-story { gap: 23px; }.weapon-spec { font-size: 12px; }.weapon-film-caption,.weapon-source { font-size: 10px; } }
+@media (max-width: 1100px) { .weapon-story { gap: 16px; }.weapon-title-row h2,html[lang=zh-CN] .weapon-title-row h2 { font-size: 30px; }.weapon-callout-origin { font-size: 30px; } }
+@media (max-width: 700px) {
+  .weapon-story { gap: 12px; }
+  .weapon-step-nav { gap: 10px; }.weapon-step-nav button { min-height: 32px; font-size: 10px; }
+  .weapon-copy { gap: 11px; }.weapon-title-row h2,html[lang=zh-CN] .weapon-title-row h2 { font-size: 29px; min-height: 0; }
+  .weapon-copy .chapter-body { min-height: 0; }.weapon-spec { font-size: 10px; padding-top: 9px; }
+  .weapon-video-slot { max-width: 245px; }.weapon-film-caption { font-size: 8px; margin-top: 7px; }.weapon-source { font-size: 9px; min-height: 26px; }
+  .weapon-callout-origin { font-size: 29px; left: calc(100% + 6px); }.weapon-callout-origin::before { width: 12px; }
+}
+@media (max-height: 800px) and (min-width: 701px) {
+  .weapon-story { gap: 12px; }.weapon-step-nav button { min-height: 33px; }.weapon-copy { gap: 11px; }
+  .weapon-title-row h2,html[lang=zh-CN] .weapon-title-row h2 { font-size: 30px; min-height: 2.3em; }.weapon-callout-origin { font-size: 30px; }
+  .weapon-copy .chapter-body { min-height: 0; font-size: 12px; line-height: 1.75; }.weapon-spec { padding-top: 9px; font-size: 10px; }
+  .weapon-video-slot { max-width: 240px; }.weapon-film-caption { font-size: 8px; margin-top: 7px; }.weapon-source { min-height: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .weapon-film video { transition: none; } }

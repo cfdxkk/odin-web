@@ -5,9 +5,10 @@ const emit = defineEmits<{
   progress: [value: number]
   tick: [time: number]
   transition: [active: boolean]
+  anchor: [point: { x: number; y: number; visible: boolean }]
   fail: [message: string]
 }>()
-const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
+const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
 const canvas = ref<HTMLCanvasElement>()
 let experience: OdinExperience | undefined
 let disposed = false
@@ -15,11 +16,15 @@ onMounted(async () => {
   try {
     const { createOdinExperience } = await import('~/lib/odin-scene')
     if (disposed || !canvas.value) return
+    const viewAtLoadStart = props.viewIndex
     experience = await createOdinExperience(canvas.value, {
       progress: p => emit('progress', p), tick: t => emit('tick', t), transition: active => emit('transition', active),
+      anchor: point => emit('anchor', point),
       state: () => ({ ...props }),
     })
     if (disposed) { experience.dispose(); return }
+    if (props.viewIndex !== viewAtLoadStart) experience.setView(props.viewIndex)
+    if (props.viewIndex === 1) experience.setWeaponStep(props.weaponStep ?? 0)
     emit('ready')
   } catch (error) {
     emit('fail', error instanceof Error ? error.message : '无法载入三维模型')
@@ -27,7 +32,10 @@ onMounted(async () => {
 })
 watch(() => props.explore, value => experience?.setExplore(value))
 watch(() => props.lowPower, () => experience?.resize())
-watch(() => props.viewIndex, value => experience?.setView(value))
+watch(() => [props.viewIndex, props.weaponStep] as const, ([view, step], [previousView, previousStep]) => {
+  if (view !== previousView) experience?.setView(view)
+  if (view === 1 && (view !== previousView || step !== previousStep)) experience?.setWeaponStep(step ?? 0)
+}, { flush: 'post' })
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
 defineExpose({ seek: (time: number) => experience?.seek(time) })
 </script>

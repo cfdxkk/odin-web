@@ -5,6 +5,8 @@ import { sternSourceMotion } from './stern-source-motion.ts'
 import { flankSourceMotion } from './flank-source-motion.ts'
 import { bridgeQuadCarriageAmount, bridgeQuadSourceAim, bridgeQuadCompactAmount, bridgeQuadPetalAmount, bridgeQuadTubeCompactAmount, bridgeQuadTubePackingAmount, bridgeQuadTubeCompactVector, bridgeQuadBearingCompactVector, bridgeQuadBearingPackingOffset, bridgeQuadGuideCompactVector, bridgeQuadTubeSlideAmount, bridgeQuadTubeSlideVector } from './bridge-quad-source-motion.ts'
 import { turretPoseProgress } from './turret-tempo.ts'
+import { classifyWeaponJoint, WEAPON_GROUPS } from './odin-weapon-groups.ts'
+import type { WeaponGroup } from './odin-weapon-groups.ts'
 
 // All movements are authored here. The GLB contains only static, named joints.
 // Model coordinates are centimeters relative to the 0.01 asset root; Blender's
@@ -356,9 +358,71 @@ export function createOdinRig(root: THREE.Object3D) {
     }
   }
   followers.push(...references)
+  // The asset's source transforms are not the closed pose. Capture NAV only
+  // after the rigid bore followers have their final attachment solution.
+  // These reusable records let the guided tour combine independent clocks
+  // without changing any of apply()'s accepted mechanical trajectories.
+  apply(0, 0)
+  type PoseRecord = {
+    object: THREE.Object3D
+    stowPosition: THREE.Vector3
+    stowQuaternion: THREE.Quaternion
+    position: THREE.Vector3
+    quaternion: THREE.Quaternion
+  }
+  const grouped: Record<WeaponGroup, PoseRecord[]> = { main: [], single: [], defense: [], quad: [] }
+  const unrelated: PoseRecord[] = []
+  for (const { object } of joints.values()) {
+    const group = classifyWeaponJoint(object.name)
+    const record = {
+      object, stowPosition: object.position.clone(), stowQuaternion: object.quaternion.clone(),
+      position: object.position.clone(), quaternion: object.quaternion.clone(),
+    }
+    if (group) grouped[group].push(record)
+    else unrelated.push(record)
+  }
+  const groupCounts = Object.freeze({ main: grouped.main.length, single: grouped.single.length, defense: grouped.defense.length, quad: grouped.quad.length })
+  const progress: Record<WeaponGroup, number> = { main: 0, single: 0, defense: 0, quad: 0 }
+  const evaluationLevels: number[] = []
+  const selectiveResult = { joints: joints.size, deployment: 0, covers: 0, barrels: 0, pdcArms: 0, progress, groupCounts }
+  function applySelective(levels: Record<WeaponGroup, number>, time: number) {
+    evaluationLevels.length = 0
+    for (const group of WEAPON_GROUPS) {
+      const value = Number.isFinite(levels[group]) ? THREE.MathUtils.clamp(levels[group], 0, 1) : 0
+      progress[group] = value
+      // Fully closed groups use the measured NAV snapshot. Equal clocks share
+      // one evaluation; a typical single-weapon shot needs only one apply().
+      if (value > 0 && !evaluationLevels.includes(value)) evaluationLevels.push(value)
+    }
+    for (const value of evaluationLevels) {
+      apply(value, time)
+      for (const group of WEAPON_GROUPS) {
+        if (progress[group] !== value) continue
+        for (const record of grouped[group]) {
+          record.position.copy(record.object.position)
+          record.quaternion.copy(record.object.quaternion)
+        }
+      }
+    }
+    for (const group of WEAPON_GROUPS) {
+      for (const record of grouped[group]) {
+        record.object.position.copy(progress[group] === 0 ? record.stowPosition : record.position)
+        record.object.quaternion.copy(progress[group] === 0 ? record.stowQuaternion : record.quaternion)
+      }
+    }
+    for (const record of unrelated) {
+      record.object.position.copy(record.stowPosition)
+      record.object.quaternion.copy(record.stowQuaternion)
+    }
+    selectiveResult.deployment = Math.max(progress.main, progress.single, progress.defense, progress.quad)
+    selectiveResult.covers = ease(0, .34, progress.main)
+    selectiveResult.barrels = ease(.40, .93, progress.main)
+    selectiveResult.pdcArms = ease(.03, .18, turretPoseProgress(progress.quad, 'quad'))
+    return selectiveResult
+  }
   for (const { object, position, quaternion } of joints.values()) {
     object.position.copy(position); object.quaternion.copy(quaternion)
   }
   root.updateWorldMatrix(true, true)
-  return { apply, jointCount: joints.size }
+  return { apply, applySelective, jointCount: joints.size, groupCounts }
 }

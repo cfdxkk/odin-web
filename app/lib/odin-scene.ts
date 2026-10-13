@@ -15,10 +15,12 @@ import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
 import type { OdinExhaust } from './odin-exhaust'
+import { WEAPON_TOUR, WEAPON_TRANSITION_SECONDS, WEAPON_DEPLOY_SECONDS, clampWeaponStep, sampleWeaponCamera, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels } from './odin-weapon-tour'
+import type { WeaponLevels } from './odin-weapon-tour'
 
-type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; active?: boolean; reducedMotion?: boolean }
-type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; state: () => State }
-export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
+type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; weaponStep?: number; active?: boolean; reducedMotion?: boolean }
+type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; anchor?: (point: { x: number; y: number; visible: boolean }) => void; state: () => State }
+export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setWeaponStep: (step: number) => void; setExplore: (b: boolean) => void; resize: () => void; dispose: () => void }
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
 
@@ -129,6 +131,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let cameraTime = 0, effectTime = 0, previous = performance.now(), frame = 0, lastTick = -1, alive = true, transitioning = 0, deployment = 0, explorationTime = 0
   let manualMotion = { deployment: 0, thrust: 0 }
   let viewIndex = hooks.state().viewIndex
+  let weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+  let weaponLevels = uniformWeaponLevels(sampleOdinMotion(time).deployment)
+  let selective = viewIndex === 1
+  let weaponTransition: { from: WeaponLevels; to: WeaponLevels; elapsed: number; duration: number } | undefined
+  if (selective) weaponLevels = focusedWeaponLevels(weaponStep)
   let cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
   let motionTransition: TourTransition | undefined, motionElapsed = 0, guideFromAnimationTime = time
   let renderedMotion: { deployment: number; thrust: number } = sampleOdinMotion(time)
@@ -138,7 +145,15 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let needsRender = true, renderedFrames = 0
   let stateKey = ''
   controls.addEventListener('change', () => { needsRender = true })
-  let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3()
+  let cameraFrom = new THREE.Vector3(), aimFrom = new THREE.Vector3(), upFrom = new THREE.Vector3(0, 1, 0)
+  const desiredUp = new THREE.Vector3(0, 1, 0), projectedAnchor = new THREE.Vector3()
+  const weaponAnchors = WEAPON_TOUR.map(shot => {
+    const joint = shot.anchor ? find(shot.anchor) : undefined
+    const mesh = joint?.getObjectByProperty('isMesh', true) as THREE.Mesh | undefined
+    if (!mesh) return joint ? { object: joint, center: new THREE.Vector3() } : undefined
+    mesh.geometry.computeBoundingBox()
+    return { object: mesh, center: mesh.geometry.boundingBox!.getCenter(new THREE.Vector3()) }
+  })
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
   let manualFraming: { x: number; y: number } | undefined
@@ -148,7 +163,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       else camera.clearViewOffset()
     }
     else if (viewIndex === undefined) camera.setViewOffset(width, height, 0, height * odinCameraFraming(camera.aspect, width < 700).viewOffsetY, width, height)
-    else if (width > 700) camera.setViewOffset(width, height, -width * .08, 0, width, height)
+    else if (width > 700) camera.setViewOffset(width, height, -width * .135, 0, width, height)
     else camera.clearViewOffset()
   }
   function resize() {
@@ -165,8 +180,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
+    const shot = viewIndex === 1 ? sampleWeaponCamera(weaponStep, camera.aspect) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
     target.copy(shot.target); desired.copy(shot.position)
+    desiredUp.set(0, viewIndex === 1 ? 0 : 1, viewIndex === 1 ? -1 : 0)
     // The full-screen lens leaves room for the overlay and keeps the hull intact.
     camera.fov = viewIndex === undefined ? (width < 700 ? 34 : 28) : 33
     camera.updateProjectionMatrix()
@@ -182,7 +198,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     // Explicit playback and timeline actions take control of a finite guide
     // transition without changing the user's persistent pause preference.
     if (state.playing !== lastPlaying || filmPlaying !== lastFilmPlaying) {
-      motionTransition = undefined; lastPlaying = state.playing; lastFilmPlaying = filmPlaying; needsRender = true
+      // Finish a finite selective-to-film handoff at its common endpoint.
+      // A pause still persists, but must not abandon the global half of that
+      // handoff and snap the rig back to an unrelated film pose afterward.
+      if (!weaponTransition) motionTransition = undefined
+      lastPlaying = state.playing; lastFilmPlaying = filmPlaying; needsRender = true
     }
     const nextStateKey = `${state.playing}/${filmPlaying}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}`
     if (nextStateKey !== stateKey) { needsRender = true; stateKey = nextStateKey }
@@ -191,7 +211,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const manualMoving = state.explore && (Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
     // Paused chapters and a viewport scrolled off screen use no GPU frames.
     const exhaustMoving = state.playing && renderedMotion.thrust > .001
-    if (!needsRender && !filmPlaying && !manualMoving && !exhaustMoving && transitioning <= 0 && !motionTransition) return
+    if (!needsRender && !filmPlaying && !manualMoving && !exhaustMoving && transitioning <= 0 && !motionTransition && !weaponTransition) return
     if (state.playing) effectTime += dt
     if (filmPlaying && !state.explore && (viewIndex === undefined || viewIndex === 0)) {
       // The 45-second orbit has its own clock, including during pose handoffs.
@@ -215,7 +235,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
         const u = smooth(0, 1, 1 - transitioning / cameraTransitionSeconds)
         const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
         camera.position.copy(pose.position); cameraAim.copy(pose.target)
-      } else { camera.position.copy(desired); cameraAim.copy(target) }
+        camera.up.copy(upFrom).lerp(desiredUp, u).normalize()
+      } else { camera.position.copy(desired); cameraAim.copy(target); camera.up.copy(desiredUp) }
       camera.lookAt(cameraAim)
       controls.target.copy(cameraAim)
     } else { cameraAim.copy(controls.target) }
@@ -226,14 +247,32 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     const animationTime = state.explore ? explorationTime : guidedMotion ? renderedAnimationTime : time
     renderedAnimationTime = animationTime
     renderedMotion = { deployment: deployment, thrust: state.explore ? manualMotion.thrust : motion.thrust }
-    const mechanism = rig.apply(deployment, animationTime)
+    if (weaponTransition && !state.explore) {
+      weaponTransition.elapsed += dt
+      weaponLevels = interpolateWeaponLevels(weaponTransition.from, weaponTransition.to, weaponTransition.elapsed / weaponTransition.duration)
+      if (weaponTransition.elapsed >= weaponTransition.duration) {
+        weaponLevels = { ...weaponTransition.to }; weaponTransition = undefined
+        if (viewIndex !== 1) selective = false
+      }
+    }
+    const useSelective = selective && !state.explore
+    const mechanism = useSelective ? rig.applySelective(weaponLevels, animationTime) : rig.apply(deployment, animationTime)
+    if (!useSelective) weaponLevels = uniformWeaponLevels(deployment)
+    else { deployment = Math.max(...Object.values(weaponLevels)); renderedMotion.deployment = deployment }
     const power = state.explore ? manualMotion.thrust : motion.thrust
     engineMaterials.forEach(material => { material.emissiveIntensity = power * 4 })
     exhausts.forEach(effect => updateOdinExhaust(effect, power, effectTime))
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
-    const transitionActive = transitioning > 0 || !!motionTransition
+    const transitionActive = transitioning > 0 || !!motionTransition || !!weaponTransition
     if (transitionActive !== lastTransitionActive) { hooks.transition?.(transitionActive); lastTransitionActive = transitionActive }
     composer.render()
+    if (viewIndex === 1 && !state.explore) {
+      const anchor = weaponAnchors[weaponStep]
+      if (anchor) anchor.object.localToWorld(projectedAnchor.copy(anchor.center))
+      else { const [x, y, z] = WEAPON_TOUR[weaponStep]!.point; projectedAnchor.set(x * .01, z * .01, -y * .01) }
+      projectedAnchor.project(camera)
+      hooks.anchor?.({ x: (projectedAnchor.x + 1) * width / 2, y: (1 - projectedAnchor.y) * height / 2, visible: projectedAnchor.z > -1 && projectedAnchor.z < 1 && Math.abs(projectedAnchor.x) < 1 && Math.abs(projectedAnchor.y) < 1 })
+    } else hooks.anchor?.({ x: 0, y: 0, visible: false })
     needsRender = false
     canvas.dataset.renderedFrames = String(++renderedFrames)
     canvas.dataset.view = viewIndex === undefined ? 'film' : ODIN_TOUR[viewIndex]!.id
@@ -250,14 +289,22 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
     canvas.dataset.cameraPosition = camera.position.toArray().map(n => n.toFixed(6)).join(',')
+    canvas.dataset.weapon = viewIndex === 1 ? WEAPON_TOUR[weaponStep]!.id : ''
+    canvas.dataset.weaponLevels = JSON.stringify(weaponLevels)
+    canvas.dataset.weaponTransition = String(!!weaponTransition)
+    canvas.dataset.cameraUp = camera.up.toArray().map(n => n.toFixed(3)).join(',')
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
   function seek(t: number) {
+    // R in the weapon chapter reframes the current mount; it never starts
+    // the all-weapons film behind the focused presentation.
+    if (viewIndex === 1) { setWeaponStep(weaponStep); return }
     needsRender = true
     motionTransition = undefined
+    weaponTransition = undefined; selective = false
     const orbit = viewIndex === undefined || viewIndex === 0
-    if (orbit) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
+    if (orbit) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
     time = clamp(t, 0, FILM_DURATION - .01)
     renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time
     if (orbit) cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS
@@ -283,14 +330,14 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       controls.enableDamping = true
     }
     else {
-      cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
+      cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
       if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })
       cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
     }
   }
   function setView(index: number) {
     viewIndex = clampTourIndex(index)
-    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim)
+    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
     if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })
     // Chapter selection changes effective film playback without changing the
     // user's pause preference. Keep the new guided handoff alive in that case.
@@ -302,14 +349,32 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     guideFromAnimationTime = renderedAnimationTime; motionElapsed = 0
     motionTransition = !hooks.state().reducedMotion && nextMotion.duration > 0 ? nextMotion : undefined
     if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
+    if (viewIndex === 1) {
+      weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+      transitionWeapons(focusedWeaponLevels(weaponStep))
+    } else if (selective) transitionWeapons(uniformWeaponLevels(sampleOdinMotion(targetTime).deployment), Math.max(WEAPON_DEPLOY_SECONDS, nextMotion.duration))
     needsRender = true
     frameCamera()
   }
-  resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target)
+  function transitionWeapons(to: WeaponLevels, duration = WEAPON_DEPLOY_SECONDS) {
+    selective = true
+    if (hooks.state().reducedMotion) { weaponLevels = to; weaponTransition = undefined; selective = viewIndex === 1 }
+    else weaponTransition = { from: { ...weaponLevels }, to, elapsed: 0, duration }
+    needsRender = true
+  }
+  function setWeaponStep(step: number) {
+    weaponStep = clampWeaponStep(step)
+    if (viewIndex !== 1) return
+    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
+    cameraTransitionSeconds = WEAPON_TRANSITION_SECONDS
+    transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
+    transitionWeapons(focusedWeaponLevels(weaponStep))
+  }
+  resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target); camera.up.copy(desiredUp)
   controls.target.copy(target); controls.update()
   hooks.progress(100); frame = requestAnimationFrame(animate)
   return {
-    seek, setView, setExplore, resize,
+    seek, setView, setWeaponStep, setExplore, resize,
     dispose() {
       alive = false; cancelAnimationFrame(frame); resizeObserver.disconnect(); controls.dispose(); draco.dispose()
       const geometries = new Set<THREE.BufferGeometry>(), textures = new Set<THREE.Texture>(), allMaterials = new Set<THREE.Material>()

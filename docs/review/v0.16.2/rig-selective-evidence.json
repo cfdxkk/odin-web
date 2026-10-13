@@ -1,0 +1,17 @@
+{
+  "revision": "v0.16.2",
+  "historicalEvidence": "docs/review/v0.11.52/motion-verification.json",
+  "baselineFile": "docs/review/v0.16.2/rig-before-selective.ts.txt",
+  "baselineRevision": "4f1b241b94cec346a5470672a6a4976d930044af",
+  "sourceFile": "app/lib/odin-rig.ts",
+  "sourceSha256": "6a8eba90e28911041905f48801b2a1e4cd51fbff7dd5aa436b8b3534a1ae5564",
+  "encoding": "UTF-8 with LF newlines",
+  "verification": "The stored complete source must match the original v0.11.52 evidence hash. Current original imports, model-axis helpers, mounting fit, apply(), follower calibration and initial joint restoration must match that source. The additive selective wrapper is checked separately by world-matrix equivalence on both GLBs.",
+  "additiveSections": [
+    "Weapon-group imports",
+    "NAV snapshots after follower calibration",
+    "applySelective and its reusable per-group buffers",
+    "Additional returned API methods and diagnostics"
+  ],
+  "independentTests": "tests/weapon-groups.test.mjs"
+}

@@ -59,6 +59,24 @@ function assertMatrixClose(actual, expected, message, tolerance = 1e-6) {
   assert.ok(error < tolerance, `${message}; matrix error ${error}`)
 }
 
+// The old mesh-clearance audit binds the complete pre-selective rig source.
+// Compare its mechanical sections separately so an additive presentation API
+// does not invalidate that audit or require rewriting the historical hash.
+function mechanicalRigSections(source) {
+  const text = source.replaceAll('\r\n', '\n')
+  const start = text.indexOf('// All movements are authored here.')
+  const followerEndMarker = '  followers.push(...references)\n'
+  const followerEnd = text.indexOf(followerEndMarker)
+  const reset = text.lastIndexOf('  for (const { object, position, quaternion } of joints.values()) {')
+  const returnedApi = text.indexOf('  return { apply,', reset)
+  assert.ok(start > 0 && followerEnd > start && reset > followerEnd && returnedApi > reset, 'All audited mechanical source sections must remain identifiable')
+  return {
+    imports: text.slice(0, start).replace(/^import .* from '\.\/odin-weapon-groups\.ts'\n/gm, ''),
+    mechanics: text.slice(start, followerEnd + followerEndMarker.length),
+    initialRestoration: text.slice(reset, returnedApi),
+  }
+}
+
 function mainAssemblies(root) {
   return ['Dorsal', 'Ventral'].flatMap(bank => ['Port', 'Center', 'Starboard'].map(role => {
     const coverRole = bank === 'Ventral' && role !== 'Center' ? (role === 'Port' ? 'Starboard' : 'Port') : role
@@ -1545,7 +1563,13 @@ test('quad packing seats the actual receiver tails within both hull roofs and cl
   const codeHash=path=>createHash('sha256').update(fs.readFileSync(new URL(path,import.meta.url),'utf8').replaceAll('\r\n','\n')).digest('hex')
   assert.equal(motion.codeHashEncoding,'UTF-8 with LF newlines')
   assert.equal(motion.codeHashes.motionHelper,codeHash('../app/lib/bridge-quad-source-motion.ts'))
-  assert.equal(motion.codeHashes.rig,codeHash('../app/lib/odin-rig.ts'))
+  const selectiveEvidence=JSON.parse(fs.readFileSync(new URL('../docs/review/v0.16.2/rig-selective-evidence.json',import.meta.url)))
+  const baselineRig=fs.readFileSync(new URL('../'+selectiveEvidence.baselineFile,import.meta.url),'utf8')
+  const currentRig=fs.readFileSync(new URL('../app/lib/odin-rig.ts',import.meta.url),'utf8')
+  assert.equal(selectiveEvidence.encoding,motion.codeHashEncoding)
+  assert.equal(selectiveEvidence.sourceSha256,motion.codeHashes.rig,'Selective API review retains the original audit hash')
+  assert.equal(createHash('sha256').update(baselineRig.replaceAll('\r\n','\n')).digest('hex'),motion.codeHashes.rig,'The offline baseline is the complete source from the original clearance audit')
+  assert.deepEqual(mechanicalRigSections(currentRig),mechanicalRigSections(baselineRig),'Accepted mechanical code and initialization remain unchanged outside the new selective API')
   assert.equal(motion.assetHashes.high,hash('../public/models/odin.glb'))
   assert.equal(motion.assetHashes.lite,hash('../public/models/odin-lite.glb'))
   assert.equal(clearance.nativeSha256,hash('../'+clearance.nativeFile))

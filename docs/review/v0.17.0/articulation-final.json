@@ -1,0 +1,381 @@
+{
+  "stations": [
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Main gun · Five upper armor panels",
+      "joints": "215",
+      "renderedFrames": "3"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Main gun · Five upper armor panels",
+      "joints": "215",
+      "renderedFrames": "4"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Main gun · Five upper armor panels",
+      "joints": "215",
+      "renderedFrames": "5"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Main gun · Five lower armor panels",
+      "joints": "215",
+      "renderedFrames": "7"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Main gun · Five lower armor panels",
+      "joints": "215",
+      "renderedFrames": "8"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Main gun · Five lower armor panels",
+      "joints": "215",
+      "renderedFrames": "9"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Single gun · Starboard 2",
+      "joints": "215",
+      "renderedFrames": "10"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Single gun · Starboard 2",
+      "joints": "215",
+      "renderedFrames": "11"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Single gun · Starboard 2",
+      "joints": "215",
+      "renderedFrames": "12"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Single gun · Starboard 4",
+      "joints": "215",
+      "renderedFrames": "14"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Single gun · Starboard 4",
+      "joints": "215",
+      "renderedFrames": "15"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Single gun · Starboard 4",
+      "joints": "215",
+      "renderedFrames": "16"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Single gun · Port 2",
+      "joints": "215",
+      "renderedFrames": "18"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Single gun · Port 2",
+      "joints": "215",
+      "renderedFrames": "19"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Single gun · Port 2",
+      "joints": "215",
+      "renderedFrames": "20"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Single gun · Port 4",
+      "joints": "215",
+      "renderedFrames": "21"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Single gun · Port 4",
+      "joints": "215",
+      "renderedFrames": "22"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Single gun · Port 4",
+      "joints": "215",
+      "renderedFrames": "23"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Quad guns · Starboard",
+      "joints": "215",
+      "renderedFrames": "24"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Quad guns · Starboard",
+      "joints": "215",
+      "renderedFrames": "25"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Quad guns · Starboard",
+      "joints": "215",
+      "renderedFrames": "26"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Quad guns · Port",
+      "joints": "215",
+      "renderedFrames": "27"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Quad guns · Port",
+      "joints": "215",
+      "renderedFrames": "28"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Quad guns · Port",
+      "joints": "215",
+      "renderedFrames": "29"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Twin guns · 1",
+      "joints": "215",
+      "renderedFrames": "31"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Twin guns · 1",
+      "joints": "215",
+      "renderedFrames": "32"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Twin guns · 1",
+      "joints": "215",
+      "renderedFrames": "33"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Twin guns · 5 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "35"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Twin guns · 5 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "36"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Twin guns · 5 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "37"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Twin guns · 6 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "39"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Twin guns · 6 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "40"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Twin guns · 6 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "41"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Twin guns · 8 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "43"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Twin guns · 8 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "44"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Twin guns · 8 / Hull cover",
+      "joints": "215",
+      "renderedFrames": "45"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.000",
+      "station": "Bridge · Forward",
+      "joints": "215",
+      "renderedFrames": "47"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "0.500",
+      "station": "Bridge · Forward",
+      "joints": "215",
+      "renderedFrames": "48"
+    },
+    {
+      "v-2d7658fe": "",
+      "engine": "three.js r186",
+      "ready": "true",
+      "deployment": "1.000",
+      "station": "Bridge · Forward",
+      "joints": "215",
+      "renderedFrames": "49"
+    }
+  ],
+  "errors": [],
+  "idleStopped": true,
+  "joints": "215",
+  "url": "http://127.0.0.1:4175/?review=secondary&lang=en&v=0.17.0",
+  "session": "odin-v0170-articulation",
+  "sampleCount": 39,
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "visualReview": {
+    "reviewedScreenshots": [
+      "output/playwright/v0170-articulation-28.png",
+      "output/playwright/v0170-articulation-29.png",
+      "output/playwright/v0170-articulation-5.png",
+      "output/playwright/v0170-articulation-12.png",
+      "output/playwright/v0170-articulation-13.png",
+      "output/playwright/v0170-articulation-14.png",
+      "output/playwright/v0170-articulation-18.png",
+      "output/playwright/v0170-articulation-19.png",
+      "output/playwright/v0170-articulation-21.png"
+    ],
+    "result": "No new missing components, broken geometry or obvious articulation regression observed in the reviewed fully deployed screenshots.",
+    "scope": "13 stations sampled at deployment 0, 0.5 and 1; visual inspection of 9 fully deployed screenshots. Intermediate frames were checked for successful rendering, not exhaustively inspected visually.",
+    "indexClarification": "Quad gun review station indices are 12 (starboard) and 13 (port); index 14 is Twin guns 1."
+  }
+}

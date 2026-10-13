@@ -7,8 +7,8 @@ import { sampleOdinCamera } from './odin-camera.ts'
 // interpolation fraction or a weapon deployment fraction.
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
-  { id: 'batteries', point: [0, 160, 20], view: [1.35, .7, .8], distance: 6.4, time: 24 },
-  { id: 'bridge', point: [0, -59, 100], view: [2.1, .9, .6], distance: 2.35, time: 24 },
+  { id: 'batteries', point: [0, 160, 20], view: [1.35, .7, .8], distance: 8.1, time: 24 },
+  { id: 'bridge', point: [0, -59, 100], view: [2.1, .9, .6], distance: 2.35, time: 0 },
   { id: 'engines', point: [0, -140, 32], view: [1.65, -.8, .52], distance: 5.8, time: 46 },
 ] as const
 
