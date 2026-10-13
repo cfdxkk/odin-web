@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Odin 页尾原图对比</title>
+  <link rel="stylesheet" href="./footer-options-v0.18.0.css" />
+  <style>
+    * { box-sizing: border-box; }
+    :root { --sans: Inter, Helvetica, Arial, "Microsoft YaHei", sans-serif; --header-height: 70px; }
+    body { margin: 0; font-family: var(--sans); background: #070b10; }
+    .preview-bar { min-height: var(--header-height); display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; padding: 12px 5.1vw; color: #edf0ef; background: #070b10; border-bottom: 1px solid #ffffff20; }
+    .preview-bar p { margin: 0 auto 0 0; font-size: 12px; color: #a6afb5; }
+    .preview-bar a { color: #a6afb5; text-decoration: none; font-size: 12px; padding: 8px 0; border-bottom: 1px solid transparent; }
+    .preview-bar a[aria-current="true"] { color: #edf0ef; border-color: #ed7045; }
+    @media(max-width:700px) { :root{--header-height:96px;} .preview-bar{gap:5px 18px;padding:12px 7vw;} .preview-bar p{flex-basis:100%;} }
+  </style>
+</head>
+<body>
+  <nav class="preview-bar" aria-label="页尾方案对比">
+    <p>两张历史原图 · 同一布局 · 未重新绘制</p>
+    <a href="?variant=paper" data-variant="paper">A / v0.13 米白原版</a>
+    <a href="?variant=night" data-variant="night">B / v0.15 黑底首版</a>
+  </nav>
+  <footer id="footer" class="site-footer odin-footer footer-night" aria-labelledby="footer-title">
+    <figure class="footer-landscape"><img id="artwork" src="/images/odin-mountain-footer-v0.15.0.webp" alt="Odin 航行在层叠山峦之间的印刷风格插画" width="2048" height="683" /></figure>
+    <div class="footer-content">
+      <div class="footer-intro">
+        <h2 id="footer-title">感谢来访。</h2>
+        <p>为 Star Citizen 社区制作。感谢所有提出建议、分享反馈的人。</p>
+        <span class="eyebrow">制作 / cfdxkk / 2026</span>
+        <div class="identity-stripe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="footer-sources">
+        <h2>官方资料</h2>
+        <a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">Anvil Odin <span aria-hidden="true">↗</span></a>
+        <a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">Star Citizen Live <span aria-hidden="true">↗</span></a>
+        <a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">Odin 创始人俱乐部勋章 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="footer-colophon">
+        <a class="footer-source" href="https://github.com/cfdxkk/odin-web" target="_blank" rel="noopener noreferrer">GitHub 源代码 <span aria-hidden="true">↗</span></a>
+        <div class="footer-marks">
+          <a class="community-mark" href="https://robertsspaceindustries.com/community" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" alt="Star Citizen 社区制作徽章" width="56" height="56" /></a>
+          <a class="footer-top" href="/?lang=zh" aria-label="返回舰船总览">↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const variant = new URLSearchParams(location.search).get('variant') === 'paper' ? 'paper' : 'night';
+    document.querySelector('#footer').className = `site-footer odin-footer footer-${variant}`;
+    document.querySelector('#artwork').src = `/images/odin-mountain-footer-v${variant === 'paper' ? '0.13.0' : '0.15.0'}.webp`;
+    document.querySelector(`[data-variant="${variant}"]`).setAttribute('aria-current', 'true');
+  </script>
+</body>
+</html>

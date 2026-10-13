@@ -1,0 +1,542 @@
+[
+  {
+    "lang": "zh",
+    "id": "batteries",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 490.625,
+      "b": 534.625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 439.828125,
+      "b": 468.625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 439.828125,
+      "b": 468.625,
+      "x": 135.328125,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "鱼雷输送与装填区域。输送带将备用鱼雷送到控制室。",
+    "alt": "鱼雷输送与装填区域。输送带将备用鱼雷送到控制室。"
+  },
+  {
+    "lang": "zh",
+    "id": "batteries",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 490.625,
+      "b": 534.625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 439.828125,
+      "b": 468.625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 439.828125,
+      "b": 468.625,
+      "x": 133.5,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "鱼雷装填区概念图；SCL 在 23:54 展示了这张图。",
+    "alt": "鱼雷装填区概念图；SCL 在 23:54 展示了这张图。"
+  },
+  {
+    "lang": "zh",
+    "id": "bridge",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 454.765625,
+      "b": 498.765625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 135.015625,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "舰桥指挥平台；舰长席位位于前方中央。",
+    "alt": "舰桥指挥平台；舰长席位位于前方中央。"
+  },
+  {
+    "lang": "zh",
+    "id": "bridge",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 454.765625,
+      "b": 498.765625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 133.1875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "供船员集合、讨论行动计划的简报室。",
+    "alt": "供船员集合、讨论行动计划的简报室。"
+  },
+  {
+    "lang": "zh",
+    "id": "bridge",
+    "image": 2,
+    "rootTop": 0,
+    "arrow": {
+      "y": 454.765625,
+      "b": 498.765625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 133.109375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "战术地图室上方的休憩空间。",
+    "alt": "战术地图室上方的休憩空间。"
+  },
+  {
+    "lang": "zh",
+    "id": "bridge",
+    "image": 3,
+    "rootTop": 0,
+    "arrow": {
+      "y": 454.765625,
+      "b": 498.765625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 413.96875,
+      "b": 442.765625,
+      "x": 132.859375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "官方剖面图标出食堂、医院和船员舱室的位置；这些区域当时尚未完成内部设计。",
+    "alt": "官方剖面图标出食堂、医院和船员舱室的位置；这些区域当时尚未完成内部设计。"
+  },
+  {
+    "lang": "zh",
+    "id": "engines",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 497.90625,
+      "b": 541.90625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 135.265625,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "中央机库、两侧小型机库与后方的货物升降平台。",
+    "alt": "中央机库、两侧小型机库与后方的货物升降平台。"
+  },
+  {
+    "lang": "zh",
+    "id": "engines",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 497.90625,
+      "b": 541.90625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 133.4375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "舰体两侧各设三座小型机库，用于支援飞行器出动。",
+    "alt": "舰体两侧各设三座小型机库，用于支援飞行器出动。"
+  },
+  {
+    "lang": "zh",
+    "id": "engines",
+    "image": 2,
+    "rootTop": 0,
+    "arrow": {
+      "y": 497.90625,
+      "b": 541.90625,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 457.109375,
+      "b": 485.90625,
+      "x": 133.359375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "中央与两侧推进器的概念模型，展示分布式引擎布局。",
+    "alt": "中央与两侧推进器的概念模型，展示分布式引擎布局。"
+  },
+  {
+    "lang": "en",
+    "id": "batteries",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 520.296875,
+      "b": 564.296875,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 469.5,
+      "b": 498.296875,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 469.5,
+      "b": 498.296875,
+      "x": 135.328125,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "Torpedo transport and loading area. The conveyor brings reloads to the control room.",
+    "alt": "Torpedo transport and loading area. The conveyor brings reloads to the control room."
+  },
+  {
+    "lang": "en",
+    "id": "batteries",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 520.296875,
+      "b": 564.296875,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 469.5,
+      "b": 498.296875,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 469.5,
+      "b": 498.296875,
+      "x": 133.5,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "Concept art of the torpedo loading area, also shown in SCL at 23:54.",
+    "alt": "Concept art of the torpedo loading area, also shown in SCL at 23:54."
+  },
+  {
+    "lang": "en",
+    "id": "bridge",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 484.84375,
+      "b": 528.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 135.015625,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "Bridge command platform, with the captain positioned at the front center.",
+    "alt": "Bridge command platform, with the captain positioned at the front center."
+  },
+  {
+    "lang": "en",
+    "id": "bridge",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 484.84375,
+      "b": 528.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 133.1875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "The briefing room provides space for crew gatherings and operational planning.",
+    "alt": "The briefing room provides space for crew gatherings and operational planning."
+  },
+  {
+    "lang": "en",
+    "id": "bridge",
+    "image": 2,
+    "rootTop": 0,
+    "arrow": {
+      "y": 484.84375,
+      "b": 528.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 133.109375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "The quiet upper level overlooking the tactical map room.",
+    "alt": "The quiet upper level overlooking the tactical map room."
+  },
+  {
+    "lang": "en",
+    "id": "bridge",
+    "image": 3,
+    "rootTop": 0,
+    "arrow": {
+      "y": 484.84375,
+      "b": 528.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 444.046875,
+      "b": 472.84375,
+      "x": 132.859375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "The official cutaway locates the mess hall, hospital and crew quarters, whose interiors were still being designed.",
+    "alt": "The official cutaway locates the mess hall, hospital and crew quarters, whose interiors were still being designed."
+  },
+  {
+    "lang": "en",
+    "id": "engines",
+    "image": 0,
+    "rootTop": 0,
+    "arrow": {
+      "y": 509.84375,
+      "b": 553.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 135.265625,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "The central hangar, small hangars on either side and the cargo lift at the rear.",
+    "alt": "The central hangar, small hangars on either side and the cargo lift at the rear."
+  },
+  {
+    "lang": "en",
+    "id": "engines",
+    "image": 1,
+    "rootTop": 0,
+    "arrow": {
+      "y": 509.84375,
+      "b": 553.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 133.4375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "Three small hangars on each side support the deployment of carried craft.",
+    "alt": "Three small hangars on each side support the deployment of carried craft."
+  },
+  {
+    "lang": "en",
+    "id": "engines",
+    "image": 2,
+    "rootTop": 0,
+    "arrow": {
+      "y": 509.84375,
+      "b": 553.84375,
+      "x": 40.796875,
+      "r": 84.796875,
+      "inView": true
+    },
+    "caption": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 40.796875,
+      "r": 220.796875,
+      "inView": true
+    },
+    "controls": {
+      "y": 469.046875,
+      "b": 497.84375,
+      "x": 133.359375,
+      "r": 220.796875,
+      "inView": true
+    },
+    "overflow": 0,
+    "captionTitle": "Concept model showing the distributed central and side engine layout.",
+    "alt": "Concept model showing the distributed central and side engine layout."
+  }
+]

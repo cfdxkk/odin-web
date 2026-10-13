@@ -1,0 +1,61 @@
+/* A reserved action row keeps the view switch still in both modes. */
+.view-actions { display: grid; grid-template-columns: minmax(0,1fr) 162px; align-items: center; column-gap: 22px; min-height: 44px; }
+.view-actions .explore-button { grid-column: 2; width: 162px; margin: 0; padding: 0; justify-content: space-between; font-size: 12px; min-height: 44px; }
+.manual-actions { display: flex; gap: 20px; align-items: center; visibility: hidden; opacity: 0; transition: opacity .2s; }
+.manual-actions.visible { visibility: visible; opacity: 1; }
+.mode-switch { font-size: 11px; line-height: 1.6; }
+.mode-switch span { color: var(--accent); white-space: nowrap; margin-left: 4px; }
+.photo-button { display: flex; align-items: center; gap: 6px; font-size: 11px; white-space: nowrap; }
+.photo-button svg { width: 17px; height: 17px; }
+.manual-hint { min-height: 35px; padding: 7px 0 10px; font-size: 10px; color: var(--muted); opacity: 0; visibility: hidden; }
+.manual-hint.visible { opacity: 1; visibility: visible; }
+.interior-specs { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); color: #a7b1b9; font-size: 11px; line-height: 1.6; }
+.interior-specs li { padding: 7px 0; border-bottom: 1px solid var(--line); }
+.panel-toprail,.model-panel:not(.has-home-controls) .panel-toprail { top: calc(var(--header-height) + 22px); bottom: auto; }
+/* A viewport-sized archive reserves space for its controls on every aspect. */
+.art-archive { height: 100svh; min-height: 480px; padding: calc(var(--header-height) + 24px) 7vw 24px; display: grid; grid-template-rows: auto minmax(0,1fr); gap: 22px; }
+.archive-heading { padding-bottom: 20px; display: flex; align-items: center; gap: 24px; }
+.archive-heading h2,html[lang=zh-CN] .archive-heading h2 { margin: 0; font-size: clamp(32px,3vw,48px); line-height: 1.2; }
+.archive-heading .text-link { margin: 0; flex-shrink: 0; }
+.gallery-layout { margin: 0; min-height: 0; }
+.artwork-figure { height: 100%; display: grid; grid-template-rows: minmax(0,1fr) auto; }
+.artwork-well { height: auto; min-height: 0; }
+.artwork-figure figcaption { padding-top: 14px; }
+@media (max-height: 800px) and (min-width: 701px) {
+  .story-chapter,#batteries { padding-top: 128px; }
+  .art-archive { padding-top: calc(var(--header-height) + 18px); gap: 16px; padding-bottom: 18px; }
+  .archive-heading { padding-bottom: 15px; }
+}
+@media (max-width: 1100px) {
+  .view-actions { grid-template-columns: minmax(0,1fr) 140px; gap: 12px; }
+  .view-actions .explore-button { width: 140px; font-size: 11px; }
+  .manual-actions { gap: 12px; }.mode-switch,.photo-button { font-size: 10px; }
+}
+@media (max-width: 700px) {
+  .view-actions { grid-template-columns: minmax(0,1fr) 120px; }.view-actions .explore-button { width: 120px; font-size: 10px; }
+  .manual-actions { gap: 10px; }.manual-hint { font-size: 9px; min-height: 30px; }
+  .panel-toprail,.model-panel:not(.has-home-controls) .panel-toprail { top: calc(var(--header-height) + 14px); bottom: auto; }
+  .is-exploring .viewport-status { opacity: 0; }
+  .story-chapter,.story-chapter:not(.chapter-intro) { padding-top: calc(var(--header-height) + 72px); }
+  .art-archive { padding: calc(var(--header-height) + 24px) 7vw 24px; gap: 16px; }
+  .archive-heading { display: flex; padding-bottom: 16px; align-items: end; gap: 12px; }
+  .archive-heading h2,html[lang=zh-CN] .archive-heading h2 { font-size: 30px; }
+  .archive-heading .text-link { font-size: 10px; }
+}
+@media (max-height: 650px) and (min-width: 701px) {
+  .story-chapter,#batteries { padding-top: 98px; }
+  .weapon-story { gap: 8px; }
+  .weapon-title-row h2,html[lang=zh-CN] .weapon-title-row h2 { min-height: 0; font-size: 24px; }
+  .weapon-copy { gap: 8px; }.weapon-copy .chapter-body { font-size: 11px; line-height: 1.6; }
+  .weapon-video-slot { max-width: 200px; }
+  .weapon-chapter .chapter-bottom { margin-top: 0; }
+  .weapon-chapter .scroll-cue { height: 36px; }
+  #bridge .chapter-content,#engines .chapter-content { gap: 10px; }
+  #bridge .chapter-heading h2,#engines .chapter-heading h2 { font-size: 27px; }
+  #bridge .chapter-heading > .eyebrow,#engines .chapter-heading > .eyebrow { margin-bottom: 12px; }
+  #bridge .chapter-body,#engines .chapter-body { font-size: 11px; line-height: 1.65; }
+  .interior-specs { font-size: 10px; }.interior-specs li { padding: 4px 0; }
+  .interior-gallery { max-width: 180px !important; }
+  #bridge .scroll-cue,#engines .scroll-cue { height: 36px; margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .manual-actions { transition: none; } }

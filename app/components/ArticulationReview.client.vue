@@ -110,7 +110,7 @@ onBeforeUnmount(()=>{disposed=true;cleanup?.()})
 <template>
   <main class="articulation-review">
     <canvas ref="canvas" :aria-label="c.reviewCanvas" />
-    <header><div><span class="review-kicker">{{ c.reviewKicker }}</span><h1>{{ c.reviewTitle }} <small>v0.17.0</small></h1></div><div class="review-header-actions"><button :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }}</button><a :href="`/?lang=${locale}&v=0.17.0-rc.1`">{{ c.returnSite }} ↗</a></div></header>
+    <header><div><span class="review-kicker">{{ c.reviewKicker }}</span><h1>{{ c.reviewTitle }} <small>v0.18.0</small></h1></div><div class="review-header-actions"><button :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }}</button><a :href="`/?lang=${locale}&v=0.18.0-rc.1`">{{ c.returnSite }} ↗</a></div></header>
     <p v-if="!ready" class="review-loading" role="status">{{ error || `${c.reviewLoading} ${loading}%` }}</p>
     <aside class="review-controls">
       <div class="review-row"><label>{{ c.reviewSelect }} <select v-model.number="selected" :aria-label="c.reviewSelect"><option v-for="(shot,i) in shots" :key="i" :value="i">{{ shot.name }}</option></select></label><div class="review-angles"><button v-for="view in angles" :key="view.id" :aria-pressed="angle===view.id" @click="angle=view.id">{{ view.label }}</button></div></div>

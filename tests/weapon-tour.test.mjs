@@ -38,22 +38,16 @@ test('weapon cameras travel from bow to aft with one heading and source-axis tar
   assert.equal(clampWeaponStep(NaN), 0)
 })
 
-test('downward weapon navigation moves a fixed hull landmark upward on screen throughout each pan', () => {
-  for (const aspect of aspects) for (let step = 0; step < WEAPON_TOUR.length - 1; step++) {
-    const from = sampleWeaponCamera(step, aspect), to = sampleWeaponCamera(step + 1, aspect)
-    // Track the same physical point, not each new camera's recentered target.
-    // NDC Y increases upward, the opposite sign of CSS pixel Y.
-    const landmark = from.target.clone()
-    let previousY = -Infinity, firstY
-    for (let frame = 0; frame <= 100; frame++) {
-      const pose = interpolateOdinCamera(from, to, frame / 100)
-      const projected = project(landmark, pose, from.up, aspect)
-      assert.ok(Number.isFinite(projected.y))
-      assert.ok(projected.y >= previousY - 1e-9, `${step} → ${step + 1} reverses vertical screen travel at frame ${frame}`)
-      if (frame === 0) firstY = projected.y
-      previousY = projected.y
-    }
-    assert.ok(previousY > firstY + .05, 'The hull visibly progresses upward instead of merely changing zoom')
+test('weapon inspection keeps the bow horizontal with a modest upward angle', () => {
+  for (const aspect of aspects) for (let step = 0; step < WEAPON_TOUR.length; step++) {
+    const pose = sampleWeaponCamera(step, aspect)
+    const center = project(pose.target, pose, pose.up, aspect)
+    const bow = project(pose.target.clone().add(new THREE.Vector3(0, 0, -.25)), pose, pose.up, aspect)
+    const horizontal = (bow.x - center.x) * aspect, vertical = bow.y - center.y
+    assert.ok(horizontal > 0, 'Bow points right in the inspection view')
+    const angle = Math.atan2(vertical, horizontal) * 180 / Math.PI
+    assert.ok(angle > 0 && angle < 25, `Bow tilt ${angle} must remain subtle, never vertical`)
+    assert.deepEqual(pose.up.toArray(), [0, 1, 0])
   }
 })
 
@@ -61,7 +55,7 @@ test('a focused step activates only its physical weapon family, with the static 
   const bytes = readFileSync(new URL('../public/models/odin.glb', import.meta.url))
   const model = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)))
   const joints = new Map(model.nodes.filter(node => node.extras?.staticJoint).map(node => [node.name, node]))
-  const expectedGroups = [null, 'main', 'single', 'defense', 'quad']
+  const expectedGroups = [null, 'main', null, 'single', 'defense', 'quad']
   assert.equal(WEAPON_TOUR.length, expectedGroups.length)
   WEAPON_TOUR.forEach((shot, step) => {
     assert.equal(shot.group, expectedGroups[step])
@@ -127,5 +121,5 @@ test('every weapon step has both languages and its optional official clip is ava
     videos.push(shot.video)
     for (const extension of ['mp4', 'webp']) assert.ok(existsSync(new URL(`../public/videos/odin/${shot.video}.${extension}`, import.meta.url)))
   }
-  assert.equal(new Set(videos).size, 4)
+  assert.equal(new Set(videos).size, 3)
 })

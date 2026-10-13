@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { OdinExperience } from '~/lib/odin-scene'
+import type { CalloutOrigin } from '~/lib/odin-callouts'
 const emit = defineEmits<{
   ready: []
   progress: [value: number]
   tick: [time: number]
   transition: [active: boolean]
+  loop: []
   anchor: [point: { x: number; y: number; visible: boolean }]
   fail: [message: string]
 }>()
-const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
+const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; calloutOrigin?: CalloutOrigin; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
 const canvas = ref<HTMLCanvasElement>()
 let experience: OdinExperience | undefined
 let disposed = false
@@ -20,6 +22,7 @@ onMounted(async () => {
     experience = await createOdinExperience(canvas.value, {
       progress: p => emit('progress', p), tick: t => emit('tick', t), transition: active => emit('transition', active),
       anchor: point => emit('anchor', point),
+      loop: () => emit('loop'),
       state: () => ({ ...props }),
     })
     if (disposed) { experience.dispose(); return }
@@ -37,7 +40,10 @@ watch(() => [props.viewIndex, props.weaponStep] as const, ([view, step], [previo
   if (view === 1 && (view !== previousView || step !== previousStep)) experience?.setWeaponStep(step ?? 0)
 }, { flush: 'post' })
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
-defineExpose({ seek: (time: number) => experience?.seek(time) })
+defineExpose({
+  seek: (time: number) => experience?.seek(time),
+  capturePhoto: () => experience ? experience.capturePhoto() : Promise.reject(new Error('The 3D viewer is not ready.')),
+})
 </script>
 
 <template>

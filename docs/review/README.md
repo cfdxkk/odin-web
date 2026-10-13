@@ -1,6 +1,6 @@
 # Articulation review
 
-当前候选：[v0.11.4 侧舷四座炮塔闭合直线与下层鼻端补片](v0.11.4/README.md)，使用 localhost 的 `/?review=secondary` 实时预览。
+当前网站候选：[v0.18.0 导览、自由视角与黑底印刷页尾](v0.18.0/README.md)。机械动作仍可使用 localhost 的 `/?review=secondary` 实时预览；本轮没有修改关节或几何资产。
 
 ## Archived review — v0.7.0
 

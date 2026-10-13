@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { WEAPON_TOUR, WEAPON_SOURCE, clampWeaponStep } from '~/lib/odin-weapon-tour'
+import { INTERIOR_SECTIONS } from '~/lib/odin-interiors'
 const props = defineProps<{ step: number; locale: 'zh' | 'en'; active: boolean }>()
 const emit = defineEmits<{ select: [step: number] }>()
 const shot = computed(() => WEAPON_TOUR[clampWeaponStep(props.step)]!)
 const copy = computed(() => shot.value[props.locale])
+const interior = computed(() => shot.value.id === 'torpedoes' ? INTERIOR_SECTIONS.torpedoes : undefined)
 const root = ref<HTMLElement>()
 const video = ref<HTMLVideoElement>()
 const playing = ref(false)
@@ -63,9 +65,11 @@ onBeforeUnmount(() => {
     </nav>
     <div class="weapon-copy" :key="shot.id" aria-live="polite" aria-atomic="true">
       <div class="weapon-title-row"><h2 id="batteries-title">{{ copy.title }}</h2><span class="weapon-callout-origin" aria-hidden="true" /></div>
-      <p class="chapter-body">{{ copy.body }}</p>
-      <p class="weapon-spec">{{ copy.spec }}</p>
+      <p class="chapter-body">{{ interior?.[locale].body ?? copy.body }}</p>
+      <ul v-if="interior" class="interior-specs"><li v-for="spec in interior[locale].specs" :key="spec">{{ spec }}</li></ul>
+      <p v-else class="weapon-spec">{{ copy.spec }}</p>
     </div>
+    <InteriorGallery v-if="interior" :images="interior.images" :locale="locale" />
     <div v-if="shot.video" class="weapon-video-slot">
       <button class="weapon-film" :class="{ 'is-playing': playing }" :aria-pressed="playing" :aria-label="locale === 'zh' ? '播放或暂停官方演示视频' : 'Play or pause the official demonstration'" @pointerenter="hover" @pointerleave="pause" @focus="play" @blur="pause" @click="playing ? pause() : play()">
         <video ref="video" :key="shot.video" :src="`/videos/odin/${shot.video}.mp4`" :poster="`/videos/odin/${shot.video}.webp`" :class="{ mirrored: shot.video === 'main-battery' || shot.video === 'quad-turret' }" preload="none" muted loop playsinline disablepictureinpicture tabindex="-1" aria-hidden="true" />
@@ -73,6 +77,6 @@ onBeforeUnmount(() => {
       </button>
       <div class="weapon-film-caption"><span>{{ locale === 'zh' ? '官方演示' : 'Official demonstration' }}</span><span>{{ playing ? (locale === 'zh' ? '正在播放' : 'Playing') : (locale === 'zh' ? '悬停播放' : 'Hover to play') }}</span></div>
     </div>
-    <a class="weapon-source" :href="WEAPON_SOURCE" target="_blank" rel="noopener noreferrer">{{ locale === 'zh' ? '官方武备资料' : 'Official armament details' }} <span aria-hidden="true">↗</span></a>
+    <a v-if="!interior" class="weapon-source" :href="WEAPON_SOURCE" target="_blank" rel="noopener noreferrer">{{ locale === 'zh' ? '官方武备资料' : 'Official armament details' }} <span aria-hidden="true">↗</span></a>
   </div>
 </template>
