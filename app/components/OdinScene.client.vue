@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { OdinExperience } from '~/lib/odin-scene'
 import type { CalloutOrigin } from '~/lib/odin-callouts'
+import type { SeekOptions } from '~/lib/odin-seek'
 const emit = defineEmits<{
   ready: []
   progress: [value: number]
@@ -10,7 +11,7 @@ const emit = defineEmits<{
   anchor: [point: { x: number; y: number; visible: boolean }]
   fail: [message: string]
 }>()
-const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; calloutOrigin?: CalloutOrigin; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
+const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; weaponProgress?: number; calloutOrigin?: CalloutOrigin; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
 const canvas = ref<HTMLCanvasElement>()
 let experience: OdinExperience | undefined
 let disposed = false
@@ -41,7 +42,7 @@ watch(() => [props.viewIndex, props.weaponStep] as const, ([view, step], [previo
 }, { flush: 'post' })
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
 defineExpose({
-  seek: (time: number) => experience?.seek(time),
+  seek: (time: number, options?: SeekOptions) => experience?.seek(time, options),
   capturePhoto: () => experience ? experience.capturePhoto() : Promise.reject(new Error('The 3D viewer is not ready.')),
 })
 </script>

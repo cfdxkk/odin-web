@@ -14,7 +14,7 @@ const text = computed(() => props.locale === 'zh' ? {
 })
 const image = computed(() => props.artwork === 'paper'
   ? '/images/odin-mountain-footer-v0.13.0.webp'
-  : '/images/odin-mountain-footer-v0.18.0.webp')
+  : '/images/odin-mountain-footer-v0.19.0.webp')
 </script>
 
 <template>

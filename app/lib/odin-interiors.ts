@@ -8,6 +8,8 @@ export interface OdinInteriorImage {
   en: string
   source: string
   timestamp?: string
+  // Pixel bounds within the untouched source, used by both thumbnail and lightbox.
+  crop?: { x: number; y: number; width: number; height: number }
 }
 
 export interface OdinInteriorSection {
@@ -32,12 +34,7 @@ export const INTERIOR_SECTIONS: Record<'torpedoes' | 'bridge' | 'aft', OdinInter
         zh: '鱼雷输送与装填区域。输送带将备用鱼雷送到控制室。',
         en: 'Torpedo transport and loading area. The conveyor brings reloads to the control room.',
         source: 'https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1412s', timestamp: '23:32',
-      },
-      {
-        src: '/images/odin-interiors/vertical-magazine.webp', width: 1080, height: 1699,
-        zh: '鱼雷装填区概念图；SCL 在 23:54 展示了这张图。',
-        en: 'Concept art of the torpedo loading area, also shown in SCL at 23:54.',
-        source: 'https://media.robertsspaceindustries.com/mnzu6i6d7jc7f/source.jpg', timestamp: '23:54',
+        crop: { x: 16, y: 12, width: 1024, height: 576 },
       },
     ],
   },
@@ -56,18 +53,13 @@ export const INTERIOR_SECTIONS: Record<'torpedoes' | 'bridge' | 'aft', OdinInter
         zh: '舰桥指挥平台；舰长席位位于前方中央。',
         en: 'Bridge command platform, with the captain positioned at the front center.',
         source: 'https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2124s', timestamp: '35:24',
+        crop: { x: 16, y: 12, width: 1024, height: 576 },
       },
       {
         src: '/images/odin-interiors/briefing-room.webp', width: 2400, height: 1350,
         zh: '供船员集合、讨论行动计划的简报室。',
         en: 'The briefing room provides space for crew gatherings and operational planning.',
         source: 'https://media.robertsspaceindustries.com/seyogl9pfjzgz/source.jpg',
-      },
-      {
-        src: '/images/odin-interiors/map-room-upper-level.webp', width: 1106, height: 622,
-        zh: '战术地图室上方的休憩空间。',
-        en: 'The quiet upper level overlooking the tactical map room.',
-        source: 'https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1947s', timestamp: '32:27',
       },
       {
         src: '/images/odin-interiors/schematic-overview.webp', width: 3600, height: 1204,
@@ -92,18 +84,6 @@ export const INTERIOR_SECTIONS: Record<'torpedoes' | 'bridge' | 'aft', OdinInter
         zh: '中央机库、两侧小型机库与后方的货物升降平台。',
         en: 'The central hangar, small hangars on either side and the cargo lift at the rear.',
         source: 'https://media.robertsspaceindustries.com/d8q6m2h9ecdeo/source.jpg',
-      },
-      {
-        src: '/images/odin-interiors/side-hangars.webp', width: 2400, height: 1013,
-        zh: '舰体两侧各设三座小型机库，用于支援飞行器出动。',
-        en: 'Three small hangars on each side support the deployment of carried craft.',
-        source: 'https://media.robertsspaceindustries.com/4ii2y49ikiyz6/source.jpg',
-      },
-      {
-        src: '/images/odin-interiors/engine-cluster.webp', width: 1106, height: 622,
-        zh: '中央与两侧推进器的概念模型，展示分布式引擎布局。',
-        en: 'Concept model showing the distributed central and side engine layout.',
-        source: 'https://www.youtube.com/watch?v=CFoQp6wRjPo&t=3124s', timestamp: '52:04',
       },
     ],
   },

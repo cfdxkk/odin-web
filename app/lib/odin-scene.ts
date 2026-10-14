@@ -15,16 +15,18 @@ import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
 import type { OdinExhaust } from './odin-exhaust'
-import { WEAPON_TOUR, WEAPON_TRANSITION_SECONDS, WEAPON_DEPLOY_SECONDS, clampWeaponStep, sampleWeaponCamera, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels } from './odin-weapon-tour'
+import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels } from './odin-weapon-tour'
 import type { WeaponLevels } from './odin-weapon-tour'
 import { createManualReturn, sampleManualReturn, advanceManualResume, advanceFilmClock } from './odin-manual-return'
 import { createOdinCallouts } from './odin-callouts'
 import type { CalloutOrigin, CalloutPoint } from './odin-callouts'
 import { captureOdinPhoto } from './odin-photo'
+import { createSeekTransition, sampleSeekTransition } from './odin-seek'
+import type { SeekOptions } from './odin-seek'
 
-type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; weaponStep?: number; calloutOrigin?: CalloutOrigin; active?: boolean; reducedMotion?: boolean }
+type State = { playing: boolean; film?: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex?: number; weaponStep?: number; weaponProgress?: number; calloutOrigin?: CalloutOrigin; active?: boolean; reducedMotion?: boolean }
 type Hooks = { progress: (p: number) => void; tick: (t: number) => void; transition?: (active: boolean) => void; loop?: () => void; anchor?: (point: { x: number; y: number; visible: boolean }) => void; state: () => State }
-export type OdinExperience = { seek: (t: number) => void; setView: (index: number) => void; setWeaponStep: (step: number) => void; setExplore: (b: boolean) => void; capturePhoto: () => Promise<Blob>; resize: () => void; dispose: () => void }
+export type OdinExperience = { seek: (t: number, options?: SeekOptions) => void; setView: (index: number) => void; setWeaponStep: (step: number) => void; setExplore: (b: boolean) => void; capturePhoto: () => Promise<Blob>; resize: () => void; dispose: () => void }
 const clamp = THREE.MathUtils.clamp
 const smooth = (a: number, b: number, t: number) => THREE.MathUtils.smoothstep(t, a, b)
 
@@ -137,6 +139,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let manualLevels: WeaponLevels | undefined
   let viewIndex = hooks.state().viewIndex
   let weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+  let weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
   let weaponLevels = uniformWeaponLevels(sampleOdinMotion(time).deployment)
   let selective = viewIndex === 1
   let weaponTransition: { from: WeaponLevels; to: WeaponLevels; elapsed: number; duration: number } | undefined
@@ -144,6 +147,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
   let motionTransition: TourTransition | undefined, motionElapsed = 0, guideFromAnimationTime = time
   let returningFromManual = false, savedGuideTime = time
+  let seeking = false
   let renderedMotion: { deployment: number; thrust: number } = sampleOdinMotion(time)
   let renderedAnimationTime = time, lastPlaying = hooks.state().playing
   let lastFilmPlaying = hooks.state().film ?? lastPlaying
@@ -191,7 +195,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = viewIndex === 1 ? sampleWeaponCamera(weaponStep, camera.aspect) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
+    const shot = viewIndex === 1 ? sampleContinuousWeaponCamera(weaponCameraProgress, camera.aspect) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
     target.copy(shot.target); desired.copy(shot.position)
     if ('up' in shot) desiredUp.copy(shot.up as THREE.Vector3)
     else desiredUp.set(0, 1, 0)
@@ -213,17 +217,20 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       // Finish a finite selective-to-film handoff at its common endpoint.
       // A pause still persists, but must not abandon the global half of that
       // handoff and snap the rig back to an unrelated film pose afterward.
-      if (!weaponTransition && !returningFromManual) motionTransition = undefined
+      if (!weaponTransition && !returningFromManual && !seeking) motionTransition = undefined
       lastPlaying = state.playing; lastFilmPlaying = filmPlaying; needsRender = true
     }
-    const nextStateKey = `${state.playing}/${filmPlaying}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}/${state.calloutOrigin?.x}/${state.calloutOrigin?.y}/${state.calloutOrigin?.visible}`
+    const nextStateKey = `${state.playing}/${filmPlaying}/${state.explore}/${state.deployed}/${state.lowPower}/${state.active}/${state.weaponProgress}/${state.calloutOrigin?.x}/${state.calloutOrigin?.y}/${state.calloutOrigin?.visible}`
     if (nextStateKey !== stateKey) { needsRender = true; stateKey = nextStateKey }
     if (state.active === false) { needsRender = true; return }
     if (state.explore) controls.update()
     const manualMoving = state.explore && (!!manualLevels || Math.abs(manualMotion.deployment - Number(state.deployed)) > .00001 || Math.abs(manualMotion.thrust - Number(!state.deployed)) > .00001)
+    const weaponDestination = clampWeaponProgress(state.weaponProgress ?? weaponStepProgress(weaponStep))
+    const weaponCameraMoving = viewIndex === 1 && !state.explore && weaponCameraProgress !== weaponDestination
+    if (weaponCameraMoving) weaponCameraProgress = state.reducedMotion ? weaponDestination : advanceWeaponCameraProgress(weaponCameraProgress, weaponDestination, dt)
     // Paused chapters and a viewport scrolled off screen use no GPU frames.
     const exhaustMoving = state.playing && renderedMotion.thrust > .001
-    if (!needsRender && !filmPlaying && !manualMoving && !exhaustMoving && transitioning <= 0 && !motionTransition && !weaponTransition && !callouts.moving(state.calloutOrigin)) return
+    if (!needsRender && !filmPlaying && !manualMoving && !weaponCameraMoving && !exhaustMoving && transitioning <= 0 && !motionTransition && !weaponTransition && !callouts.moving(state.calloutOrigin)) return
     if (state.playing) effectTime += dt
     if (filmPlaying && !state.explore && (viewIndex === undefined || viewIndex === 0)) {
       // The 45-second orbit has its own clock, including during pose handoffs.
@@ -232,10 +239,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     let guidedMotion: ReturnType<typeof sampleTourTransition> | undefined
     if (motionTransition && !state.explore) {
       motionElapsed += dt
-      guidedMotion = returningFromManual ? sampleManualReturn(motionTransition, motionElapsed) : sampleTourTransition(motionTransition, motionElapsed)
+      guidedMotion = seeking ? sampleSeekTransition(motionTransition, motionElapsed) : returningFromManual ? sampleManualReturn(motionTransition, motionElapsed) : sampleTourTransition(motionTransition, motionElapsed)
       time = guidedMotion.time
       renderedAnimationTime = THREE.MathUtils.lerp(guideFromAnimationTime, motionTransition.targetTime, smooth(0, 1, motionElapsed / motionTransition.duration))
-      if (motionElapsed >= motionTransition.duration) { motionTransition = undefined; returningFromManual = false }
+      if (motionElapsed >= motionTransition.duration) { motionTransition = undefined; returningFromManual = false; seeking = false }
     } else if (filmPlaying && !state.explore) {
       const next = advanceFilmClock(time, dt, FILM_DURATION)
       time = next.time
@@ -291,7 +298,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     engineMaterials.forEach(material => { material.emissiveIntensity = power * 4 })
     exhausts.forEach(effect => updateOdinExhaust(effect, power, effectTime))
     if (Math.abs(time - lastTick) > .08) { hooks.tick(time); lastTick = time }
-    const transitionActive = transitioning > 0 || !!motionTransition || !!weaponTransition
+    const transitionActive = transitioning > 0 || !!motionTransition || !!weaponTransition || weaponCameraMoving
     if (transitionActive !== lastTransitionActive) { hooks.transition?.(transitionActive); lastTransitionActive = transitionActive }
     composer.render()
     calloutPoints.length = 0
@@ -318,6 +325,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.cameraTransition = (transitioning > 0).toString()
     canvas.dataset.motionTransition = (!!motionTransition).toString()
     canvas.dataset.manualReturn = String(returningFromManual)
+    canvas.dataset.seeking = String(seeking)
     canvas.dataset.cameraFov = camera.fov.toFixed(2)
     canvas.dataset.cameraOffset = camera.view?.enabled ? `${(camera.view.offsetX / camera.view.fullWidth).toFixed(4)},${(camera.view.offsetY / camera.view.fullHeight).toFixed(4)}` : '0.0000,0.0000'
     canvas.dataset.deployment = deployment.toFixed(3); canvas.dataset.thrust = power.toFixed(3)
@@ -328,22 +336,32 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.weapon = viewIndex === 1 ? WEAPON_TOUR[weaponStep]!.id : ''
     canvas.dataset.weaponLevels = JSON.stringify(weaponLevels)
     canvas.dataset.weaponTransition = String(!!weaponTransition)
+    canvas.dataset.weaponProgress = weaponCameraProgress.toFixed(6)
     canvas.dataset.cameraUp = camera.up.toArray().map(n => n.toFixed(3)).join(',')
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
   }
-  function seek(t: number) {
+  function seek(t: number, options: SeekOptions = {}) {
     // R in the weapon chapter reframes the current mount; it never starts
     // the all-weapons film behind the focused presentation.
     if (viewIndex === 1) { setWeaponStep(weaponStep); return }
     needsRender = true
     motionTransition = undefined
     returningFromManual = false
-    weaponTransition = undefined; selective = false
+    seeking = false
+    const immediate = !!options.immediate || !!hooks.state().reducedMotion
+    const destination = clamp(t, 0, FILM_DURATION - .01)
+    const transition = createSeekTransition(renderedMotion, destination)
+    guideFromAnimationTime = renderedAnimationTime; motionElapsed = 0
+    // In particular, a click during the selective-to-home handoff must retain
+    // the visible mix of families rather than snapping every group to its max.
+    if (selective && !immediate) transitionWeapons(uniformWeaponLevels(transition.to.deployment), transition.duration)
+    else { weaponTransition = undefined; selective = false }
     const orbit = viewIndex === undefined || viewIndex === 0
-    if (orbit) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up); cameraTransitionSeconds = 1.25; transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds }
-    time = clamp(t, 0, FILM_DURATION - .01)
-    renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time
+    if (orbit) { cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up); cameraTransitionSeconds = 1.25; transitioning = immediate ? 0 : cameraTransitionSeconds }
+    time = destination
+    if (immediate) { renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time }
+    else { motionTransition = transition; seeking = true }
     if (orbit) cameraTime = time % ODIN_CAMERA_ORBIT_SECONDS
     hooks.tick(time)
   }
@@ -351,6 +369,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     needsRender = true
     motionTransition = undefined
     returningFromManual = false
+    seeking = false
     lastPlaying = hooks.state().playing; lastFilmPlaying = hooks.state().film ?? lastPlaying
     controls.enabled = enabled
     if (enabled) {
@@ -390,6 +409,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   }
   function setView(index: number) {
     returningFromManual = false
+    seeking = false
     callouts.reset()
     viewIndex = clampTourIndex(index)
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
@@ -406,6 +426,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
     if (viewIndex === 1) {
       weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+      weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
       transitionWeapons(focusedWeaponLevels(weaponStep))
     } else if (selective) transitionWeapons(uniformWeaponLevels(sampleOdinMotion(targetTime).deployment), Math.max(WEAPON_DEPLOY_SECONDS, nextMotion.duration))
     needsRender = true
@@ -421,9 +442,6 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     weaponStep = clampWeaponStep(step)
     if (viewIndex !== 1) return
     callouts.reset()
-    cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
-    cameraTransitionSeconds = WEAPON_TRANSITION_SECONDS
-    transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
     transitionWeapons(focusedWeaponLevels(weaponStep))
   }
   resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target); camera.up.copy(desiredUp)

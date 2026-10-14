@@ -5,14 +5,16 @@ import { CHAPTER_COPY } from '~/lib/odin-copy'
 import { ODIN_WALLPAPERS } from '~/lib/odin-artwork'
 import { WEAPON_TOUR, clampWeaponStep } from '~/lib/odin-weapon-tour'
 import { INTERIOR_SECTIONS } from '~/lib/odin-interiors'
+import { weaponScrollProgress, weaponScrollOffset, weaponStepAt, weaponStageTop, isWithinWeaponScroll } from '~/lib/odin-scroll'
 
 const { locale, copy: c, setLocale } = useOdinLocale()
-const viewer = ref<{ seek: (t: number) => void; capturePhoto: () => Promise<Blob> }>()
+const viewer = ref<{ seek: (t: number, options?: { immediate?: boolean }) => void; capturePhoto: () => Promise<Blob> }>()
 const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElement>()
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
 const viewportActive = ref(true), reducedMotion = ref(false)
 const changingView = ref(false)
 const weaponStep = ref(0)
+const weaponProgress = ref(0)
 const calloutOrigin = ref({ x: 0, y: 0, visible: false })
 const capturing = ref(false), photoStatus = ref('')
 const timelineTime = ref(0)
@@ -59,7 +61,10 @@ function togglePlayback() {
   else { playback.value = { ...playback.value, userPaused: false }; sequenceOverride.value = true }
 }
 const beginScrub = () => { cancelRewind(); playback.value = nextPlayback(playback.value, 'scrub-start') }
-const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end') }
+let scrubPointer: number | undefined, scrubStartX = 0, scrubDragging = false
+const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end'); scrubPointer = undefined; scrubDragging = false }
+function startPointerScrub(event: PointerEvent) { scrubPointer = event.pointerId; scrubStartX = event.clientX; scrubDragging = false; beginScrub() }
+function movePointerScrub(event: PointerEvent) { if (event.pointerId === scrubPointer && Math.abs(event.clientX - scrubStartX) > 3) scrubDragging = true }
 const filmTime = ref(0), error = ref(''), showAbout = ref(false)
 const aboutDialog = ref<HTMLDialogElement>()
 watch(showAbout, value => { if (value) aboutDialog.value?.showModal(); else aboutDialog.value?.close() })
@@ -76,16 +81,19 @@ const clock = computed(() => formatTime(filmTime.value))
 const artworkIndex = ref(0)
 const artwork = computed(() => ODIN_WALLPAPERS[artworkIndex.value]!)
 function changeArtwork(index: number) { artworkIndex.value = (index + ODIN_WALLPAPERS.length) % ODIN_WALLPAPERS.length }
-function goToChapter(index: number) {
+function goToChapter(index: number, entry: 'start' | 'end' = 'start') {
   const next = clampTourIndex(index), element = document.getElementById(ODIN_TOUR[next]!.id)
-  if (next === 1 && activeChapter.value !== 1) selectWeaponStep(activeChapter.value < 1 ? 0 : WEAPON_TOUR.length - 1)
-  element?.scrollIntoView({ block: 'start', behavior: reducedMotion.value || Math.abs(next - activeChapter.value) > 1 ? 'instant' : 'smooth' })
+  if (!element) return
+  const bounds = element.getBoundingClientRect()
+  const offset = next === 1 && entry === 'end' ? Math.max(0, bounds.height - window.innerHeight) : 0
+  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value || Math.abs(next - activeChapter.value) > 1 ? 'instant' : 'smooth' })
 }
 function selectWeaponStep(index: number) {
-  const next = clampWeaponStep(index)
-  if (next === weaponStep.value) { scheduleWeaponConnector(); return }
-  weaponStep.value = next
-  nextTick(scheduleWeaponConnector)
+  const section = document.getElementById('batteries')
+  if (!section) return
+  const bounds = section.getBoundingClientRect()
+  const offset = weaponScrollOffset(clampWeaponStep(index), WEAPON_TOUR.length, bounds.height, window.innerHeight)
+  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value ? 'instant' : 'smooth' })
 }
 function advanceChapter(index: number) {
   if (index === 1 && weaponStep.value < WEAPON_TOUR.length - 1) selectWeaponStep(weaponStep.value + 1)
@@ -103,15 +111,20 @@ async function choosePhase(index: number) {
 }
 watch(locale, () => {
   if (!viewportActive.value || reviewMode.value) return
-  const chapter = activeChapter.value
-  nextTick(() => document.getElementById(ODIN_TOUR[chapter]!.id)?.scrollIntoView({ block: 'start', behavior: 'instant' }))
+  const chapter = activeChapter.value, savedProgress = weaponProgress.value
+  nextTick(() => {
+    const element = document.getElementById(ODIN_TOUR[chapter]!.id)
+    if (!element) return
+    const bounds = element.getBoundingClientRect()
+    window.scrollTo({ top: window.scrollY + bounds.top + (chapter === 1 ? savedProgress * Math.max(0, bounds.height - window.innerHeight) : 0), behavior: 'instant' })
+  })
 })
 function toggleExplore() {
   cancelRewind(); photoStatus.value = ''
   if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).deployment > .5
   explore.value = !explore.value
 }
-function scrub(event: Event) { cancelRewind(); viewer.value?.seek(Number((event.target as HTMLInputElement).value)) }
+function scrub(event: Event) { cancelRewind(); viewer.value?.seek(Number((event.target as HTMLInputElement).value), { immediate: scrubDragging }) }
 function scrubKey(event: KeyboardEvent) { if (/^(Arrow|Home|End|Page)/.test(event.key)) beginScrub() }
 function keyboard(event: KeyboardEvent) {
   const element = event.target as HTMLElement
@@ -119,12 +132,12 @@ function keyboard(event: KeyboardEvent) {
   if (event.code === 'Space' && viewportActive.value) { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
   if (event.key.toLowerCase() === 'r' && !explore.value && viewportActive.value) { cancelRewind(); viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time) }
 }
-watch(activeChapter, (chapter, previous) => {
+watch(activeChapter, () => {
   explore.value = false
   sequenceOverride.value = false
-  if (chapter === 1 && previous !== 1) selectWeaponStep(previous < 1 ? 0 : WEAPON_TOUR.length - 1)
-  else scheduleWeaponConnector()
+  scheduleWeaponConnector()
 })
+watch(weaponStep, () => nextTick(scheduleWeaponConnector))
 let scrollFrame = 0
 let connectorFrame = 0
 function scheduleWeaponConnector() {
@@ -152,18 +165,21 @@ function tourAnchor() {
 }
 function onTourWheel(event: WheelEvent) {
   const element = event.target as Element
-  if (reviewMode.value || showAbout.value || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
+  if (reviewMode.value || showAbout.value || element.closest?.('dialog') || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
   const archiveTop = document.getElementById('archive')?.getBoundingClientRect().top ?? Infinity
   const fromArchive = !!element.closest?.('#archive') && event.deltaY < 0 && Math.abs(archiveTop) < 48
   if (!element.closest?.('#tour') && !fromArchive) return
   if (explore.value && element.closest('.scene-wrap')) return
-  const top = document.getElementById(ODIN_TOUR[activeChapter.value]!.id)?.getBoundingClientRect().top
-  if (top === undefined) return
+  const bounds = document.getElementById(ODIN_TOUR[activeChapter.value]!.id)?.getBoundingClientRect()
+  if (!bounds) return
+  const direction = event.deltaY > 0 ? 1 : -1
+  if (activeChapter.value === 1 && !fromArchive && isWithinWeaponScroll(bounds.top, bounds.height, window.innerHeight, direction)) {
+    wheelAmount = 0; wheelCommitted = false
+    return
+  }
+  const top = activeChapter.value === 1 ? weaponStageTop(bounds.top, bounds.height, window.innerHeight) : bounds.top
   const next = fromArchive ? 3 : tourWheelTarget(activeChapter.value, event.deltaY > 0 ? 1 : -1, top, tourAnchor(), true)
   if (next === undefined) return
-  const direction = event.deltaY > 0 ? 1 : -1
-  const nextWeapon = weaponStep.value + direction
-  const advanceWeapon = !fromArchive && activeChapter.value === 1 && next !== activeChapter.value && Math.abs(top - tourAnchor()) <= 48 && nextWeapon >= 0 && nextWeapon < WEAPON_TOUR.length
   event.preventDefault()
   const now = performance.now()
   if (now - wheelLastAt > 180) { wheelAmount = 0; wheelCommitted = false }
@@ -172,9 +188,8 @@ function onTourWheel(event: WheelEvent) {
   wheelAmount += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1)
   if (Math.abs(wheelAmount) < 40) return
   wheelCommitted = true
-  if (advanceWeapon) selectWeaponStep(nextWeapon)
-  else if (next === ODIN_TOUR.length) goToArchive()
-  else goToChapter(next)
+  if (next === ODIN_TOUR.length) goToArchive()
+  else goToChapter(next, direction < 0 && next === 1 ? 'end' : 'start')
 }
 function updateChapter() {
   scrollFrame = 0
@@ -186,7 +201,14 @@ function updateChapter() {
   // visible. Observing its full box alone would keep rendering that hidden strip.
   viewportActive.value = !!tour && tour.bottom > header + 1 && tour.top < window.innerHeight
   const anchor = tourAnchor()
-  const tops = ODIN_TOUR.map(shot => document.getElementById(shot.id)?.getBoundingClientRect().top ?? Infinity)
+  const tops = ODIN_TOUR.map((shot, index) => {
+    const bounds = document.getElementById(shot.id)?.getBoundingClientRect()
+    if (!bounds) return Infinity
+    if (index !== 1) return bounds.top
+    weaponProgress.value = weaponScrollProgress(bounds.top, bounds.height, window.innerHeight)
+    weaponStep.value = weaponStepAt(weaponProgress.value, WEAPON_TOUR.length)
+    return weaponStageTop(bounds.top, bounds.height, window.innerHeight)
+  })
   activeChapter.value = selectTourChapter(tops, anchor)
   scheduleWeaponConnector()
 }
@@ -236,7 +258,7 @@ onBeforeUnmount(() => {
         <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore, 'has-home-controls': chromeVisible }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id" :data-weapon-step="activeChapter === 1 ? weaponStep : undefined">
           <div class="panel-toprail"><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
           <div class="scene-wrap">
-            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :weapon-step="activeChapter === 1 ? weaponStep : undefined" :callout-origin="calloutOrigin" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="onFilmTick" @loop="rewindTimeline" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
+            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :weapon-step="activeChapter === 1 ? weaponStep : undefined" :weapon-progress="weaponProgress" :callout-origin="calloutOrigin" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="onFilmTick" @loop="rewindTimeline" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
             <div class="scene-shade" aria-hidden="true" />
             <div class="viewport-status" :aria-hidden="!chromeVisible">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : filmPlaying ? c.playing : c.paused }}</div>
             <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">{{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
@@ -249,12 +271,13 @@ onBeforeUnmount(() => {
             </div>
             <div class="manual-hint" :class="{ visible: explore }" aria-live="polite">{{ photoStatus || c.controlsHint }}</div>
             <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="filmPlaying ? c.pause : c.play" @click="togglePlayback"><svg v-if="filmPlaying" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
-            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="timelineTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${timelineTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
+            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="timelineTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${timelineTime / FILM_DURATION * 100}%` }" @pointerdown="startPointerScrub" @pointermove="movePointerScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
             <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)">{{ phase }}</button></div>
           </div>
         </section>
         <div class="story-rail">
           <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, 'weapon-chapter': index === 1, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
+            <div class="chapter-stage">
             <div class="chapter-content">
             <WeaponStory v-if="index === 1" :step="weaponStep" :locale="locale" :active="activeChapter === 1 && viewportActive" @select="selectWeaponStep" />
             <template v-else>
@@ -265,6 +288,7 @@ onBeforeUnmount(() => {
             <InteriorGallery v-if="chapter.interior" :images="chapter.interior.images" :locale="locale" />
             </template>
             <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="nextStepLabel(index)" @click="advanceChapter(index)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
+            </div>
             </div>
           </article>
         </div>

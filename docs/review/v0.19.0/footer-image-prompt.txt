@@ -1,0 +1,52 @@
+Odin footer v0.19.0 — image provenance
+Date: 2026-10-14
+Mode: built-in image_gen.imagegen, image editing
+Final workspace asset: public/images/odin-mountain-footer-v0.19.0.webp
+Selected generated source: C:/Users/admin/.codex/generated_images/01a13a0a-4f42-79e2-9139-099509227746/exec-d16f2494-53ab-459e-adb9-abba7a8475dd.png
+Dimensions: 2172 x 724
+Conversion: PNG to WebP, Pillow quality 94 / method 6; no raster compositing or filtering after generation.
+Presentation: the entire landscape (ship and mountains together) uses CSS blur(.8px) contrast(.94) brightness(.86). A top-to-bottom opacity mask in odin-footer.css makes the farthest ridges recede into the dark page.
+
+User direction:
+Lower detail/precision. Restore the original faint last row of mountains.
+The ship must share the same soft printed atmosphere as the mountains instead of looking like a sharp pasted render.
+Preserve the recognizable Odin silhouette, black background, footer text, official links, GitHub source and community mark.
+
+Original inputs:
+1. public/images/odin-mountain-footer-v0.18.0.webp — edit target / geometry reference
+2. public/images/odin-mountain-footer-v0.15.0.webp — atmospheric reference, not its spotted ship texture
+
+Iteration 1 prompt:
+Use case: style-transfer, identity-preserving image edit.
+Asset type: ultra-wide 3:1 website footer landscape, dark background.
+Input image 1 (v0.18): EDIT TARGET. Keep its EXACT spacecraft silhouette, proportions, bridge/tower, bow, engine pods, perspective, placement, scale and overall mountain composition. This is the recognizable Anvil Odin ship; do not redesign or invent any part.
+Input image 2 (v0.15): ATMOSPHERE REFERENCE ONLY, not its spotted ship. Recreate its last distant row of mountains becoming barely visible, ghostlike and almost dissolved into the dark background.
+Requested edit: Make the ENTIRE target, including the spacecraft and mountains, look like a single soft, low-detail atmospheric newspaper/comic print. The current target spacecraft is excessively sharp and photorealistically rendered compared to the surrounding printed landscape. Remove fine model panel lines and shiny highlights, simplify all tonal information, soften the ship's small edges by the same amount as the adjacent mountain ridge so it is visibly part of the same printed scene, while keeping its exact recognizable outline. Lower detail and microcontrast across the whole image. Use subtle small uniformly aligned halftone dots across the ship and the mountains alike, laid on a regular diagonal screen, never random stipple or black spots. Soft weathered newsprint reproduction rather than sharp digital engraving. Ship should be a subdued pale-gray mid-distance shape, still recognizable, not bright white or crisp. Add gentle atmospheric haze in front of the ship and behind it, no opaque cloud obscuring silhouette.
+Back mountains: at the top of the landscape, a separate very faint low-contrast distant ridge that almost disappears into the black sky. Mid ridges a little clearer, near ridges darkest. Preserve the mountain depth and open dark upper area. Less stark contrast overall than input1; tonal softness should be uniform, not merely a blur filter on an otherwise sharp render.
+Palette: monochrome cool gray on near-black #070B10; no new colors. All canvas top and sky remain near-black. Keep ultra-wide 3:1 image, existing layout and crop. No text, no logo, no frames, no additional objects. Do not copy the large uneven spots from reference2's spacecraft.
+
+Iteration 1 output:
+C:/Users/admin/.codex/generated_images/01a13a0a-4f42-79e2-9139-099509227746/exec-d16f2494-53ab-459e-adb9-abba7a8475dd.png
+Assessment: silhouette retained. Selected as the cleanest geometry; shared CSS softening resolves the remaining surface sharpness without redrawing or adding dots to the ship.
+
+Iteration 2 prompt (edits iteration 1):
+Edit this exact image, preserve 3:1 framing and EXACT spacecraft silhouette, pose, scale and placement. Do not redraw any spacecraft geometry.
+The requested CHANGE is strong, unmistakable simplification and softness of the entire print:
+1. Turn all spacecraft surface information into soft broad tonal shapes with deliberately low fidelity, like a small archival newspaper photo enlarged. Remove sharp hull seams, tiny cannons, panel scratches and fine shadows, but do not change the outline of hull, bridge or engine pods. Its surface should be hazy and visibly soft, NOT crisp rendered 3D. Use the same soft printing focus as the distant landscape.
+2. Remove the present detailed, scratchy crosshatching from the mountains. Keep their ridge contours and broad layered tonal masses, but replace fine texture with a clean regular newspaper halftone screen, evenly spaced tiny aligned dots with smoothly varying size. The SAME unified halftone applies across ship and mountains. Never random spots. At small web size it must read like soft printed gray shapes with depth rather than dense engraved noise.
+3. Fade the highest and most distant full mountain row to an extremely subtle trace, almost the same darkness as the near-black sky: barely perceptible ghostlike peaks. Middle ridges soft medium gray and near foreground ridges dark. Keep valleys atmospheric. Ship must sit IN the atmospheric layers, never as a sharply cut-out sticker.
+This is intentionally LESS precise and LESS detailed than the input. Softer focus on the ship is the most important correction. No bright new highlights. Preserve exact existing composition and recognizable Odin outline. Monochrome gray on #070B10 near-black. No text or other additions.
+
+Iteration 2 output:
+C:/Users/admin/.codex/generated_images/01a13a0a-4f42-79e2-9139-099509227746/exec-1c37f149-cbe8-4288-8b8d-8e7efc292fbb.png
+Assessment: excessive optical blur on the ship; not selected.
+
+Rejected iteration 3 prompt (edits iteration 2):
+Target: refine this monochrome ultrawide Odin mountain print for a black website footer. Preserve the EXACT existing composition, spacecraft silhouette and dimensions. Do not change ship design or rebuild scene.
+The spacecraft in this input has been blurred TOO much while the mountains still show fine texture. Correct that mismatch:
+Use a SINGLE unified soft newspaper-halftone reproduction treatment for the whole composition. The ship should retain its simplified broad light and shadow shapes and a recognizable bridge, hull and engines. Reduce its optical blur by half so recognizable shapes return, WITHOUT restoring intricate panel lines or crisp 3D render detail. Lay the same subtle regular diagonal fine dot screen across ship and landscape; ship and mountains are printed together, no smooth cutout pasted on textured paper. There must be no random large spots on the ship. The main hull contour is softly defined but not out of focus, like a small 1980s black-and-white newspaper photograph reproduced at larger scale.
+Turn the topmost mountain row directly along the sky into faint gray low-contrast silhouettes: about 80% darker than the current distant peaks. They should be barely visible at all, dissolving into the dark upper background. Preserve the closer rows, their atmospheric pale valleys, and a quiet softer middle distance around the ship. Moderate the harsh bright marks along near mountain edges. Black background #070B10 with cool neutral gray ink; no colors. Keep open dark upper negative space. No text, no new elements, no extra ship features.
+
+Final selection:
+Iteration 3 introduced dirty mottling and was rejected after visual review. Iteration 1 is the selected bitmap. Softening and contrast reduction are applied uniformly to the entire image through CSS, so the ship and mountains share one finish while preserving recognizable geometry. No subsequent generated redraw was accepted.
+

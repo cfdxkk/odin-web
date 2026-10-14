@@ -3,7 +3,8 @@ import { WEAPON_GROUPS, type WeaponGroup } from './odin-weapon-groups.ts'
 
 export const WEAPON_SOURCE = 'https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin'
 // Source coordinates: +Y points toward the bow, +Z is above the hull.
-// A fixed oblique heading makes each step a translation along the ship.
+// The inspection follows the hull from bow to aft while crossing over the
+// dorsal surface, from port to starboard. Bow remains at the top of the view.
 export const WEAPON_TOUR = [
   { id: 'beam', group: null, point: [0, 369.5, 6.8], distance: 4.1, anchor: null, video: 'bow-laser',
     zh: { title: '舰艏光束武器', body: '舰艏的 12 个发射器构成一套 S12 光束武器，由驾驶员控制。', spec: '1 × S12 / 驾驶员控制' },
@@ -25,7 +26,6 @@ export const WEAPON_TOUR = [
     en: { title: 'Quad-gun turrets', body: 'A crewed quad turret flanks each side of the bridge, with four S8 weapons per mount.', spec: '2 turrets / 4 × S8 each' } },
 ] as const satisfies readonly { id: string; group: WeaponGroup | null; point: readonly [number, number, number]; distance: number; anchor: string | null; anchors?: readonly string[]; video: string | null; zh: { title: string; body: string; spec: string }; en: { title: string; body: string; spec: string } }[]
 
-export const WEAPON_TRANSITION_SECONDS = 2.4
 export const WEAPON_DEPLOY_SECONDS = 4.8
 export type WeaponLevels = Record<WeaponGroup, number>
 export function uniformWeaponLevels(value: number): WeaponLevels {
@@ -42,11 +42,46 @@ export function interpolateWeaponLevels(from: WeaponLevels, to: WeaponLevels, pr
   return levels
 }
 export const clampWeaponStep = (step: number) => Math.max(0, Math.min(WEAPON_TOUR.length - 1, Math.round(Number.isFinite(step) ? step : 0)))
-export function sampleWeaponCamera(step: number, aspect: number) {
-  const shot = WEAPON_TOUR[clampWeaponStep(step)]!
-  const [x, y, z] = shot.point
-  const target = new THREE.Vector3(x * .01, z * .01, -y * .01)
+export const clampWeaponProgress = (progress: number) => THREE.MathUtils.clamp(Number.isFinite(progress) ? progress : 0, 0, 1)
+export const weaponStepProgress = (step: number) => clampWeaponStep(step) / (WEAPON_TOUR.length - 1)
+
+// Monotone cubic interpolation prevents the camera focus from overshooting a
+// station and briefly reversing along the hull between closely spaced guns.
+function sampleTrack(values: readonly number[], progress: number) {
+  const t = clampWeaponProgress(progress) * (values.length - 1)
+  const index = Math.min(values.length - 2, Math.floor(t)), u = t - index
+  const slope = (i: number) => {
+    if (i === 0) return values[1]! - values[0]!
+    if (i === values.length - 1) return values[i]! - values[i - 1]!
+    const a = values[i]! - values[i - 1]!, b = values[i + 1]! - values[i]!
+    return a * b <= 0 ? 0 : 2 * a * b / (a + b)
+  }
+  return (2*u*u*u - 3*u*u + 1)*values[index]! + (u*u*u - 2*u*u + u)*slope(index)
+    + (-2*u*u*u + 3*u*u)*values[index + 1]! + (u*u*u - u*u)*slope(index + 1)
+}
+const trackX = WEAPON_TOUR.map(shot => shot.point[0] * .01)
+const trackY = WEAPON_TOUR.map(shot => shot.point[2] * .01)
+const trackZ = WEAPON_TOUR.map(shot => -shot.point[1] * .01)
+const trackDistance = WEAPON_TOUR.map(shot => shot.distance)
+
+export function sampleContinuousWeaponCamera(progress: number, aspect: number) {
+  const p = clampWeaponProgress(progress)
+  const target = new THREE.Vector3(sampleTrack(trackX, p), sampleTrack(trackY, p), sampleTrack(trackZ, p))
   const framing = Math.max(.8, Math.pow(1.6 / Math.max(1.6, aspect), .35)) * Math.max(1, 1 / aspect)
-  const position = new THREE.Vector3(2.8, 1.05, 1.25).normalize().multiplyScalar(shot.distance * framing).add(target)
-  return { position, target, up: new THREE.Vector3(0, 1, 0) }
+  const angle = THREE.MathUtils.lerp(.12, Math.PI - .12, p)
+  // A small longitudinal offset gives depth while never passing below the
+  // hull. Unlike a world-up orbit this stays stable directly over the spine.
+  const position = new THREE.Vector3(-Math.cos(angle), Math.sin(angle), .16).normalize()
+    .multiplyScalar(sampleTrack(trackDistance, p) * framing).add(target)
+  return { position, target, up: new THREE.Vector3(0, 0, -1) }
+}
+
+export function sampleWeaponCamera(step: number, aspect: number) {
+  return sampleContinuousWeaponCamera(weaponStepProgress(step), aspect)
+}
+
+export function advanceWeaponCameraProgress(current: number, destination: number, dt: number) {
+  const target = clampWeaponProgress(destination)
+  const next = THREE.MathUtils.lerp(clampWeaponProgress(current), target, 1 - Math.exp(-Math.max(0, dt) / .14))
+  return Math.abs(next - target) < .00001 ? target : next
 }

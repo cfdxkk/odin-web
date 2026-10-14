@@ -1,4 +1,4 @@
-/* Historical artwork is displayed directly, without a second print treatment. */
+/* One shared print treatment keeps the ship within the atmospheric landscape. */
 .odin-footer {
   --footer-bg: #070b10; --footer-ink: #edf0ef; --footer-muted: #a6afb5;
   --footer-line: #b4c0c922;
@@ -12,6 +12,10 @@
   position: absolute; bottom: 0; left: 0; width: 100%; height: clamp(330px,64svh,960px);
   max-width: none; object-fit: cover; object-position: 50% 58%;
   mask-image: linear-gradient(to bottom,transparent,black 23%);
+}
+.odin-footer.footer-night .footer-landscape > img {
+  filter: blur(.8px) contrast(.94) brightness(.86);
+  mask-image: linear-gradient(to bottom,transparent,rgba(0,0,0,.16) 20%,rgba(0,0,0,.65) 40%,black 58%);
 }
 .odin-footer .footer-content {
   position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12,minmax(0,1fr));

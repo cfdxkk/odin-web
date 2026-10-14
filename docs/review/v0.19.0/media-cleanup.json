@@ -1,0 +1,63 @@
+{
+  "version": "v0.19.0-rc.1",
+  "date": "2026-10-14",
+  "method": "Non-destructive CSS framing of unchanged official source images. The same source-pixel crop is used for the inline image and its native-dialog enlarged view. No image reconstruction or AI retouching was used.",
+  "removedGalleryEntries": [
+    { "section": "torpedoes", "previousPosition": 2, "src": "/images/odin-interiors/vertical-magazine.webp", "reason": "User requested removal of the portrait-ratio concept image." },
+    { "section": "bridge", "previousPosition": 3, "src": "/images/odin-interiors/map-room-upper-level.webp", "reason": "User requested removal of the third bridge image." },
+    { "section": "aft", "previousPosition": 2, "src": "/images/odin-interiors/side-hangars.webp", "reason": "User requested removal of the second hangar image." },
+    { "section": "aft", "previousPosition": 3, "src": "/images/odin-interiors/engine-cluster.webp", "reason": "User requested removal of the third hangar image." }
+  ],
+  "retainedGalleryCounts": { "torpedoes": 1, "bridge": 3, "aft": 1 },
+  "crops": [
+    {
+      "src": "/images/odin-interiors/torpedo-conveyor.webp",
+      "sourceDimensions": { "width": 1105, "height": 622 },
+      "visibleSourceRect": { "x": 16, "y": 12, "width": 1024, "height": 576 },
+      "excludedPixels": { "left": 16, "top": 12, "right": 65, "bottom": 34 },
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1412s",
+      "timestamp": "23:32",
+      "inspection": "The crop excludes all rounded white corners and the channel mark at the far lower right while retaining the torpedo conveyor, loading area and scale figure."
+    },
+    {
+      "src": "/images/odin-interiors/bridge-command.webp",
+      "sourceDimensions": { "width": 1106, "height": 622 },
+      "visibleSourceRect": { "x": 16, "y": 12, "width": 1024, "height": 576 },
+      "excludedPixels": { "left": 16, "top": 12, "right": 66, "bottom": 34 },
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2124s",
+      "timestamp": "35:24",
+      "inspection": "The crop excludes all rounded white corners and the channel mark at the far lower right while retaining the captain's platform and command workstations."
+    }
+  ],
+  "attribution": "Original official source URLs and timestamps remain visible as caption links and in the enlarged-image toolbar. Source assets are unchanged; only removed gallery references are deleted.",
+  "lightbox": {
+    "implementation": "Native HTML dialog with localized name, close button, Escape dismissal and browser focus management.",
+    "presentation": "The enlarged view uses the same crop, so clicking the image does not reveal the excluded screenshot frame or channel mark again."
+  },
+  "validation": {
+    "sourceImagesVisuallyInspected": true,
+    "browserChecks": {
+      "status": "passed",
+      "url": "http://127.0.0.1:4175/?v=0.19.0-media3&lang=zh#bridge",
+      "viewports": ["1920x1080", "800x600", "390x844"],
+      "remainingGalleryImagesLoaded": 5,
+      "lightboxChecks": 4,
+      "cropBoundsToleranceSourcePixels": 0.05,
+      "allDialogsWithinViewport": true,
+      "wheelAndPageDownDoNotScrollBackground": true,
+      "escapeAndCloseButtonWork": true,
+      "focusRestoredAfterClose": true,
+      "officialSourceLinksPreserved": true,
+      "pageErrors": 0,
+      "detailedResults": "media-browser-qa.json",
+      "screenshots": [
+        "output/playwright/v0190-bridge-cropped-inline.png",
+        "output/playwright/v0190-bridge-cropped-dialog.png",
+        "output/playwright/v0190-torpedoes-cropped-inline.png",
+        "output/playwright/v0190-torpedoes-cropped-dialog.png",
+        "output/playwright/v0190-torpedoes-800x600-dialog.png",
+        "output/playwright/v0190-torpedoes-390x844-dialog.png"
+      ]
+    }
+  }
+}
