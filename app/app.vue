@@ -1,111 +1,307 @@
 <script setup lang="ts">
 import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
-const viewer = ref<{ seek: (t: number) => void }>()
-const reviewMode = ref(false)
+import { ODIN_TOUR, clampTourIndex, selectTourChapter, tourWheelTarget } from '~/lib/odin-tour'
+import { CHAPTER_COPY } from '~/lib/odin-copy'
+import { ODIN_WALLPAPERS } from '~/lib/odin-artwork'
+import { WEAPON_TOUR, clampWeaponStep } from '~/lib/odin-weapon-tour'
+import { INTERIOR_SECTIONS } from '~/lib/odin-interiors'
+import { weaponScrollProgress, weaponScrollOffset, weaponStepAt, weaponStageTop, isWithinWeaponScroll } from '~/lib/odin-scroll'
+
+const { locale, copy: c, setLocale } = useOdinLocale()
+const viewer = ref<{ seek: (t: number, options?: { immediate?: boolean }) => void; capturePhoto: () => Promise<Blob> }>()
+const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElement>()
 const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
+const viewportActive = ref(true), reducedMotion = ref(false)
+const changingView = ref(false)
+const weaponStep = ref(0)
+const weaponProgress = ref(0)
+const calloutOrigin = ref({ x: 0, y: 0, visible: false })
+const capturing = ref(false), photoStatus = ref('')
+const timelineTime = ref(0)
+let rewindFrame = 0, rewindStarted = 0
+function cancelRewind() { cancelAnimationFrame(rewindFrame); rewindFrame = 0; timelineTime.value = filmTime.value }
+function onFilmTick(time: number) { filmTime.value = time; if (!rewindFrame) timelineTime.value = time }
+function rewindTimeline() {
+  cancelAnimationFrame(rewindFrame)
+  if (reducedMotion.value) { timelineTime.value = filmTime.value; return }
+  rewindStarted = performance.now()
+  const update = (now: number) => {
+    const t = Math.min(1, (now - rewindStarted) / 650), eased = t * t * (3 - 2 * t)
+    timelineTime.value = FILM_DURATION + (filmTime.value - FILM_DURATION) * eased
+    rewindFrame = t < 1 ? requestAnimationFrame(update) : 0
+  }
+  rewindFrame = requestAnimationFrame(update)
+}
+async function capturePhoto() {
+  if (!viewer.value || capturing.value) return
+  capturing.value = true; photoStatus.value = ''
+  try {
+    const blob = await viewer.value.capturePhoto(), url = URL.createObjectURL(blob)
+    const link = document.createElement('a'); link.href = url; link.download = 'odin-free-view.png'; link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+    photoStatus.value = locale.value === 'zh' ? '已导出透明 PNG' : 'Transparent PNG exported'
+  } catch { photoStatus.value = locale.value === 'zh' ? '导出失败，请重试' : 'Export failed. Please retry.' }
+  finally { capturing.value = false }
+}
+const chromeVisible = computed(() => activeChapter.value === 0 && viewportActive.value)
+const archiveActive = ref(false)
+const headerVisible = computed(() => chromeVisible.value || archiveActive.value)
+// The homepage autoplays; an explicit pause remains in force across chapters.
 const playback = ref({ userPaused: false, scrubbing: false })
+const sequenceOverride = ref(false)
 const playing = computed(() => isPlaying(playback.value))
-const togglePlayback = () => { playback.value = nextPlayback(playback.value, 'toggle') }
-const beginScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-start') }
-const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end') }
+const filmPlaying = computed(() => !explore.value && playing.value && (activeChapter.value === 0 || sequenceOverride.value))
+function togglePlayback() {
+  if (activeChapter.value === 1) {
+    playback.value = nextPlayback(playback.value, 'toggle')
+    sequenceOverride.value = false
+    return
+  }
+  if (filmPlaying.value) playback.value = nextPlayback(playback.value, 'toggle')
+  else { playback.value = { ...playback.value, userPaused: false }; sequenceOverride.value = true }
+}
+const beginScrub = () => { cancelRewind(); playback.value = nextPlayback(playback.value, 'scrub-start') }
+let scrubPointer: number | undefined, scrubStartX = 0, scrubDragging = false
+const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end'); scrubPointer = undefined; scrubDragging = false }
+function startPointerScrub(event: PointerEvent) { scrubPointer = event.pointerId; scrubStartX = event.clientX; scrubDragging = false; beginScrub() }
+function movePointerScrub(event: PointerEvent) { if (event.pointerId === scrubPointer && Math.abs(event.clientX - scrubStartX) > 3) scrubDragging = true }
 const filmTime = ref(0), error = ref(''), showAbout = ref(false)
 const aboutDialog = ref<HTMLDialogElement>()
 watch(showAbout, value => { if (value) aboutDialog.value?.showModal(); else aboutDialog.value?.close() })
-const chapters = MODES
-const chapterIndex = computed(() => filmTime.value < MODES[1].time ? 0 : filmTime.value < MODES[2].time ? 1 : 2)
-const currentChapter = computed(() => chapters[chapterIndex.value]!)
+const chapters = computed(() => ODIN_TOUR.map(shot => {
+  const copy = CHAPTER_COPY[locale.value][shot.id]
+  const interior = shot.id === 'bridge' ? INTERIOR_SECTIONS.bridge : shot.id === 'engines' ? INTERIOR_SECTIONS.aft : undefined
+  return { ...shot, ...copy, body: interior?.[locale.value].body ?? copy.body, specs: interior ? [] : copy.specs, interior }
+}))
+const currentChapter = computed(() => chapters.value[activeChapter.value]!)
+const phaseIndex = computed(() => filmTime.value < 12 ? 0 : filmTime.value < 32 ? 1 : 2)
+const phases = computed(() => [c.value.exterior, c.value.combat, c.value.navigation])
 const formatTime = (t: number) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t % 60)).padStart(2, '0')}`
 const clock = computed(() => formatTime(filmTime.value))
-function chooseChapter(index: number) { explore.value = false; viewer.value?.seek(chapters[index]!.time) }
+const artworkIndex = ref(0)
+const artwork = computed(() => ODIN_WALLPAPERS[artworkIndex.value]!)
+function changeArtwork(index: number) { artworkIndex.value = (index + ODIN_WALLPAPERS.length) % ODIN_WALLPAPERS.length }
+function goToChapter(index: number, entry: 'start' | 'end' = 'start') {
+  const next = clampTourIndex(index), element = document.getElementById(ODIN_TOUR[next]!.id)
+  if (!element) return
+  const bounds = element.getBoundingClientRect()
+  const offset = next === 1 && entry === 'end' ? Math.max(0, bounds.height - window.innerHeight) : 0
+  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value || Math.abs(next - activeChapter.value) > 1 ? 'instant' : 'smooth' })
+}
+function selectWeaponStep(index: number) {
+  const section = document.getElementById('batteries')
+  if (!section) return
+  const bounds = section.getBoundingClientRect()
+  const offset = weaponScrollOffset(clampWeaponStep(index), WEAPON_TOUR.length, bounds.height, window.innerHeight)
+  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value ? 'instant' : 'smooth' })
+}
+function advanceChapter(index: number) {
+  if (index === 1 && weaponStep.value < WEAPON_TOUR.length - 1) selectWeaponStep(weaponStep.value + 1)
+  else goToChapter(index + 1)
+}
+function nextStepLabel(index: number) {
+  return index === 1 && weaponStep.value < WEAPON_TOUR.length - 1 ? locale.value === 'zh' ? '下一项武备' : 'Next weapon' : c.value.nextChapter
+}
+function goToArchive() { document.getElementById('archive')?.scrollIntoView({ block: 'start', behavior: reducedMotion.value ? 'instant' : 'smooth' }) }
+async function choosePhase(index: number) {
+  cancelRewind()
+  explore.value = false
+  await nextTick()
+  viewer.value?.seek(filmPlaying.value ? MODES[index]!.time : [0, 24, 46][index]!)
+}
+watch(locale, () => {
+  if (!viewportActive.value || reviewMode.value) return
+  const chapter = activeChapter.value, savedProgress = weaponProgress.value
+  nextTick(() => {
+    const element = document.getElementById(ODIN_TOUR[chapter]!.id)
+    if (!element) return
+    const bounds = element.getBoundingClientRect()
+    window.scrollTo({ top: window.scrollY + bounds.top + (chapter === 1 ? savedProgress * Math.max(0, bounds.height - window.innerHeight) : 0), behavior: 'instant' })
+  })
+})
 function toggleExplore() {
-  if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).mode === 'scm'
+  cancelRewind(); photoStatus.value = ''
+  if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).deployment > .5
   explore.value = !explore.value
 }
-function scrub(event: Event) {
-  viewer.value?.seek(Number((event.target as HTMLInputElement).value))
-}
+function scrub(event: Event) { cancelRewind(); viewer.value?.seek(Number((event.target as HTMLInputElement).value), { immediate: scrubDragging }) }
 function scrubKey(event: KeyboardEvent) { if (/^(Arrow|Home|End|Page)/.test(event.key)) beginScrub() }
 function keyboard(event: KeyboardEvent) {
   const element = event.target as HTMLElement
   if (/INPUT|BUTTON|A|TEXTAREA|SELECT/.test(element.tagName) || showAbout.value) return
-  if (event.code === 'Space') { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
-  if (event.key.toLowerCase() === 'r' && !explore.value) viewer.value?.seek(0)
+  if (event.code === 'Space' && viewportActive.value) { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
+  if (event.key.toLowerCase() === 'r' && !explore.value && viewportActive.value) { cancelRewind(); viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time) }
 }
+watch(activeChapter, () => {
+  explore.value = false
+  sequenceOverride.value = false
+  scheduleWeaponConnector()
+})
+watch(weaponStep, () => nextTick(scheduleWeaponConnector))
+let scrollFrame = 0
+let connectorFrame = 0
+function scheduleWeaponConnector() {
+  if (!import.meta.client || connectorFrame) return
+  connectorFrame = requestAnimationFrame(updateWeaponConnector)
+}
+function updateWeaponConnector() {
+  connectorFrame = 0
+  const origin = document.querySelector<HTMLElement>('#batteries .weapon-callout-origin')
+  const canvas = modelPanel.value?.querySelector<HTMLCanvasElement>('.odin-canvas')
+  if (activeChapter.value !== 1 || !viewportActive.value || !ready.value || !origin || !canvas) {
+    calloutOrigin.value = { ...calloutOrigin.value, visible: false }
+    return
+  }
+  const bounds = canvas.getBoundingClientRect(), label = origin.getBoundingClientRect()
+  const startX = label.left + label.width / 2 - bounds.left
+  const startY = label.top + label.height / 2 - bounds.top
+  calloutOrigin.value = { x: startX, y: startY, visible: bounds.width > 0 && bounds.height > 0 && label.width > 0 && label.height > 0 }
+}
+watch([locale, ready, viewportActive], () => nextTick(scheduleWeaponConnector))
+let wheelAmount = 0, wheelLastAt = 0, wheelCommitted = false
+function tourAnchor() {
+  // Each chapter occupies a whole viewport; the canvas fills that viewport too.
+  return 0
+}
+function onTourWheel(event: WheelEvent) {
+  const element = event.target as Element
+  if (reviewMode.value || showAbout.value || element.closest?.('dialog') || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
+  const archiveTop = document.getElementById('archive')?.getBoundingClientRect().top ?? Infinity
+  const fromArchive = !!element.closest?.('#archive') && event.deltaY < 0 && Math.abs(archiveTop) < 48
+  if (!element.closest?.('#tour') && !fromArchive) return
+  if (explore.value && element.closest('.scene-wrap')) return
+  const bounds = document.getElementById(ODIN_TOUR[activeChapter.value]!.id)?.getBoundingClientRect()
+  if (!bounds) return
+  const direction = event.deltaY > 0 ? 1 : -1
+  if (activeChapter.value === 1 && !fromArchive && isWithinWeaponScroll(bounds.top, bounds.height, window.innerHeight, direction)) {
+    wheelAmount = 0; wheelCommitted = false
+    return
+  }
+  const top = activeChapter.value === 1 ? weaponStageTop(bounds.top, bounds.height, window.innerHeight) : bounds.top
+  const next = fromArchive ? 3 : tourWheelTarget(activeChapter.value, event.deltaY > 0 ? 1 : -1, top, tourAnchor(), true)
+  if (next === undefined) return
+  event.preventDefault()
+  const now = performance.now()
+  if (now - wheelLastAt > 180) { wheelAmount = 0; wheelCommitted = false }
+  wheelLastAt = now
+  if (wheelCommitted) return
+  wheelAmount += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1)
+  if (Math.abs(wheelAmount) < 40) return
+  wheelCommitted = true
+  if (next === ODIN_TOUR.length) goToArchive()
+  else goToChapter(next, direction < 0 && next === 1 ? 'end' : 'start')
+}
+function updateChapter() {
+  scrollFrame = 0
+  if (reviewMode.value) return
+  const tour = document.getElementById('tour')?.getBoundingClientRect()
+  archiveActive.value = (document.getElementById('archive')?.getBoundingClientRect().top ?? Infinity) < window.innerHeight * .5
+  const header = headerVisible.value ? document.querySelector('.site-header')?.getBoundingClientRect().height || 92 : 0
+  // Once the canvas has scrolled behind the fixed header, it is no longer
+  // visible. Observing its full box alone would keep rendering that hidden strip.
+  viewportActive.value = !!tour && tour.bottom > header + 1 && tour.top < window.innerHeight
+  const anchor = tourAnchor()
+  const tops = ODIN_TOUR.map((shot, index) => {
+    const bounds = document.getElementById(shot.id)?.getBoundingClientRect()
+    if (!bounds) return Infinity
+    if (index !== 1) return bounds.top
+    weaponProgress.value = weaponScrollProgress(bounds.top, bounds.height, window.innerHeight)
+    weaponStep.value = weaponStepAt(weaponProgress.value, WEAPON_TOUR.length)
+    return weaponStageTop(bounds.top, bounds.height, window.innerHeight)
+  })
+  activeChapter.value = selectTourChapter(tops, anchor)
+  scheduleWeaponConnector()
+}
+function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
 onMounted(() => {
   reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) playback.value.userPaused = true
+  reducedMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reducedMotion.value) playback.value = { ...playback.value, userPaused: true }
   lowPower.value = window.innerWidth < 700
   window.addEventListener('keydown', keyboard)
   window.addEventListener('pointerup', endScrub)
   window.addEventListener('pointercancel', endScrub)
   window.addEventListener('blur', endScrub)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('wheel', onTourWheel, { passive: false })
+  window.addEventListener('resize', onScroll, { passive: true })
+  nextTick(() => {
+    if (!modelPanel.value) return
+    updateChapter()
+  })
 })
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', keyboard)
   window.removeEventListener('pointerup', endScrub)
   window.removeEventListener('pointercancel', endScrub)
   window.removeEventListener('blur', endScrub)
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('wheel', onTourWheel)
+  window.removeEventListener('resize', onScroll)
+  cancelAnimationFrame(scrollFrame)
+  cancelAnimationFrame(connectorFrame)
+  cancelAnimationFrame(rewindFrame)
 })
 </script>
 
 <template>
   <ClientOnly v-if="reviewMode"><ArticulationReview /></ClientOnly>
   <div v-else class="site-shell">
-    <header class="site-header">
-      <a href="#top" class="brand" aria-label="ODIN 首页"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="52" height="52" /><span>ODIN<span class="brand-sub">ANVIL / FAN ART</span></span></a>
-      <nav aria-label="主导航"><a href="#top" class="nav-current">舰船展示</a><a href="#dossier">舰船档案</a><button @click="showAbout = true">关于创作</button></nav>
-      <span class="fan-badge">UNOFFICIAL <strong>FAN ART</strong></span>
+    <header class="site-header" :class="{ 'is-hidden': !headerVisible }" :inert="!headerVisible" :aria-hidden="!headerVisible">
+      <a href="#overview" class="brand" :aria-label="c.home" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="46" height="46" /><span>ODIN<small>{{ c.brandSub }}</small></span></a>
+      <nav :aria-label="c.navLabel"><a href="#overview" @click.prevent="goToChapter(0)"><span>01</span>{{ c.navTour }}</a><a href="#archive"><span>02</span>{{ c.navArt }}</a><button @click="showAbout = true"><span>03</span>{{ c.navAbout }}</button></nav>
+      <div class="header-right"><button class="language-switch" :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }} <span aria-hidden="true">↔</span></button></div>
     </header>
 
     <main>
-      <section id="top" class="hero" :class="{ 'is-exploring': explore }" aria-label="奥丁三维展示">
-        <div class="scene-wrap">
-          <ClientOnly>
-            <OdinScene ref="viewer" :playing="playing" :explore="explore" :deployed="deployed" :low-power="lowPower" @ready="ready = true" @progress="progress = $event" @tick="filmTime = $event" @fail="error = $event" />
-          </ClientOnly>
-        </div>
-        <div class="hero-shade" aria-hidden="true" />
-        <div class="hero-heading">
-          <p class="eyebrow"><span /> ANVIL AEROSPACE / ODIN</p>
-          <h1>ODIN<span class="title-star">✳</span></h1>
-          <div class="hero-subtitle"><span>奥丁</span><span class="slash">/</span><span>战列巡洋舰</span></div>
-          <p class="hero-copy">舰船外观与武备展示。</p>
-        </div>
-        <div class="side-coordinate" aria-hidden="true">ANVIL · CAPITAL CLASS <span /> OD—77</div>
-
-        <Transition name="fade">
-          <div v-if="!ready && !error" class="loading-state" role="status"><span class="loading-mark" /><p>正在加载三维模型 <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div>
-        </Transition>
-        <div v-if="error" class="error-state" role="alert"><h2>三维场景暂时无法启动</h2><p>请使用支持 WebGL 2 的浏览器，并启用硬件加速。</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">重新载入</button><details><summary>错误详情</summary>{{ error }}</details></div>
-
-        <div v-if="ready" class="viewer-actions">
-          <button class="explore-button" :class="{ selected: explore }" :aria-pressed="explore" @click="toggleExplore"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18M4 7.5l8 5 8-5M4 16.5l8-4 8 4" /></svg>{{ explore ? '返回电影视角' : '自由探索' }}<span>↗</span></button>
-          <Transition name="fade"><div v-if="explore" class="explore-tools"><span>左键旋转 · 右键平移 · 滚轮缩放</span><span class="explore-mode">{{ deployed ? 'SCM/战斗模式' : 'NAV/航行模式' }}</span><button @click="deployed = !deployed">{{ deployed ? '切换为 NAV/航行模式' : '切换为 SCM/战斗模式' }}</button></div></Transition>
-        </div>
-
-        <div class="hero-bottom">
-          <div class="shot-caption"><span class="eyebrow">{{ explore ? 'YOUR PERSPECTIVE' : `0${chapterIndex + 1} / ${currentChapter.english}` }}</span><p>{{ explore ? '旋转视角，查看舰船细节。' : currentChapter.caption }}</p></div>
-          <div class="playback" :class="{ dimmed: explore }">
-            <div class="playback-top"><button :disabled="!ready || explore" :aria-label="playing ? '暂停动画' : '播放动画'" @click="togglePlayback"><svg v-if="playing" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">CINEMATIC ORBIT</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? '开启高画质' : '开启流畅模式'" @click="lowPower = !lowPower">{{ lowPower ? '流畅' : '高画质' }}</button></div>
-            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="filmTime" :disabled="!ready || explore" aria-label="动画时间" :style="{ '--progress': `${filmTime / FILM_DURATION * 100}%` }" @pointerdown="beginScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
-            <div class="chapter-buttons"><button v-for="(chapter, index) in chapters" :key="chapter.name" :disabled="!ready" :class="{ active: !explore && chapterIndex === index }" @click="chooseChapter(index)"><span>0{{ index + 1 }}</span>{{ chapter.name }}</button></div>
+      <div id="tour" class="tour-layout">
+        <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore, 'has-home-controls': chromeVisible }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id" :data-weapon-step="activeChapter === 1 ? weaponStep : undefined">
+          <div class="panel-toprail"><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
+          <div class="scene-wrap">
+            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :weapon-step="activeChapter === 1 ? weaponStep : undefined" :weapon-progress="weaponProgress" :callout-origin="calloutOrigin" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="onFilmTick" @loop="rewindTimeline" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
+            <div class="scene-shade" aria-hidden="true" />
+            <div class="viewport-status" :aria-hidden="!chromeVisible">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : filmPlaying ? c.playing : c.paused }}</div>
+            <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">{{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
+            <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
           </div>
+          <div class="viewer-console" :inert="!chromeVisible" :aria-hidden="!chromeVisible">
+            <div class="view-actions">
+              <div class="manual-actions" :class="{ visible: explore }" :inert="!explore" :aria-hidden="!explore"><button class="mode-switch" @click="deployed = !deployed">{{ deployed ? c.switchNav : c.switchScm }} <span aria-hidden="true">↔</span></button><button class="photo-button" :disabled="capturing" @click="capturePhoto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h5l2-3h4l2 3h5v13H3Z"/><circle cx="12" cy="13" r="4"/></svg>{{ capturing ? c.capturing : c.photo }}</button></div>
+              <button class="explore-button" :disabled="!ready" :aria-pressed="explore" @click="toggleExplore">{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↔</span></button>
+            </div>
+            <div class="manual-hint" :class="{ visible: explore }" aria-live="polite">{{ photoStatus || c.controlsHint }}</div>
+            <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="filmPlaying ? c.pause : c.play" @click="togglePlayback"><svg v-if="filmPlaying" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
+            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="timelineTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${timelineTime / FILM_DURATION * 100}%` }" @pointerdown="startPointerScrub" @pointermove="movePointerScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
+            <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)">{{ phase }}</button></div>
+          </div>
+        </section>
+        <div class="story-rail">
+          <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, 'weapon-chapter': index === 1, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
+            <div class="chapter-stage">
+            <div class="chapter-content">
+            <WeaponStory v-if="index === 1" :step="weaponStep" :locale="locale" :active="activeChapter === 1 && viewportActive" @select="selectWeaponStep" />
+            <template v-else>
+            <div class="chapter-heading"><p class="eyebrow">{{ String(index + 1).padStart(2, '0') }} / {{ chapter.label }}</p><h1 v-if="index === 0" :id="`${chapter.id}-title`">ODIN</h1><h2 v-else :id="`${chapter.id}-title`">{{ chapter.title }}</h2><p v-if="index === 0" class="vehicle-class">{{ c.vehicleClass }}<span>{{ c.manufacturer }}</span></p></div>
+            <p v-if="index > 0" class="chapter-body">{{ chapter.body }}</p>
+            <dl v-if="chapter.specs.length" class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
+            <ul v-if="chapter.interior" class="interior-specs"><li v-for="spec in chapter.interior[locale].specs" :key="spec">{{ spec }}</li></ul>
+            <InteriorGallery v-if="chapter.interior" :images="chapter.interior.images" :locale="locale" />
+            </template>
+            <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="nextStepLabel(index)" @click="advanceChapter(index)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
+            </div>
+            </div>
+          </article>
         </div>
-        <a href="#dossier" class="scroll-cue"><span>探索舰船档案</span><span class="down-line" /></a>
-      </section>
+      </div>
 
-      <section id="dossier" class="dossier">
-        <div class="section-heading"><p class="eyebrow">01 / THE BATTLECRUISER</p><span>ANVIL ODIN</span></div>
-        <div class="dossier-intro"><h2>奥丁战列巡洋舰<br /><span>舰体与武备概览</span></h2><div><p>奥丁是 Anvil 的战列巡洋舰概念。本页以三维模型展示舰体布局、武备结构，以及战斗与航行两种配置。</p><p class="subtle">可以播放完整动画，也可以拖动时间轴或进入自由探索，查看各部分的动作与细节。</p><a class="text-link" href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">探索 RSI 官方概念 <span>↗</span></a></div></div>
-        <div class="spec-row"><div><span class="spec-index">01 — ARMAMENT</span><strong>23<span>座</span></strong><h3>可操控炮塔</h3><p>分布于舰体的多组可操控炮塔。</p></div><div><span class="spec-index">02 — SUPPORT</span><strong>6<span>座</span></strong><h3>侧向机库</h3><p>位于舰体两侧的舰载艇机库。</p></div><div><span class="spec-index">03 — ENFORCER</span><strong>12<span>联</span></strong><h3>舰艏发射器</h3><p>位于舰艏的发射器阵列。</p></div></div>
-        <p class="source-note">概念配置依据 RSI 官方介绍；最终配置以官方发布为准。</p>
+      <section id="archive" class="art-archive" :aria-label="c.gallery">
+        <div class="archive-heading"><h2>{{ c.artTitle }}</h2></div>
+        <div class="gallery-layout"><figure class="artwork-figure"><div class="artwork-well"><img :key="artwork.src" :src="artwork.src" :alt="`${c.artTitle} ${artworkIndex + 1}`" :width="artwork.width" :height="artwork.height" loading="lazy" decoding="async" /></div><figcaption><span>© Cloud Imperium Games</span><div class="gallery-controls"><button :aria-label="c.previousArt" @click="changeArtwork(artworkIndex - 1)">←</button><span>{{ String(artworkIndex + 1).padStart(2, '0') }}<small> / {{ ODIN_WALLPAPERS.length }}</small></span><button class="next-art" :aria-label="c.nextArt" @click="changeArtwork(artworkIndex + 1)">→</button></div></figcaption></figure></div>
       </section>
-
-      <section class="concept-section" aria-label="奥丁官方概念艺术"><img src="/images/odin-battle.webp" alt="奥丁战列巡洋舰在行星轨道交战的官方概念艺术" loading="lazy" /><div class="concept-shade" /><div class="concept-caption"><p class="eyebrow">ANVIL AEROSPACE</p><h2>ANVIL<br />ODIN.</h2><span>官方概念艺术 / Cloud Imperium Games</span></div><a href="#top" class="concept-link" @click="chooseChapter(0)">重返奥丁 <span>↑</span></a></section>
     </main>
 
-    <footer class="site-footer"><a class="footer-wordmark" href="#top">ODIN<span>FAN ART PROJECT</span></a><p>本网站为独立粉丝艺术作品，与 Cloud Imperium Games 无隶属关系。<br />Star Citizen、Anvil、Odin 及官方概念艺术的权利归各自权利人所有。</p><a class="community-mark" href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer"><img src="/images/made-by-the-community.png" alt="Star Citizen — Made by the Community，星际公民社区制作" width="112" height="112" /></a><button @click="showAbout = true">创作与来源 ↗</button></footer>
+    <OdinFooter :locale="locale" @overview="goToChapter(0)" />
 
-    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" aria-label="创作与来源" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" aria-label="关闭创作说明" @click="showAbout = false">×</button><p class="eyebrow">THE ART OF ODIN</p><h2>关于奥丁三维展示</h2><p>本项目基于奥丁模型制作，整理舰体外观，并补充武备展开、收起与推进器效果。</p><p>场景在浏览器中实时渲染。舰船旋转、武备展开、推进器光效与镜头运动均由 Nuxt 中的 JavaScript 驱动。</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">动画灵感 / Space Tech <span>↗</span></a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">官方开发者展示 / Star Citizen Live <span>↗</span></a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">舰船概念与资料 / RSI <span>↗</span></a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">网站徽章 / 奥丁创始人俱乐部勋章 <span>↗</span></a></div><small>粉丝艺术外观模型，非官方生产级模型。</small></section></dialog></Teleport>
+    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
   </div>
 </template>

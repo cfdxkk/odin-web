@@ -9,3 +9,4 @@ output/playwright/
 *.blend1
 .env
 .DS_Store
+.vercel/

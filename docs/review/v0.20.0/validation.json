@@ -1,0 +1,12 @@
+{
+  "candidate": "v0.20.0-rc.1",
+  "unitTests": 137,
+  "unitFailures": 0,
+  "assetVerification": "passed",
+  "animationClipsPerGLB": 0,
+  "staticGeneration": "passed",
+  "routeChecks": 23,
+  "interactionChecks": 15,
+  "bowFramingChecks": 18,
+  "browserErrors": 0
+}

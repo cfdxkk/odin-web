@@ -1,0 +1,617 @@
+{
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "lang": "zh",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920
+        },
+        "copy": {
+          "x": 97.90625,
+          "y": 205.1875,
+          "w": 380,
+          "h": 778.5625,
+          "bottom": 983.75,
+          "right": 477.90625
+        },
+        "arrow": {
+          "x": 97.90625,
+          "y": 919.75,
+          "w": 44,
+          "h": 64,
+          "bottom": 983.75,
+          "right": 141.90625
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "490",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0627",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.571",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-1.105275,4.533588,0.385217",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400000",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 1012,
+            "bottom": 1056
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 1012,
+            "bottom": 1056
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 153.59375,
+          "bottom": 349.046875,
+          "left": 97.90625,
+          "right": 802.3125
+        },
+        "links": {
+          "top": 153.59375,
+          "bottom": 323.09375,
+          "left": 1492.078125,
+          "right": 1822.078125
+        },
+        "marks": {
+          "top": 1006,
+          "bottom": 1054,
+          "left": 97.90625,
+          "right": 1822.078125
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    },
+    {
+      "width": 2560,
+      "height": 1080,
+      "lang": "zh",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 2560,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 2560
+        },
+        "copy": {
+          "x": 130.546875,
+          "y": 205.1875,
+          "w": 380,
+          "h": 778.5625,
+          "bottom": 983.75,
+          "right": 510.546875
+        },
+        "arrow": {
+          "x": 130.546875,
+          "y": 919.75,
+          "w": 44,
+          "h": 64,
+          "bottom": 983.75,
+          "right": 174.546875
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "490",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0658",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.574",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-0.987911,4.140524,0.319583",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400000",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 1012,
+            "bottom": 1056
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 1012,
+            "bottom": 1056
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 153.59375,
+          "bottom": 356.453125,
+          "left": 130.546875,
+          "right": 1074.421875
+        },
+        "links": {
+          "top": 153.59375,
+          "bottom": 323.09375,
+          "left": 2029.4375,
+          "right": 2429.4375
+        },
+        "marks": {
+          "top": 1006,
+          "bottom": 1054,
+          "left": 130.546875,
+          "right": 2429.4375
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "lang": "en",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 3440,
+          "h": 1440,
+          "bottom": 1440,
+          "right": 3440
+        },
+        "copy": {
+          "x": 175.4375,
+          "y": 273.59375,
+          "w": 380,
+          "h": 775.5625,
+          "bottom": 1049.15625,
+          "right": 555.4375
+        },
+        "arrow": {
+          "x": 175.4375,
+          "y": 985.15625,
+          "w": 44,
+          "h": 64,
+          "bottom": 1049.15625,
+          "right": 219.4375
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "490",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0626",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.571",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-0.984898,4.130431,0.317898",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400000",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 1372,
+            "bottom": 1416
+          },
+          {
+            "label": "Next artwork",
+            "top": 1372,
+            "bottom": 1416
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 170,
+          "bottom": 400.609375,
+          "left": 175.4375,
+          "right": 1448.5625
+        },
+        "links": {
+          "top": 170,
+          "bottom": 339.5,
+          "left": 2864.546875,
+          "right": 3264.546875
+        },
+        "marks": {
+          "top": 1366,
+          "bottom": 1414,
+          "left": 175.4375,
+          "right": 3264.546875
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "lang": "en",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366
+        },
+        "copy": {
+          "x": 69.65625,
+          "y": 128,
+          "w": 355.15625,
+          "h": 574.296875,
+          "bottom": 702.296875,
+          "right": 424.8125
+        },
+        "arrow": {
+          "x": 69.65625,
+          "y": 650.796875,
+          "w": 44,
+          "h": 47,
+          "bottom": 697.796875,
+          "right": 113.65625
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "491",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0586",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.567",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-1.103855,4.533225,0.385211",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400095",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 706,
+            "bottom": 750
+          },
+          {
+            "label": "Next artwork",
+            "top": 706,
+            "bottom": 750
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 131.75,
+          "bottom": 341.46875,
+          "left": 69.65625,
+          "right": 566.765625
+        },
+        "links": {
+          "top": 131.75,
+          "bottom": 301.25,
+          "left": 966.34375,
+          "right": 1296.34375
+        },
+        "marks": {
+          "top": 694,
+          "bottom": 742,
+          "left": 69.65625,
+          "right": 1296.34375
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "lang": "zh",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 800,
+          "h": 600,
+          "bottom": 600,
+          "right": 800
+        },
+        "copy": {
+          "x": 40.796875,
+          "y": 98,
+          "w": 256,
+          "h": 428.21875,
+          "bottom": 526.21875,
+          "right": 296.796875
+        },
+        "arrow": {
+          "x": 40.796875,
+          "y": 476.21875,
+          "w": 44,
+          "h": 44,
+          "bottom": 520.21875,
+          "right": 84.796875
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "491",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0647",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.573",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-1.151302,4.687738,0.410957",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400000",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 538,
+            "bottom": 582
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 538,
+            "bottom": 582
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 106,
+          "bottom": 259.125,
+          "left": 40.796875,
+          "right": 388
+        },
+        "links": {
+          "top": 106,
+          "bottom": 248.5,
+          "left": 535.734375,
+          "right": 759.203125
+        },
+        "marks": {
+          "top": 534,
+          "bottom": 582,
+          "left": 40.796875,
+          "right": 759.203125
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "lang": "en",
+      "weapon": {
+        "overflow": false,
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "bottom": 844,
+          "right": 390
+        },
+        "copy": {
+          "x": 27.296875,
+          "y": 142,
+          "w": 335.390625,
+          "h": 556.203125,
+          "bottom": 698.203125,
+          "right": 362.6875
+        },
+        "arrow": {
+          "x": 27.296875,
+          "y": 646.203125,
+          "w": 44,
+          "h": 52,
+          "bottom": 698.203125,
+          "right": 71.296875
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin-lite.glb",
+          "renderedFrames": "491",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.0782",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "0.0000,0.0000",
+          "deployment": "0.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "6.587",
+          "joints": "215",
+          "quality": "low",
+          "cameraTarget": "0.120,0.430,-0.300",
+          "cameraPosition": "-2.630038,9.644526,1.238635",
+          "weapon": "torpedoes",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":0,\"quad\":0}",
+          "weaponTransition": "false",
+          "weaponProgress": "0.400043",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        }
+      },
+      "gallery": {
+        "overflow": false,
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 782,
+            "bottom": 820
+          },
+          {
+            "label": "Next artwork",
+            "top": 782,
+            "bottom": 820
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 105,
+          "bottom": 322.53125,
+          "left": 27.296875,
+          "right": 244.890625
+        },
+        "links": {
+          "top": 105,
+          "bottom": 273,
+          "left": 262.890625,
+          "right": 362.703125
+        },
+        "marks": {
+          "top": 778,
+          "bottom": 826,
+          "left": 27.296875,
+          "right": 362.703125
+        },
+        "image": "/images/odin-mountain-footer-v0.19.0.webp",
+        "filter": "blur(0.8px) contrast(0.94) brightness(0.86)"
+      }
+    }
+  ],
+  "errors": []
+}

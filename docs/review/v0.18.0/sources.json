@@ -1,0 +1,631 @@
+{
+  "revision": "v0.18.0",
+  "verifiedOn": "2026-10-13",
+  "primarySources": [
+    {
+      "id": "rsi-odin",
+      "url": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+      "kind": "Official Odin presentation and hosted media",
+      "localAudit": "work/v0160-media/page-properties.json"
+    },
+    {
+      "id": "scl-odin",
+      "url": "https://www.youtube.com/watch?v=CFoQp6wRjPo",
+      "kind": "Official Star Citizen Live presentation",
+      "transcriptLanguage": "en",
+      "captionType": "auto-generated",
+      "localAudit": "work/v0180-review/scl-transcript.txt",
+      "rawTranscriptSha256": "b84d716e555884145cd32c21c64bd0fd1b0f9714e6749936ae2afeca99c4d1d0",
+      "fullTranscriptCommitted": false,
+      "copyrightHandling": "Full transcript is kept only in ignored work storage for timestamp auditing; app copy and committed records use short paraphrases."
+    }
+  ],
+  "claims": [
+    {
+      "id": "torpedo-launchers",
+      "fact": "20 S12 vertical launch tubes, in front of the conning tower.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=485s",
+          "from": "8:05",
+          "to": "8:10",
+          "auditTranscriptLineRange": [
+            238,
+            239
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1229s",
+          "from": "20:29",
+          "to": "20:35",
+          "auditTranscriptLineRange": [
+            607,
+            610
+          ]
+        },
+        {
+          "source": "https://media.robertsspaceindustries.com/uhjpyw81y6eqe/source.jpg",
+          "region": "Technical specifications: 20 x S12 vertical launch systems"
+        }
+      ]
+    },
+    {
+      "id": "torpedo-ready-reloads",
+      "fact": "Developers describe about 40 torpedoes queued for loading, with 20 in launch tubes.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=490s",
+          "from": "8:10",
+          "to": "8:25",
+          "auditTranscriptLineRange": [
+            239,
+            245
+          ]
+        }
+      ],
+      "qualification": "Concept-stage approximate reserve figure. The app states about 40 queued, never a total capacity of 40; additional hold ammunition is not capped here."
+    },
+    {
+      "id": "torpedo-replenishment",
+      "fact": "Cargo-grid reloads travel by continuously circulating conveyors to the control room for crew to remove and manually load.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1394s",
+          "from": "23:14",
+          "to": "23:52",
+          "auditTranscriptLineRange": [
+            696,
+            715
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1446s",
+          "from": "24:06",
+          "to": "24:17",
+          "auditTranscriptLineRange": [
+            723,
+            729
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hangar-count",
+      "fact": "Six small metric hangars, three per side, plus one medium metric hangar.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1141s",
+          "from": "19:01",
+          "to": "19:18",
+          "auditTranscriptLineRange": [
+            563,
+            569
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1169s",
+          "from": "19:29",
+          "to": "19:43",
+          "auditTranscriptLineRange": [
+            575,
+            582
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medium-hangar-dimensions",
+      "fact": "Concept dimensions: 68 m X, 100 m Y, 44 m Z.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1267s",
+          "from": "21:07",
+          "to": "21:23",
+          "auditTranscriptLineRange": [
+            631,
+            636
+          ]
+        }
+      ],
+      "qualification": "Concept sizing, not a guarantee for every named ship."
+    },
+    {
+      "id": "hangar-flow-and-servicing",
+      "fact": "Connected hangars support rear recovery, side departures, repairs, refueling and rearming.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1217s",
+          "from": "20:17",
+          "to": "20:21",
+          "auditTranscriptLineRange": [
+            601,
+            603
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1284s",
+          "from": "21:24",
+          "to": "22:57",
+          "auditTranscriptLineRange": [
+            637,
+            687
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=3331s",
+          "from": "55:31",
+          "to": "56:18",
+          "auditTranscriptLineRange": [
+            1681,
+            1704
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cargo-capacity",
+      "fact": "6000 SCU main hold plus 2000 SCU cargo elevator, totaling 8000 SCU.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1546s",
+          "from": "25:46",
+          "to": "26:19",
+          "auditTranscriptLineRange": [
+            776,
+            798
+          ]
+        },
+        {
+          "source": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+          "dataPath": "properties[13].componentProps ship technical specifications; properties[11] cargo section"
+        }
+      ]
+    },
+    {
+      "id": "living-and-medical-locations",
+      "fact": "Crew quarters, canteen and hospital are planned below the bridge.",
+      "evidence": [
+        {
+          "source": "https://media.robertsspaceindustries.com/6lpt2i7q80sdz/source.jpg",
+          "region": "Callouts 5, 6 and 7"
+        },
+        {
+          "source": "https://media.robertsspaceindustries.com/bulkanh7z38ld/source.jpg",
+          "region": "Legend: crew quarters, canteen and hospital"
+        }
+      ],
+      "qualification": "The referenced SCL episode says hospital, engineering and habitation interiors were unfinished; no invented hospital artwork, bed count or medical tier."
+    },
+    {
+      "id": "unfinished-interiors",
+      "fact": "Medical and habitation interiors were still being designed at the time of this official presentation.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1863s",
+          "from": "31:03",
+          "to": "31:22",
+          "auditTranscriptLineRange": [
+            933,
+            943
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=3618s",
+          "from": "1:00:18",
+          "to": "1:00:48",
+          "auditTranscriptLineRange": [
+            1830,
+            1846
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tactical-and-briefing-spaces",
+      "fact": "Tactical map and briefing rooms support coordination; a quiet level overlooks the map room.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1943s",
+          "from": "32:23",
+          "to": "33:41",
+          "auditTranscriptLineRange": [
+            973,
+            1006
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2068s",
+          "from": "34:28",
+          "to": "35:04",
+          "auditTranscriptLineRange": [
+            1032,
+            1050
+          ]
+        },
+        {
+          "source": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+          "dataPath": "properties[9] briefing room"
+        }
+      ]
+    },
+    {
+      "id": "bridge-and-fire-control",
+      "fact": "Bridge command positions and a separate remote turret control room are shown.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2122s",
+          "from": "35:22",
+          "to": "35:45",
+          "auditTranscriptLineRange": [
+            1059,
+            1070
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2207s",
+          "from": "36:47",
+          "to": "37:07",
+          "auditTranscriptLineRange": [
+            1103,
+            1114
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tram-loop",
+      "fact": "A continuous tram loop connects key ship areas and distant turret stations.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1775s",
+          "from": "29:35",
+          "to": "30:24",
+          "auditTranscriptLineRange": [
+            892,
+            915
+          ]
+        }
+      ],
+      "qualification": "Stop count is not presented as final."
+    },
+    {
+      "id": "cruiser-performance-intent",
+      "fact": "Cruiser speed is a battlecruiser design goal; multiple engines distribute propulsion forces.",
+      "evidence": [
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=106s",
+          "from": "1:46",
+          "to": "2:06",
+          "auditTranscriptLineRange": [
+            58,
+            67
+          ]
+        },
+        {
+          "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=3084s",
+          "from": "51:24",
+          "to": "52:16",
+          "auditTranscriptLineRange": [
+            1551,
+            1577
+          ]
+        }
+      ],
+      "qualification": "Design intent, not a measured speed or turn-rate specification. No numerical maneuvering performance is invented."
+    }
+  ],
+  "images": [
+    {
+      "id": "schematic-overview",
+      "src": "/images/odin-interiors/schematic-overview.webp",
+      "width": 3600,
+      "height": 1204,
+      "source": "https://media.robertsspaceindustries.com/6lpt2i7q80sdz/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Schematic_UPDATED.jpg",
+      "officialMediaId": "3814870",
+      "sourceLastUpdated": "2026-05-22 12:40:28",
+      "dataPath": "properties[4].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "originalWidth": 3840,
+      "originalHeight": 1284,
+      "originalBytes": 1999928,
+      "originalSha256": "56033fb9c109395f8a9e825491b8f1b52f9bc300538d891086f0f3367fec7cba",
+      "bytes": 289104,
+      "sha256": "223943cc9be2e3056d2ab7ad5da2ba7b98dca0b350cb5f15726e18df18cb4846",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "ship cutaway / bridge, living and medical locations",
+      "usedInInteriorSections": true,
+      "visuallyVerified": true
+    },
+    {
+      "id": "schematic-callouts",
+      "src": "/images/odin-interiors/schematic-callouts.webp",
+      "width": 3600,
+      "height": 1152,
+      "source": "https://media.robertsspaceindustries.com/bulkanh7z38ld/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Schematic_Callouts-Copy.jpg",
+      "officialMediaId": "3814831",
+      "sourceLastUpdated": "2026-05-22 11:12:49",
+      "dataPath": "properties[5].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "originalWidth": 6000,
+      "originalHeight": 1920,
+      "originalBytes": 1082473,
+      "originalSha256": "7684f6a5fa544d4556b29a0a3d18f2633ea38e7b75a95a94929bcda861b78867",
+      "bytes": 82016,
+      "sha256": "53ae38221f0039e48881e2bb837d6acaec707afe3a70db22d4cfb10b98ec2ef4",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "cutaway legend / supplementary reference",
+      "usedInInteriorSections": false,
+      "visuallyVerified": true
+    },
+    {
+      "id": "briefing-room",
+      "src": "/images/odin-interiors/briefing-room.webp",
+      "width": 2400,
+      "height": 1350,
+      "source": "https://media.robertsspaceindustries.com/seyogl9pfjzgz/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Interior-5.jpg",
+      "officialMediaId": "3812477",
+      "sourceLastUpdated": "2026-05-20 07:25:35",
+      "dataPath": "properties[9].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "originalWidth": 3840,
+      "originalHeight": 2160,
+      "originalBytes": 1943778,
+      "originalSha256": "ce58320877b4ae8314585fdceeafb50ac13270028b393ce90eccdad85a23bb6b",
+      "bytes": 171574,
+      "sha256": "0f062dccfec9aa3456d097b88b0fe20072b86b80c3207aa1f28d00c022ca1641",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "briefing room interior",
+      "usedInInteriorSections": true,
+      "visuallyVerified": true
+    },
+    {
+      "id": "ammunition-stores",
+      "src": "/images/odin-interiors/ammunition-stores.webp",
+      "width": 2400,
+      "height": 1350,
+      "source": "https://media.robertsspaceindustries.com/rjcnf7g1hahxx/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Interior-9.jpg",
+      "officialMediaId": "3812478",
+      "sourceLastUpdated": "2026-05-20 07:25:39",
+      "dataPath": "properties[10].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "originalWidth": 3840,
+      "originalHeight": 2160,
+      "originalBytes": 2430653,
+      "originalSha256": "a55e3628d94dc501b402740b50daf8ceb20393c30a1d128f7e054887e15f1d49",
+      "bytes": 269444,
+      "sha256": "a668286d8842cbf7dfbb80c08784bd3a50fce78e2aa26639fed1e5a747e19bfc",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "main cannon ammunition interior, not torpedo loading",
+      "usedInInteriorSections": false,
+      "visuallyVerified": true
+    },
+    {
+      "id": "magazine-hall",
+      "src": "/images/odin-interiors/magazine-hall.webp",
+      "width": 2400,
+      "height": 1029,
+      "source": "https://media.robertsspaceindustries.com/4mdes7sey7u1u/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Interior-7.jpg",
+      "officialMediaId": "3812489",
+      "sourceLastUpdated": "2026-05-20 07:40:28",
+      "dataPath": "properties[10].componentProps.gridOptions.uiData.elements[2].data.image.heapImage.heapImage",
+      "originalWidth": 5040,
+      "originalHeight": 2160,
+      "originalBytes": 2790524,
+      "originalSha256": "e3d1f432437eb9bbe0f977cd2a9757580eac83fccc3121385d4587f7cab4d0d4",
+      "bytes": 218316,
+      "sha256": "dfa101db6988469ac8462a63a30f28c03425900411154ed115c457b4e7785777",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "main cannon ammunition interior, not torpedo loading",
+      "usedInInteriorSections": false,
+      "visuallyVerified": true
+    },
+    {
+      "id": "vertical-magazine",
+      "src": "/images/odin-interiors/vertical-magazine.webp",
+      "width": 1080,
+      "height": 1699,
+      "source": "https://media.robertsspaceindustries.com/mnzu6i6d7jc7f/source.jpg",
+      "sourceName": "78.jpg",
+      "officialMediaId": "3812492",
+      "sourceLastUpdated": "2026-05-20 07:44:15",
+      "dataPath": "properties[10].componentProps.gridOptions.uiData.elements[3].data.image.heapImage.heapImage",
+      "originalWidth": 1080,
+      "originalHeight": 1699,
+      "originalBytes": 431914,
+      "originalSha256": "941ed63679bf3d522e23c262332c70a360ac5b53a8bd647e04773f2020d4f304",
+      "bytes": 119726,
+      "sha256": "ef2d720ed90d4562634dcef30c3396fe5c932c57ae8b41413da443a6b7c7da5f",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "torpedo loading area, matched to SCL 23:54",
+      "usedInInteriorSections": true,
+      "visuallyVerified": true
+    },
+    {
+      "id": "hangar-cargo-deck",
+      "src": "/images/odin-interiors/hangar-cargo-deck.webp",
+      "width": 2400,
+      "height": 1350,
+      "source": "https://media.robertsspaceindustries.com/d8q6m2h9ecdeo/source.jpg",
+      "sourceName": "75-Copy.jpg",
+      "officialMediaId": "3814912",
+      "sourceLastUpdated": "2026-05-22 13:34:47",
+      "dataPath": "properties[11].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "originalWidth": 3840,
+      "originalHeight": 2160,
+      "originalBytes": 2884007,
+      "originalSha256": "e9ea6038de224080656d2240e1a2303bea3d0ac61e6ec6825e3996a5dc636b2e",
+      "bytes": 286554,
+      "sha256": "6765bfa9c9d88ee645c448dddd4bd96898aafa37a49f8d2e08b6a2d385b26367",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "connected central/side hangars and rear cargo lift",
+      "usedInInteriorSections": true,
+      "visuallyVerified": true
+    },
+    {
+      "id": "side-hangars",
+      "src": "/images/odin-interiors/side-hangars.webp",
+      "width": 2400,
+      "height": 1013,
+      "source": "https://media.robertsspaceindustries.com/4ii2y49ikiyz6/source.jpg",
+      "sourceName": "SC_ANVIL_Odin_Exterior-7.jpg",
+      "officialMediaId": "3812473",
+      "sourceLastUpdated": "2026-05-20 07:23:30",
+      "dataPath": "properties[2].componentProps.gridOptions.uiData.elements[7].data.image.heapImage.heapImage",
+      "originalWidth": 3840,
+      "originalHeight": 1620,
+      "originalBytes": 1112545,
+      "originalSha256": "be9d202c22da882bf54ce4082c933a4c7579d6cba37477b61c822f91a9654904",
+      "bytes": 260204,
+      "sha256": "cc54b1f8b26a9570ad5790bce71d9489cda83ba40beacaed0779f9cbdc56c904",
+      "processing": "Uncropped resize and WebP encoding; no generated content or changes to the depicted room.",
+      "category": "exterior side hangar deployment",
+      "usedInInteriorSections": true,
+      "visuallyVerified": true
+    },
+    {
+      "id": "torpedo-conveyor",
+      "src": "/images/odin-interiors/torpedo-conveyor.webp",
+      "width": 1105,
+      "height": 622,
+      "bytes": 51206,
+      "sha256": "8bf506503689ca99df91c4e8c49ac3f3ff67ebc64b509d86a48e1e75033fd44a",
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1412s",
+      "timestamp": "23:32",
+      "timeSeconds": 1412,
+      "rawCapture": "work/v0180-review/scl-torpedo-conveyor-clean.png",
+      "rawCaptureSha256": "9c4b7cb0412e7d3a2be3d8ce11c924a373ec3edbd703f66b1e86c7947a247782",
+      "description": "Torpedo transport conveyor and loading area.",
+      "processing": "Uncropped screenshot of the official SCL video frame, converted to WebP. No generated content. Video watermark retained.",
+      "visuallyVerified": true,
+      "usedInInteriorSections": true
+    },
+    {
+      "id": "map-room-upper-level",
+      "src": "/images/odin-interiors/map-room-upper-level.webp",
+      "width": 1106,
+      "height": 622,
+      "bytes": 57198,
+      "sha256": "a6a46644d3e4b0da2d9eb40122f449a93efe8fe8576bb1e5fdc7bc08500e98bf",
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=1947s",
+      "timestamp": "32:27",
+      "timeSeconds": 1947,
+      "rawCapture": "work/v0180-review/scl-tactical-room-frame.png",
+      "rawCaptureSha256": "b6629183797c1c6ba867048961a2b2e8f5601192a639952250d82e3e06bb3f82",
+      "description": "Quiet upper level overlooking the tactical map room.",
+      "processing": "Uncropped screenshot of the official SCL video frame, converted to WebP. No generated content. Video watermark retained.",
+      "visuallyVerified": true,
+      "usedInInteriorSections": true
+    },
+    {
+      "id": "bridge-command",
+      "src": "/images/odin-interiors/bridge-command.webp",
+      "width": 1106,
+      "height": 622,
+      "bytes": 62482,
+      "sha256": "7b3a1c95fa4aa0e08113826ce605a9fddd6e1cc1a9df30c1172763c647dad129",
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2124s",
+      "timestamp": "35:24",
+      "timeSeconds": 2124,
+      "rawCapture": "work/v0180-review/scl-bridge-command-frame.png",
+      "rawCaptureSha256": "4b72e624be141b2590e1bb7b305376de64a969c0eb1b379b1210f37b37ae6c03",
+      "description": "Bridge command platform.",
+      "processing": "Uncropped screenshot of the official SCL video frame, converted to WebP. No generated content. Video watermark retained.",
+      "visuallyVerified": true,
+      "usedInInteriorSections": true
+    },
+    {
+      "id": "engine-cluster",
+      "src": "/images/odin-interiors/engine-cluster.webp",
+      "width": 1106,
+      "height": 622,
+      "bytes": 28986,
+      "sha256": "51b88d0f981bf3bf869fe2d21628d8ba93eaf3e00e53a113423a501f92291027",
+      "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=3124s",
+      "timestamp": "52:04",
+      "timeSeconds": 3124,
+      "rawCapture": "work/v0180-review/scl-engine-cluster-frame.png",
+      "rawCaptureSha256": "128c06dbf3014b7ef9d5eadde5dc6232580a616be6fcf79ffd84cf14adb7d8f1",
+      "description": "Concept model of the central and side engine cluster.",
+      "processing": "Uncropped screenshot of the official SCL video frame, converted to WebP. No generated content. Video watermark retained.",
+      "visuallyVerified": true,
+      "usedInInteriorSections": true
+    }
+  ],
+  "videoPosters": [
+    {
+      "id": "main-battery",
+      "src": "/videos/odin/main-battery.mp4",
+      "poster": "/videos/odin/main-battery.webp",
+      "frameIndex": 0,
+      "seekUsed": false,
+      "width": 640,
+      "height": 360,
+      "bytes": 156410,
+      "sha256": "4ba1ded5a1a22971300ec0e2c51524f4ce3855f62806c1be90d0f90fb0ef2d77",
+      "videoSha256": "322cdc61453986e46211d5550427d0eae238aeb070f9e62c071ab24d17f28c6d",
+      "rgbMeanAbsoluteDifferenceToFrame0": 0,
+      "rgbMaximumAbsoluteDifferenceToFrame0": 0,
+      "processing": "FFmpeg first decoded frame with no seeking, uncropped 640x360 RGB conversion, exact lossless WebP encoding with Pillow.",
+      "visuallyVerified": true,
+      "mirrorInComponent": true
+    },
+    {
+      "id": "bow-laser",
+      "src": "/videos/odin/bow-laser.mp4",
+      "poster": "/videos/odin/bow-laser.webp",
+      "frameIndex": 0,
+      "seekUsed": false,
+      "width": 640,
+      "height": 360,
+      "bytes": 78960,
+      "sha256": "f4e0128505b34863afe5e39fa7d7aa9e420771c1f21f55cac14ac99169113c96",
+      "videoSha256": "4a66c418679e30a129e0945457b5f76a61c690f2356e046bc817328d78b0678d",
+      "rgbMeanAbsoluteDifferenceToFrame0": 0,
+      "rgbMaximumAbsoluteDifferenceToFrame0": 0,
+      "processing": "FFmpeg first decoded frame with no seeking, uncropped 640x360 RGB conversion, exact lossless WebP encoding with Pillow.",
+      "visuallyVerified": true,
+      "mirrorInComponent": false
+    },
+    {
+      "id": "quad-turret",
+      "src": "/videos/odin/quad-turret.mp4",
+      "poster": "/videos/odin/quad-turret.webp",
+      "frameIndex": 0,
+      "seekUsed": false,
+      "width": 640,
+      "height": 360,
+      "bytes": 74930,
+      "sha256": "94c5cf228ebb17ce1daea80d4ff87552c28a55c44b85ab26923a037b8a72e9fb",
+      "videoSha256": "63481d410c05b326fdda50f042f67d1d318572469c2202d92679b0c1530f0497",
+      "rgbMeanAbsoluteDifferenceToFrame0": 0,
+      "rgbMaximumAbsoluteDifferenceToFrame0": 0,
+      "processing": "FFmpeg first decoded frame with no seeking, uncropped 640x360 RGB conversion, exact lossless WebP encoding with Pillow.",
+      "visuallyVerified": true,
+      "mirrorInComponent": true
+    }
+  ],
+  "excludedOrUnasserted": [
+    "The old pdc video is not used in this revision; its depiction does not match the requested twin turret step.",
+    "No fabricated dining-room, hospital, bed-capacity, medical-tier, greenhouse or crafting-room illustration is supplied.",
+    "The SCL frame at 53:54 is rejected as an unhelpful tilted view; the official connected-hangar image is used instead.",
+    "Main cannon magazine pictures are not mislabeled as torpedo loading areas.",
+    "The engine screenshot is explicitly a concept model, not an in-game performance demonstration."
+  ],
+  "browserVerification": {
+    "url": "http://127.0.0.1:4175/?v=0.18.0-rc.1&lang=zh",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "auditRecord": "work/v0180-review/media-hover-qa.json",
+    "defaultPaused": true,
+    "hoverPlays": true,
+    "pointerExitPauses": true,
+    "grayscaleRemovedOnHover": true,
+    "noVideoControls": true,
+    "componentBoundsUnchangedOnPlay": true,
+    "torpedoImageLoaded": true,
+    "posterDecodedRgbExactlyMatchesFrame0": true
+  }
+}

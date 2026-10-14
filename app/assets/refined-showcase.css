@@ -1,0 +1,44 @@
+/* Interface chrome belongs to the opening view; the archive restores the header. */
+.site-header { background: var(--bg); transition: transform .5s cubic-bezier(.22,.61,.36,1), visibility .5s; }
+.site-header.is-hidden { transform: translateY(-100%); visibility: hidden; pointer-events: none; }
+.model-panel:not(.has-home-controls) .panel-toprail { top: 36px; }
+.viewer-console, .explore-button, .panel-footrail, .viewport-status { transition: opacity .35s, transform .35s, visibility .35s; }
+.model-panel:not(.has-home-controls) :is(.viewer-console,.explore-button,.panel-footrail,.viewport-status) { opacity: 0; visibility: hidden; transform: translateY(18px); pointer-events: none; }
+.scroll-cue { width: 44px; height: 64px; margin-top: 8px; color: var(--text); padding: 0; justify-content: flex-start; animation: scroll-cue-fade 3.6s ease-in-out infinite; }
+.scroll-cue svg { width: 29px; height: 48px; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter; }
+.scroll-cue:hover { opacity: 1; color: var(--accent); animation-play-state: paused; }
+@keyframes scroll-cue-fade { 0%,100% { opacity: .9; } 50% { opacity: .35; } }
+#batteries .chapter-content { gap: 18px; }
+.weapon-videos { pointer-events: auto; width: 100%; }
+.weapon-preview { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #080c10; }
+.weapon-preview video { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.76); transition: filter .3s; }
+.weapon-preview video.mirrored { transform: scaleX(-1); }
+.weapon-videos.is-playing video { filter: grayscale(0) brightness(1); }
+.preview-indicator { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; transition: opacity .2s; }
+.preview-indicator svg { width: 25px; height: 25px; stroke-width: 1.4; }.is-playing .preview-indicator { opacity: 0; }
+.weapon-choices { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 14px; margin-top: 10px; }
+.weapon-choice { min-width: 0; display: flex; align-items: center; gap: 8px; min-height: 38px; padding: 7px 0; text-align: left; font-size: 10px; color: #a2adb5; border-top: 1px solid var(--line); }
+.weapon-choice > span:first-child { color: #7b8a95; font-size: 9px; font-variant-numeric: tabular-nums; }.weapon-choice .choice-arrow { margin-left: auto; opacity: 0; }
+.weapon-choice[aria-pressed=true] { color: var(--text); border-top-color: var(--accent); }.weapon-choice[aria-pressed=true] .choice-arrow { opacity: 1; }
+.weapon-choice:hover, .weapon-choice:focus-visible { color: var(--accent); }
+.art-archive { padding-top: calc(var(--header-height) + 48px); scroll-margin-top: 0; }
+.artwork-well img { object-fit: cover; }
+@media (min-width: 701px) {
+  .model-panel:not(.has-home-controls) .scene-shade { background: linear-gradient(90deg,rgba(7,11,16,.97),rgba(7,11,16,.92) 28%,rgba(7,11,16,.15) 48%,transparent 62%),linear-gradient(0deg,rgba(7,11,16,.92),transparent 26%); }
+}
+@media (max-width: 700px) {
+  .story-chapter:not(.chapter-intro) { padding-top: 58px; padding-bottom: 40px; }
+  #batteries .chapter-content { gap: 14px; }
+  .weapon-videos { max-width: 290px; }.weapon-choice { font-size: 9px; }
+  .scroll-cue { height: 52px; margin-top: 2px; }.scroll-cue svg { width: 27px; height: 44px; }
+  .model-panel:not(.has-home-controls) .panel-toprail { top: 15px; bottom: auto; }
+  .art-archive { padding-top: calc(var(--header-height) + 30px); }
+}
+@media (max-height: 800px) and (min-width: 701px) {
+  #batteries { padding-top: 98px; padding-bottom: 30px; } #batteries .chapter-content { gap: 12px; }
+  .weapon-videos { max-width: 280px; }.weapon-choice { min-height: 35px; }.scroll-cue { height: 47px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .viewer-console, .explore-button, .panel-footrail, .viewport-status, .weapon-preview video { transition: none; }
+  .scroll-cue { animation: none; }
+}

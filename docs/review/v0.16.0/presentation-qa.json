@@ -1,0 +1,265 @@
+{
+  "checks": {
+    "homeRotates": true,
+    "minimalIntro": true,
+    "fourArrowCues": true,
+    "interfaceHides": true,
+    "fourLocalClips": true,
+    "defaultStoppedAndGray": true,
+    "onlyMainAndQuadMirrored": true,
+    "twoByTwo": true,
+    "hoverClip0": true,
+    "hoverClip1": true,
+    "hoverClip2": true,
+    "hoverClip3": true,
+    "leaveStops": true,
+    "archiveHasStagedArrival": true,
+    "archiveRestoresHeader": true,
+    "wallpapersOnly": true,
+    "nextWallpaper": true,
+    "galleryScrollsNormally": true,
+    "footerImageRendered": true,
+    "footerOnlyOfficial": true,
+    "footerThanksAndStripe": true,
+    "offscreenStops": true
+  },
+  "failures": [],
+  "stages": [
+    {
+      "engine": "three.js r186",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "asset": "/models/odin.glb",
+      "renderedFrames": "535",
+      "view": "batteries",
+      "ready": "true",
+      "time": "24.00",
+      "cameraTime": "0.6376",
+      "cameraMode": "detail",
+      "filmPlaying": "false",
+      "cameraTransition": "false",
+      "motionTransition": "false",
+      "cameraFov": "33.00",
+      "deployment": "1.000",
+      "thrust": "0.000",
+      "joints": "215",
+      "quality": "high",
+      "cameraTarget": "0.000,0.200,-2.300",
+      "cameraPosition": "4.085471,2.621020,-4.418393",
+      "fps": "75"
+    },
+    {
+      "engine": "three.js r186",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "asset": "/models/odin.glb",
+      "renderedFrames": "745",
+      "view": "bridge",
+      "ready": "true",
+      "time": "24.00",
+      "cameraTime": "0.6376",
+      "cameraMode": "detail",
+      "filmPlaying": "false",
+      "cameraTransition": "false",
+      "motionTransition": "false",
+      "cameraFov": "33.00",
+      "deployment": "1.000",
+      "thrust": "0.000",
+      "joints": "215",
+      "quality": "high",
+      "cameraTarget": "0.270,0.740,0.590",
+      "cameraPosition": "3.151877,1.769242,-0.645090",
+      "fps": "75"
+    },
+    {
+      "engine": "three.js r186",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "asset": "/models/odin.glb",
+      "renderedFrames": "1418",
+      "view": "engines",
+      "ready": "true",
+      "time": "46.00",
+      "cameraTime": "0.6376",
+      "cameraMode": "detail",
+      "filmPlaying": "false",
+      "cameraTransition": "false",
+      "motionTransition": "false",
+      "cameraFov": "33.00",
+      "deployment": "0.000",
+      "thrust": "1.000",
+      "joints": "215",
+      "quality": "high",
+      "cameraTarget": "0.000,0.150,2.450",
+      "cameraPosition": "1.258119,1.072620,5.804983",
+      "fps": "75"
+    }
+  ],
+  "videoStates": [
+    {
+      "phase": "initial",
+      "videos": [
+        {
+          "src": "/videos/odin/main-battery.mp4",
+          "paused": true,
+          "controls": false,
+          "preload": "none",
+          "filter": "grayscale(1) brightness(0.64)",
+          "mirror": "matrix(-1, 0, 0, 1, 0, 0)",
+          "currentTime": 0
+        },
+        {
+          "src": "/videos/odin/bow-laser.mp4",
+          "paused": true,
+          "controls": false,
+          "preload": "none",
+          "filter": "grayscale(1) brightness(0.64)",
+          "mirror": "none",
+          "currentTime": 0
+        },
+        {
+          "src": "/videos/odin/pdc.mp4",
+          "paused": true,
+          "controls": false,
+          "preload": "none",
+          "filter": "grayscale(1) brightness(0.64)",
+          "mirror": "none",
+          "currentTime": 0
+        },
+        {
+          "src": "/videos/odin/quad-turret.mp4",
+          "paused": true,
+          "controls": false,
+          "preload": "none",
+          "filter": "grayscale(1) brightness(0.64)",
+          "mirror": "matrix(-1, 0, 0, 1, 0, 0)",
+          "currentTime": 0
+        }
+      ]
+    },
+    {
+      "phase": "hover 0",
+      "videos": [
+        {
+          "paused": false,
+          "filter": "grayscale(0) brightness(1)",
+          "currentTime": 0.473066
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        }
+      ]
+    },
+    {
+      "phase": "hover 1",
+      "videos": [
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": false,
+          "filter": "grayscale(0) brightness(1)",
+          "currentTime": 0.471985
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        }
+      ]
+    },
+    {
+      "phase": "hover 2",
+      "videos": [
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": false,
+          "filter": "grayscale(0) brightness(1)",
+          "currentTime": 0.462431
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        }
+      ]
+    },
+    {
+      "phase": "hover 3",
+      "videos": [
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": true,
+          "filter": "grayscale(1) brightness(0.64)",
+          "currentTime": 0
+        },
+        {
+          "paused": false,
+          "filter": "grayscale(0) brightness(1)",
+          "currentTime": 0.458937
+        }
+      ]
+    }
+  ],
+  "boxes": [
+    {
+      "x": 73.4375,
+      "y": 468.71875,
+      "width": 194,
+      "height": 137.125
+    },
+    {
+      "x": 279.4375,
+      "y": 468.71875,
+      "width": 194,
+      "height": 137.125
+    },
+    {
+      "x": 73.4375,
+      "y": 617.84375,
+      "width": 194,
+      "height": 137.125
+    },
+    {
+      "x": 279.4375,
+      "y": 617.84375,
+      "width": 194,
+      "height": 137.125
+    }
+  ],
+  "errors": []
+}

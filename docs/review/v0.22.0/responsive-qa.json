@@ -1,0 +1,453 @@
+{
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "lang": "zh",
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "舰艏光束武器"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "舰桥"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "后部舰体"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 1012,
+            "bottom": 1056,
+            "left": 1550.4000244140625,
+            "right": 1594.4000244140625,
+            "visible": true
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 1012,
+            "bottom": 1056,
+            "left": 1726.4000244140625,
+            "right": 1770.4000244140625,
+            "visible": true
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 153.1999969482422,
+          "bottom": 348.4499969482422,
+          "left": 97.9124984741211,
+          "right": 795.9749984741211,
+          "visible": true
+        },
+        "official": {
+          "top": 153.1999969482422,
+          "bottom": 232.6999969482422,
+          "left": 1476.8875732421875,
+          "right": 1806.8875732421875,
+          "visible": true
+        },
+        "colophon": {
+          "top": 1005.6000366210938,
+          "bottom": 1053.6000366210938,
+          "left": 97.9124984741211,
+          "right": 1806.8874740600586,
+          "visible": true
+        },
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub 源代码 ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-16e95e28": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "179.7",
+          "dpr": "1.0000000149011612",
+          "marks": "55964",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "2.688",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "width": 1905,
+          "height": 1002,
+          "cssWidth": 1904.800048828125,
+          "cssHeight": 1002
+        }
+      }
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "lang": "en",
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "Bow beam weapon"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "Bridge"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "Aft hull"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 1372,
+            "bottom": 1416,
+            "left": 2964,
+            "right": 3008,
+            "visible": true
+          },
+          {
+            "label": "Next artwork",
+            "top": 1372,
+            "bottom": 1416,
+            "left": 3140,
+            "right": 3184,
+            "visible": true
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 169.60000610351562,
+          "bottom": 400.00001525878906,
+          "left": 175.4375,
+          "right": 1442.237548828125,
+          "visible": true
+        },
+        "official": {
+          "top": 169.60000610351562,
+          "bottom": 249.10000610351562,
+          "left": 2849.362548828125,
+          "right": 3249.362548828125,
+          "visible": true
+        },
+        "colophon": {
+          "top": 1365.5999755859375,
+          "bottom": 1413.5999755859375,
+          "left": 175.4375,
+          "right": 3249.362548828125,
+          "visible": true
+        },
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-16e95e28": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "102.5",
+          "dpr": "1.0000000149011612",
+          "marks": "135024",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "2.688",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "width": 3425,
+          "height": 1362,
+          "cssWidth": 3424.800048828125,
+          "cssHeight": 1362
+        }
+      }
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "lang": "zh",
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "舰艏光束武器"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "舰桥"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "后部舰体"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 706,
+            "bottom": 750,
+            "left": 1035.5625,
+            "right": 1079.5625,
+            "visible": true
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 706,
+            "bottom": 750,
+            "left": 1211.5625,
+            "right": 1255.5625,
+            "visible": true
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 131.35000610351562,
+          "bottom": 316.83750915527344,
+          "left": 69.67500305175781,
+          "right": 560.6125030517578,
+          "visible": true
+        },
+        "official": {
+          "top": 131.35000610351562,
+          "bottom": 210.85000610351562,
+          "left": 951.5250244140625,
+          "right": 1281.5250244140625,
+          "visible": true
+        },
+        "colophon": {
+          "top": 693.6000366210938,
+          "bottom": 741.6000366210938,
+          "left": 69.67500305175781,
+          "right": 1281.5249786376953,
+          "visible": true
+        },
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub 源代码 ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-16e95e28": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "47.6",
+          "dpr": "1.0000000149011612",
+          "marks": "27412",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "2.688",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "width": 1351,
+          "height": 690,
+          "cssWidth": 1351.2000732421875,
+          "cssHeight": 690
+        }
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "lang": "en",
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "Bow beam weapon"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "Bridge"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "Aft hull"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938,
+            "left": 187.875,
+            "right": 225.875,
+            "visible": true
+          },
+          {
+            "label": "Next artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938,
+            "left": 309.875,
+            "right": 347.875,
+            "visible": true
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 105,
+          "bottom": 321.75,
+          "left": 27.325000762939453,
+          "right": 235.02499771118164,
+          "visible": true
+        },
+        "official": {
+          "top": 105,
+          "bottom": 179,
+          "left": 253.02500915527344,
+          "right": 347.87500762939453,
+          "visible": true
+        },
+        "colophon": {
+          "top": 778,
+          "bottom": 826,
+          "left": 27.325000762939453,
+          "right": 347.8750190734863,
+          "visible": true
+        },
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-16e95e28": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "39.9",
+          "dpr": "1.0000000149011612",
+          "marks": "7480",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "2.688",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "width": 375,
+          "height": 774,
+          "cssWidth": 375.20001220703125,
+          "cssHeight": 774
+        }
+      }
+    }
+  ],
+  "errors": []
+}

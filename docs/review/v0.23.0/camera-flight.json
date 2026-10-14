@@ -1,0 +1,1099 @@
+{
+  "method": "Sample the production camera path for both entry sides at four desktop aspect ratios. Position/angle derivatives use centered finite differences of1e-4progress. Verify continuous angular deceleration before the endpoint taper, no middle-flight velocity trough/secondpulse, C2 station/handoff joins, increasing camera radius, and the projection of four fixed longitudinal-axis stations. This validates the fixed cross-section orbit axis, rather than checking only the moving look-at target.",
+  "orbitAxis": {
+    "x": 0,
+    "y": 0.068
+  },
+  "lateralArrival": 0.68,
+  "aftArcStart": 0.42,
+  "stationDistances": [
+    4.5,
+    5.3,
+    6,
+    6.3,
+    6.6
+  ],
+  "angles": [
+    {
+      "progress": 0,
+      "lateral": 0.12,
+      "aft": 0.12
+    },
+    {
+      "progress": 0.1,
+      "lateral": 0.3988702470911594,
+      "aft": 0.12
+    },
+    {
+      "progress": 0.25,
+      "lateral": 0.796942740308969,
+      "aft": 0.12
+    },
+    {
+      "progress": 0.5,
+      "lateral": 1.4053060185164308,
+      "aft": 0.13413335529383094
+    },
+    {
+      "progress": 0.75,
+      "lateral": 1.5707963267948966,
+      "aft": 0.6011222837732445
+    },
+    {
+      "progress": 1,
+      "lateral": 1.5707963267948966,
+      "aft": 0.94
+    }
+  ],
+  "cases": [
+    {
+      "aspect": 1.3333333333333333,
+      "entrySide": "port",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00009542401843098958,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 4.125157563304932e-15,
+      "middleSpeedMin": 13.919906895007161,
+      "middleSpeedMax": 14.600733102716706,
+      "middleSpeedRatio": 1.048910255854782,
+      "nearMeanSpeed": 17.388010968357587,
+      "farMeanSpeed": 14.128457254407534,
+      "maxAngularSpeedIncrease": -0.005395382661422143,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 17.522649066202895,
+          "angularDegreesPerProgress": 159.78088190746993
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 18.68566553887727,
+          "angularDegreesPerProgress": 156.6895252776863
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 17.535498206302734,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 15.127661806919408,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 14.198018436295454,
+          "angularDegreesPerProgress": 147.41545828028944
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 14.262116368919727,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 14.283422405487192,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 14.214115137243866,
+          "angularDegreesPerProgress": 138.14139049393003
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 14.071515380927197,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 14.16956793077183,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 14.281977184678402,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 14.067173084933758,
+          "angularDegreesPerProgress": 125.7759523663263
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 13.919906895007161,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 14.017916971639497,
+          "angularDegreesPerProgress": 119.59325424675976
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 14.020407240786911,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 14.246379343436208,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.007223928407972272,
+          "accelerationDifference": 0.33393992404586614
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.024405147473563527,
+          "accelerationDifference": 0.3578143409980907
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.005217992070284678,
+          "accelerationDifference": 0.01944050715882888
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.009826294741109836,
+          "accelerationDifference": 0.05279411800091719
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.004370941374743625,
+          "accelerationDifference": 0.03266576069715457
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.00313207182660731,
+          "accelerationDifference": 0.055792582874783024
+        }
+      ],
+      "bridgeHandoffDegrees": 29.78381136519503,
+      "passed": true
+    },
+    {
+      "aspect": 1.3333333333333333,
+      "entrySide": "starboard",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00009542401843098958,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 4.125157563304932e-15,
+      "middleSpeedMin": 13.919906895007161,
+      "middleSpeedMax": 14.600733102716706,
+      "middleSpeedRatio": 1.048910255854782,
+      "nearMeanSpeed": 17.388010968357587,
+      "farMeanSpeed": 14.128457254407534,
+      "maxAngularSpeedIncrease": -0.005395382661422143,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 17.522649066202895,
+          "angularDegreesPerProgress": 159.78088190746993
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 18.68566553887727,
+          "angularDegreesPerProgress": 156.6895252776863
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 17.535498206302734,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 15.127661806919408,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 14.198018436295454,
+          "angularDegreesPerProgress": 147.41545828028944
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 14.262116368919727,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 14.283422405487192,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 14.214115137243866,
+          "angularDegreesPerProgress": 138.14139049393003
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 14.071515380927197,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 14.16956793077183,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 14.281977184678402,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 14.067173084933758,
+          "angularDegreesPerProgress": 125.7759523663263
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 13.919906895007161,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 14.017916971639497,
+          "angularDegreesPerProgress": 119.59325424675976
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 14.020407240786911,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 14.246379343436208,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.007223928407972272,
+          "accelerationDifference": 0.33393992404586614
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.024405147473563527,
+          "accelerationDifference": 0.3578143409980907
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.005217992070284678,
+          "accelerationDifference": 0.01944050715882888
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.009826294741109836,
+          "accelerationDifference": 0.05279411800091719
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.004370941374743625,
+          "accelerationDifference": 0.03266576069715457
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.00313207182660731,
+          "accelerationDifference": 0.055792582874783024
+        }
+      ],
+      "bridgeHandoffDegrees": 29.78381136519503,
+      "passed": true
+    },
+    {
+      "aspect": 1.7777777777777777,
+      "entrySide": "port",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00009196923618137731,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 2.235009420370918e-15,
+      "middleSpeedMin": 13.43864284479798,
+      "middleSpeedMax": 14.152460411203016,
+      "middleSpeedRatio": 1.053116789742005,
+      "nearMeanSpeed": 17.001365915885557,
+      "farMeanSpeed": 13.651924780016968,
+      "maxAngularSpeedIncrease": -0.005395383168879775,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 17.150385531895587,
+          "angularDegreesPerProgress": 159.78088190746993
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 18.325149902668592,
+          "angularDegreesPerProgress": 156.68952574289253
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 17.14365851582465,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 14.669360576960264,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 13.70575765731483,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 13.761762024094452,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 13.77447459582455,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 13.703786257013338,
+          "angularDegreesPerProgress": 138.1413899662609
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 13.566388230059072,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 13.671254339524674,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 13.789025384707935,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 13.578797560351829,
+          "angularDegreesPerProgress": 125.77595265609928
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 13.43864284479798,
+          "angularDegreesPerProgress": 122.6846084711631
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 13.544805290081662,
+          "angularDegreesPerProgress": 119.59325455151333
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 13.555087969376926,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 13.78990293822715,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.006962393407521872,
+          "accelerationDifference": 0.333526754219066
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.023521539265428073,
+          "accelerationDifference": 0.34390396327121286
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.005028920263904396,
+          "accelerationDifference": 0.019998936636706773
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.009471768031057193,
+          "accelerationDifference": 0.05150543597437136
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.004199330767088015,
+          "accelerationDifference": 0.03166191323183998
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.0029900914858964236,
+          "accelerationDifference": 0.0554026741269646
+        }
+      ],
+      "bridgeHandoffDegrees": 29.783811365195085,
+      "passed": true
+    },
+    {
+      "aspect": 1.7777777777777777,
+      "entrySide": "starboard",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00009196923618137731,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 2.235009420370918e-15,
+      "middleSpeedMin": 13.43864284479798,
+      "middleSpeedMax": 14.152460411203016,
+      "middleSpeedRatio": 1.053116789742005,
+      "nearMeanSpeed": 17.001365915885557,
+      "farMeanSpeed": 13.651924780016968,
+      "maxAngularSpeedIncrease": -0.005395383168879775,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 17.150385531895587,
+          "angularDegreesPerProgress": 159.78088190746993
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 18.325149902668592,
+          "angularDegreesPerProgress": 156.68952574289253
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 17.14365851582465,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 14.669360576960264,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 13.70575765731483,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 13.761762024094452,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 13.77447459582455,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 13.703786257013338,
+          "angularDegreesPerProgress": 138.1413899662609
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 13.566388230059072,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 13.671254339524674,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 13.789025384707935,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 13.578797560351829,
+          "angularDegreesPerProgress": 125.77595265609928
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 13.43864284479798,
+          "angularDegreesPerProgress": 122.6846084711631
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 13.544805290081662,
+          "angularDegreesPerProgress": 119.59325455151333
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 13.555087969376926,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 13.78990293822715,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.006962393407521872,
+          "accelerationDifference": 0.333526754219066
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.023521539265428073,
+          "accelerationDifference": 0.34390396327121286
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.005028920263904396,
+          "accelerationDifference": 0.019998936636706773
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.009471768031057193,
+          "accelerationDifference": 0.05150543597437136
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.004199330767088015,
+          "accelerationDifference": 0.03166191323183998
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.0029900914858964236,
+          "accelerationDifference": 0.0554026741269646
+        }
+      ],
+      "bridgeHandoffDegrees": 29.783811365195085,
+      "passed": true
+    },
+    {
+      "aspect": 2.3333333333333335,
+      "entrySide": "port",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00008361954891000778,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 1.9705479404377208e-15,
+      "middleSpeedMin": 12.275518205701232,
+      "middleSpeedMax": 13.069912596225281,
+      "middleSpeedRatio": 1.0647137153163198,
+      "nearMeanSpeed": 16.08939666566135,
+      "farMeanSpeed": 12.50041735146437,
+      "maxAngularSpeedIncrease": -0.005395388538579571,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 16.274457062191654,
+          "angularDegreesPerProgress": 159.78088236367563
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 17.479699621159632,
+          "angularDegreesPerProgress": 156.68952620809875
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 16.219946464749942,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 13.57352825505996,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 12.519208866970372,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 12.554773527157902,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 12.545539970696655,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 12.470960814624489,
+          "angularDegreesPerProgress": 138.14138970242638
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 12.346064173058759,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 12.46741219250047,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 12.597792065853545,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 12.398483549743135,
+          "angularDegreesPerProgress": 125.7759523663263
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 12.275518205701232,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 12.401433423616743,
+          "angularDegreesPerProgress": 119.59325485626692
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 12.430634060491354,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 12.687074535383912,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.0063303034737627745,
+          "accelerationDifference": 0.3325604858347212
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.021385991595163707,
+          "accelerationDifference": 0.3103126387869702
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.0045719622888392925,
+          "accelerationDifference": 0.02136399023448638
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.008615043473726422,
+          "accelerationDifference": 0.048463943296478795
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.0037882211878190702,
+          "accelerationDifference": 0.02925980254006817
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.002662219218391454,
+          "accelerationDifference": 0.05447660358961546
+        }
+      ],
+      "bridgeHandoffDegrees": 29.78381136519503,
+      "passed": true
+    },
+    {
+      "aspect": 2.3333333333333335,
+      "entrySide": "starboard",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00008361954891000778,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 1.9705479404377208e-15,
+      "middleSpeedMin": 12.275518205701232,
+      "middleSpeedMax": 13.069912596225281,
+      "middleSpeedRatio": 1.0647137153163198,
+      "nearMeanSpeed": 16.08939666566135,
+      "farMeanSpeed": 12.50041735146437,
+      "maxAngularSpeedIncrease": -0.005395388538579571,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 16.274457062191654,
+          "angularDegreesPerProgress": 159.78088236367563
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 17.479699621159632,
+          "angularDegreesPerProgress": 156.68952620809875
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 16.219946464749942,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 13.57352825505996,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 12.519208866970372,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 12.554773527157902,
+          "angularDegreesPerProgress": 144.3241021662069
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 12.545539970696655,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 12.470960814624489,
+          "angularDegreesPerProgress": 138.14138970242638
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 12.346064173058759,
+          "angularDegreesPerProgress": 135.05003280200577
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 12.46741219250047,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 12.597792065853545,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 12.398483549743135,
+          "angularDegreesPerProgress": 125.7759523663263
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 12.275518205701232,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 12.401433423616743,
+          "angularDegreesPerProgress": 119.59325485626692
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 12.430634060491354,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 12.687074535383912,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.0063303034737627745,
+          "accelerationDifference": 0.3325604858347212
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.021385991595163707,
+          "accelerationDifference": 0.3103126387869702
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.0045719622888392925,
+          "accelerationDifference": 0.02136399023448638
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.008615043473726422,
+          "accelerationDifference": 0.048463943296478795
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.0037882211878190702,
+          "accelerationDifference": 0.02925980254006817
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.002662219218391454,
+          "accelerationDifference": 0.05447660358961546
+        }
+      ],
+      "bridgeHandoffDegrees": 29.78381136519503,
+      "passed": true
+    },
+    {
+      "aspect": 3.5555555555555554,
+      "entrySide": "port",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00007633921474425875,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 1.4981688881379605e-15,
+      "middleSpeedMin": 11.25978089809779,
+      "middleSpeedMax": 12.127202705789514,
+      "middleSpeedRatio": 1.0770371835422008,
+      "nearMeanSpeed": 15.323664378115051,
+      "farMeanSpeed": 11.496666307851763,
+      "maxAngularSpeedIncrease": -0.005395387609462343,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 15.541680388054818,
+          "angularDegreesPerProgress": 159.78088236367563
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 16.775806883800154,
+          "angularDegreesPerProgress": 156.68952620809875
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 15.44510461503308,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 12.634377140458882,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 11.489147682976569,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 11.505646343091097,
+          "angularDegreesPerProgress": 144.32410166114263
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 11.475599196325957,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 11.39683447769407,
+          "angularDegreesPerProgress": 138.1413899662609
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 11.282736754230108,
+          "angularDegreesPerProgress": 135.05003334175345
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 11.418473151449845,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 11.559344872679596,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 11.369356323747962,
+          "angularDegreesPerProgress": 125.77595265609928
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 11.261381738455189,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 11.404590394364655,
+          "angularDegreesPerProgress": 119.59325424675976
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 11.450405766500333,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 11.726056236407855,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.005779166961153829,
+          "accelerationDifference": 0.33175538958881357
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.019523945729525916,
+          "accelerationDifference": 0.28106463201980003
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.0041735274464494345,
+          "accelerationDifference": 0.022569867717840936
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.007868203385756957,
+          "accelerationDifference": 0.04590858543194605
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.0034351241276175397,
+          "accelerationDifference": 0.02719895814390862
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.0023994421310793504,
+          "accelerationDifference": 0.053687583153098795
+        }
+      ],
+      "bridgeHandoffDegrees": 29.783811365195085,
+      "passed": true
+    },
+    {
+      "aspect": 3.5555555555555554,
+      "entrySide": "starboard",
+      "cameraSamples": 10001,
+      "minRadiusIncrement": 0.00007633921474425875,
+      "maxTargetXError": 0,
+      "maxTargetYError": 0,
+      "maxAxisProjectedXError": 1.4981688881379605e-15,
+      "middleSpeedMin": 11.25978089809779,
+      "middleSpeedMax": 12.127202705789514,
+      "middleSpeedRatio": 1.0770371835422008,
+      "nearMeanSpeed": 15.323664378115051,
+      "farMeanSpeed": 11.496666307851763,
+      "maxAngularSpeedIncrease": -0.005395387609462343,
+      "speedProfile": [
+        {
+          "progress": 0.05,
+          "positionSpeed": 15.541680388054818,
+          "angularDegreesPerProgress": 159.78088236367563
+        },
+        {
+          "progress": 0.1,
+          "positionSpeed": 16.775806883800154,
+          "angularDegreesPerProgress": 156.68952620809875
+        },
+        {
+          "progress": 0.15,
+          "positionSpeed": 15.44510461503308,
+          "angularDegreesPerProgress": 153.59817005969208
+        },
+        {
+          "progress": 0.2,
+          "positionSpeed": 12.634377140458882,
+          "angularDegreesPerProgress": 150.50681391880462
+        },
+        {
+          "progress": 0.25,
+          "positionSpeed": 11.489147682976569,
+          "angularDegreesPerProgress": 147.41545803305297
+        },
+        {
+          "progress": 0.3,
+          "positionSpeed": 11.505646343091097,
+          "angularDegreesPerProgress": 144.32410166114263
+        },
+        {
+          "progress": 0.35,
+          "positionSpeed": 11.475599196325957,
+          "angularDegreesPerProgress": 141.23274606135516
+        },
+        {
+          "progress": 0.4,
+          "positionSpeed": 11.39683447769407,
+          "angularDegreesPerProgress": 138.1413899662609
+        },
+        {
+          "progress": 0.45,
+          "positionSpeed": 11.282736754230108,
+          "angularDegreesPerProgress": 135.05003334175345
+        },
+        {
+          "progress": 0.5,
+          "positionSpeed": 11.418473151449845,
+          "angularDegreesPerProgress": 131.958663445511
+        },
+        {
+          "progress": 0.55,
+          "positionSpeed": 11.559344872679596,
+          "angularDegreesPerProgress": 128.86729572598352
+        },
+        {
+          "progress": 0.6,
+          "positionSpeed": 11.369356323747962,
+          "angularDegreesPerProgress": 125.77595265609928
+        },
+        {
+          "progress": 0.65,
+          "positionSpeed": 11.261381738455189,
+          "angularDegreesPerProgress": 122.68460906531216
+        },
+        {
+          "progress": 0.7,
+          "positionSpeed": 11.404590394364655,
+          "angularDegreesPerProgress": 119.59325424675976
+        },
+        {
+          "progress": 0.75,
+          "positionSpeed": 11.450405766500333,
+          "angularDegreesPerProgress": 116.5018982559749
+        },
+        {
+          "progress": 0.8,
+          "positionSpeed": 11.726056236407855,
+          "angularDegreesPerProgress": 113.4105426038433
+        }
+      ],
+      "joins": [
+        {
+          "progress": 0.25,
+          "velocityDifference": 0.005779166961153829,
+          "accelerationDifference": 0.33175538958881357
+        },
+        {
+          "progress": 0.5,
+          "velocityDifference": 0.019523945729525916,
+          "accelerationDifference": 0.28106463201980003
+        },
+        {
+          "progress": 0.75,
+          "velocityDifference": 0.0041735274464494345,
+          "accelerationDifference": 0.022569867717840936
+        },
+        {
+          "progress": 0.42,
+          "velocityDifference": 0.007868203385756957,
+          "accelerationDifference": 0.04590858543194605
+        },
+        {
+          "progress": 0.68,
+          "velocityDifference": 0.0034351241276175397,
+          "accelerationDifference": 0.02719895814390862
+        },
+        {
+          "progress": 0.85,
+          "velocityDifference": 0.0023994421310793504,
+          "accelerationDifference": 0.053687583153098795
+        }
+      ],
+      "bridgeHandoffDegrees": 29.783811365195085,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

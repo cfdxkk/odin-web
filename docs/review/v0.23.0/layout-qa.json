@@ -1,0 +1,604 @@
+{
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "lang": "zh",
+      "pause": {
+        "before": "0.11",
+        "afterExplore": "0.11",
+        "filmPlaying": "false",
+        "afterSeek": "0.20",
+        "stillAt": "0.20",
+        "afterSeekPlaying": "false",
+        "afterChaptersPlaying": "false"
+      },
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "舰艏光束武器"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "舰桥"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "后部舰体"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 1012,
+            "bottom": 1056,
+            "left": 1550.4000244140625,
+            "right": 1594.4000244140625,
+            "visible": true
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 1012,
+            "bottom": 1056,
+            "left": 1726.4000244140625,
+            "right": 1770.4000244140625,
+            "visible": true
+          }
+        ],
+        "nextWorks": true,
+        "imageLoaded": true
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 153.1999969482422,
+          "bottom": 348.4499969482422,
+          "left": 97.9124984741211,
+          "right": 795.9749984741211,
+          "visible": true
+        },
+        "official": {
+          "top": 153.1999969482422,
+          "bottom": 232.6999969482422,
+          "left": 1476.8875732421875,
+          "right": 1806.8875732421875,
+          "visible": true
+        },
+        "colophon": {
+          "top": 1005.6000366210938,
+          "bottom": 1053.6000366210938,
+          "left": 97.9124984741211,
+          "right": 1806.8874740600586,
+          "visible": true
+        },
+        "community": {
+          "top": 1005.6000366210938,
+          "bottom": 1053.6000366210938,
+          "left": 1692.8875732421875,
+          "right": 1740.8875732421875,
+          "visible": true,
+          "loaded": true,
+          "alt": "Star Citizen 社区制作徽章"
+        },
+        "thanks": "感谢来访。",
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub 源代码 ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "print": {
+          "v-793b0066": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.23.0.webp",
+          "observing": "true",
+          "gridPitch": "3.8",
+          "screenCount": "1",
+          "renderMs": "46.4",
+          "dpr": "1.0000000149011612",
+          "marks": "43460",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "3.1919999999999997",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "speckFilter": "connected-tones",
+          "width": 1905,
+          "height": 1002,
+          "cssWidth": 1904.800048828125,
+          "cssHeight": 1002
+        },
+        "returnArrow": {
+          "top": 1007.6000366210938,
+          "bottom": 1051.6000366210938,
+          "left": 1766.8875732421875,
+          "right": 1806.8875732421875,
+          "visible": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "lang": "en",
+      "pause": {
+        "before": "0.10",
+        "afterExplore": "0.10",
+        "filmPlaying": "false",
+        "afterSeek": "0.20",
+        "stillAt": "0.20",
+        "afterSeekPlaying": "false",
+        "afterChaptersPlaying": "false"
+      },
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "Bow beam weapon"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "Bridge"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "Aft hull"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 1372,
+            "bottom": 1416,
+            "left": 2964,
+            "right": 3008,
+            "visible": true
+          },
+          {
+            "label": "Next artwork",
+            "top": 1372,
+            "bottom": 1416,
+            "left": 3140,
+            "right": 3184,
+            "visible": true
+          }
+        ],
+        "nextWorks": true,
+        "imageLoaded": true
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 169.60000610351562,
+          "bottom": 400.00001525878906,
+          "left": 175.4375,
+          "right": 1442.237548828125,
+          "visible": true
+        },
+        "official": {
+          "top": 169.60000610351562,
+          "bottom": 249.10000610351562,
+          "left": 2849.362548828125,
+          "right": 3249.362548828125,
+          "visible": true
+        },
+        "colophon": {
+          "top": 1365.5999755859375,
+          "bottom": 1413.5999755859375,
+          "left": 175.4375,
+          "right": 3249.362548828125,
+          "visible": true
+        },
+        "community": {
+          "top": 1365.5999755859375,
+          "bottom": 1413.5999755859375,
+          "left": 3135.362548828125,
+          "right": 3183.362548828125,
+          "visible": true,
+          "loaded": true,
+          "alt": "Star Citizen Made by the Community badge"
+        },
+        "thanks": "Thanks for visiting.",
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "print": {
+          "v-793b0066": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.23.0.webp",
+          "observing": "true",
+          "gridPitch": "3.8",
+          "screenCount": "1",
+          "renderMs": "52.2",
+          "dpr": "1.0000000149011612",
+          "marks": "103993",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "3.1919999999999997",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "speckFilter": "connected-tones",
+          "width": 3425,
+          "height": 1362,
+          "cssWidth": 3424.800048828125,
+          "cssHeight": 1362
+        },
+        "returnArrow": {
+          "top": 1367.5999755859375,
+          "bottom": 1411.5999755859375,
+          "left": 3209.362548828125,
+          "right": 3249.362548828125,
+          "visible": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "lang": "zh",
+      "pause": {
+        "before": "0.10",
+        "afterExplore": "0.10",
+        "filmPlaying": "false",
+        "afterSeek": "0.20",
+        "stillAt": "0.20",
+        "afterSeekPlaying": "false",
+        "afterChaptersPlaying": "false"
+      },
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "舰艏光束武器"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "舰桥"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "后部舰体"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "上一张艺术图",
+            "top": 706,
+            "bottom": 750,
+            "left": 1035.5625,
+            "right": 1079.5625,
+            "visible": true
+          },
+          {
+            "label": "下一张艺术图",
+            "top": 706,
+            "bottom": 750,
+            "left": 1211.5625,
+            "right": 1255.5625,
+            "visible": true
+          }
+        ],
+        "nextWorks": true,
+        "imageLoaded": true
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 131.35000610351562,
+          "bottom": 316.83750915527344,
+          "left": 69.67500305175781,
+          "right": 560.6125030517578,
+          "visible": true
+        },
+        "official": {
+          "top": 131.35000610351562,
+          "bottom": 210.85000610351562,
+          "left": 951.5250244140625,
+          "right": 1281.5250244140625,
+          "visible": true
+        },
+        "colophon": {
+          "top": 693.6000366210938,
+          "bottom": 741.6000366210938,
+          "left": 69.67500305175781,
+          "right": 1281.5249786376953,
+          "visible": true
+        },
+        "community": {
+          "top": 693.6000366210938,
+          "bottom": 741.6000366210938,
+          "left": 1167.5250244140625,
+          "right": 1215.5250244140625,
+          "visible": true,
+          "loaded": true,
+          "alt": "Star Citizen 社区制作徽章"
+        },
+        "thanks": "感谢来访。",
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub 源代码 ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "print": {
+          "v-793b0066": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.23.0.webp",
+          "observing": "true",
+          "gridPitch": "3.8",
+          "screenCount": "1",
+          "renderMs": "19.8",
+          "dpr": "1.0000000149011612",
+          "marks": "21387",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "3.1919999999999997",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "speckFilter": "connected-tones",
+          "width": 1351,
+          "height": 690,
+          "cssWidth": 1351.2000732421875,
+          "cssHeight": 690
+        },
+        "returnArrow": {
+          "top": 695.6000366210938,
+          "bottom": 739.6000366210938,
+          "left": 1241.5250244140625,
+          "right": 1281.5250244140625,
+          "visible": true
+        }
+      },
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "lang": "en",
+      "photo": {
+        "file": "output/playwright/v0230-transparent-odin.png",
+        "name": "odin-free-view.png",
+        "failure": null
+      },
+      "pause": {
+        "before": "0.08",
+        "afterExplore": "0.08",
+        "filmPlaying": "false",
+        "afterSeek": "0.10",
+        "stillAt": "0.10",
+        "afterSeekPlaying": "false",
+        "afterChaptersPlaying": "false"
+      },
+      "chapters": [
+        {
+          "id": "overview",
+          "current": "overview",
+          "overflow": false,
+          "heading": "ODIN"
+        },
+        {
+          "id": "batteries",
+          "current": "batteries",
+          "overflow": false,
+          "heading": "Bow beam weapon"
+        },
+        {
+          "id": "bridge",
+          "current": "bridge",
+          "overflow": false,
+          "heading": "Bridge"
+        },
+        {
+          "id": "engines",
+          "current": "engines",
+          "overflow": false,
+          "heading": "Aft hull"
+        }
+      ],
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938,
+            "left": 187.875,
+            "right": 225.875,
+            "visible": true
+          },
+          {
+            "label": "Next artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938,
+            "left": 309.875,
+            "right": 347.875,
+            "visible": true
+          }
+        ],
+        "nextWorks": true,
+        "imageLoaded": true
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 105,
+          "bottom": 321.75,
+          "left": 27.325000762939453,
+          "right": 235.02499771118164,
+          "visible": true
+        },
+        "official": {
+          "top": 105,
+          "bottom": 179,
+          "left": 253.02500915527344,
+          "right": 347.87500762939453,
+          "visible": true
+        },
+        "colophon": {
+          "top": 778,
+          "bottom": 826,
+          "left": 27.325000762939453,
+          "right": 347.8750190734863,
+          "visible": true
+        },
+        "community": {
+          "top": 783,
+          "bottom": 821,
+          "left": 259.875,
+          "right": 297.875,
+          "visible": true,
+          "loaded": true,
+          "alt": "Star Citizen Made by the Community badge"
+        },
+        "thanks": "Thanks for visiting.",
+        "links": [
+          {
+            "text": "Anvil Odin ↗",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub ↗",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "print": {
+          "v-793b0066": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.23.0.webp",
+          "observing": "true",
+          "gridPitch": "3.8",
+          "screenCount": "1",
+          "renderMs": "34.3",
+          "dpr": "1.0000000149011612",
+          "marks": "6564",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2",
+          "screen": "ordered-4x4",
+          "markShape": "square",
+          "markSize": "3.1919999999999997",
+          "inkLevels": "4",
+          "atmosphericFade": "ink-only",
+          "speckFilter": "connected-tones",
+          "width": 375,
+          "height": 774,
+          "cssWidth": 375.20001220703125,
+          "cssHeight": 774
+        },
+        "returnArrow": {
+          "top": 780,
+          "bottom": 824,
+          "left": 307.875,
+          "right": 347.875,
+          "visible": true
+        }
+      },
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "version": "v0.23.0-rc.1",
+  "visualReview": {
+    "footerTextAndLinksVisible": true,
+    "orderedSquareGridVisible": true,
+    "largeSuspendedSkyClusters": false,
+    "minorSkySpecksAt3440": false,
+    "note": "Final production build rechecked at 3440×1440: previously isolated high sky marks are removed; the continuous faint horizon screen is retained. Footer text, official link, transparent GitHub link and community badge remain visible.",
+    "detailScreenshot": "output/playwright/v0230-layout-footer-sky-detail.png",
+    "finalFooterRecheck": true
+  },
+  "transparentPhoto": {
+    "file": "output/playwright/v0230-transparent-odin.png",
+    "mode": "RGBA",
+    "width": 750,
+    "height": 1688,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentPixels": 1144844,
+    "opaquePixels": 119356,
+    "partialAlphaPixels": 1800,
+    "totalPixels": 1266000,
+    "transparentCorners": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

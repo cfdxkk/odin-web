@@ -1,0 +1,24 @@
+{
+  "source": "assets/illustrations/v0.16.1/odin-mountain-source.png",
+  "master": "assets/illustrations/v0.16.1/odin-mountain-print.svg",
+  "target": "public/images/odin-mountain-footer-v0.16.1.png",
+  "width": 3600,
+  "height": 1200,
+  "pitch": 6,
+  "gridOrigin": [
+    3,
+    3
+  ],
+  "dots": 56052,
+  "joinedDots": 5309,
+  "inks": [
+    "#070b10",
+    "#939b95"
+  ],
+  "sourceDescreenPixels": 3,
+  "sampling": "5x5 mean luminance",
+  "toneMapping": "circular ink coverage including joined dots and negative holes",
+  "amplitudeModulated": true,
+  "randomJitter": false,
+  "randomDensity": false
+}

@@ -1,0 +1,155 @@
+{
+  "checks": {
+    "twelveColumnGrid": true,
+    "gridAlignment": true,
+    "swissPalette": true,
+    "interTwoWeights": true,
+    "typographicContrast": true,
+    "raggedRight": true,
+    "noGradientsOrShadows": true,
+    "noEquipmentDecor": true,
+    "monochromePresentation": true,
+    "footerRetained": true,
+    "documentNeverSnaps": true,
+    "oneGestureOneStage": true,
+    "stageAligned": true,
+    "lastStageReleasesWheel": true,
+    "reentryAlignsLast": true,
+    "galleryScrollsFreely": true,
+    "footerScrollsFreely": true,
+    "footerLocaleDoesNotMove": true,
+    "manualWheelZooms": true,
+    "noOverflow": true
+  },
+  "failures": [],
+  "style": {
+    "gridColumns": 12,
+    "headerColumns": 12,
+    "galleryColumns": 12,
+    "palette": [
+      "#f4f2ed",
+      "#111",
+      "#da291c"
+    ],
+    "font": "Inter, \"Helvetica Neue\", Helvetica, Arial, \"Microsoft YaHei\", sans-serif",
+    "titleWeight": "700",
+    "bodyWeight": "400",
+    "titleSize": 151.2,
+    "bodySize": 13,
+    "allLeft": true,
+    "weights": [
+      "400",
+      "700"
+    ],
+    "noGradients": true,
+    "noShadows": true,
+    "rootSnap": "none",
+    "brand": {
+      "x": 47.984375,
+      "y": 16.703125,
+      "width": 432
+    },
+    "story": {
+      "x": 47.984375,
+      "y": 112,
+      "width": 432
+    },
+    "model": {
+      "x": 503.984375,
+      "y": 112,
+      "width": 888.03125
+    },
+    "nav": {
+      "x": 503.984375,
+      "y": 17.5,
+      "width": 546.015625
+    },
+    "figure": {
+      "x": 503.984375,
+      "y": 4020.546875,
+      "width": 888.03125
+    },
+    "ledger": {
+      "x": 47.984375,
+      "y": 4020.546875,
+      "width": 318
+    },
+    "footerIntro": {
+      "x": 48.984375,
+      "y": 4848.546875,
+      "width": 431.34375
+    },
+    "modelFilter": "grayscale(1) brightness(1.18)",
+    "artFilter": "grayscale(1)",
+    "footerFilter": "none",
+    "footerBackground": "rgb(236, 229, 214)",
+    "footerImage": "/images/odin-mountain-footer-v0.13.0.webp",
+    "removedDecor": 0,
+    "fontsLoaded": true
+  },
+  "wheels": [
+    {
+      "area": "tour exit",
+      "before": 2664,
+      "after": 2904,
+      "delta": 240
+    },
+    {
+      "area": "art archive",
+      "before": 3584,
+      "after": 3814,
+      "delta": 230
+    },
+    {
+      "area": "footer",
+      "before": 4467,
+      "after": 4647,
+      "delta": 180
+    }
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "overflow": 0
+    },
+    {
+      "width": 700,
+      "overflow": 0
+    },
+    {
+      "width": 800,
+      "overflow": 0
+    },
+    {
+      "width": 801,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "overflow": 0
+    },
+    {
+      "width": 2560,
+      "overflow": 0
+    },
+    {
+      "width": 3440,
+      "overflow": 0
+    }
+  ],
+  "errors": [],
+  "paletteProof": {
+    "paper": "rgb(244, 242, 237)",
+    "ink": "rgb(17, 17, 17)",
+    "accent": "rgb(218, 41, 28)",
+    "correct": true
+  }
+}

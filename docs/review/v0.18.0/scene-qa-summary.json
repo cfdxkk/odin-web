@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-13",
+  "session": "odin-v0180-scene",
+  "passed": 43,
+  "total": 43,
+  "checks": {
+    "enterKeepsCamera": true,
+    "photoTransparentPNG": true,
+    "photoContainsShipAndFlames": true,
+    "photoSupersampled": true,
+    "photoPreservesCamera": true,
+    "photoPreservesMechanics": true,
+    "returnFromNavDoesNotSnap": true,
+    "returnSCMIntermediate": true,
+    "returnSCMCorrect": true,
+    "pauseSurvivesManualReturn": true,
+    "returnFromSCMDoesNotSnap": true,
+    "reverseKeepsVisibleMechanics": true,
+    "reverseKeepsCamera": true,
+    "returnNAVCorrect": true,
+    "reversePreservesPause": true,
+    "pausedSliderMovesCamera": true,
+    "timelineWrapActuallyOccurs": true,
+    "timelineRewindsSmoothly": true,
+    "dualMainAnchors": true,
+    "overlayUniformSurface": true,
+    "oldSvgRemoved": true,
+    "stepResetDropsOldAnchors": true,
+    "noConsoleOrNetworkErrors": true,
+    "followup_enterKeepsCamera": true,
+    "followup_reverseContinuousThrust": true,
+    "followup_reverseContinuousDeployment": true,
+    "followup_reverseCamera": true,
+    "scrub_playingPausesWhileScrub": true,
+    "scrub_playingResumesAfterScrub": true,
+    "scrub_pausedStaysPausedDuringAndAfter": true,
+    "scrub_pausedClockHeld": true,
+    "phase_playingPhase0Time": true,
+    "phase_playingPhase0Mode": true,
+    "phase_playingPhase1Time": true,
+    "phase_playingPhase1Mode": true,
+    "phase_playingPhase2Time": true,
+    "phase_playingPhase2Mode": true,
+    "phase_pausedPhase0Time": true,
+    "phase_pausedPhase0Mode": true,
+    "phase_pausedPhase1Time": true,
+    "phase_pausedPhase1Mode": true,
+    "phase_pausedPhase2Time": true,
+    "phase_pausedPhase2Mode": true
+  },
+  "initialFailuresResolved": [
+    "enterKeepsCamera: initial script read stale seek frame; synchronized to actual rendered time and confirmed exact camera equality",
+    "reverseKeepsVisibleMechanics: fixed residual thrust snap when guide return is interrupted; final maximum frame delta thrust=0.012 and deployment=0.003"
+  ],
+  "photo": [
+    {
+      "width": 2880,
+      "height": 2000,
+      "type": "image/png",
+      "bytes": 1124357,
+      "transparent": 5241780,
+      "opaque": 507143,
+      "partial": 11077,
+      "blue": 135707,
+      "neutral": 499207,
+      "occupied": {
+        "minX": 653,
+        "maxX": 2698,
+        "minY": 639,
+        "maxY": 1267
+      },
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "errors": [],
+  "artifacts": [
+    "output/playwright/v0180-transparent-photo.png",
+    "output/playwright/v0180-dual-main-callout-final.png",
+    "work/v0180-review/scene-qa-results.json",
+    "work/v0180-review/scene-followup-results.json",
+    "work/v0180-review/scrub-qa-results.json",
+    "work/v0180-review/phase-qa-results.json"
+  ]
+}

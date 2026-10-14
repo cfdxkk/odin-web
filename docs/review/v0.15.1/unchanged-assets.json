@@ -1,0 +1,47 @@
+[
+  {
+    "path": "assets/blender/odin_articulated_v0.11.43.blend",
+    "blob": "05820e5e9c01ec16dba717df1aa13eebb650ad26",
+    "unchanged": true
+  },
+  {
+    "path": "public/models/odin.glb",
+    "blob": "ba1a92975ac44ee50b759f48ea6ba6655012cc12",
+    "unchanged": true
+  },
+  {
+    "path": "public/models/odin-lite.glb",
+    "blob": "673c710d915c49c14c92a3ed3613268baf97d2d5",
+    "unchanged": true
+  },
+  {
+    "path": "public/images/odin-mountain-footer-v0.15.0.webp",
+    "blob": "283f79697a67cacab4017373c7700510cf1f6faf",
+    "unchanged": true
+  },
+  {
+    "path": "app/lib/odin-rig.ts",
+    "blob": "c73f60c9a2099b4ea3dd3c098a98be5982702cb6",
+    "unchanged": true
+  },
+  {
+    "path": "app/lib/odin-motion.ts",
+    "blob": "39095b398a3903bbde4822f201041afa3ac9426c",
+    "unchanged": true
+  },
+  {
+    "path": "app/lib/turret-tempo.ts",
+    "blob": "42a6b7c952c46254de4fe510ae21d381afe4d016",
+    "unchanged": true
+  },
+  {
+    "path": "app/lib/bridge-quad-source-motion.ts",
+    "blob": "d85a356e91205e7b7adc1db50ee87a22d3a0f770",
+    "unchanged": true
+  },
+  {
+    "path": "app/assets/main.css",
+    "blob": "7e94b723f47de8128aed67a3b3d5da2d6c9cfa7b",
+    "unchanged": true
+  }
+]

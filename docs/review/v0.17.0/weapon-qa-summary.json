@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-10-13T14:02:02.988Z",
+  "session": "odin-v0170-regression",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "status": "passed",
+  "primaryCheckCount": 89,
+  "followupCheckCount": 14,
+  "initialFailures": [
+    "step1LineAnimates"
+  ],
+  "resolution": {
+    "step1LineAnimates": "Initial 0.8-second sample occurred before the main gun anchor entered the frustum. Extended 2.8-second sampling confirms continuous projected motion after the anchor enters view; no application fix was needed."
+  },
+  "unresolvedFailures": [],
+  "consoleAndNetworkErrors": [],
+  "evidence": [
+    "weapon-qa.json",
+    "weapon-qa-followup.json",
+    "weapon-pause-qa.json"
+  ],
+  "screenshot": "../../output/playwright/v0170-weapon-quad.png",
+  "notes": [
+    "Full forward/reverse weapon steps keep document scroll fixed at 1000px.",
+    "Selected group alone reaches deployment 1; all other groups settle at 0, with zero engine thrust.",
+    "Independent projection of the bow anchor agrees with the connector endpoint.",
+    "R and Space preserve weapon chapter isolation; explicit pause persists through active selective-to-home handoff.",
+    "Four local video clips show singly, play in color on hover, and stop on leave/chapter exit.",
+    "Gallery and footer retain ordinary document scrolling; five English weapon descriptions contain no Chinese copy."
+  ]
+}

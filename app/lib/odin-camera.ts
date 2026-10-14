@@ -8,6 +8,33 @@ const orbitRadius = 11.2
 const orbitSlope = .24
 const aimHeight = .20
 export type OdinCameraPose = { position: THREE.Vector3; target: THREE.Vector3 }
+export type OrientedOdinCameraPose = OdinCameraPose & { up: THREE.Vector3 }
+
+export function odinCameraOrientation(pose: OrientedOdinCameraPose) {
+  return new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(pose.position, pose.target, pose.up))
+}
+
+// Blend viewing direction and screen orientation together along the shortest
+// quaternion arc. A separate world-up blend can wind the frame around the bow
+// when entering a vertical inspection from the opposite homepage heading.
+export function interpolateOrientedOdinCamera(from: OrientedOdinCameraPose, to: OrientedOdinCameraPose, progress: number): OrientedOdinCameraPose {
+  const u = THREE.MathUtils.clamp(progress, 0, 1)
+  const orientation = odinCameraOrientation(from).slerp(odinCameraOrientation(to), u)
+  const target = from.target.clone().lerp(to.target, u)
+  const radius = THREE.MathUtils.lerp(from.position.distanceTo(from.target), to.position.distanceTo(to.target), u)
+  return {
+    target,
+    position: new THREE.Vector3(0, 0, radius).applyQuaternion(orientation).add(target),
+    up: new THREE.Vector3(0, 1, 0).applyQuaternion(orientation),
+  }
+}
+
+// Rejoin the orbit from the visible heading instead of turning back to phase zero.
+export function odinCameraPhase(pose: OdinCameraPose) {
+  const offset = pose.position.clone().sub(pose.target)
+  const angle = Math.atan2(offset.z, offset.x)
+  return THREE.MathUtils.euclideanModulo(angle - startAngle, Math.PI * 2) * ODIN_CAMERA_ORBIT_SECONDS / (Math.PI * 2)
+}
 
 export function odinCameraFraming(aspect: number, mobile = false) {
   if (mobile) return { distanceScale: 1.60, viewOffsetY: 0 }

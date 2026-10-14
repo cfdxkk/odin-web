@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { OdinExperience } from '~/lib/odin-scene'
+import type { CalloutOrigin } from '~/lib/odin-callouts'
+import type { SeekOptions } from '~/lib/odin-seek'
 const emit = defineEmits<{
   ready: []
   progress: [value: number]
   tick: [time: number]
+  transition: [active: boolean]
+  loop: []
+  anchor: [point: { x: number; y: number; visible: boolean }]
   fail: [message: string]
 }>()
-const props = defineProps<{ playing: boolean; explore: boolean; deployed: boolean; lowPower: boolean }>()
+const props = defineProps<{ playing: boolean; film: boolean; explore: boolean; deployed: boolean; lowPower: boolean; viewIndex: number; weaponStep?: number; weaponProgress?: number; calloutOrigin?: CalloutOrigin; active: boolean; reducedMotion: boolean; canvasLabel: string }>()
 const canvas = ref<HTMLCanvasElement>()
 let experience: OdinExperience | undefined
 let disposed = false
@@ -14,11 +19,16 @@ onMounted(async () => {
   try {
     const { createOdinExperience } = await import('~/lib/odin-scene')
     if (disposed || !canvas.value) return
+    const viewAtLoadStart = props.viewIndex
     experience = await createOdinExperience(canvas.value, {
-      progress: p => emit('progress', p), tick: t => emit('tick', t),
+      progress: p => emit('progress', p), tick: t => emit('tick', t), transition: active => emit('transition', active),
+      anchor: point => emit('anchor', point),
+      loop: () => emit('loop'),
       state: () => ({ ...props }),
     })
     if (disposed) { experience.dispose(); return }
+    if (props.viewIndex !== viewAtLoadStart) experience.setView(props.viewIndex)
+    if (props.viewIndex === 1) experience.setWeaponStep(props.weaponStep ?? 0)
     emit('ready')
   } catch (error) {
     emit('fail', error instanceof Error ? error.message : '无法载入三维模型')
@@ -26,10 +36,17 @@ onMounted(async () => {
 })
 watch(() => props.explore, value => experience?.setExplore(value))
 watch(() => props.lowPower, () => experience?.resize())
+watch(() => [props.viewIndex, props.weaponStep] as const, ([view, step], [previousView, previousStep]) => {
+  if (view !== previousView) experience?.setView(view)
+  if (view === 1 && (view !== previousView || step !== previousStep)) experience?.setWeaponStep(step ?? 0)
+}, { flush: 'post' })
 onBeforeUnmount(() => { disposed = true; experience?.dispose() })
-defineExpose({ seek: (time: number) => experience?.seek(time) })
+defineExpose({
+  seek: (time: number, options?: SeekOptions) => experience?.seek(time, options),
+  capturePhoto: () => experience ? experience.capturePhoto() : Promise.reject(new Error('The 3D viewer is not ready.')),
+})
 </script>
 
 <template>
-  <canvas ref="canvas" class="odin-canvas" :class="{ interactive: explore }" aria-label="奥丁战列巡洋舰实时三维展示；自由探索模式下可左键拖动旋转、右键拖动平移、滚轮缩放" />
+  <canvas ref="canvas" class="odin-canvas" :class="{ interactive: explore }" :aria-label="canvasLabel" />
 </template>

@@ -1,0 +1,275 @@
+{
+  "verifiedDate": "2026-10-13",
+  "scope": "Five short practical bilingual weapon steps, bow to bridge. Counts and S-size grades come from the actual official statistic graphic. Clip observations are separate from official text; no guessed ammunition, damage or range.",
+  "sizeTerminology": {
+    "zh": "S8、S10、S12 是游戏中的规格等级，不是已公开的毫米口径。",
+    "en": "S8, S10 and S12 are game size grades, not verified millimetre calibres."
+  },
+  "sources": [
+    {
+      "id": "rsi-concept",
+      "url": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+      "contentUrl": "https://robertsspaceindustries.com/alexandria/html/69ef2ec59ef77a475163b694/6a3994472dea961c0b5d6e02/LgmHGGefS6_arxT5OVYGSCM3eqo-en",
+      "verifiedDate": "2026-10-13",
+      "type": "Official concept page",
+      "supports": [
+        "Twelve-emitter bow beam presentation",
+        "Weapons concealed in the hull",
+        "23 operable turrets"
+      ],
+      "officialNodeIndices": [
+        16,
+        14,
+        10
+      ]
+    },
+    {
+      "id": "rsi-weapon-stats",
+      "url": "https://media.robertsspaceindustries.com/uhjpyw81y6eqe/source.jpg",
+      "pageUrl": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+      "imageName": "SC_ANVIL_Odin_WeaponStats_UPDATED.jpg",
+      "officialMediaId": "3814894",
+      "sourceLastUpdated": "2026-05-22 13:11:46",
+      "officialNodePath": "properties[7].componentProps.gridOptions.uiData.elements[0].data.image.heapImage.heapImage",
+      "verifiedDate": "2026-10-13",
+      "type": "Official weapon specification graphic",
+      "readMethod": "Read the actual 6000x1420 graphic pixels in memory; no temporary image saved.",
+      "supports": [
+        "One pilot-controlled S12 beam",
+        "Two triple S12 manned mounts",
+        "Three single S10 manned mounts",
+        "Eight single S10 remote mounts",
+        "Eight twin S8 manned mounts",
+        "Two quad S8 manned mounts",
+        "42 S2 point-defense turrets",
+        "20 S12 vertical launch systems"
+      ]
+    },
+    {
+      "id": "scl-official",
+      "url": "https://www.youtube.com/watch?v=CFoQp6wRjPo",
+      "title": "Star Citizen Live | DefenseCon Showcase: Odin Battlecruiser",
+      "author": "Star Citizen",
+      "channelId": "UCTeLqJq1mXUX5WWoNXLmOIA",
+      "durationSeconds": 3960,
+      "verifiedDate": "2026-10-13",
+      "type": "Official developer video linked in the footer",
+      "englishAutomaticCaptionIndexPresent": true,
+      "transcriptVerification": "Unavailable: timedtext returned an empty body; get_transcript returned HTTP 400 using both public page contexts. No individual spoken weapon claim or guessed speech timestamp is attributed to this video.",
+      "verifiedAutomaticChapter": {
+        "label": "Weaponry and loadout",
+        "startSeconds": 104.159,
+        "endSeconds": 530.959,
+        "startTime": "01:44.159",
+        "endTime": "08:50.959",
+        "url": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=104",
+        "scope": "Automatic chapter metadata only, not a verified specific spoken claim."
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "bow-beam",
+      "order": 1,
+      "title": {
+        "zh": "舰艏光束",
+        "en": "Bow beam"
+      },
+      "copy": {
+        "zh": "舰艏的 12 个发射器构成一套 S12 光束武器，由驾驶员控制。",
+        "en": "Twelve bow emitters form one pilot-controlled S12 beam weapon."
+      },
+      "facts": {
+        "weaponSystems": 1,
+        "emitters": 12,
+        "size": "S12",
+        "control": "pilot"
+      },
+      "sources": [
+        "rsi-weapon-stats",
+        "rsi-concept"
+      ],
+      "motionNote": "Static emitter-array inspection; do not invent a turret deployment.",
+      "officialVideoEvidence": {
+        "localSrc": "/videos/odin/bow-laser.mp4",
+        "downloadUrl": "https://media.robertsspaceindustries.com/3p246qbd4kwlp/mp4_1280.mp4",
+        "frameSeconds": 3.0,
+        "observed": "Bow emitter array firing forward; layout evidence, not a damage or range measurement."
+      }
+    },
+    {
+      "id": "main-battery",
+      "order": 2,
+      "title": {
+        "zh": "三联装主炮",
+        "en": "Triple main batteries"
+      },
+      "copy": {
+        "zh": "2 座三联装主炮，每座配 3 门 S12 武器。收起后，炮塔由舰体外侧的装甲覆盖。",
+        "en": "Two main turrets carry three S12 weapons each. Hull armor covers the turrets when stowed."
+      },
+      "facts": {
+        "turrets": 2,
+        "weaponsPerTurret": 3,
+        "size": "S12",
+        "control": "manned"
+      },
+      "sources": [
+        "rsi-weapon-stats",
+        "rsi-concept"
+      ],
+      "motionNote": "Only the targeted main-battery group should deploy.",
+      "officialVideoEvidence": {
+        "localSrc": "/videos/odin/main-battery.mp4",
+        "downloadUrl": "https://media.robertsspaceindustries.com/ns6umeu6gb7w5/mp4_1280.mp4",
+        "frameSeconds": 3.0,
+        "observed": "Three barrels and a deployed turret above an open armor bay.",
+        "sourceFileNameHasFlip": true,
+        "additionalDisplayMirrorX": true
+      }
+    },
+    {
+      "id": "single-secondary",
+      "order": 3,
+      "title": {
+        "zh": "单联装副炮",
+        "en": "Single secondary turrets"
+      },
+      "copy": {
+        "zh": "11 座单联装 S10 副炮：3 座有人炮塔，8 座遥控炮塔。每座配 1 门 S10 武器。",
+        "en": "Eleven single S10 turrets comprise three manned and eight remote mounts. Each carries one S10 weapon."
+      },
+      "facts": {
+        "mannedTurrets": 3,
+        "remoteTurrets": 8,
+        "totalTurrets": 11,
+        "weaponsPerTurret": 1,
+        "size": "S10"
+      },
+      "sources": [
+        "rsi-weapon-stats"
+      ],
+      "motionNote": "Do not label a particular inspected mount as manned or remote unless its individual identity is verified.",
+      "officialVideoEvidence": null,
+      "videoNote": "No independent single-S10 clip exists among the four local official loops. Use the real-time model and official statistics, without an invented SCL timestamp."
+    },
+    {
+      "id": "twin-turret",
+      "order": 4,
+      "title": {
+        "zh": "双联装炮塔",
+        "en": "Twin turrets"
+      },
+      "copy": {
+        "zh": "8 座双联装炮塔，每座配 2 门 S8 武器。船壳盖板在收起后覆盖炮位。",
+        "en": "Eight manned twin turrets carry two S8 weapons each. Hull covers close over the stowed mounts."
+      },
+      "facts": {
+        "turrets": 8,
+        "weaponsPerTurret": 2,
+        "size": "S8",
+        "control": "manned"
+      },
+      "sources": [
+        "rsi-weapon-stats"
+      ],
+      "motionNote": "Model Defense_ group, not the PDC_ quad group.",
+      "officialVideoEvidence": {
+        "localSrc": "/videos/odin/pdc.mp4",
+        "downloadUrl": "https://media.robertsspaceindustries.com/907z65lvckcie/mp4_1280.mp4",
+        "sourceName": "PDCs0001-0110.mp4",
+        "observedFramesSeconds": [
+          0.0,
+          1.5,
+          2.5,
+          4.0
+        ],
+        "bestExpandedFrameSeconds": 2.5,
+        "observed": "Rows of large mounts deploy from rectangular hull covers, matching the model Defense_ twin-turret assembly.",
+        "identificationBasis": "Visual correspondence to the twin-turret structure; S8 and mount count come from the official statistic graphic. The clip filename does not establish caliber or category.",
+        "classificationConfidence": "Visual match, not a text label embedded in the video.",
+        "suggestedDisplayLabel": {
+          "zh": "双联装炮塔",
+          "en": "Twin turrets"
+        },
+        "doNotDisplayAs": "42 S2 point-defense turrets",
+        "additionalDisplayMirrorX": false
+      }
+    },
+    {
+      "id": "bridge-quad",
+      "order": 5,
+      "title": {
+        "zh": "舰桥四联装",
+        "en": "Bridge quad turrets"
+      },
+      "copy": {
+        "zh": "舰桥两侧共布置 2 座四联装炮塔。每座由乘员操作，配 4 门 S8 武器。",
+        "en": "Two quad turrets sit beside the bridge. Each manned mount carries four S8 weapons."
+      },
+      "facts": {
+        "turrets": 2,
+        "weaponsPerTurret": 4,
+        "size": "S8",
+        "control": "manned"
+      },
+      "sources": [
+        "rsi-weapon-stats"
+      ],
+      "motionNote": "Model PDC_ group; this runtime prefix is not an official point-defense designation.",
+      "officialVideoEvidence": {
+        "localSrc": "/videos/odin/quad-turret.mp4",
+        "downloadUrl": "https://media.robertsspaceindustries.com/meqm0flrf1683/mp4_1280.mp4",
+        "frameSeconds": 3.0,
+        "observed": "Four barrels and their support assembly extend beside the bridge.",
+        "sourceFileNameHasFlip": true,
+        "additionalDisplayMirrorX": true
+      }
+    }
+  ],
+  "additionalOfficialCategoriesNotInFiveStepTour": [
+    {
+      "id": "point-defense",
+      "title": {
+        "zh": "点防御炮塔",
+        "en": "Point-defense turrets"
+      },
+      "turrets": 42,
+      "size": "S2",
+      "source": "rsi-weapon-stats",
+      "note": "Separate from S8 twin mounts and the runtime PDC_ quad group. The local filename pdc.mp4 is not proof of S2 point defense."
+    },
+    {
+      "id": "vertical-launch",
+      "title": {
+        "zh": "垂直发射系统",
+        "en": "Vertical launch systems"
+      },
+      "systems": 20,
+      "size": "S12",
+      "source": "rsi-weapon-stats",
+      "note": "No deployment or launch mechanics are inferred from this count."
+    }
+  ],
+  "officialTurretTotal": {
+    "operableTurrets": 23,
+    "calculation": "2 triple + 3 manned single + 8 remote single + 8 twin + 2 quad = 23",
+    "source": "rsi-concept",
+    "pointDefenseListedSeparately": true
+  },
+  "correctionsToPriorMediaResearch": [
+    {
+      "path": "docs/review/v0.16.0/official-media-sources.json",
+      "itemId": "pdc",
+      "oldLabel": "Side-hull point-defense mounts / 侧舷 PDC 防御炮位",
+      "recommendedLabel": "Twin turrets / 双联装炮塔",
+      "reason": "The earlier label followed the production filename. The pictured rectangular covers and large turret assembly match the Defense_ twin group. The 42 S2 point-defense specification is a separate entry."
+    }
+  ],
+  "limitations": [
+    "The statistic graphic does not assign ammunition type, individual names, damage or range.",
+    "The bow beam is one system with twelve emitters, not twelve independent S12 weapons.",
+    "Only the automatic 01:44.159 weaponry chapter entrance is verified for SCL, not any specific developer quote.",
+    "Video names and model node prefixes are production labels, not reliable official classifications."
+  ]
+}

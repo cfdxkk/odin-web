@@ -1,0 +1,11 @@
+{
+  "revision": "v0.17.0-rc.1",
+  "date": "2026-10-13",
+  "commands": { "npm test": "116 passed", "npm run verify:asset": "Both GLBs valid: 214 meshes, 20 materials, 12 textures, zero animation clips", "npm run generate": "passed" },
+  "weaponAndControlBrowserChecks": { "primary": 89, "supplemental": 14, "unresolvedFailures": 0, "report": "weapon-qa-summary.json" },
+  "articulation": { "stations": 13, "samples": 39, "visuallyReviewedScreenshots": 9, "report": "articulation-final.json", "limitation": "Intermediate samples verified rendering and joint counts; visual inspection focused on nine fully deployed views." },
+  "presentation": { "fourthStageToGallery": true, "galleryReverseToFourthStage": true, "singleScreenFooterLoaded": true, "footerTextLinksAndMarksVisibleAtPageBottom": true, "reducedMotionPaused": true, "responsiveWidths": [320, 390, 800, 1440, 2560, 3440], "horizontalOverflow": false },
+  "footer": { "source": "Actual project GLB rendered into a continuous-tone landscape", "screen": "3 CSS-pixel aligned grid, native-pixel amplitude modulation", "resizeDrawMsAtDpr1": { "1440x1000": 87.4, "2560x1080": 93.5, "3440x1440": 148.0, "390x844": 9.3 }, "idleDoesNotRedraw": true, "timingNote": "Measured before the final subpixel-area antialiasing correction; timings are indicative browser measurements, not a performance guarantee." },
+  "screenshots": ["v0170-home-zh.png", "v0170-weapon-1.png", "v0170-footer-zh.png"],
+  "unchanged": ["Original odin.blend", "Both shipped GLBs", "Accepted mechanical articulation function"]
+}

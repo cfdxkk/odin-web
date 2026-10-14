@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
+  <!-- Sparse edge scratches; no filter, animated noise, or full-surface grime. -->
+  <g fill="none" stroke="#827e70" stroke-width=".7">
+    <path d="M24 10h38m-33 4h12M1490 13l43-2m-29 6h11M9 201l1 35m4-27v8M1591 348v24m-4-17v8M44 984l51 2m-30-7h12M1441 987h72m-20-6h15M235 127l27-1m-15-4h5M1108 129l36-2m-17 5h10M468 799l27 2m-21 3h7"/>
+  </g>
+  <g fill="none" stroke="#fffdf5" stroke-width="1">
+    <path d="M26 11h37M1492 14l41-2M11 201v30M1441 988h69M470 800l22 2"/>
+  </g>
+</svg>

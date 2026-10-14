@@ -1,0 +1,8 @@
+Tool: built-in image_gen.imagegen (imagegen skill), edit mode.
+Input: public/images/odin-mountain-footer-v0.13.0.webp
+Selected output: public/images/odin-mountain-footer-v0.18.0.webp
+User selected the original pale artwork's clear ship, adapted to the black page, after comparing both historical versions.
+The generated PNG was converted to WebP at quality 94; no additional raster editing.
+
+Prompt:
+Use case: style-transfer edit. Edit target: the attached existing wide Odin spaceship mountain footer artwork. Preserve EXACT ship silhouette, proportions, structure, perspective, placement, mountain silhouettes and composition. This is a careful print color conversion, NOT a redesigned spaceship. Convert this cream-paper illustration to a restrained BLACK background footer artwork: top blank sky solid near-black #080d11, mountains in muted slate-gray and off-white printed highlights. Keep Odin clearly legible with clean pale-gray hull surfaces, dark panel seams, intact long wedge body, tower, guns and engine shapes exactly as input. Apply fine orderly newspaper/comic halftone screening: tiny round dots on a perfectly regular aligned grid, with dot size changing for tone; same printing language across ship and mountains. Ship detail must stay clear and smooth at page scale. No random stipple, no large black polka dots or diseased blotches, no checker grid, no crosshatch, no scratchy outlines. Preserve the extensive empty upper sky so webpage text can sit above it and the mountain artwork merges naturally into the near-black background. Monochrome neutral cool gray ink only, no glow, no stars, no new objects, no text, no logos, no borders. Keep original panoramic 3:1 proportions. The original geometry and ship recognition are highest priority.

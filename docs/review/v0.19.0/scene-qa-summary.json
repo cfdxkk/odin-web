@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "pausedClickStartsFromVisiblePose": true,
+    "pausedClickAnimatesMechanics": true,
+    "clickMovesCamera": true,
+    "clickPreservesExplicitPause": true,
+    "retargetPreservesVisiblePose": true,
+    "pausedClickCompletesNAV": true,
+    "seekFadesExhaustBeforeDeploy": true,
+    "pausedClickCompletesSCM": true,
+    "dragRemainsDirectScrub": true,
+    "dragPreservesExplicitPause": true,
+    "playingClickKeepsTransition": true,
+    "playingClickResumesPlaybackIntent": true,
+    "weaponStagesReachEveryStation": true,
+    "weaponStationsKeepVerticalAxis": true,
+    "onlyFocusedFamilyDeploys": true,
+    "orbitStartsPortEndsStarboard": true,
+    "dualMainCalloutsVisible": true,
+    "cameraPassesOverHull": true,
+    "weaponWheelIsContinuous": true,
+    "scrollingDoesNotRestartCameraTransition": true,
+    "scrollingMovesPausedCamera": true,
+    "rapidScrollReversalUsesVisibleProgress": true,
+    "returnFromBridgeUsesWeaponEnd": true,
+    "completed": true,
+    "noRuntimeErrors": true
+  },
+  "failed": [],
+  "count": 25,
+  "provenance": "The first script could read a settled state before the new chapter had entered. Three chapter-entry checks were repeated after waiting for data-view and settled transitions; scene-followup-results.json contains the corrected evidence.",
+  "browser": "Chromium headed, 1920x1080, real NVIDIA WebGL",
+  "artifacts": [
+    "scene-qa-results.json",
+    "scene-followup-results.json"
+  ]
+}
