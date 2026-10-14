@@ -6659,5 +6659,19 @@
     "maxObserved100msCameraTravel": 0.3066276897966002,
     "finalAllOpen": true
   },
-  "observation": "The actual mouse-wheel route advances smoothly from bow to aft. No independent deployment timer runs during the weapon section. At progress 0.20 and approximately 0.70, the partial weapon poses, camera, aim clock and rendered frame count remain unchanged through the hold. The targeting axis remains at world X=0, Y=0.068 throughout; no cross-section drift is measured. Wheel impulses retain brief camera damping, and there is no abrupt orientation jump at a chapter label boundary."
+  "observation": "The actual mouse-wheel route advances smoothly from bow to aft. No independent deployment timer runs during the weapon section. At progress 0.20 and approximately 0.70, the partial weapon poses, camera, aim clock and rendered frame count remain unchanged through the hold. The targeting axis remains at world X=0, Y=0.068 throughout; no cross-section drift is measured. Wheel impulses retain brief camera damping, and there is no abrupt orientation jump at a chapter label boundary.",
+  "recording": {
+    "status": "complete",
+    "file": "output/playwright/v0230-flight.webm",
+    "durationSeconds": 39.48,
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "note": "Includes setup/end holds around the 21.8-second observed wheel sequence; local recording excluded from Git."
+  },
+  "visualFramesReviewed": [
+    "output/playwright/v0230-flight-frame-02.png",
+    "output/playwright/v0230-flight-frame-03.png",
+    "output/playwright/v0230-flight-frame-05.png"
+  ]
 }

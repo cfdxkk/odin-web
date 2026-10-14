@@ -258,7 +258,7 @@
           "screenCount": "1",
           "renderMs": "52.2",
           "dpr": "1.0000000149011612",
-          "marks": "104048",
+          "marks": "103993",
           "raster": "native-pixels",
           "descreenBlur": "2.2",
           "screen": "ordered-4x4",
@@ -576,9 +576,10 @@
     "footerTextAndLinksVisible": true,
     "orderedSquareGridVisible": true,
     "largeSuspendedSkyClusters": false,
-    "minorSkySpecksAt3440": true,
-    "note": "At native 3440 width a few isolated square marks remain 15–30 px above the continuous horizon band. Reported to parent for review.",
-    "detailScreenshot": "output/playwright/v0230-layout-footer-sky-detail.png"
+    "minorSkySpecksAt3440": false,
+    "note": "Final production build rechecked at 3440×1440: previously isolated high sky marks are removed; the continuous faint horizon screen is retained. Footer text, official link, transparent GitHub link and community badge remain visible.",
+    "detailScreenshot": "output/playwright/v0230-layout-footer-sky-detail.png",
+    "finalFooterRecheck": true
   },
   "transparentPhoto": {
     "file": "output/playwright/v0230-transparent-odin.png",
