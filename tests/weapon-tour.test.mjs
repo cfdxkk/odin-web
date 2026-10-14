@@ -2,10 +2,11 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
 import * as THREE from 'three'
-import { WEAPON_TOUR, clampWeaponStep, sampleWeaponCamera, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, weaponStepProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide, weaponRouteAngles } from '../app/lib/odin-weapon-tour.ts'
+import { WEAPON_TOUR, WEAPON_ROTATION_START, WEAPON_ROTATION_END, clampWeaponStep, sampleWeaponCamera, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, weaponStepProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide, weaponRouteAngles } from '../app/lib/odin-weapon-tour.ts'
 import { classifyWeaponJoint, WEAPON_GROUPS } from '../app/lib/odin-weapon-groups.ts'
 import { interpolateOdinCamera, interpolateOrientedOdinCamera, odinCameraOrientation, sampleOdinCamera } from '../app/lib/odin-camera.ts'
 import { sampleTourCamera } from '../app/lib/odin-tour.ts'
+import { createOdinRig } from '../app/lib/odin-rig.ts'
 
 const aspects = [390 / 844, 4 / 3, 16 / 9, 21 / 9, 32 / 9]
 const close = (actual, expected, label) => assert.ok(Math.abs(actual - expected) < 1e-9, `${label}: ${actual} != ${expected}`)
@@ -18,12 +19,12 @@ function project(point, pose, up, aspect) {
   return point.clone().project(camera)
 }
 
-test('continuous weapon inspection crosses the dorsal hull then pitches toward the stern', () => {
+test('continuous weapon inspection arrives above the spine and stays centered through the later weapons', () => {
   for (const aspect of aspects) {
     const first = sampleWeaponCamera(0, aspect)
     assert.ok(first.position.x < first.target.x, 'Start on the port side')
     const last = sampleWeaponCamera(WEAPON_TOUR.length - 1, aspect)
-    assert.ok(last.position.z - last.target.z > last.position.y - last.target.y, 'Finish behind the hull looking toward the bridge')
+    assert.ok(Math.abs(last.position.x - last.target.x) < 1e-9 && Math.abs(last.position.z - last.target.z) < 1e-9, 'Finish directly above the hull without an aft tilt')
     const overhead = sampleContinuousWeaponCamera(.5, aspect)
     assert.ok(Math.abs(overhead.position.x - overhead.target.x) < .15, 'Torpedo shot reaches the spine')
     assert.ok(overhead.position.y - overhead.target.y > 3, 'Midpoint passes above the hull, not through it')
@@ -62,7 +63,7 @@ test('continuous scroll never reverses along the hull or jumps at a weapon bound
   for (let i = 1; i <= 10000; i++) {
     const next = sampleContinuousWeaponCamera(i / 10000, 16 / 9)
     assert.ok(next.target.z >= previous.target.z, 'Focus must keep traveling from bow to aft')
-    assert.ok(next.position.distanceTo(previous.position) < .008)
+    assert.ok(next.position.distanceTo(previous.position) < .016)
     assert.ok(next.target.distanceTo(previous.target) < .003)
     previous = next
   }
@@ -143,31 +144,37 @@ test('entry chooses the currently visible homepage side and takes the shortest o
   assert.equal(chooseWeaponRouteSide(headOn, aim, -1), -1)
 })
 
-test('mirrored entry routes share a soft overlapping lateral-to-aft rotation and an aft bridge continuation', () => {
+test('mirrored routes stop rotating at the torpedoes without crossing the opposite flank', () => {
   for (let step = 0; step <= 200; step++) {
     const p = step / 200, left = sampleContinuousWeaponCamera(p, 16 / 9, -1), right = sampleContinuousWeaponCamera(p, 16 / 9, 1)
     close(left.position.x - left.target.x, -(right.position.x - right.target.x), 'Mirrored side')
     close(left.position.y, right.position.y, 'Shared altitude')
-    close(left.position.z, right.position.z, 'Shared aft pitch')
+    close(left.position.z, right.position.z, 'Shared fore-aft framing')
+    assert.ok(left.position.x <= left.target.x + 1e-9 && right.position.x >= right.target.x - 1e-9, 'Neither route crosses the opposite flank')
   }
-  const a = weaponRouteAngles(.48), b = weaponRouteAngles(.52)
-  assert.ok(b.lateral > a.lateral && b.aft > a.aft, 'Both axes move together around the torpedo handoff')
-  close(weaponRouteAngles(.75).lateral, weaponRouteAngles(1).lateral, 'Lateral sweep has stopped for the aft chapters')
-  assert.ok(weaponRouteAngles(1).aft > weaponRouteAngles(.75).aft, 'Aft pitch continues through the combined turrets')
-  const single = sampleWeaponCamera(3, 16 / 9), combined = sampleWeaponCamera(4, 16 / 9), bridge = sampleTourCamera(2, 16 / 9)
-  assert.ok(single.position.y - single.target.y > single.position.z - single.target.z, 'Single batteries are shown from high above the stern')
-  assert.ok(combined.position.z > combined.target.z && bridge.position.z > bridge.target.z, 'Combined turrets and bridge keep the same aft hemisphere')
+  for (const side of [-1, 1]) {
+    const held = odinCameraOrientation(sampleContinuousWeaponCamera(WEAPON_ROTATION_END, 16 / 9, side))
+    for (let frame = 0; frame <= 1000; frame++) {
+      const p = WEAPON_ROTATION_END + (1 - WEAPON_ROTATION_END) * frame / 1000
+      const pose = sampleContinuousWeaponCamera(p, 16 / 9, side)
+      assert.ok(held.angleTo(odinCameraOrientation(pose)) < 1e-7, '2-3, 2-4 and 2-5 share exactly the same orientation')
+      close(weaponRouteAngles(p).lateral, Math.PI / 2, 'Centered dorsal view')
+      close(weaponRouteAngles(p).aft, 0, 'No late aft pitch')
+    }
+  }
 })
 
-test('both entry routes finish on the opposite rear quarter and keep pulling back through bridge and hangars', () => {
+test('both centered weapon routes pull back into their established rear quarters through bridge and hangars', () => {
   for (const side of [-1, 1]) for (const aspect of aspects) {
     const shots = [sampleWeaponCamera(4, aspect, side), sampleTourCamera(2, aspect, side), sampleTourCamera(3, aspect, side)]
     let previousDistance = 0
     for (const [index, shot] of shots.entries()) {
       const offset = shot.position.clone().sub(shot.target), distance = offset.length()
-      assert.equal(Math.sign(offset.x), -side, 'All aft chapters retain the opposite entry flank')
-      assert.ok(Math.abs(offset.x) / distance > .3, 'The finishing flank must read clearly, rather than almost straight astern')
-      assert.ok(offset.z / distance > .75, 'The route remains behind the ship')
+      if (index > 0) {
+        assert.equal(Math.sign(offset.x), -side, 'Both later aft chapters retain the same flank')
+        assert.ok(Math.abs(offset.x) / distance > .3, 'The rear quarter must read clearly, rather than almost straight astern')
+        assert.ok(offset.z / distance > .75, 'The later route remains behind the ship')
+      }
       assert.ok(distance > previousDistance, 'A fixed-FOV shot must pull back at each chapter, including ultrawide screens')
       previousDistance = distance
       if (index === 2) assert.ok(offset.y < 0, 'The hangar remains visible from below')
@@ -180,9 +187,72 @@ test('both entry routes finish on the opposite rear quarter and keep pulling bac
         const pose = interpolateOrientedOdinCamera(from, to, frame / 100)
         const offset = pose.position.clone().sub(pose.target), distance = offset.length()
         assert.ok(distance >= previousDistance - 1e-8, 'The transition must never dip inward before pulling back')
-        assert.equal(Math.sign(offset.x), -side, 'No transition crosses to the other flank')
-        assert.ok(offset.z > 0, 'No transition crosses the front of the ship')
+        assert.ok(offset.x * -side >= -1e-8, 'No transition crosses to the other flank')
+        assert.ok(offset.z >= -1e-8, 'No transition crosses the front of the ship')
         previousDistance = distance
+      }
+    }
+  }
+})
+
+function actualMainBatteryCenters(deployment) {
+  const bytes = readFileSync(new URL('../public/models/odin.glb', import.meta.url))
+  const model = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)))
+  const objects = model.nodes.map(node => {
+    const object = new THREE.Object3D(); object.name = node.name; object.userData = node.extras ?? {}
+    if (node.matrix) new THREE.Matrix4().fromArray(node.matrix).decompose(object.position, object.quaternion, object.scale)
+    if (node.translation) object.position.fromArray(node.translation)
+    if (node.rotation) object.quaternion.fromArray(node.rotation)
+    if (node.scale) object.scale.fromArray(node.scale)
+    return object
+  })
+  model.nodes.forEach((node, index) => node.children?.forEach(child => objects[index].add(objects[child])))
+  const root = new THREE.Group(); model.scenes[model.scene ?? 0].nodes.forEach(index => root.add(objects[index]))
+  createOdinRig(root).applySelective({ main: deployment, single: 0, defense: 0, quad: 0 }, 0)
+  root.updateMatrixWorld(true)
+  return ['Dorsal', 'Ventral'].map(side => {
+    const parent = model.nodes.find(node => node.name === `Main_${side}_Shroud_Center`)
+    const index = parent.children.find(child => model.nodes[child].mesh !== undefined)
+    const bounds = model.accessors[model.meshes[model.nodes[index].mesh].primitives[0].attributes.POSITION]
+    return new THREE.Vector3(...bounds.min).add(new THREE.Vector3(...bounds.max)).multiplyScalar(.5).applyMatrix4(objects[index].matrixWorld)
+  })
+}
+
+test('rotation waits until the actual ventral main turret passes screen center in stowed and deployed poses', () => {
+  for (const deployment of [0, .5, 1]) {
+    const ventral = actualMainBatteryCenters(deployment)[1]
+    for (const aspect of aspects) for (const side of [-1, 1]) {
+      const main = sampleWeaponCamera(1, aspect, side)
+      assert.ok(project(ventral, main, main.up, aspect).y < 0, 'The lower gun first enters below center')
+      const beforeTurn = sampleContinuousWeaponCamera(WEAPON_ROTATION_START, aspect, side)
+      assert.ok(project(ventral, beforeTurn, beforeTurn.up, aspect).y > 0, 'The lower gun crosses center before any turn begins')
+      const held = odinCameraOrientation(main)
+      for (let frame = 0; frame <= 100; frame++) {
+        const p = .25 + (WEAPON_ROTATION_START - .25) * frame / 100
+        assert.ok(held.angleTo(odinCameraOrientation(sampleContinuousWeaponCamera(p, aspect, side))) < 1e-7, 'The flank stays visible during the main-battery inspection')
+      }
+    }
+  }
+})
+
+test('the whole weapon scroll pulls back continuously and the dorsal surface never swells inward during the turn', () => {
+  const mainLandmarks = [0, 1].flatMap(actualMainBatteryCenters)
+  for (const aspect of aspects) for (const side of [-1, 1]) {
+    let previousRadius = -Infinity, previousDorsalDepth = -Infinity
+    const depths = mainLandmarks.map(() => -Infinity)
+    for (let frame = 0; frame <= 10000; frame++) {
+      const p = frame / 10000, pose = sampleContinuousWeaponCamera(p, aspect, side)
+      const offset = pose.position.clone().sub(pose.target), radius = offset.length()
+      assert.ok(radius > previousRadius, 'The sampled radius must increase everywhere, not just at chapter endpoints')
+      previousRadius = radius
+      if (p >= .25 && p <= .5) mainLandmarks.forEach((point, index) => {
+        const depth = point.clone().sub(pose.position).dot(offset.clone().normalize().negate())
+        assert.ok(depth > depths[index], 'A fixed actual turret surface must recede while the camera turns overhead')
+        depths[index] = depth
+      })
+      if (p >= .5) {
+        assert.ok(pose.position.y > previousDorsalDepth, 'Lowering the aim at 2-4 must not bring the camera closer to the deck')
+        previousDorsalDepth = pose.position.y
       }
     }
   }

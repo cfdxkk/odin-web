@@ -3,24 +3,24 @@ import { WEAPON_GROUPS, type WeaponGroup } from './odin-weapon-groups.ts'
 
 export const WEAPON_SOURCE = 'https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin'
 // Source coordinates: +Y points toward the bow, +Z is above the hull.
-// The entry side follows the visible homepage pose. Lateral movement eases
-// into an aft pitch after the torpedoes, while the bow stays screen-up.
+// The entry side follows the visible homepage pose. Once both main batteries
+// have passed through the frame, rotate to the dorsal centerline and hold it.
 export const WEAPON_TOUR = [
   // Frame the emitter bank and its aft radiator together; the leader still
   // identifies the emitters rather than following the framing center.
   { id: 'beam', group: null, point: [0, 300, 6.8], calloutPoint: [0, 369.5, 6.8], distance: 4.5, anchor: null, video: 'bow-laser',
     zh: { title: '舰艏光束武器', body: '舰艏的 12 个发射器构成一套 S12 光束武器，由驾驶员控制。', spec: '1 × S12 / 驾驶员控制' },
     en: { title: 'Bow beam weapon', body: 'Twelve bow emitters form one pilot-controlled S12 beam weapon.', spec: '1 × S12 / Pilot controlled' } },
-  { id: 'main', group: 'main', point: [0, 100, 0], distance: 5.9, anchor: 'Main_Dorsal_Shroud_Center', anchors: ['Main_Dorsal_Shroud_Center', 'Main_Ventral_Shroud_Center'], video: 'main-battery',
+  { id: 'main', group: 'main', point: [0, 70, 0], distance: 5.3, anchor: 'Main_Dorsal_Shroud_Center', anchors: ['Main_Dorsal_Shroud_Center', 'Main_Ventral_Shroud_Center'], video: 'main-battery',
     zh: { title: '三联装主炮', body: '舰体上层与舰腹各布置一座有人炮塔，每座搭载三门 S12 主炮。', spec: '2 座炮塔 / 每座 3 × S12' },
     en: { title: 'Triple main batteries', body: 'One crewed turret sits above the hull and another below it. Each carries three S12 guns.', spec: '2 turrets / 3 × S12 each' } },
-  { id: 'torpedoes', group: null, point: [0, 30, 43], distance: 4.5, anchor: null, video: null,
+  { id: 'torpedoes', group: null, point: [0, 30, 43], distance: 6.0, anchor: null, video: null,
     zh: { title: '垂直发射鱼雷', body: '主炮后方布置 S12 垂直发射系统。', spec: '20 套 S12 垂直发射系统' },
     en: { title: 'Vertical-launch torpedoes', body: 'S12 vertical-launch systems sit behind the main battery.', spec: '20 × S12 vertical-launch systems' } },
-  { id: 'single', group: 'single', point: [0, 8, 29], distance: 6.4, anchor: 'SideBattery_2_Starboard', video: null,
+  { id: 'single', group: 'single', point: [0, 8, 29], distance: 6.3, anchor: 'SideBattery_2_Starboard', video: null,
     zh: { title: '单联装副炮', body: 'S10 单联炮塔分为有人与遥控两种配置，分布在舰体不同位置。', spec: '3 座有人 + 8 座遥控 / S10' },
     en: { title: 'Single-gun batteries', body: 'S10 single-gun turrets are distributed around the hull in crewed and remote configurations.', spec: '3 crewed + 8 remote / S10' } },
-  { id: 'bridge-batteries', group: 'defense', groups: ['defense', 'quad'], point: [0, -55, 73], distance: 5.1,
+  { id: 'bridge-batteries', group: 'defense', groups: ['defense', 'quad'], point: [0, -55, 73], distance: 6.6,
     anchor: 'Defense_03_Elevation', anchors: ['Defense_03_Elevation', 'PDC_Starboard_Gimbal'], video: 'quad-turret',
     zh: { title: '双联与四联炮塔', body: '八座有人双联炮塔各配备两门 S8 武器。舰桥两侧另设两座有人四联炮塔，每座配备四门 S8 武器。', spec: '8 × 双联 S8 / 2 × 四联 S8' },
     en: { title: 'Twin and quad turrets', body: 'Eight crewed twin turrets carry two S8 guns each. Two crewed quad turrets flank the bridge, with four S8 guns per mount.', spec: '8 × twin S8 / 2 × quad S8' } },
@@ -63,7 +63,11 @@ function sampleTrack(values: readonly number[], progress: number) {
 const trackX = WEAPON_TOUR.map(shot => shot.point[0] * .01)
 const trackY = WEAPON_TOUR.map(shot => shot.point[2] * .01)
 const trackZ = WEAPON_TOUR.map(shot => -shot.point[1] * .01)
-const trackDistance = WEAPON_TOUR.map(shot => shot.distance)
+// Reserve part of the pullback for the actual turn: looking down exposes the
+// nearer dorsal surface. Moving out during that turn prevents it appearing
+// to swell toward the viewer even though the nominal radius already grows.
+const rotationPullback = .35
+const trackDistance = WEAPON_TOUR.map((shot, index) => shot.distance - (index >= 2 ? rotationPullback : 0))
 
 export type WeaponRouteSide = -1 | 1
 export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vector3, previous: WeaponRouteSide = -1): WeaponRouteSide {
@@ -73,15 +77,16 @@ export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vec
   return Math.abs(offset.x) < offset.length() * .015 ? previous : offset.x < 0 ? -1 : 1
 }
 
+export const WEAPON_ROTATION_START = .37
+export const WEAPON_ROTATION_END = .5
+const weaponRotationAmount = (progress: number) => THREE.MathUtils.smootherstep(progress, WEAPON_ROTATION_START, WEAPON_ROTATION_END)
 export function weaponRouteAngles(progress: number) {
   const p = clampWeaponProgress(progress)
-  // Cross the spine at the torpedoes, finish on the opposite flank, then
-  // hold that hemisphere. The added roll overlaps the aft pitch so the
-  // route has no hard lateral-to-pitch corner.
-  const lateral = THREE.MathUtils.smootherstep(p, 0, .64)
-  const oppositeFlank = THREE.MathUtils.smootherstep(p, .42, .68)
-  const aft = THREE.MathUtils.smootherstep(p, .42, 1)
-  return { lateral: THREE.MathUtils.lerp(.12, 1.56, lateral) + .66 * oppositeFlank, aft: THREE.MathUtils.lerp(.12, .94, aft) }
+  // Keep the flank visible until the lower triple turret has crossed screen
+  // center. Arrive directly above the torpedoes; later stations only translate
+  // and pull back, without an aft pitch or a crossing into the opposite flank.
+  const turn = weaponRotationAmount(p)
+  return { lateral: THREE.MathUtils.lerp(.12, Math.PI / 2, turn), aft: .12 * (1 - turn) }
 }
 
 // The aft tour must use the same lens framing as its weapon entry; changing
@@ -94,7 +99,7 @@ export function sampleContinuousWeaponCamera(progress: number, aspect: number, s
   const framing = inspectionCameraFraming(aspect)
   const angle = weaponRouteAngles(p)
   const position = new THREE.Vector3(side * Math.cos(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.aft))
-    .multiplyScalar(sampleTrack(trackDistance, p) * framing).add(target)
+    .multiplyScalar((sampleTrack(trackDistance, p) + rotationPullback * weaponRotationAmount(p)) * framing).add(target)
   return { position, target, up: new THREE.Vector3(0, 0, -1) }
 }
 

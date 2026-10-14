@@ -17,6 +17,7 @@ import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
 import type { OdinExhaust } from './odin-exhaust'
 import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide } from './odin-weapon-tour'
 import type { WeaponLevels, WeaponRouteSide } from './odin-weapon-tour'
+import { facingWeaponSide, weaponAnchorNames } from './odin-weapon-anchors'
 import { createManualReturn, sampleManualReturn, advanceManualResume, advanceFilmClock } from './odin-manual-return'
 import { createOdinCallouts } from './odin-callouts'
 import type { CalloutOrigin, CalloutPoint } from './odin-callouts'
@@ -142,6 +143,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let animateWeaponEntryCallout = viewIndex === 1 && weaponStep === 0
   let weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
   let weaponRouteSide: WeaponRouteSide = -1
+  let weaponFacingSide: WeaponRouteSide = -1
   let orientedCameraTransition = viewIndex === 1 || viewIndex === 2
   let weaponLevels = uniformWeaponLevels(sampleOdinMotion(time).deployment)
   let selective = viewIndex === 1
@@ -162,8 +164,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const desiredUp = new THREE.Vector3(0, 1, 0), projectedAnchor = new THREE.Vector3(), anchorWorld = new THREE.Vector3()
   const callouts = createOdinCallouts(canvas.parentElement!)
   const calloutPoints: CalloutPoint[] = []
-  const weaponAnchors = WEAPON_TOUR.map(shot => {
-    const names = (shot as { anchors?: readonly string[] }).anchors ?? (shot.anchor ? [shot.anchor] : [])
+  const loadWeaponAnchors = (side: WeaponRouteSide) => WEAPON_TOUR.map(shot => {
+    const names = weaponAnchorNames(shot, side)
     return names.map(name => {
       const joint = find(name), mesh = joint?.getObjectByProperty('isMesh', true) as THREE.Mesh | undefined
       if (!mesh) return joint ? { name, object: joint, center: new THREE.Vector3() } : undefined
@@ -171,6 +173,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       return { name, object: mesh, center: mesh.geometry.boundingBox!.getCenter(new THREE.Vector3()) }
     }).filter((anchor): anchor is NonNullable<typeof anchor> => !!anchor)
   })
+  const weaponAnchors = { port: loadWeaponAnchors(-1), starboard: loadWeaponAnchors(1) }
   const desired = new THREE.Vector3(), target = new THREE.Vector3()
   let width = 1, height = 1, frameCount = 0, fpsStart = performance.now()
   let manualFraming: { x: number; y: number } | undefined
@@ -311,7 +314,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     composer.render()
     calloutPoints.length = 0
     if (viewIndex === 1 && !state.explore) {
-      const anchors = weaponAnchors[weaponStep]!
+      weaponFacingSide = facingWeaponSide(camera.position.x, weaponFacingSide)
+      const anchors = weaponAnchors[weaponFacingSide < 0 ? 'port' : 'starboard'][weaponStep]!
+      canvas.dataset.weaponAnchorSide = weaponFacingSide < 0 ? 'port' : 'starboard'
+      canvas.dataset.weaponAnchorNames = JSON.stringify(anchors.map(anchor => anchor.name))
       for (let index = 0; index < Math.max(1, anchors.length); index++) {
         const anchor = anchors[index]
         if (anchor) anchor.object.localToWorld(anchorWorld.copy(anchor.center))
@@ -434,6 +440,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     viewIndex = clampTourIndex(index)
     if ((previousViewIndex === undefined || previousViewIndex === 0) && viewIndex !== 0) {
       weaponRouteSide = chooseWeaponRouteSide(camera.position, cameraAim, weaponRouteSide)
+      weaponFacingSide = weaponRouteSide
     }
     orientedCameraTransition = viewIndex === 1 || viewIndex === 2 || previousViewIndex === 1 || previousViewIndex === 2
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)

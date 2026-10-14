@@ -1,0 +1,591 @@
+{
+  "method": "Use production camera sampling, actual GLB turret mesh bounds transformed by the production rig at stowed/half/deployed poses, and 33-degree perspective projection. The ventral mesh center must pass vertical screen center before rotation begins. All camera radii must increase, fixed actual gun surfaces must recede during the 2-2 to 2-3 turn, and the dorsal pose must remain identical thereafter. Later rear-quarter handoffs retain their existing side and increase fixed prior-focus depth.",
+  "distances": [
+    4.5,
+    5.3,
+    6,
+    6.3,
+    6.6,
+    7.2,
+    8
+  ],
+  "cases": [
+    {
+      "aspect": 1.3333333333333333,
+      "entrySide": "port",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00011692307741473229,
+      "maxOrientationChangeAfterTorpedoesRadians": 0,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.00003363374463916102,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.008564871044370367
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.009938091304688713
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.021371955277396836
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00012942504553770107
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.00012942531418680403
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.0001294250445482703
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00012942531290072168
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00011365170659960455
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.0001294253021368874
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0007002309221126879
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.001440009562744038
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 1.3333333333333333,
+      "entrySide": "starboard",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00011692307741473229,
+      "maxOrientationChangeAfterTorpedoesRadians": 0,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.00003363374463916102,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.008572204818221123
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.009945448255444932
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.021379504043451895
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00012942505805302318
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.0001294253148467206
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00012942505706359242
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00012942531356063824
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00011399258214161989
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00012942530279680398
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0007002309221126879
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.001440009562744038
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 1.7777777777777777,
+      "entrySide": "port",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00011268993172564024,
+      "maxOrientationChangeAfterTorpedoesRadians": 2.9802322387695312e-8,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.0000293767617565166,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.008880466314268134
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.010304232147670005
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.022158274832681114
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00012474672915541163
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.0001247469978045146
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00012474672816598087
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00012474699651843224
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00010104898191265477
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00012474698575459797
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0006785082009059806
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0014110459344660597
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 1.7777777777777777,
+      "entrySide": "starboard",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00011268993172564024,
+      "maxOrientationChangeAfterTorpedoesRadians": 2.9802322387695312e-8,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.0000293767617565166,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.008888076099115745
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.010311866846952834
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.02216611570294087
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00012474674167073374
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.00012474699846443116
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00012474674068130298
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.0001247469971783488
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00010142666154955293
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00012474698641451454
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0006785082009059806
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0014110459344660597
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 2.3333333333333335,
+      "entrySide": "port",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00010245905749250994,
+      "maxOrientationChangeAfterTorpedoesRadians": 2.9802322387695312e-8,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.00001908774170811256,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.00974863254339846
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.011311423498670202
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.024320914973003097
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00010507835759820949
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.0001134402131945933
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.0001019470705658776
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00011344021190851095
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00006882020101439679
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00011344020114467668
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0006260076622996991
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0013410452163267195
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 2.3333333333333335,
+      "entrySide": "starboard",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.00010245905749250994,
+      "maxOrientationChangeAfterTorpedoesRadians": 2.9802322387695312e-8,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.00001908774170811256,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.009757003721761828
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.011319824694398939
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.024329564486559513
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00010538992539732561
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.00011344021385450986
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00010227354293146362
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00011344021256842751
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00006929145977174755
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00011344020180459324
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0006260076622996991
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0013410452163267195
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 3.5555555555555554,
+      "entrySide": "port",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.0000935384619316082,
+      "maxOrientationChangeAfterTorpedoesRadians": 0,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.000010115790179732187,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.010657049435234956
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.012365279822498505
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.026583139400144493
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00007875691273273588
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.00010358150021616552
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00007523503100959061
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00010358149893008317
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.00003881746113965079
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.0001035814881662489
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0005802309221136781
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.001280009562743878
+        }
+      ],
+      "passed": true
+    },
+    {
+      "aspect": 3.5555555555555554,
+      "entrySide": "starboard",
+      "weaponSamples": 10001,
+      "minRadiusIncrement": 0.0000935384619316082,
+      "maxOrientationChangeAfterTorpedoesRadians": 0,
+      "minDorsalDepthIncrementAfterTorpedoes": 0.000010115790179732187,
+      "rotationStart": 0.37,
+      "rotationEnd": 0.5,
+      "ventralCenterCrossing": [
+        {
+          "deployment": 0,
+          "progress": 0.3603,
+          "yAtRotationStart": 0.010666220635226667
+        },
+        {
+          "deployment": 0.5,
+          "progress": 0.3588,
+          "yAtRotationStart": 0.012374486886628852
+        },
+        {
+          "deployment": 1,
+          "progress": 0.3465,
+          "yAtRotationStart": 0.02659264304848996
+        }
+      ],
+      "fixedActualTurretDepthChecks": [
+        {
+          "deployment": 0,
+          "turret": "dorsal",
+          "minIncrement": 0.00007914728672098192
+        },
+        {
+          "deployment": 0,
+          "turret": "ventral",
+          "minIncrement": 0.00010358150087608209
+        },
+        {
+          "deployment": 0.5,
+          "turret": "dorsal",
+          "minIncrement": 0.00007564121325565054
+        },
+        {
+          "deployment": 0.5,
+          "turret": "ventral",
+          "minIncrement": 0.00010358149958999974
+        },
+        {
+          "deployment": 1,
+          "turret": "dorsal",
+          "minIncrement": 0.000039375076413605825
+        },
+        {
+          "deployment": 1,
+          "turret": "ventral",
+          "minIncrement": 0.00010358148882616547
+        }
+      ],
+      "aft": [
+        {
+          "transition": "2-5 to bridge",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.0005802309221136781
+        },
+        {
+          "transition": "bridge to hangar",
+          "samples": 1001,
+          "minFixedLandmarkDepthIncrement": 0.001280009562743878
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true
+}

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { footerInkLevel, FOOTER_SCREEN_INKS, FOOTER_SCREEN_MARK_RATIO, FOOTER_SCREEN_PITCH } from '../lib/odin-footer-screen'
+
 defineProps<{ alt: string }>()
 
 const SOURCE = '/images/odin-mountain-footer-v0.19.0.webp'
@@ -16,23 +18,6 @@ let lastSize = '', renderCount = 0
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value))
 const smooth = (value: number) => { const t = clamp(value); return t * t * (3 - 2 * t) }
-
-// The radius table preserves ink coverage when bright dots meet. A screen
-// limited to isolated dots cannot reproduce the continuous plate's midtones.
-function coverage(radius: number) {
-  if (radius <= .5) return Math.PI * radius * radius
-  const cap = radius * radius * Math.acos(.5 / radius) - .5 * Math.sqrt(radius * radius - .25)
-  return Math.PI * radius * radius - 4 * cap
-}
-const radii = Array.from({ length: 1025 }, (_, index) => {
-  let low = 0, high = Math.SQRT1_2
-  for (let step = 0; step < 18; step++) {
-    const radius = (low + high) / 2
-    if (coverage(radius) < index / 1024) low = radius
-    else high = radius
-  }
-  return (low + high) / 2
-})
 
 function loadSource() {
   if (sourceImage?.complete && sourceImage.naturalWidth) return Promise.resolve(sourceImage)
@@ -71,7 +56,7 @@ async function render() {
     if (width < 1 || height < 1) return
     const dpr = window.devicePixelRatio || 1
     const mobile = window.matchMedia('(max-width: 700px)').matches
-    const pitch = 3.2
+    const pitch = FOOTER_SCREEN_PITCH
     const size = `${width}:${height}:${dpr}:${mobile}`
     if (size === lastSize) { dirty = false; target.dataset.ready = 'true'; return }
 
@@ -80,7 +65,7 @@ async function render() {
     const artTop = height - artHeight
     const columns = Math.ceil(width / pitch), rows = Math.ceil(artHeight / pitch)
     // Descreen the existing illustration into broad tones before applying a
-    // single responsive AM screen. Mountains and ship share this whole pass;
+    // single ordered screen. Mountains and ship share this whole pass;
     // no separate ship mask, stipple layer or stretched pre-screened image.
     const plate = document.createElement('canvas')
     plate.width = Math.ceil(width); plate.height = Math.ceil(artHeight)
@@ -113,7 +98,8 @@ async function render() {
       ink[index] = 7; ink[index + 1] = 11; ink[index + 2] = 16; ink[index + 3] = 255
     }
     const scaleX = target.width / width, scaleY = target.height / height
-    let dots = 0
+    const markSize = pitch * FOOTER_SCREEN_MARK_RATIO
+    let marks = 0
     for (let row = 0; row < rows; row++) {
       const localY = (row + .5) * pitch, fraction = localY / artHeight
       const y = artTop + localY
@@ -122,29 +108,28 @@ async function render() {
       for (let column = 0; column < columns; column++) {
         const offset = (row * columns + column) * 4
         const luminance = .2126 * pixels[offset]! + .7152 * pixels[offset + 1]! + .0722 * pixels[offset + 2]!
-        const tone = Math.pow(clamp((luminance - 10) / 115), 1.1) * .95 * fade
-        const radius = radii[Math.round(tone * 1024)]! * pitch
-        if (radius * dpr < .015) continue
+        const tone = Math.pow(clamp((luminance - 15) / 110), 1.1) * .95
+        const inkLevel = footerInkLevel(tone, column, row)
+        if (!inkLevel) continue
+        const gray = FOOTER_SCREEN_INKS[inkLevel]!
         const x = (column + .5) * pitch
-        const cx = x * scaleX, cy = y * scaleY, r = radius * Math.min(scaleX, scaleY)
-        const left = Math.max(0, Math.floor(cx - r - .5)), right = Math.min(target.width - 1, Math.ceil(cx + r + .5))
-        const top = Math.max(0, Math.floor(cy - r - .5)), bottom = Math.min(target.height - 1, Math.ceil(cy + r + .5))
-        // Rasterize a single aligned screen at native resolution. Bounded
-        // pixel work avoids giant GPU paths and keeps ultrawide resizing fast.
+        // The footprint is fixed at every tone. Exact rectangular pixel
+        // coverage keeps fractional DPR from varying the mark's apparent size.
+        const x0 = (x - markSize / 2) * scaleX, x1 = (x + markSize / 2) * scaleX
+        const y0 = (y - markSize / 2) * scaleY, y1 = (y + markSize / 2) * scaleY
+        const left = Math.max(0, Math.floor(x0)), right = Math.min(target.width - 1, Math.ceil(x1) - 1)
+        const top = Math.max(0, Math.floor(y0)), bottom = Math.min(target.height - 1, Math.ceil(y1) - 1)
         for (let py = top; py <= bottom; py++) {
           for (let px = left; px <= right; px++) {
-            // A subpixel circle must fade by area, not retain a half-lit
-            // center pixel as its radius approaches zero.
-            const coverage = Math.min(Math.PI * r * r, clamp(r + .5 - Math.hypot(px + .5 - cx, py + .5 - cy)))
+            const coverage = Math.max(0, Math.min(px + 1, x1) - Math.max(px, x0))
+              * Math.max(0, Math.min(py + 1, y1) - Math.max(py, y0)) * fade
             const index = (py * target.width + px) * 4
-            const red = Math.round(7 + 189 * coverage)
-            if (red <= ink[index]!) continue
-            ink[index] = red
-            ink[index + 1] = Math.round(11 + 189 * coverage)
-            ink[index + 2] = Math.round(16 + 181 * coverage)
+            ink[index] = Math.round(7 + (gray - 7) * coverage)
+            ink[index + 1] = Math.round(11 + (gray - 11) * coverage)
+            ink[index + 2] = Math.round(16 + (gray - 16) * coverage)
           }
         }
-        dots++
+        marks++
       }
     }
     context.putImageData(print, 0, 0)
@@ -155,7 +140,8 @@ async function render() {
     Object.assign(target.dataset, {
       ready: 'true', source: SOURCE, gridPitch: String(pitch), screenCount: '1',
       renderCount: String(renderCount), renderMs: (performance.now() - started).toFixed(1),
-      dpr: String(dpr), dots: String(dots), raster: 'native-pixels', descreenBlur: '2.2',
+      dpr: String(dpr), marks: String(marks), raster: 'native-pixels', descreenBlur: '2.2',
+      screen: 'ordered-4x4', markShape: 'square', markSize: String(markSize), inkLevels: '4', atmosphericFade: 'ink-only',
     })
     delete target.dataset.error
   } catch {

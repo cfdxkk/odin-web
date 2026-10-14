@@ -9,8 +9,8 @@ import { inspectionCameraFraming, type WeaponRouteSide } from './odin-weapon-tou
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
   { id: 'batteries', point: [0, 160, 20], view: [1.35, .7, .8], distance: 8.1, time: 24 },
-  { id: 'bridge', point: [0, -75, 83], view: [.7, -1.4, .65], distance: 6.2, time: 0 },
-  { id: 'engines', point: [0, -190, 2], view: [1.3, -2.2, -.7], distance: 7.3, time: 46 },
+  { id: 'bridge', point: [0, -75, 83], view: [.7, -1.4, .65], distance: 7.2, time: 0 },
+  { id: 'engines', point: [0, -190, 2], view: [1.3, -2.2, -.7], distance: 8.0, time: 46 },
 ] as const
 
 export const ODIN_TOUR_CAMERA_SECONDS = 2.8
@@ -43,8 +43,8 @@ export function sampleTourCamera(index: number, aspect = 1.6, entrySide: WeaponR
   const [vx, vy, vz] = shot.view
   const target = new THREE.Vector3(x * .01, z * .01, -y * .01)
   const framing = chapter >= 2 ? inspectionCameraFraming(aspect) : Math.max(.62, Math.pow(1.6 / Math.max(1.6, aspect), .7)) * Math.max(1, 1.25 / Math.max(aspect, .01))
-  // The weapon orbit finishes across the spine from its entry flank. Both
-  // later chapters retain that side as they pull back around the stern.
+  // The centered dorsal weapon view feeds the established rear-quarter route.
+  // Both later chapters choose the same side as they pull back around the stern.
   const side = chapter >= 2 ? -entrySide : 1
   const position = new THREE.Vector3(vx * side, vz, -vy).normalize().multiplyScalar(shot.distance * framing).add(target)
   return { position, target }
