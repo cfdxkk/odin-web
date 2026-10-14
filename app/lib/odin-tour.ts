@@ -43,7 +43,7 @@ export function sampleTourCamera(index: number, aspect = 1.6, entrySide: WeaponR
   const [vx, vy, vz] = shot.view
   const target = new THREE.Vector3(x * .01, z * .01, -y * .01)
   const framing = chapter >= 2 ? inspectionCameraFraming(aspect) : Math.max(.62, Math.pow(1.6 / Math.max(1.6, aspect), .7)) * Math.max(1, 1.25 / Math.max(aspect, .01))
-  // The centered dorsal weapon view feeds the established rear-quarter route.
+  // The elevated aft weapon view feeds the established rear-quarter route.
   // Both later chapters choose the same side as they pull back around the stern.
   const side = chapter >= 2 ? -entrySide : 1
   const position = new THREE.Vector3(vx * side, vz, -vy).normalize().multiplyScalar(shot.distance * framing).add(target)

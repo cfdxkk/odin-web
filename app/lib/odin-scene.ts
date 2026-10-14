@@ -15,8 +15,9 @@ import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
 import type { OdinExhaust } from './odin-exhaust'
-import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide } from './odin-weapon-tour'
+import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide } from './odin-weapon-tour'
 import type { WeaponLevels, WeaponRouteSide } from './odin-weapon-tour'
+import { SCROLL_WEAPON_AIM_TIME, sampleScrollWeaponLevels, sampleScrollWeaponPose } from './odin-scroll-weapons'
 import { facingWeaponSide, weaponAnchorNames } from './odin-weapon-anchors'
 import { createManualReturn, sampleManualReturn, advanceManualResume, advanceFilmClock } from './odin-manual-return'
 import { createOdinCallouts } from './odin-callouts'
@@ -147,8 +148,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let orientedCameraTransition = viewIndex === 1 || viewIndex === 2
   let weaponLevels = uniformWeaponLevels(sampleOdinMotion(time).deployment)
   let selective = viewIndex === 1
-  let weaponTransition: { from: WeaponLevels; to: WeaponLevels; elapsed: number; duration: number } | undefined
-  if (selective) weaponLevels = focusedWeaponLevels(weaponStep)
+  let weaponTransition: { from: WeaponLevels; to: WeaponLevels; elapsed: number; duration: number; scrollFromAnimationTime?: number } | undefined
+  if (selective) weaponLevels = sampleScrollWeaponLevels(weaponCameraProgress)
   let cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
   let motionTransition: TourTransition | undefined, motionElapsed = 0, guideFromAnimationTime = time
   let returningFromManual = false, savedGuideTime = time
@@ -249,7 +250,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       time = guidedMotion.time
       renderedAnimationTime = THREE.MathUtils.lerp(guideFromAnimationTime, motionTransition.targetTime, smooth(0, 1, motionElapsed / motionTransition.duration))
       if (motionElapsed >= motionTransition.duration) { motionTransition = undefined; returningFromManual = false; seeking = false }
-    } else if (filmPlaying && !state.explore) {
+    } else if (filmPlaying && !state.explore && viewIndex !== 1) {
       const next = advanceFilmClock(time, dt, FILM_DURATION)
       time = next.time
       if (next.looped) hooks.loop?.()
@@ -290,17 +291,26 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       }
     }
     deployment = state.explore ? manualMotion.deployment : motion.deployment
-    const animationTime = state.explore ? explorationTime : guidedMotion ? renderedAnimationTime : time
-    renderedAnimationTime = animationTime
+    let animationTime = state.explore ? explorationTime : guidedMotion ? renderedAnimationTime : time
     renderedMotion = { deployment: deployment, thrust: state.explore ? manualMotion.thrust : motion.thrust }
     if (weaponTransition && !state.explore) {
       weaponTransition.elapsed += dt
-      weaponLevels = interpolateWeaponLevels(weaponTransition.from, weaponTransition.to, weaponTransition.elapsed / weaponTransition.duration)
+      const handoffProgress = weaponTransition.elapsed / weaponTransition.duration
+      if (weaponTransition.scrollFromAnimationTime !== undefined) {
+        const pose = sampleScrollWeaponPose(weaponCameraProgress, { levels: weaponTransition.from, animationTime: weaponTransition.scrollFromAnimationTime }, handoffProgress)
+        weaponLevels = pose.levels; animationTime = pose.animationTime
+      } else weaponLevels = interpolateWeaponLevels(weaponTransition.from, weaponTransition.to, handoffProgress)
       if (weaponTransition.elapsed >= weaponTransition.duration) {
-        weaponLevels = { ...weaponTransition.to }; weaponTransition = undefined
+        if (weaponTransition.scrollFromAnimationTime === undefined) weaponLevels = { ...weaponTransition.to }
+        weaponTransition = undefined
         if (viewIndex !== 1) selective = false
       }
     }
+    if (viewIndex === 1 && !state.explore && !weaponTransition) {
+      const pose = sampleScrollWeaponPose(weaponCameraProgress)
+      selective = true; weaponLevels = pose.levels; animationTime = pose.animationTime
+    }
+    renderedAnimationTime = animationTime
     const useSelective = selective && !state.explore || !!manualLevels && state.explore
     const mechanism = useSelective ? rig.applySelective(weaponLevels, animationTime) : rig.apply(deployment, animationTime)
     if (!useSelective) weaponLevels = uniformWeaponLevels(deployment)
@@ -360,6 +370,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.weapon = viewIndex === 1 ? WEAPON_TOUR[weaponStep]!.id : ''
     canvas.dataset.weaponLevels = JSON.stringify(weaponLevels)
     canvas.dataset.weaponTransition = String(!!weaponTransition)
+    canvas.dataset.weaponMotionSource = state.explore ? 'manual' : viewIndex === 1 ? weaponTransition ? 'entry' : 'scroll' : 'film'
+    canvas.dataset.weaponAimTime = animationTime.toFixed(4)
     canvas.dataset.weaponProgress = weaponCameraProgress.toFixed(6)
     canvas.dataset.weaponRouteSide = weaponRouteSide < 0 ? 'port' : 'starboard'
     canvas.dataset.cameraUp = camera.up.toArray().map(n => n.toFixed(3)).join(',')
@@ -417,8 +429,11 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       controls.enableDamping = true
     }
     else {
-      const transition = createManualReturn(renderedMotion, savedGuideTime)
-      if (manualLevels) {
+      const transition = createManualReturn(viewIndex === 1 ? { ...renderedMotion, deployment: sampleOdinMotion(savedGuideTime).deployment } : renderedMotion, savedGuideTime)
+      if (viewIndex === 1) {
+        transitionWeapons(sampleScrollWeaponLevels(weaponCameraProgress), ODIN_TOUR_CAMERA_SECONDS, renderedAnimationTime)
+        manualLevels = undefined
+      } else if (manualLevels) {
         transition.duration = Math.max(WEAPON_DEPLOY_SECONDS, transition.duration)
         transitionWeapons(uniformWeaponLevels(transition.to.deployment), transition.duration)
         manualLevels = undefined
@@ -451,7 +466,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     cameraTransitionSeconds = ODIN_TOUR_CAMERA_SECONDS
     transitioning = hooks.state().reducedMotion ? 0 : cameraTransitionSeconds
     const targetTime = ODIN_TOUR[viewIndex]!.time
-    const nextMotion = createTourTransition(renderedMotion, targetTime)
+    const previousAnimationTime = renderedAnimationTime
+    // Weapons have their own live scroll pose. This transition only fades any
+    // remaining homepage exhaust; it must not run a hidden all-gun deployment.
+    const nextMotion = createTourTransition(viewIndex === 1 ? { ...renderedMotion, deployment: sampleOdinMotion(targetTime).deployment } : renderedMotion, targetTime)
     guideFromAnimationTime = renderedAnimationTime; motionElapsed = 0
     motionTransition = !hooks.state().reducedMotion && nextMotion.duration > 0 ? nextMotion : undefined
     if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
@@ -459,16 +477,17 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
       animateWeaponEntryCallout = previousViewIndex !== 1 && weaponStep === 0
       weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
-      transitionWeapons(focusedWeaponLevels(weaponStep))
+      transitionWeapons(sampleScrollWeaponLevels(weaponCameraProgress), ODIN_TOUR_CAMERA_SECONDS, previousAnimationTime)
     } else if (selective) transitionWeapons(uniformWeaponLevels(sampleOdinMotion(targetTime).deployment), Math.max(WEAPON_DEPLOY_SECONDS, nextMotion.duration))
     needsRender = true
     frameCamera()
   }
-  function transitionWeapons(to: WeaponLevels, duration = WEAPON_DEPLOY_SECONDS) {
+  function transitionWeapons(to: WeaponLevels, duration = WEAPON_DEPLOY_SECONDS, scrollFromAnimationTime?: number) {
     selective = true
     const unchanged = (Object.keys(to) as (keyof WeaponLevels)[]).every(group => Math.abs(weaponLevels[group] - to[group]) < .00001)
-    if (hooks.state().reducedMotion || unchanged) { weaponLevels = { ...to }; weaponTransition = undefined; selective = viewIndex === 1 }
-    else weaponTransition = { from: { ...weaponLevels }, to, elapsed: 0, duration }
+    const unchangedAim = scrollFromAnimationTime === undefined || Math.abs(scrollFromAnimationTime - SCROLL_WEAPON_AIM_TIME) < .00001 || Math.max(...Object.values(to)) === 0
+    if (hooks.state().reducedMotion || unchanged && unchangedAim) { weaponLevels = { ...to }; weaponTransition = undefined; selective = viewIndex === 1 }
+    else weaponTransition = { from: { ...weaponLevels }, to, elapsed: 0, duration, scrollFromAnimationTime }
     needsRender = true
   }
   function setWeaponStep(step: number) {
@@ -478,7 +497,9 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     animateWeaponEntryCallout = false
     if (viewIndex !== 1) return
     callouts.reset()
-    transitionWeapons(focusedWeaponLevels(weaponStep))
+    // Labels and anchor selection change here. Mechanical progress is sampled
+    // every frame from the shared camera scroll position, without a step timer.
+    needsRender = true
   }
   resize(); sampleCamera(0); camera.position.copy(desired); cameraAim.copy(target); camera.up.copy(desiredUp)
   controls.target.copy(target); controls.update()

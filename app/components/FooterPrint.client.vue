@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { footerInkLevel, FOOTER_SCREEN_INKS, FOOTER_SCREEN_MARK_RATIO, FOOTER_SCREEN_PITCH } from '../lib/odin-footer-screen'
+import { cleanFooterTones, footerInkLevel, FOOTER_SCREEN_INKS, FOOTER_SCREEN_MARK_RATIO, FOOTER_SCREEN_PITCH } from '../lib/odin-footer-screen'
 
 defineProps<{ alt: string }>()
 
-const SOURCE = '/images/odin-mountain-footer-v0.19.0.webp'
+const SOURCE = '/images/odin-mountain-footer-v0.23.0.webp'
 const BACKGROUND = '#070b10'
 const root = ref<HTMLElement>()
 const canvas = ref<HTMLCanvasElement>()
@@ -87,6 +87,13 @@ async function render() {
     plateContext.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width, artHeight)
     sampleContext.drawImage(plate, 0, 0, columns, rows)
     const pixels = sampleContext.getImageData(0, 0, columns, rows).data
+    const rawTones = new Float32Array(columns * rows)
+    for (let i = 0; i < rawTones.length; i++) {
+      const offset = i * 4
+      const luminance = .2126 * pixels[offset]! + .7152 * pixels[offset + 1]! + .0722 * pixels[offset + 2]!
+      rawTones[i] = Math.pow(clamp((luminance - 15) / 110), 1.1) * .95
+    }
+    const tones = cleanFooterTones(rawTones, columns, rows)
 
     target.width = Math.round(width * dpr)
     target.height = Math.round(height * dpr)
@@ -103,12 +110,11 @@ async function render() {
     for (let row = 0; row < rows; row++) {
       const localY = (row + .5) * pitch, fraction = localY / artHeight
       const y = artTop + localY
-      const fade = smooth((fraction - .02) / .24) * (1 - .3 * smooth((fraction - .85) / .15))
+      // Fade the ink over a longer atmospheric depth without shrinking marks.
+      const fade = smooth((fraction + .12) / .6) * (1 - .3 * smooth((fraction - .85) / .15))
       if (fade === 0) continue
       for (let column = 0; column < columns; column++) {
-        const offset = (row * columns + column) * 4
-        const luminance = .2126 * pixels[offset]! + .7152 * pixels[offset + 1]! + .0722 * pixels[offset + 2]!
-        const tone = Math.pow(clamp((luminance - 15) / 110), 1.1) * .95
+        const tone = tones[row * columns + column]!
         const inkLevel = footerInkLevel(tone, column, row)
         if (!inkLevel) continue
         const gray = FOOTER_SCREEN_INKS[inkLevel]!
@@ -141,7 +147,7 @@ async function render() {
       ready: 'true', source: SOURCE, gridPitch: String(pitch), screenCount: '1',
       renderCount: String(renderCount), renderMs: (performance.now() - started).toFixed(1),
       dpr: String(dpr), marks: String(marks), raster: 'native-pixels', descreenBlur: '2.2',
-      screen: 'ordered-4x4', markShape: 'square', markSize: String(markSize), inkLevels: '4', atmosphericFade: 'ink-only',
+      screen: 'ordered-4x4', markShape: 'square', markSize: String(markSize), inkLevels: '4', atmosphericFade: 'ink-only', speckFilter: 'connected-tones',
     })
     delete target.dataset.error
   } catch {

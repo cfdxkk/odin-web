@@ -3,8 +3,8 @@ import { WEAPON_GROUPS, type WeaponGroup } from './odin-weapon-groups.ts'
 
 export const WEAPON_SOURCE = 'https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin'
 // Source coordinates: +Y points toward the bow, +Z is above the hull.
-// The entry side follows the visible homepage pose. Once both main batteries
-// have passed through the frame, rotate to the dorsal centerline and hold it.
+// The entry side follows the visible homepage pose. A continuous flank-to-dorsal
+// arc overlaps a later climb around the stern, without crossing the far flank.
 export const WEAPON_TOUR = [
   // Frame the emitter bank and its aft radiator together; the leader still
   // identifies the emitters rather than following the framing center.
@@ -46,8 +46,8 @@ export const clampWeaponStep = (step: number) => Math.max(0, Math.min(WEAPON_TOU
 export const clampWeaponProgress = (progress: number) => THREE.MathUtils.clamp(Number.isFinite(progress) ? progress : 0, 0, 1)
 export const weaponStepProgress = (step: number) => clampWeaponStep(step) / (WEAPON_TOUR.length - 1)
 
-// Monotone cubic interpolation prevents the camera focus from overshooting a
-// station and briefly reversing along the hull between closely spaced guns.
+// Shared nonzero velocities carry the camera through chapter stations. Zero
+// endpoint accelerations make this quintic track C2 without stopping at knots.
 function sampleTrack(values: readonly number[], progress: number) {
   const t = clampWeaponProgress(progress) * (values.length - 1)
   const index = Math.min(values.length - 2, Math.floor(t)), u = t - index
@@ -57,17 +57,17 @@ function sampleTrack(values: readonly number[], progress: number) {
     const a = values[i]! - values[i - 1]!, b = values[i + 1]! - values[i]!
     return a * b <= 0 ? 0 : 2 * a * b / (a + b)
   }
-  return (2*u*u*u - 3*u*u + 1)*values[index]! + (u*u*u - 2*u*u + u)*slope(index)
-    + (-2*u*u*u + 3*u*u)*values[index + 1]! + (u*u*u - u*u)*slope(index + 1)
+  const start = values[index]!, delta = values[index + 1]! - start
+  const from = slope(index), to = slope(index + 1)
+  return start + from*u + (10*delta - 6*from - 4*to)*u**3
+    + (-15*delta + 8*from + 7*to)*u**4 + (6*delta - 3*from - 3*to)*u**5
 }
-const trackX = WEAPON_TOUR.map(shot => shot.point[0] * .01)
-const trackY = WEAPON_TOUR.map(shot => shot.point[2] * .01)
+// A single longitudinal axis is used from the very first frame. Moving its
+// cross-section height between weapons makes the ship drift sideways as the
+// lens rotates, even when the source X coordinates all happen to be zero.
+export const WEAPON_ORBIT_AXIS = { x: 0, y: .068 } as const
 const trackZ = WEAPON_TOUR.map(shot => -shot.point[1] * .01)
-// Reserve part of the pullback for the actual turn: looking down exposes the
-// nearer dorsal surface. Moving out during that turn prevents it appearing
-// to swell toward the viewer even though the nominal radius already grows.
-const rotationPullback = .35
-const trackDistance = WEAPON_TOUR.map((shot, index) => shot.distance - (index >= 2 ? rotationPullback : 0))
+const trackDistance = WEAPON_TOUR.map(shot => shot.distance)
 
 export type WeaponRouteSide = -1 | 1
 export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vector3, previous: WeaponRouteSide = -1): WeaponRouteSide {
@@ -77,16 +77,59 @@ export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vec
   return Math.abs(offset.x) < offset.length() * .015 ? previous : offset.x < 0 ? -1 : 1
 }
 
-export const WEAPON_ROTATION_START = .37
-export const WEAPON_ROTATION_END = .5
-const weaponRotationAmount = (progress: number) => THREE.MathUtils.smootherstep(progress, WEAPON_ROTATION_START, WEAPON_ROTATION_END)
+export const WEAPON_DORSAL_ARRIVAL = .68
+export const WEAPON_AFT_ARC_START = .42
+const flightSamples = 256
+function smootherSlope(p: number, start: number, end: number) {
+  const u = THREE.MathUtils.clamp((p - start) / (end - start), 0, 1)
+  return 30 * u*u * (1-u)**2 / (end - start)
+}
+function flightDirection(p: number) {
+  const turn = Math.PI / 2 * THREE.MathUtils.smootherstep(p, WEAPON_AFT_ARC_START, WEAPON_DORSAL_ARRIVAL)
+  return { cos: Math.cos(turn), sin: Math.sin(turn), turnSpeed: Math.PI / 2 * smootherSlope(p, WEAPON_AFT_ARC_START, WEAPON_DORSAL_ARRIVAL),
+    taper: 1 - THREE.MathUtils.smootherstep(p, .85, 1), taperSpeed: -smootherSlope(p, .85, 1) }
+}
+// Integrate one gradually slowing angular velocity, steering its direction
+// from sideways to aft. Two independent easing curves create a speed trough
+// followed by a second acceleration; this shared field avoids that pulse.
+const flightIntegrals = [0, 0, 0, 0]
+for (let i = 0; i < flightSamples; i++) for (const [fraction, weight] of [[0, 1], [.5, 4], [1, 1]]) {
+  const p = (i + fraction!) / flightSamples, d = flightDirection(p)
+  const value = [d.taper*d.cos, p*d.taper*d.cos, d.taper*d.sin, p*d.taper*d.sin]
+  value.forEach((v, index) => { flightIntegrals[index]! += v * weight! / (6 * flightSamples) })
+}
+const [ia, ib, ic, id] = flightIntegrals as [number, number, number, number]
+const lateralTravel = Math.PI / 2 - .12, aftTravel = .94 - .12, determinant = ia*id - ib*ic
+const flightInitialSpeed = (lateralTravel*id - ib*aftTravel) / determinant
+const flightDeceleration = (ic*lateralTravel - ia*aftTravel) / determinant
+function flightRates(p: number) {
+  const d = flightDirection(p), base = flightInitialSpeed - flightDeceleration*p
+  const speed = base*d.taper, acceleration = -flightDeceleration*d.taper + base*d.taperSpeed
+  return { lateralSpeed: speed*d.cos, aftSpeed: speed*d.sin,
+    lateralAcceleration: acceleration*d.cos - speed*d.sin*d.turnSpeed,
+    aftAcceleration: acceleration*d.sin + speed*d.cos*d.turnSpeed }
+}
+const flightAngles = [{ lateral: .12, aft: .12, ...flightRates(0) }]
+for (let i = 1; i <= flightSamples; i++) {
+  const start = flightAngles[i-1]!, middle = flightRates((i-.5)/flightSamples), end = flightRates(i/flightSamples)
+  flightAngles.push({
+    lateral: start.lateral + (start.lateralSpeed + 4*middle.lateralSpeed + end.lateralSpeed) / (6*flightSamples),
+    aft: start.aft + (start.aftSpeed + 4*middle.aftSpeed + end.aftSpeed) / (6*flightSamples), ...end,
+  })
+}
+function sampleFlightAngle(start: number, end: number, speed0: number, speed1: number, acceleration0: number, acceleration1: number, u: number) {
+  const v0 = speed0/flightSamples, v1 = speed1/flightSamples, a0 = acceleration0/flightSamples**2, a1 = acceleration1/flightSamples**2
+  const delta = end - start - v0 - a0/2, velocity = v1 - v0 - a0, acceleration = a1 - a0
+  return start + v0*u + a0/2*u*u + (10*delta - 4*velocity + acceleration/2)*u**3
+    + (-15*delta + 7*velocity - acceleration)*u**4 + (6*delta - 3*velocity + acceleration/2)*u**5
+}
 export function weaponRouteAngles(progress: number) {
-  const p = clampWeaponProgress(progress)
-  // Keep the flank visible until the lower triple turret has crossed screen
-  // center. Arrive directly above the torpedoes; later stations only translate
-  // and pull back, without an aft pitch or a crossing into the opposite flank.
-  const turn = weaponRotationAmount(p)
-  return { lateral: THREE.MathUtils.lerp(.12, Math.PI / 2, turn), aft: .12 * (1 - turn) }
+  const p = clampWeaponProgress(progress), t = p*flightSamples, i = Math.min(flightSamples-1, Math.floor(t)), u = t-i
+  const start = flightAngles[i]!, end = flightAngles[i+1]!
+  return {
+    lateral: p >= WEAPON_DORSAL_ARRIVAL ? Math.PI / 2 : sampleFlightAngle(start.lateral, end.lateral, start.lateralSpeed, end.lateralSpeed, start.lateralAcceleration, end.lateralAcceleration, u),
+    aft: p === 1 ? .94 : sampleFlightAngle(start.aft, end.aft, start.aftSpeed, end.aftSpeed, start.aftAcceleration, end.aftAcceleration, u),
+  }
 }
 
 // The aft tour must use the same lens framing as its weapon entry; changing
@@ -95,11 +138,11 @@ export const inspectionCameraFraming = (aspect: number) => Math.max(.8, Math.pow
 
 export function sampleContinuousWeaponCamera(progress: number, aspect: number, side: WeaponRouteSide = -1) {
   const p = clampWeaponProgress(progress)
-  const target = new THREE.Vector3(sampleTrack(trackX, p), sampleTrack(trackY, p), sampleTrack(trackZ, p))
+  const target = new THREE.Vector3(WEAPON_ORBIT_AXIS.x, WEAPON_ORBIT_AXIS.y, sampleTrack(trackZ, p))
   const framing = inspectionCameraFraming(aspect)
   const angle = weaponRouteAngles(p)
   const position = new THREE.Vector3(side * Math.cos(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.aft))
-    .multiplyScalar((sampleTrack(trackDistance, p) + rotationPullback * weaponRotationAmount(p)) * framing).add(target)
+    .multiplyScalar(sampleTrack(trackDistance, p) * framing).add(target)
   return { position, target, up: new THREE.Vector3(0, 0, -1) }
 }
 

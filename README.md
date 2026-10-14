@@ -93,6 +93,10 @@ v0.11.1 按新的标注把固定槽底和过渡结构从活动炮座中分离；
 
 ## 版本流程
 
+v0.23.0 提供黑色全屏场景、中英文导览、连续武备巡览和随滚动展开的机械动画。页尾采用统一的 4×4 灰度印刷网格；上一版完整备份及验收证据见 [`docs/review/v0.23.0/`](docs/review/v0.23.0/README.md)。
+
+Vercel 发布配置在 `vercel.json`：安装依赖后执行 `npm run generate`，发布 `.output/public`。先将验证完成的 PR 合并到 `main`，再从该提交运行 `vercel --prod`；本地项目连接保存在忽略提交的 `.vercel/` 中。`.vercelignore` 只排除根目录的编辑资产与检查材料，保留 `app/assets/` 样式和全部运行时媒体。
+
 GitHub 仓库为 `cfdxkk/odin-web`。每次修改均通过独立分支和 PR，开放审核版本打不可移动的 `vX.Y.Z-rc.N` 标签；`main` 保留已审核版本。网站私有预览可用于查看 PR 候选版本。
 
 站点明确标注非官方 Fan Art。Star Citizen、Anvil、Odin 及概念艺术归各自权利人所有；此工程不包含独立的官方资产再授权。

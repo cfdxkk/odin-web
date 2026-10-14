@@ -1,0 +1,6663 @@
+{
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "range": 4860,
+  "start": {
+    "progress": 0,
+    "levels": {
+      "main": 0,
+      "single": 0,
+      "defense": 0,
+      "quad": 0
+    },
+    "aimTime": 24,
+    "motionSource": "scroll",
+    "transition": "false",
+    "frame": 1688,
+    "camera": "-4.286834,0.584904,-2.479352",
+    "target": "0.000,0.068,-3.000"
+  },
+  "stops": [
+    {
+      "step": 6,
+      "before": {
+        "progress": 0.2,
+        "levels": {
+          "main": 0.5000000000000001,
+          "single": 0,
+          "defense": 0,
+          "quad": 0
+        },
+        "aimTime": 24,
+        "motionSource": "scroll",
+        "transition": "false",
+        "frame": 1956,
+        "camera": "-3.881708,3.124073,-0.299116",
+        "target": "0.000,0.068,-0.895"
+      },
+      "after": {
+        "progress": 0.2,
+        "levels": {
+          "main": 0.5000000000000001,
+          "single": 0,
+          "defense": 0,
+          "quad": 0
+        },
+        "aimTime": 24,
+        "motionSource": "scroll",
+        "transition": "false",
+        "frame": 1956,
+        "camera": "-3.881708,3.124073,-0.299116",
+        "target": "0.000,0.068,-0.895"
+      },
+      "unchanged": true
+    },
+    {
+      "step": 21,
+      "before": {
+        "progress": 0.700082,
+        "levels": {
+          "main": 1,
+          "single": 0.5006175098672146,
+          "defense": 0,
+          "quad": 0
+        },
+        "aimTime": 24,
+        "motionSource": "scroll",
+        "transition": "false",
+        "frame": 2555,
+        "camera": "-0.000000,5.367819,2.743555",
+        "target": "0.000,0.068,-0.140"
+      },
+      "after": {
+        "progress": 0.700082,
+        "levels": {
+          "main": 1,
+          "single": 0.5006175098672146,
+          "defense": 0,
+          "quad": 0
+        },
+        "aimTime": 24,
+        "motionSource": "scroll",
+        "transition": "false",
+        "frame": 2555,
+        "camera": "-0.000000,5.367819,2.743555",
+        "target": "0.000,0.068,-0.140"
+      },
+      "unchanged": true
+    }
+  ],
+  "end": {
+    "progress": 1,
+    "levels": {
+      "main": 1,
+      "single": 1,
+      "defense": 1,
+      "quad": 1
+    },
+    "aimTime": 24,
+    "motionSource": "scroll",
+    "transition": "false",
+    "frame": 2933,
+    "camera": "-0.000000,3.830122,5.701228",
+    "target": "0.000,0.068,0.550"
+  },
+  "samples": [
+    {
+      "elapsed": 112.20000004768372,
+      "progress": 0.012665,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.303948,
+        0.744539,
+        -2.357377
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.883
+      ],
+      "quaternion": [
+        -0.504228,
+        -0.431159,
+        0.486271,
+        0.568679
+      ],
+      "frame": 1693,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 201.60000002384186,
+      "progress": 0.021697,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.312659,
+        0.859117,
+        -2.268078
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.797
+      ],
+      "quaternion": [
+        -0.509686,
+        -0.424693,
+        0.478979,
+        0.574835
+      ],
+      "frame": 1699,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 309.60000002384186,
+      "progress": 0.027947,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.316997,
+        0.938706,
+        -2.204505
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.736
+      ],
+      "quaternion": [
+        -0.513403,
+        -0.420192,
+        0.473902,
+        0.579028
+      ],
+      "frame": 1707,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 405.2000000476837,
+      "progress": 0.030864,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.318549,
+        0.975926,
+        -2.174254
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.706
+      ],
+      "quaternion": [
+        -0.515121,
+        -0.418084,
+        0.471525,
+        0.580965
+      ],
+      "frame": 1715,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 512.2999999523163,
+      "progress": 0.032225,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.319171,
+        0.993312,
+        -2.160002
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.693
+      ],
+      "quaternion": [
+        -0.515919,
+        -0.417099,
+        0.470413,
+        0.581866
+      ],
+      "frame": 1723,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 605.5,
+      "progress": 0.047278,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.321696,
+        1.186198,
+        -1.996309
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.535
+      ],
+      "quaternion": [
+        -0.524593,
+        -0.406135,
+        0.458048,
+        0.591648
+      ],
+      "frame": 1730,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 709.7999999523163,
+      "progress": 0.056717,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.319199,
+        1.307623,
+        -1.887874
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.43
+      ],
+      "quaternion": [
+        -0.529889,
+        -0.399201,
+        0.450228,
+        0.597621
+      ],
+      "frame": 1737,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 806,
+      "progress": 0.062023,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.316409,
+        1.376008,
+        -1.82504
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.369
+      ],
+      "quaternion": [
+        -0.532818,
+        -0.395284,
+        0.44581,
+        0.600924
+      ],
+      "frame": 1745,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 912.2999999523163,
+      "progress": 0.0645,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.314764,
+        1.407944,
+        -1.795286
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.34
+      ],
+      "quaternion": [
+        -0.534172,
+        -0.393451,
+        0.443743,
+        0.602452
+      ],
+      "frame": 1753,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1005.5,
+      "progress": 0.065554,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.313998,
+        1.421542,
+        -1.782542
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.328
+      ],
+      "quaternion": [
+        -0.534747,
+        -0.39267,
+        0.442862,
+        0.6031
+      ],
+      "frame": 1760,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1104.5,
+      "progress": 0.080654,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.298653,
+        1.616521,
+        -1.59542
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.146
+      ],
+      "quaternion": [
+        -0.542824,
+        -0.381427,
+        0.430182,
+        0.612209
+      ],
+      "frame": 1767,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1203.2999999523163,
+      "progress": 0.090105,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.284867,
+        1.738613,
+        -1.475023
+      ],
+      "target": [
+        0,
+        0.068,
+        -2.03
+      ],
+      "quaternion": [
+        -0.547735,
+        -0.374339,
+        0.422189,
+        0.617748
+      ],
+      "frame": 1774,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1307.6000000238419,
+      "progress": 0.095426,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.275677,
+        1.807328,
+        -1.406607
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.963
+      ],
+      "quaternion": [
+        -0.550452,
+        -0.370333,
+        0.41767,
+        0.620812
+      ],
+      "frame": 1782,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1400.6000000238419,
+      "progress": 0.097691,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.271451,
+        1.836565,
+        -1.377416
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.935
+      ],
+      "quaternion": [
+        -0.551598,
+        -0.368624,
+        0.415743,
+        0.622105
+      ],
+      "frame": 1789,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1502.1000000238419,
+      "progress": 0.098967,
+      "step": "beam",
+      "levels": {
+        "main": 0,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.268987,
+        1.853032,
+        -1.360961
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.919
+      ],
+      "quaternion": [
+        -0.552241,
+        -0.36766,
+        0.414656,
+        0.62283
+      ],
+      "frame": 1797,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1603.1000000238419,
+      "progress": 0.115698,
+      "step": "main",
+      "levels": {
+        "main": 0.017514119681595688,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.231137,
+        2.068557,
+        -1.146166
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.711
+      ],
+      "quaternion": [
+        -0.560483,
+        -0.354969,
+        0.400342,
+        0.632125
+      ],
+      "frame": 1804,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1710,
+      "progress": 0.125097,
+      "step": "main",
+      "levels": {
+        "main": 0.043289133351411456,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.205317,
+        2.189184,
+        -1.028005
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.596
+      ],
+      "quaternion": [
+        -0.564963,
+        -0.347794,
+        0.39225,
+        0.637178
+      ],
+      "frame": 1812,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1806.2000000476837,
+      "progress": 0.12949,
+      "step": "main",
+      "levels": {
+        "main": 0.05881273052346838,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.192121,
+        2.245397,
+        -0.973896
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.543
+      ],
+      "quaternion": [
+        -0.567019,
+        -0.344432,
+        0.388458,
+        0.639497
+      ],
+      "frame": 1820,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 1912.7999999523163,
+      "progress": 0.13154,
+      "step": "main",
+      "levels": {
+        "main": 0.06676312793612785,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.185716,
+        2.27159,
+        -0.94894
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.519
+      ],
+      "quaternion": [
+        -0.567971,
+        -0.34286,
+        0.386685,
+        0.64057
+      ],
+      "frame": 1828,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2006.5,
+      "progress": 0.138215,
+      "step": "main",
+      "levels": {
+        "main": 0.09557643954667303,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.163767,
+        2.356701,
+        -0.869168
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.442
+      ],
+      "quaternion": [
+        -0.571034,
+        -0.337733,
+        0.380903,
+        0.644025
+      ],
+      "frame": 1835,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2100.100000023842,
+      "progress": 0.152096,
+      "step": "main",
+      "levels": {
+        "main": 0.1682002229788953,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.112773,
+        2.532616,
+        -0.712165
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.29
+      ],
+      "quaternion": [
+        -0.577231,
+        -0.32703,
+        0.368832,
+        0.651014
+      ],
+      "frame": 1842,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2206.7999999523163,
+      "progress": 0.159911,
+      "step": "main",
+      "levels": {
+        "main": 0.2154380303090252,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.080883,
+        2.630913,
+        -0.630106
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.211
+      ],
+      "quaternion": [
+        -0.580616,
+        -0.32098,
+        0.362009,
+        0.654833
+      ],
+      "frame": 1850,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2300.2000000476837,
+      "progress": 0.16324,
+      "step": "main",
+      "levels": {
+        "main": 0.23671706698201614,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.066604,
+        2.6726,
+        -0.596719
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.179
+      ],
+      "quaternion": [
+        -0.582036,
+        -0.318398,
+        0.359097,
+        0.656434
+      ],
+      "frame": 1857,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2407.100000023842,
+      "progress": 0.165111,
+      "step": "main",
+      "levels": {
+        "main": 0.24895196897046806,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.058395,
+        2.695985,
+        -0.578382
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.161
+      ],
+      "quaternion": [
+        -0.582829,
+        -0.316946,
+        0.357459,
+        0.657328
+      ],
+      "frame": 1865,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2513.399999976158,
+      "progress": 0.17423,
+      "step": "main",
+      "levels": {
+        "main": 0.3110033606141738,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -4.016533,
+        2.809363,
+        -0.493703
+      ],
+      "target": [
+        0,
+        0.068,
+        -1.08
+      ],
+      "quaternion": [
+        -0.586629,
+        -0.309855,
+        0.349462,
+        0.661614
+      ],
+      "frame": 1873,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2603.7000000476837,
+      "progress": 0.185458,
+      "step": "main",
+      "levels": {
+        "main": 0.39170086518724934,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.960767,
+        2.947581,
+        -0.400623
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.991
+      ],
+      "quaternion": [
+        -0.591171,
+        -0.301099,
+        0.339586,
+        0.666736
+      ],
+      "frame": 1879,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2700.399999976158,
+      "progress": 0.193214,
+      "step": "main",
+      "levels": {
+        "main": 0.4491798828758266,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.919552,
+        3.042085,
+        -0.343803
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.937
+      ],
+      "quaternion": [
+        -0.594221,
+        -0.295035,
+        0.332747,
+        0.670176
+      ],
+      "frame": 1887,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2806.899999976158,
+      "progress": 0.196833,
+      "step": "main",
+      "levels": {
+        "main": 0.47625548846699584,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.899574,
+        3.085896,
+        -0.31939
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.914
+      ],
+      "quaternion": [
+        -0.59562,
+        -0.292201,
+        0.329551,
+        0.671753
+      ],
+      "frame": 1895,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 2900.399999976158,
+      "progress": 0.198375,
+      "step": "main",
+      "levels": {
+        "main": 0.4878119630898818,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.890921,
+        3.1045,
+        -0.309394
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.905
+      ],
+      "quaternion": [
+        -0.596211,
+        -0.290993,
+        0.328188,
+        0.67242
+      ],
+      "frame": 1902,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3007.100000023842,
+      "progress": 0.199241,
+      "step": "main",
+      "levels": {
+        "main": 0.4943078094042052,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.886022,
+        3.114938,
+        -0.303882
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.899
+      ],
+      "quaternion": [
+        -0.596541,
+        -0.290314,
+        0.327423,
+        0.672793
+      ],
+      "frame": 1910,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3100.2999999523163,
+      "progress": 0.199611,
+      "step": "main",
+      "levels": {
+        "main": 0.4970788819048185,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.883925,
+        3.119386,
+        -0.301555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.897
+      ],
+      "quaternion": [
+        -0.596682,
+        -0.290024,
+        0.327096,
+        0.672952
+      ],
+      "frame": 1917,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3206.7999999523163,
+      "progress": 0.199818,
+      "step": "main",
+      "levels": {
+        "main": 0.49863680998749293,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.882743,
+        3.121886,
+        -0.300252
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.896
+      ],
+      "quaternion": [
+        -0.596761,
+        -0.289862,
+        0.326913,
+        0.673041
+      ],
+      "frame": 1925,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3300.7000000476837,
+      "progress": 0.199907,
+      "step": "main",
+      "levels": {
+        "main": 0.4992999476843383,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.88224,
+        3.12295,
+        -0.299699
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596795,
+        -0.289792,
+        0.326834,
+        0.673079
+      ],
+      "frame": 1932,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3407,
+      "progress": 0.199956,
+      "step": "main",
+      "levels": {
+        "main": 0.4996733097615427,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881956,
+        3.123549,
+        -0.299388
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596814,
+        -0.289753,
+        0.32679,
+        0.6731
+      ],
+      "frame": 1940,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3500.5,
+      "progress": 0.199978,
+      "step": "main",
+      "levels": {
+        "main": 0.4998323514827789,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881836,
+        3.123804,
+        -0.299255
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596822,
+        -0.289737,
+        0.326772,
+        0.67311
+      ],
+      "frame": 1947,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3608,
+      "progress": 0.19999,
+      "step": "main",
+      "levels": {
+        "main": 0.4999217642437368,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881768,
+        3.123948,
+        -0.299181
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596827,
+        -0.289727,
+        0.326761,
+        0.673115
+      ],
+      "frame": 1955,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3705.899999976158,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3803.899999976158,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 3905.2000000476837,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4004,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4102.100000023842,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4204.100000023842,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4310.700000047684,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4404.100000023842,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4511,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4604.100000023842,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4701.5,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4804.299999952316,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 4904,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5004.200000047684,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5103.5,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5204.399999976158,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5305,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5404.5,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5505.5,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5604.399999976158,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5707.600000023842,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5801.799999952316,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 5911.399999976158,
+      "progress": 0.2,
+      "step": "main",
+      "levels": {
+        "main": 0.5000000000000001,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.881708,
+        3.124073,
+        -0.299116
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.895
+      ],
+      "quaternion": [
+        -0.596831,
+        -0.289719,
+        0.326752,
+        0.673119
+      ],
+      "frame": 1956,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6003.899999976158,
+      "progress": 0.20305,
+      "step": "main",
+      "levels": {
+        "main": 0.5228683497432735,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.864165,
+        3.160699,
+        -0.280536
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.877
+      ],
+      "quaternion": [
+        -0.597986,
+        -0.287327,
+        0.324054,
+        0.674422
+      ],
+      "frame": 1957,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6101.600000023842,
+      "progress": 0.219235,
+      "step": "main",
+      "levels": {
+        "main": 0.6424829827008516,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.765626,
+        3.352612,
+        -0.19661
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.799
+      ],
+      "quaternion": [
+        -0.603931,
+        -0.27461,
+        0.309712,
+        0.681127
+      ],
+      "frame": 1965,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6208.600000023842,
+      "progress": 0.226798,
+      "step": "main",
+      "levels": {
+        "main": 0.6961739070920508,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.71651,
+        3.44082,
+        -0.164919
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.77
+      ],
+      "quaternion": [
+        -0.606604,
+        -0.268655,
+        0.302995,
+        0.684142
+      ],
+      "frame": 1973,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6301.5,
+      "progress": 0.23002,
+      "step": "main",
+      "levels": {
+        "main": 0.7183841165622084,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.69501,
+        3.478099,
+        -0.152624
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.759
+      ],
+      "quaternion": [
+        -0.607722,
+        -0.266116,
+        0.300131,
+        0.685403
+      ],
+      "frame": 1980,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6408.100000023842,
+      "progress": 0.231831,
+      "step": "main",
+      "levels": {
+        "main": 0.7306686075637928,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.682774,
+        3.498979,
+        -0.145988
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.753
+      ],
+      "quaternion": [
+        -0.608346,
+        -0.264688,
+        0.298521,
+        0.686106
+      ],
+      "frame": 1988,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6501,
+      "progress": 0.238376,
+      "step": "main",
+      "levels": {
+        "main": 0.7736894134859836,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.637673,
+        3.573957,
+        -0.123416
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.733
+      ],
+      "quaternion": [
+        -0.610566,
+        -0.259524,
+        0.292697,
+        0.688611
+      ],
+      "frame": 1995,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6608,
+      "progress": 0.253464,
+      "step": "main",
+      "levels": {
+        "main": 0.8627762156380657,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.528585,
+        3.743948,
+        -0.076155
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.691
+      ],
+      "quaternion": [
+        -0.615497,
+        -0.247604,
+        0.279254,
+        0.694171
+      ],
+      "frame": 2003,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6702.200000047684,
+      "progress": 0.259887,
+      "step": "main",
+      "levels": {
+        "main": 0.895455722273228,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.480092,
+        3.815108,
+        -0.056492
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.673
+      ],
+      "quaternion": [
+        -0.617516,
+        -0.242525,
+        0.273525,
+        0.696448
+      ],
+      "frame": 2010,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6808.700000047684,
+      "progress": 0.263505,
+      "step": "main",
+      "levels": {
+        "main": 0.9122602471321895,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.452263,
+        3.854898,
+        -0.04548
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.663
+      ],
+      "quaternion": [
+        -0.618632,
+        -0.239662,
+        0.270296,
+        0.697708
+      ],
+      "frame": 2018,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 6901.899999976158,
+      "progress": 0.265042,
+      "step": "main",
+      "levels": {
+        "main": 0.9190249169472445,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.440334,
+        3.871736,
+        -0.040821
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.659
+      ],
+      "quaternion": [
+        -0.619102,
+        -0.238446,
+        0.268925,
+        0.698238
+      ],
+      "frame": 2025,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7008.600000023842,
+      "progress": 0.274214,
+      "step": "main",
+      "levels": {
+        "main": 0.9544158979210697,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.367842,
+        3.971442,
+        -0.013339
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.635
+      ],
+      "quaternion": [
+        -0.62185,
+        -0.231185,
+        0.260736,
+        0.701337
+      ],
+      "frame": 2033,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7101.600000023842,
+      "progress": 0.286807,
+      "step": "main",
+      "levels": {
+        "main": 0.9875202051154226,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.264787,
+        4.106232,
+        0.023224
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.603
+      ],
+      "quaternion": [
+        -0.625468,
+        -0.22121,
+        0.249486,
+        0.705417
+      ],
+      "frame": 2040,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7208.799999952316,
+      "progress": 0.293883,
+      "step": "main",
+      "levels": {
+        "main": 0.9972507380272623,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.205151,
+        4.180891,
+        0.043019
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.586
+      ],
+      "quaternion": [
+        -0.627422,
+        -0.215604,
+        0.243164,
+        0.707621
+      ],
+      "frame": 2048,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7301.899999976158,
+      "progress": 0.296901,
+      "step": "main",
+      "levels": {
+        "main": 0.9992871110782593,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.179338,
+        4.212498,
+        0.051279
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.579
+      ],
+      "quaternion": [
+        -0.628239,
+        -0.213213,
+        0.240467,
+        0.708542
+      ],
+      "frame": 2055,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7407.799999952316,
+      "progress": 0.298598,
+      "step": "main",
+      "levels": {
+        "main": 0.9998531970762689,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.164728,
+        4.230204,
+        0.055872
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.575
+      ],
+      "quaternion": [
+        -0.628693,
+        -0.211869,
+        0.238951,
+        0.709055
+      ],
+      "frame": 2063,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7501.200000047684,
+      "progress": 0.307584,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -3.086174,
+        4.323191,
+        0.079564
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.554
+      ],
+      "quaternion": [
+        -0.631048,
+        -0.20475,
+        0.230921,
+        0.71171
+      ],
+      "frame": 2070,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7604.899999976158,
+      "progress": 0.320119,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.973258,
+        4.450601,
+        0.110755
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.528
+      ],
+      "quaternion": [
+        -0.634183,
+        -0.194821,
+        0.219724,
+        0.715247
+      ],
+      "frame": 2077,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7701.799999952316,
+      "progress": 0.327162,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.908098,
+        4.520909,
+        0.127297
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.514
+      ],
+      "quaternion": [
+        -0.63587,
+        -0.189245,
+        0.213435,
+        0.717148
+      ],
+      "frame": 2085,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7808.799999952316,
+      "progress": 0.330456,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.877201,
+        4.553446,
+        0.134788
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.508
+      ],
+      "quaternion": [
+        -0.63664,
+        -0.186638,
+        0.210495,
+        0.718017
+      ],
+      "frame": 2093,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 7901.700000047684,
+      "progress": 0.331856,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.863984,
+        4.567209,
+        0.137925
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.505
+      ],
+      "quaternion": [
+        -0.636963,
+        -0.185531,
+        0.209246,
+        0.718382
+      ],
+      "frame": 2100,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8000.700000047684,
+      "progress": 0.340861,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.777765,
+        4.654737,
+        0.157443
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.489
+      ],
+      "quaternion": [
+        -0.638995,
+        -0.178407,
+        0.201212,
+        0.720673
+      ],
+      "frame": 2107,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8104.5,
+      "progress": 0.354677,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.641431,
+        4.785325,
+        0.185221
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.467
+      ],
+      "quaternion": [
+        -0.641943,
+        -0.167491,
+        0.1889,
+        0.723998
+      ],
+      "frame": 2115,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8204.399999976158,
+      "progress": 0.360549,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.581974,
+        4.839347,
+        0.196275
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.458
+      ],
+      "quaternion": [
+        -0.643135,
+        -0.162855,
+        0.183672,
+        0.725342
+      ],
+      "frame": 2122,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8302.200000047684,
+      "progress": 0.363856,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.548102,
+        4.869342,
+        0.202313
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.453
+      ],
+      "quaternion": [
+        -0.643789,
+        -0.160247,
+        0.18073,
+        0.72608
+      ],
+      "frame": 2130,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8408.200000047684,
+      "progress": 0.365398,
+      "step": "main",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.532208,
+        4.883223,
+        0.205084
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.451
+      ],
+      "quaternion": [
+        -0.644091,
+        -0.159031,
+        0.179359,
+        0.72642
+      ],
+      "frame": 2138,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8501.600000023842,
+      "progress": 0.378673,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.39281,
+        4.999747,
+        0.227842
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.433
+      ],
+      "quaternion": [
+        -0.646583,
+        -0.148574,
+        0.167565,
+        0.729231
+      ],
+      "frame": 2145,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8605.200000047684,
+      "progress": 0.389048,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.2807,
+        5.086821,
+        0.244393
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.42
+      ],
+      "quaternion": [
+        -0.648403,
+        -0.140417,
+        0.158366,
+        0.731284
+      ],
+      "frame": 2152,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8701.799999952316,
+      "progress": 0.394889,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.216377,
+        5.134184,
+        0.253299
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.413
+      ],
+      "quaternion": [
+        -0.649379,
+        -0.135832,
+        0.153194,
+        0.732385
+      ],
+      "frame": 2160,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8809,
+      "progress": 0.397615,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.186068,
+        5.155859,
+        0.257365
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.41
+      ],
+      "quaternion": [
+        -0.649823,
+        -0.133694,
+        0.150783,
+        0.732885
+      ],
+      "frame": 2168,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 8901.899999976158,
+      "progress": 0.398775,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.173112,
+        5.165,
+        0.259079
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.409
+      ],
+      "quaternion": [
+        -0.65001,
+        -0.132784,
+        0.149757,
+        0.733096
+      ],
+      "frame": 2175,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9008.799999952316,
+      "progress": 0.413974,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -2.000403,
+        5.279914,
+        0.280746
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.392
+      ],
+      "quaternion": [
+        -0.652327,
+        -0.120887,
+        0.136339,
+        0.735709
+      ],
+      "frame": 2183,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9102.299999952316,
+      "progress": 0.423439,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.890161,
+        5.346744,
+        0.293651
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.382
+      ],
+      "quaternion": [
+        -0.653653,
+        -0.113498,
+        0.128006,
+        0.737205
+      ],
+      "frame": 2190,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9209.299999952316,
+      "progress": 0.42876,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.827331,
+        5.382653,
+        0.30078
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.377
+      ],
+      "quaternion": [
+        -0.654358,
+        -0.109352,
+        0.12333,
+        0.738002
+      ],
+      "frame": 2198,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9303.100000023842,
+      "progress": 0.431025,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.800409,
+        5.397567,
+        0.303808
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.375
+      ],
+      "quaternion": [
+        -0.654649,
+        -0.107589,
+        0.121342,
+        0.738333
+      ],
+      "frame": 2205,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9405.299999952316,
+      "progress": 0.43219,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.786522,
+        5.405151,
+        0.305368
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.373
+      ],
+      "quaternion": [
+        -0.654796,
+        -0.106682,
+        0.12032,
+        0.738502
+      ],
+      "frame": 2212,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9502.100000023842,
+      "progress": 0.449018,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.582986,
+        5.50792,
+        0.32915
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.356
+      ],
+      "quaternion": [
+        -0.656674,
+        -0.093603,
+        0.105602,
+        0.740855
+      ],
+      "frame": 2220,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9602.600000023842,
+      "progress": 0.45761,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.477165,
+        5.555334,
+        0.343453
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.347
+      ],
+      "quaternion": [
+        -0.657381,
+        -0.086935,
+        0.098134,
+        0.742066
+      ],
+      "frame": 2227,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9701.700000047684,
+      "progress": 0.462443,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.417156,
+        5.580456,
+        0.352647
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.342
+      ],
+      "quaternion": [
+        -0.657673,
+        -0.083186,
+        0.09395,
+        0.742778
+      ],
+      "frame": 2235,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9804.100000023842,
+      "progress": 0.464496,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.391576,
+        5.590783,
+        0.356864
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.339
+      ],
+      "quaternion": [
+        -0.657771,
+        -0.081594,
+        0.092178,
+        0.74309
+      ],
+      "frame": 2242,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 9902.200000047684,
+      "progress": 0.465654,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.37713,
+        5.596516,
+        0.359332
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.338
+      ],
+      "quaternion": [
+        -0.657818,
+        -0.080697,
+        0.09118,
+        0.74327
+      ],
+      "frame": 2250,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10005.100000023842,
+      "progress": 0.482415,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.16679,
+        5.672089,
+        0.404172
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.32
+      ],
+      "quaternion": [
+        -0.657776,
+        -0.067749,
+        0.076858,
+        0.746213
+      ],
+      "frame": 2257,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10102.700000047684,
+      "progress": 0.491837,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -1.048437,
+        5.708405,
+        0.438775
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.309
+      ],
+      "quaternion": [
+        -0.65703,
+        -0.060546,
+        0.068953,
+        0.748259
+      ],
+      "frame": 2265,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10204.799999952316,
+      "progress": 0.495848,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.99831,
+        5.722515,
+        0.455984
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.305
+      ],
+      "quaternion": [
+        -0.656526,
+        -0.05751,
+        0.065632,
+        0.749239
+      ],
+      "frame": 2272,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10302.299999952316,
+      "progress": 0.498106,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.970199,
+        5.730107,
+        0.466376
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.302
+      ],
+      "quaternion": [
+        -0.65619,
+        -0.055812,
+        0.063776,
+        0.749822
+      ],
+      "frame": 2280,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10404.5,
+      "progress": 0.499068,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.958254,
+        5.733265,
+        0.470961
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.301
+      ],
+      "quaternion": [
+        -0.656035,
+        -0.055091,
+        0.062989,
+        0.750077
+      ],
+      "frame": 2287,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10502.399999976158,
+      "progress": 0.517343,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.736535,
+        5.784114,
+        0.577069
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.281
+      ],
+      "quaternion": [
+        -0.651659,
+        -0.041811,
+        0.048493,
+        0.755805
+      ],
+      "frame": 2295,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10605.299999952316,
+      "progress": 0.525128,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.64658,
+        5.800025,
+        0.633659
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.272
+      ],
+      "quaternion": [
+        -0.648925,
+        -0.036484,
+        0.04266,
+        0.758779
+      ],
+      "frame": 2302,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10702.799999952316,
+      "progress": 0.529501,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.597694,
+        5.807342,
+        0.66847
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.268
+      ],
+      "quaternion": [
+        -0.647153,
+        -0.033606,
+        0.039497,
+        0.760594
+      ],
+      "frame": 2310,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10809.700000047684,
+      "progress": 0.531545,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.575315,
+        5.810352,
+        0.685473
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.266
+      ],
+      "quaternion": [
+        -0.646268,
+        -0.032293,
+        0.03805,
+        0.761477
+      ],
+      "frame": 2318,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 10902.299999952316,
+      "progress": 0.535443,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.533522,
+        5.815363,
+        0.719182
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.262
+      ],
+      "quaternion": [
+        -0.644478,
+        -0.029849,
+        0.035349,
+        0.763222
+      ],
+      "frame": 2325,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11005.700000047684,
+      "progress": 0.550695,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.383043,
+        5.825646,
+        0.866358
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.247
+      ],
+      "quaternion": [
+        -0.636247,
+        -0.021141,
+        0.02561,
+        0.770771
+      ],
+      "frame": 2332,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11103.399999976158,
+      "progress": 0.559252,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.309116,
+        5.824958,
+        0.958523
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.24
+      ],
+      "quaternion": [
+        -0.630836,
+        -0.016924,
+        0.020804,
+        0.775453
+      ],
+      "frame": 2340,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11209.200000047684,
+      "progress": 0.56325,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.277432,
+        5.82309,
+        1.003625
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.237
+      ],
+      "quaternion": [
+        -0.628133,
+        -0.015131,
+        0.018735,
+        0.777733
+      ],
+      "frame": 2348,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11302.899999976158,
+      "progress": 0.564952,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.264517,
+        5.822003,
+        1.023179
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.235
+      ],
+      "quaternion": [
+        -0.626952,
+        -0.014403,
+        0.01789,
+        0.77872
+      ],
+      "frame": 2355,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11409.100000023842,
+      "progress": 0.574156,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.200712,
+        5.813206,
+        1.132179
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.228
+      ],
+      "quaternion": [
+        -0.620267,
+        -0.010831,
+        0.013694,
+        0.784197
+      ],
+      "frame": 2363,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11502.799999952316,
+      "progress": 0.586738,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.130075,
+        5.793703,
+        1.288216
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.22
+      ],
+      "quaternion": [
+        -0.61045,
+        -0.006933,
+        0.008995,
+        0.791973
+      ],
+      "frame": 2370,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11605.899999976158,
+      "progress": 0.593194,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.101064,
+        5.780639,
+        1.370486
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.215
+      ],
+      "quaternion": [
+        -0.605176,
+        -0.005353,
+        0.007041,
+        0.796043
+      ],
+      "frame": 2377,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11703.100000023842,
+      "progress": 0.596822,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.086813,
+        5.772463,
+        1.417153
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.213
+      ],
+      "quaternion": [
+        -0.602157,
+        -0.004582,
+        0.006074,
+        0.798342
+      ],
+      "frame": 2385,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11809.100000023842,
+      "progress": 0.598517,
+      "step": "torpedoes",
+      "levels": {
+        "main": 1,
+        "single": 0,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.080639,
+        5.768446,
+        1.439045
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.212
+      ],
+      "quaternion": [
+        -0.600734,
+        -0.004249,
+        0.005654,
+        0.799418
+      ],
+      "frame": 2393,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 11902.299999952316,
+      "progress": 0.607543,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.004160416134925467,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.052693,
+        5.745066,
+        1.556257
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.207
+      ],
+      "quaternion": [
+        -0.593051,
+        -0.002752,
+        0.003736,
+        0.805152
+      ],
+      "frame": 2400,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12000.399999976158,
+      "progress": 0.620139,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.02837572876956971,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.026,
+        5.707352,
+        1.720558
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.199
+      ],
+      "quaternion": [
+        -0.58211,
+        -0.001342,
+        0.001874,
+        0.813106
+      ],
+      "frame": 2407,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12103,
+      "progress": 0.627215,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.050511226966885536,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.016205,
+        5.683845,
+        1.812771
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.195
+      ],
+      "quaternion": [
+        -0.575892,
+        -0.000831,
+        0.00118,
+        0.817524
+      ],
+      "frame": 2415,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12203.600000023842,
+      "progress": 0.630234,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.06164729159945715,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.012967,
+        5.673353,
+        1.852027
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.194
+      ],
+      "quaternion": [
+        -0.573229,
+        -0.000663,
+        0.000948,
+        0.819394
+      ],
+      "frame": 2422,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12303.399999976158,
+      "progress": 0.631932,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.06833356737689507,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.011366,
+        5.667333,
+        1.874085
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.193
+      ],
+      "quaternion": [
+        -0.571729,
+        -0.00058,
+        0.000833,
+        0.820442
+      ],
+      "frame": 2430,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12402.799999952316,
+      "progress": 0.643198,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.11980279442158116,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.004086,
+        5.625363,
+        2.019916
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.186
+      ],
+      "quaternion": [
+        -0.561744,
+        -0.000206,
+        0.000304,
+        0.827311
+      ],
+      "frame": 2437,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12504.399999976158,
+      "progress": 0.655715,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.1895731058902461,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.000812,
+        5.574883,
+        2.180808
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.177
+      ],
+      "quaternion": [
+        -0.550608,
+        -0.000041,
+        0.000062,
+        0.834764
+      ],
+      "frame": 2445,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12609.600000023842,
+      "progress": 0.661556,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.22587293359557856,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.000276,
+        5.550037,
+        2.255506
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.173
+      ],
+      "quaternion": [
+        -0.5454,
+        -0.000014,
+        0.000021,
+        0.838176
+      ],
+      "frame": 2453,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12703.399999976158,
+      "progress": 0.664042,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.24193830761131016,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.000156,
+        5.539224,
+        2.287234
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.172
+      ],
+      "quaternion": [
+        -0.543181,
+        -0.000008,
+        0.000012,
+        0.839616
+      ],
+      "frame": 2460,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12809.899999976158,
+      "progress": 0.665442,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.25113165745502947,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        -0.000109,
+        5.533075,
+        2.305081
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.17
+      ],
+      "quaternion": [
+        -0.541932,
+        -0.000005,
+        0.000008,
+        0.840423
+      ],
+      "frame": 2468,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 12903.799999952316,
+      "progress": 0.680583,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.35620517129548573,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.463849,
+        2.497432
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.158
+      ],
+      "quaternion": [
+        -0.528397,
+        0,
+        0,
+        0.848998
+      ],
+      "frame": 2475,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13006.5,
+      "progress": 0.690069,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.42576115762305683,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.418065,
+        2.617365
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.15
+      ],
+      "quaternion": [
+        -0.519902,
+        0,
+        0,
+        0.854226
+      ],
+      "frame": 2482,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13103.600000023842,
+      "progress": 0.695409,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.465594555388488,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.391507,
+        2.68472
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.145
+      ],
+      "quaternion": [
+        -0.515115,
+        0,
+        0,
+        0.857121
+      ],
+      "frame": 2490,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13210.100000023842,
+      "progress": 0.697902,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.484264533739606,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.378925,
+        2.71611
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.142
+      ],
+      "quaternion": [
+        -0.51288,
+        0,
+        0,
+        0.85846
+      ],
+      "frame": 2498,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13302.899999976158,
+      "progress": 0.698963,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.49222470236268473,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.37353,
+        2.729474
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.141
+      ],
+      "quaternion": [
+        -0.511928,
+        0,
+        0,
+        0.859029
+      ],
+      "frame": 2505,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13410.600000023842,
+      "progress": 0.69956,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.4967007687027569,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.370487,
+        2.736984
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.511392,
+        0,
+        0,
+        0.859347
+      ],
+      "frame": 2513,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13503.399999976158,
+      "progress": 0.699814,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.4986075360032811,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.369189,
+        2.740183
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.511164,
+        0,
+        0,
+        0.859483
+      ],
+      "frame": 2520,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13601.600000023842,
+      "progress": 0.699945,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.49958604545572666,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.368522,
+        2.741825
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.511047,
+        0,
+        0,
+        0.859553
+      ],
+      "frame": 2527,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13703.600000023842,
+      "progress": 0.700018,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5001358172686811,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.368148,
+        2.742747
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510981,
+        0,
+        0,
+        0.859592
+      ],
+      "frame": 2535,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13805.700000047684,
+      "progress": 0.700049,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.500370141789447,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367988,
+        2.74314
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510953,
+        0,
+        0,
+        0.859608
+      ],
+      "frame": 2542,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 13903.600000023842,
+      "progress": 0.700067,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5005020717681836,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367898,
+        2.743361
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510938,
+        0,
+        0,
+        0.859618
+      ],
+      "frame": 2550,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14006.600000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14100.100000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14206.799999952316,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14300.100000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14406.899999976158,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14500.200000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14606.700000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14700.100000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14802,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 14900.200000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15005.200000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15100.200000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15207,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15300.200000047684,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15406.899999976158,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15500.299999952316,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15607,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15700.399999976158,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15807.100000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 15900.600000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16007.100000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16100.600000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16202.600000023842,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16300.899999976158,
+      "progress": 0.700082,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.5006175098672146,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.367819,
+        2.743555
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.14
+      ],
+      "quaternion": [
+        -0.510924,
+        0,
+        0,
+        0.859626
+      ],
+      "frame": 2555,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16406,
+      "progress": 0.714542,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.6082996856217365,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.291925,
+        2.924993
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.124
+      ],
+      "quaternion": [
+        -0.497943,
+        0,
+        0,
+        0.86721
+      ],
+      "frame": 2561,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16500.5,
+      "progress": 0.72369,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.6743538716722854,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.241922,
+        3.039199
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.113
+      ],
+      "quaternion": [
+        -0.489723,
+        0,
+        0,
+        0.871878
+      ],
+      "frame": 2568,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16603.299999952316,
+      "progress": 0.728833,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.7102570428503955,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.213136,
+        3.103156
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.107
+      ],
+      "quaternion": [
+        -0.4851,
+        0,
+        0,
+        0.874459
+      ],
+      "frame": 2576,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16704.299999952316,
+      "progress": 0.731233,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.7266327406105247,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.199536,
+        3.13293
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.104
+      ],
+      "quaternion": [
+        -0.482942,
+        0,
+        0,
+        0.875652
+      ],
+      "frame": 2584,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16806.399999976158,
+      "progress": 0.732255,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.7335223942784023,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.193715,
+        3.145588
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.103
+      ],
+      "quaternion": [
+        -0.482024,
+        0,
+        0,
+        0.876158
+      ],
+      "frame": 2591,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 16907,
+      "progress": 0.749085,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.8385745994494571,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.094984,
+        3.35251
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.081
+      ],
+      "quaternion": [
+        -0.466887,
+        0,
+        0,
+        0.884317
+      ],
+      "frame": 2599,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17011.299999952316,
+      "progress": 0.758506,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.8887294062624481,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.037331,
+        3.466668
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.069
+      ],
+      "quaternion": [
+        -0.458413,
+        0,
+        0,
+        0.888739
+      ],
+      "frame": 2607,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17104.899999976158,
+      "progress": 0.762519,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9078013906057942,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        5.012251,
+        3.514981
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.063
+      ],
+      "quaternion": [
+        -0.454804,
+        0,
+        0,
+        0.890592
+      ],
+      "frame": 2614,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17210.799999952316,
+      "progress": 0.764775,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9178666598120281,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.998016,
+        3.54208
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.06
+      ],
+      "quaternion": [
+        -0.452774,
+        0,
+        0,
+        0.891625
+      ],
+      "frame": 2622,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17300.700000047684,
+      "progress": 0.765634,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9215711059845115,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.992569,
+        3.552391
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.059
+      ],
+      "quaternion": [
+        -0.452002,
+        0,
+        0,
+        0.892017
+      ],
+      "frame": 2628,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17407.399999976158,
+      "progress": 0.782416,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9781701067697025,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.883427,
+        3.753048
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.034
+      ],
+      "quaternion": [
+        -0.436913,
+        0,
+        0,
+        0.899504
+      ],
+      "frame": 2636,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17500.700000047684,
+      "progress": 0.79097,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9940685933262696,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.82583,
+        3.855097
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.02
+      ],
+      "quaternion": [
+        -0.429227,
+        0,
+        0,
+        0.903197
+      ],
+      "frame": 2643,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17611,
+      "progress": 0.796168,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.9989127169660993,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.790201,
+        3.917121
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.011
+      ],
+      "quaternion": [
+        -0.424559,
+        0,
+        0,
+        0.9054
+      ],
+      "frame": 2652,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17705,
+      "progress": 0.798033,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 0.999711864536562,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.777299,
+        3.939389
+      ],
+      "target": [
+        0,
+        0.068,
+        -0.007
+      ],
+      "quaternion": [
+        -0.422884,
+        0,
+        0,
+        0.906184
+      ],
+      "frame": 2659,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17810.600000023842,
+      "progress": 0.804905,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.729266,
+        4.021452
+      ],
+      "target": [
+        0,
+        0.068,
+        0.006
+      ],
+      "quaternion": [
+        -0.416717,
+        0,
+        0,
+        0.909036
+      ],
+      "frame": 2667,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 17900.799999952316,
+      "progress": 0.817303,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.640594,
+        4.169743
+      ],
+      "target": [
+        0,
+        0.068,
+        0.032
+      ],
+      "quaternion": [
+        -0.405599,
+        0,
+        0,
+        0.914051
+      ],
+      "frame": 2673,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18011.399999976158,
+      "progress": 0.826583,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.572599,
+        4.28088
+      ],
+      "target": [
+        0,
+        0.068,
+        0.053
+      ],
+      "quaternion": [
+        -0.397288,
+        0,
+        0,
+        0.917694
+      ],
+      "frame": 2682,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18104.700000047684,
+      "progress": 0.829907,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.547913,
+        4.320704
+      ],
+      "target": [
+        0,
+        0.068,
+        0.061
+      ],
+      "quaternion": [
+        -0.394313,
+        0,
+        0,
+        0.918976
+      ],
+      "frame": 2689,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18211.200000047684,
+      "progress": 0.831778,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.533939,
+        4.343127
+      ],
+      "target": [
+        0,
+        0.068,
+        0.066
+      ],
+      "quaternion": [
+        -0.392639,
+        0,
+        0,
+        0.919693
+      ],
+      "frame": 2697,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18304.700000047684,
+      "progress": 0.838349,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0,
+        "quad": 0
+      },
+      "camera": [
+        0,
+        4.48445,
+        4.421842
+      ],
+      "target": [
+        0,
+        0.068,
+        0.083
+      ],
+      "quaternion": [
+        -0.386765,
+        0,
+        0,
+        0.922178
+      ],
+      "frame": 2704,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18402.100000023842,
+      "progress": 0.852124,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.016356210908446633,
+        "quad": 0.016356210908446633
+      },
+      "camera": [
+        0,
+        4.378602,
+        4.586597
+      ],
+      "target": [
+        0,
+        0.068,
+        0.12
+      ],
+      "quaternion": [
+        -0.374469,
+        0,
+        0,
+        0.92724
+      ],
+      "frame": 2711,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18500.899999976158,
+      "progress": 0.859204,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.03975956695719376,
+        "quad": 0.03975956695719376
+      },
+      "camera": [
+        0,
+        4.32318,
+        4.67093
+      ],
+      "target": [
+        0,
+        0.068,
+        0.14
+      ],
+      "quaternion": [
+        -0.368165,
+        0,
+        0,
+        0.929761
+      ],
+      "frame": 2718,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18604.600000023842,
+      "progress": 0.863182,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.05689213255387416,
+        "quad": 0.05689213255387416
+      },
+      "camera": [
+        0,
+        4.291842,
+        4.718077
+      ],
+      "target": [
+        0,
+        0.068,
+        0.152
+      ],
+      "quaternion": [
+        -0.364638,
+        0,
+        0,
+        0.93115
+      ],
+      "frame": 2726,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18704.700000047684,
+      "progress": 0.86504,
+      "step": "single",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.06581214327938907,
+        "quad": 0.06581214327938907
+      },
+      "camera": [
+        0,
+        4.277179,
+        4.740018
+      ],
+      "target": [
+        0,
+        0.068,
+        0.158
+      ],
+      "quaternion": [
+        -0.362996,
+        0,
+        0,
+        0.931791
+      ],
+      "frame": 2734,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18811.5,
+      "progress": 0.876489,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.13230354465777372,
+        "quad": 0.13230354465777372
+      },
+      "camera": [
+        0,
+        4.187421,
+        4.873109
+      ],
+      "target": [
+        0,
+        0.068,
+        0.192
+      ],
+      "quaternion": [
+        -0.353054,
+        0,
+        0,
+        0.935603
+      ],
+      "frame": 2742,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 18901,
+      "progress": 0.886758,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.2062960508631919,
+        "quad": 0.2062960508631919
+      },
+      "camera": [
+        0,
+        4.109685,
+        4.987778
+      ],
+      "target": [
+        0,
+        0.068,
+        0.224
+      ],
+      "quaternion": [
+        -0.344569,
+        0,
+        0,
+        0.938761
+      ],
+      "frame": 2748,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19011.899999976158,
+      "progress": 0.894428,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.2684277721452656,
+        "quad": 0.2684277721452656
+      },
+      "camera": [
+        0,
+        4.055017,
+        5.06917
+      ],
+      "target": [
+        0,
+        0.068,
+        0.248
+      ],
+      "quaternion": [
+        -0.338648,
+        0,
+        0,
+        0.940913
+      ],
+      "frame": 2757,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19106,
+      "progress": 0.897181,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.2918707733607729,
+        "quad": 0.2918707733607729
+      },
+      "camera": [
+        0,
+        4.036348,
+        5.09732
+      ],
+      "target": [
+        0,
+        0.068,
+        0.256
+      ],
+      "quaternion": [
+        -0.336632,
+        0,
+        0,
+        0.941636
+      ],
+      "frame": 2764,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19211.899999976158,
+      "progress": 0.898728,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.30527671479249546,
+        "quad": 0.30527671479249546
+      },
+      "camera": [
+        0,
+        4.026103,
+        5.112878
+      ],
+      "target": [
+        0,
+        0.068,
+        0.261
+      ],
+      "quaternion": [
+        -0.335526,
+        0,
+        0,
+        0.942031
+      ],
+      "frame": 2772,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19304.200000047684,
+      "progress": 0.911989,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.42514927010295106,
+        "quad": 0.42514927010295106
+      },
+      "camera": [
+        0,
+        3.946927,
+        5.237581
+      ],
+      "target": [
+        0,
+        0.068,
+        0.303
+      ],
+      "quaternion": [
+        -0.326965,
+        0,
+        0,
+        0.945036
+      ],
+      "frame": 2779,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19407.899999976158,
+      "progress": 0.92238,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.5223066634203468,
+        "quad": 0.5223066634203468
+      },
+      "camera": [
+        0,
+        3.897313,
+        5.323613
+      ],
+      "target": [
+        0,
+        0.068,
+        0.335
+      ],
+      "quaternion": [
+        -0.321531,
+        0,
+        0,
+        0.946899
+      ],
+      "frame": 2786,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19505.700000047684,
+      "progress": 0.928222,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.5768082710791226,
+        "quad": 0.5768082710791226
+      },
+      "camera": [
+        0,
+        3.874685,
+        5.367282
+      ],
+      "target": [
+        0,
+        0.068,
+        0.353
+      ],
+      "quaternion": [
+        -0.318999,
+        0,
+        0,
+        0.947755
+      ],
+      "frame": 2794,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19603.200000047684,
+      "progress": 0.930708,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.599791441997274,
+        "quad": 0.599791441997274
+      },
+      "camera": [
+        0,
+        3.866225,
+        5.38485
+      ],
+      "target": [
+        0,
+        0.068,
+        0.361
+      ],
+      "quaternion": [
+        -0.318035,
+        0,
+        0,
+        0.948079
+      ],
+      "frame": 2801,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19705.899999976158,
+      "progress": 0.932109,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.6126570371637874,
+        "quad": 0.6126570371637874
+      },
+      "camera": [
+        0,
+        3.861765,
+        5.394481
+      ],
+      "target": [
+        0,
+        0.068,
+        0.365
+      ],
+      "quaternion": [
+        -0.317522,
+        0,
+        0,
+        0.948251
+      ],
+      "frame": 2809,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19804.100000023842,
+      "progress": 0.945354,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.7297397880670561,
+        "quad": 0.7297397880670561
+      },
+      "camera": [
+        0,
+        3.830189,
+        5.476487
+      ],
+      "target": [
+        0,
+        0.068,
+        0.404
+      ],
+      "quaternion": [
+        -0.313692,
+        0,
+        0,
+        0.949525
+      ],
+      "frame": 2816,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 19901.299999952316,
+      "progress": 0.955762,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.8129367480363922,
+        "quad": 0.8129367480363922
+      },
+      "camera": [
+        0,
+        3.817617,
+        5.530494
+      ],
+      "target": [
+        0,
+        0.068,
+        0.434
+      ],
+      "quaternion": [
+        -0.311848,
+        0,
+        0,
+        0.950132
+      ],
+      "frame": 2823,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20005.100000023842,
+      "progress": 0.961622,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.854996717543697,
+        "quad": 0.854996717543697
+      },
+      "camera": [
+        0,
+        3.814481,
+        5.55751
+      ],
+      "target": [
+        0,
+        0.068,
+        0.45
+      ],
+      "quaternion": [
+        -0.311182,
+        0,
+        0,
+        0.95035
+      ],
+      "frame": 2831,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20105.100000023842,
+      "progress": 0.964356,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.8732276691346225,
+        "quad": 0.8732276691346225
+      },
+      "camera": [
+        0,
+        3.813831,
+        5.569406
+      ],
+      "target": [
+        0,
+        0.068,
+        0.457
+      ],
+      "quaternion": [
+        -0.310947,
+        0,
+        0,
+        0.950427
+      ],
+      "frame": 2839,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20206.200000047684,
+      "progress": 0.96552,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.8806963367887385,
+        "quad": 0.8806963367887385
+      },
+      "camera": [
+        0,
+        3.813695,
+        5.574345
+      ],
+      "target": [
+        0,
+        0.068,
+        0.461
+      ],
+      "quaternion": [
+        -0.31086,
+        0,
+        0,
+        0.950456
+      ],
+      "frame": 2846,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20300.399999976158,
+      "progress": 0.980606,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9594837416478813,
+        "quad": 0.9594837416478813
+      },
+      "camera": [
+        0,
+        3.817672,
+        5.633101
+      ],
+      "target": [
+        0,
+        0.068,
+        0.501
+      ],
+      "quaternion": [
+        -0.310271,
+        0,
+        0,
+        0.950648
+      ],
+      "frame": 2853,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20412.700000047684,
+      "progress": 0.991764,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9923233194952736,
+        "quad": 0.9923233194952736
+      },
+      "camera": [
+        0,
+        3.824518,
+        5.672696
+      ],
+      "target": [
+        0,
+        0.068,
+        0.529
+      ],
+      "quaternion": [
+        -0.310198,
+        0,
+        0,
+        0.950672
+      ],
+      "frame": 2862,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20505.5,
+      "progress": 0.995776,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9979463097839154,
+        "quad": 0.9979463097839154
+      },
+      "camera": [
+        0,
+        3.827235,
+        5.686621
+      ],
+      "target": [
+        0,
+        0.068,
+        0.539
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2869,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20612.200000047684,
+      "progress": 0.998028,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9995478386558232,
+        "quad": 0.9995478386558232
+      },
+      "camera": [
+        0,
+        3.828773,
+        5.694409
+      ],
+      "target": [
+        0,
+        0.068,
+        0.545
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2877,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20705.200000047684,
+      "progress": 0.998988,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9998804446631808,
+        "quad": 0.9998804446631808
+      },
+      "camera": [
+        0,
+        3.82943,
+        5.697729
+      ],
+      "target": [
+        0,
+        0.068,
+        0.547
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2884,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20811.600000023842,
+      "progress": 0.999527,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9999738675699069,
+        "quad": 0.9999738675699069
+      },
+      "camera": [
+        0,
+        3.829799,
+        5.699594
+      ],
+      "target": [
+        0,
+        0.068,
+        0.549
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2892,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 20906.399999976158,
+      "progress": 0.999757,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9999931115119428,
+        "quad": 0.9999931115119428
+      },
+      "camera": [
+        0,
+        3.829956,
+        5.700389
+      ],
+      "target": [
+        0,
+        0.068,
+        0.549
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2899,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21011.700000047684,
+      "progress": 0.999887,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.999998501181513,
+        "quad": 0.999998501181513
+      },
+      "camera": [
+        0,
+        3.830045,
+        5.700837
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2907,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21105.5,
+      "progress": 0.999942,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9999996040717444,
+        "quad": 0.9999996040717444
+      },
+      "camera": [
+        0,
+        3.830083,
+        5.701027
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2914,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21200.600000023842,
+      "progress": 0.99997,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9999998957214955,
+        "quad": 0.9999998957214955
+      },
+      "camera": [
+        0,
+        3.830102,
+        5.701124
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2921,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21306.700000047684,
+      "progress": 0.999986,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 0.9999999772890807,
+        "quad": 0.9999999772890807
+      },
+      "camera": [
+        0,
+        3.830113,
+        5.701179
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2929,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21408.799999952316,
+      "progress": 1,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 1,
+        "quad": 1
+      },
+      "camera": [
+        0,
+        3.830122,
+        5.701228
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2933,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21501.799999952316,
+      "progress": 1,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 1,
+        "quad": 1
+      },
+      "camera": [
+        0,
+        3.830122,
+        5.701228
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2933,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21608.600000023842,
+      "progress": 1,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 1,
+        "quad": 1
+      },
+      "camera": [
+        0,
+        3.830122,
+        5.701228
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2933,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21701.899999976158,
+      "progress": 1,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 1,
+        "quad": 1
+      },
+      "camera": [
+        0,
+        3.830122,
+        5.701228
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2933,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    },
+    {
+      "elapsed": 21808.5,
+      "progress": 1,
+      "step": "bridge-batteries",
+      "levels": {
+        "main": 1,
+        "single": 1,
+        "defense": 1,
+        "quad": 1
+      },
+      "camera": [
+        0,
+        3.830122,
+        5.701228
+      ],
+      "target": [
+        0,
+        0.068,
+        0.55
+      ],
+      "quaternion": [
+        -0.310195,
+        0,
+        0,
+        0.950673
+      ],
+      "frame": 2933,
+      "motionSource": "scroll",
+      "cameraTransition": "false"
+    }
+  ],
+  "input": "30 genuine mouse wheel events of equal pixel delta; no programmatic scroll or chapter selection during the recorded route",
+  "video": "output/playwright/v0230-flight.webm",
+  "summary": {
+    "sampledDurationSeconds": 21.8085,
+    "sampleCount": 218,
+    "progressMonotonic": true,
+    "allFramesScrollDriven": true,
+    "allStopsFrozen": true,
+    "fixedCrossSection": true,
+    "maxObserved100msOrientationChangeDegrees": 2.613848374754168,
+    "maxObserved100msCameraTravel": 0.3066276897966002,
+    "finalAllOpen": true
+  },
+  "observation": "The actual mouse-wheel route advances smoothly from bow to aft. No independent deployment timer runs during the weapon section. At progress 0.20 and approximately 0.70, the partial weapon poses, camera, aim clock and rendered frame count remain unchanged through the hold. The targeting axis remains at world X=0, Y=0.068 throughout; no cross-section drift is measured. Wheel impulses retain brief camera damping, and there is no abrupt orientation jump at a chapter label boundary."
+}
