@@ -1,0 +1,48 @@
+{
+  "source": "https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2161s",
+  "sourceName": "Star Citizen Live — Anvil Odin",
+  "sourceTimeRangeSeconds": [
+    2161,
+    2165.1
+  ],
+  "sourceTimeRange": "36:01.000–36:05.100",
+  "edit": "One complete original forward-moving cycle at the original speed. No reversed frames, interpolated motion or crossfade. Audio removed. The native black matte is cropped away; this is a direct video extraction, not a player screenshot.",
+  "crop": {
+    "sourceWidth": 1920,
+    "sourceHeight": 1080,
+    "x": 8,
+    "y": 140,
+    "width": 1904,
+    "height": 800
+  },
+  "output": {
+    "width": 1428,
+    "height": 600,
+    "fps": 30,
+    "frames": 123,
+    "durationSeconds": 4.1,
+    "bytes": 1462661,
+    "sha256": "7402d6662086cf3c4a3e65dfc6adcb7a786371d61f6798aa75ba500be324e6a7"
+  },
+  "poster": {
+    "path": "public/videos/odin-interiors/captain-privacy-divider.webp",
+    "method": "Lossless WebP encoded from the first decoded frame of the final MP4.",
+    "sha256": "0b1c8ab714f5f2e0305a1ab699c4a59342ee934223872675ea709fd613094ea4"
+  },
+  "verification": {
+    "meanAbsoluteRgbDifferenceAtLoopBoundary": 1.2956862449645996,
+    "maximumMeanAbsoluteRgbDifferenceBetweenMotionFrames": 4.566648006439209,
+    "meanAbsoluteRgbDifferencePosterToFirstFrame": 0.632629930973053,
+    "comparisonScale": "357 × 150, 0–255 per RGB channel",
+    "notes": "Loop ends and begins with the divider fully lowered and the same stationary camera/figures; the small remaining difference is source video compression."
+  },
+  "ui": {
+    "bridgeOrder": [
+      "bridge-command.webp",
+      "captain-privacy-divider.mp4",
+      "briefing-room.webp"
+    ],
+    "removed": "schematic-overview.webp",
+    "behavior": "Paused grayscale preview; hover or keyboard focus plays. Click enlarges. Muted seamless loop. Chapter leave, index change, document hide and component unmount pause playback."
+  }
+}

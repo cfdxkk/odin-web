@@ -1,7 +1,9 @@
 // Verified concept information and media from RSI and Star Citizen Live.
 // Claim-level sources and media provenance: docs/review/v0.18.0/sources.json.
 export interface OdinInteriorImage {
+  type?: 'image' | 'video'
   src: string
+  poster?: string
   width: number
   height: number
   zh: string
@@ -56,16 +58,18 @@ export const INTERIOR_SECTIONS: Record<'torpedoes' | 'bridge' | 'aft', OdinInter
         crop: { x: 16, y: 12, width: 1024, height: 576 },
       },
       {
+        type: 'video',
+        src: '/videos/odin-interiors/captain-privacy-divider.mp4',
+        poster: '/videos/odin-interiors/captain-privacy-divider.webp', width: 1428, height: 600,
+        zh: '舰长席位的隐私隔板，可在舰桥内形成独立交谈空间。',
+        en: 'The captain’s privacy divider creates a separate conversation space on the bridge.',
+        source: 'https://www.youtube.com/watch?v=CFoQp6wRjPo&t=2161s', timestamp: '36:01',
+      },
+      {
         src: '/images/odin-interiors/briefing-room.webp', width: 2400, height: 1350,
         zh: '供船员集合、讨论行动计划的简报室。',
         en: 'The briefing room provides space for crew gatherings and operational planning.',
         source: 'https://media.robertsspaceindustries.com/seyogl9pfjzgz/source.jpg',
-      },
-      {
-        src: '/images/odin-interiors/schematic-overview.webp', width: 3600, height: 1204,
-        zh: '官方剖面图标出食堂、医院和船员舱室的位置；这些区域当时尚未完成内部设计。',
-        en: 'The official cutaway locates the mess hall, hospital and crew quarters, whose interiors were still being designed.',
-        source: 'https://media.robertsspaceindustries.com/6lpt2i7q80sdz/source.jpg',
       },
     ],
   },

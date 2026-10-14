@@ -1,0 +1,25 @@
+{
+  "viewport": { "width": 1920, "height": 1080 },
+  "locale": "zh",
+  "checks": {
+    "defaultPaused": true,
+    "defaultMuted": true,
+    "defaultGrayscale": true,
+    "noPlayerProgressBar": true,
+    "hoverPlaysInColor": true,
+    "pointerLeavePauses": true,
+    "keyboardFocusPlays": true,
+    "enterEnlargesAndPlays": true,
+    "nativeLoopReturnsToStart": true,
+    "modalClosePauses": true,
+    "leavingBridgePauses": true,
+    "thirdMediaIsBriefingRoom": true,
+    "galleryExternalLinkCount": 0,
+    "lightboxExternalLinkCount": 0
+  },
+  "thumbnailBounds": { "width": 380, "height": 159.66250610351562 },
+  "screenshots": [
+    "output/playwright/v0210-captain-preview.png",
+    "output/playwright/v0210-captain-modal.png"
+  ]
+}

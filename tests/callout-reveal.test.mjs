@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { advanceCalloutReveal, createCalloutRevealState, CALLOUT_NEAR_END_SECONDS } from '../app/lib/odin-callout-reveal.ts'
 import { calloutSegments } from '../app/lib/odin-callouts.ts'
 
-const ready = { key: 'main', visible: true, cameraRemaining: 0, mechanismRemaining: 0, scrolling: false }
+const ready = { key: 'beam', animate: true, visible: true, cameraRemaining: 0, scrolling: false }
 const origin = { x: 300, y: 200, visible: true }
 const points = [{ x: 900, y: 150, visible: true }, { x: 850, y: 500, visible: true }]
 function run(state, input, seconds, fps = 60) {
@@ -11,67 +11,61 @@ function run(state, input, seconds, fps = 60) {
   return state
 }
 
-test('callouts wait for both camera and mechanics, then draw even when film playback is paused', () => {
+test('the entrance leader starts on the first near-settled camera frame without a quiet-time delay', () => {
   let state = createCalloutRevealState()
-  for (const blocked of [{ cameraRemaining: 1 }, { mechanismRemaining: 1 }, { scrolling: true }]) {
+  for (const blocked of [{ cameraRemaining: 1 }, { scrolling: true }]) {
     state = run(state, { ...ready, ...blocked }, 2)
     assert.equal(state.reveal, 0)
-    assert.ok(state.pending, 'A paused render loop must keep checking an unfinished handoff')
-    assert.deepEqual(calloutSegments(origin, points, state.reveal), [], 'No label-side stub while camera or mechanism moves')
+    assert.ok(state.pending, 'A paused loop must keep checking the pending entrance')
+    assert.deepEqual(calloutSegments(origin, points, state.reveal), [], 'Never leave a label-side stub')
   }
-  state = run(state, ready, .1)
-  assert.equal(state.reveal, 0, 'Brief scroll lulls do not flash a line')
-  state = run(state, ready, .1)
-  assert.ok(state.reveal > 0 && state.reveal < .2)
+  state = advanceCalloutReveal(state, { ...ready, cameraRemaining: CALLOUT_NEAR_END_SECONDS }, 1 / 60)
+  assert.ok(state.reveal > 0 && state.reveal < .05, 'The first ready frame begins drawing immediately')
   assert.equal(calloutSegments(origin, points, state.reveal).length, 1, 'Reveal begins at the left label')
   state = run(state, ready, 1)
   assert.equal(state.reveal, 1)
   assert.equal(state.pending, false, 'A completed paused shot may stop requesting GPU frames')
-  assert.deepEqual(calloutSegments(origin, points, state.reveal).slice(2).map(line => [line.x2, line.y2]), [[900, 150], [850, 500]])
 })
 
-test('near-end threshold allows drawing at the end of the shot, never during its main movement', () => {
-  let state = run(createCalloutRevealState(), { ...ready, cameraRemaining: CALLOUT_NEAR_END_SECONDS + .001 }, 1)
-  assert.equal(state.reveal, 0)
-  state = run(state, { ...ready, cameraRemaining: CALLOUT_NEAR_END_SECONDS, mechanismRemaining: CALLOUT_NEAR_END_SECONDS }, .2)
-  assert.ok(state.reveal > 0)
-  const obstructed = run(state, { ...ready, mechanismRemaining: Infinity }, 1)
-  assert.equal(obstructed.reveal, 0, 'An unknown animation endpoint must not reveal prematurely')
+test('later weapons appear in full and follow their anchors while the camera and mounts move', () => {
+  const entrance = run(createCalloutRevealState(), ready, .3)
+  for (const key of ['main', 'torpedoes', 'single', 'bridge-batteries', 'beam']) {
+    const state = advanceCalloutReveal(entrance, { key, animate: false, visible: true, cameraRemaining: 2.8, scrolling: true }, 1 / 60)
+    assert.equal(state.reveal, 1, `${key} must not redraw or wait at each stop`)
+    assert.equal(state.pending, false)
+    const moved = points.map(point => ({ ...point, x: point.x + 20, y: point.y - 15 }))
+    assert.deepEqual(calloutSegments(origin, moved, state.reveal).slice(2).map(line => [line.x2, line.y2]), [[920, 135], [870, 485]])
+  }
 })
 
-test('scroll reversal clears every segment and restarts the reveal from the label', () => {
-  let state = run(createCalloutRevealState(), ready, .65)
-  assert.ok(calloutSegments(origin, points, state.reveal).length > 1)
-  state = advanceCalloutReveal(state, { ...ready, scrolling: true }, 1 / 60)
-  assert.equal(state.reveal, 0)
-  assert.deepEqual(calloutSegments(origin, points, state.reveal), [])
-  state = run(state, ready, .15)
-  const restarted = calloutSegments(origin, points, state.reveal)
-  assert.equal(restarted.length, 1)
-  assert.equal(restarted[0].x1, origin.x)
-  assert.ok(restarted[0].x2 < origin.x + 42)
+test('small scrolls during and after the entrance do not restart its drawing', () => {
+  const partial = run(createCalloutRevealState(), ready, .3)
+  const moved = advanceCalloutReveal(partial, { ...ready, scrolling: true, cameraRemaining: .5 }, 1 / 60)
+  assert.ok(moved.reveal > partial.reveal, 'A started entrance continues from its visible stroke')
+  const complete = run(moved, ready, 1)
+  const scrolledAgain = advanceCalloutReveal(complete, { ...ready, scrolling: true }, 1 / 60)
+  assert.equal(scrolledAgain.reveal, 1)
+  const reentered = advanceCalloutReveal(createCalloutRevealState(), { ...ready, cameraRemaining: 2.8 }, 1 / 60)
+  assert.equal(reentered.reveal, 0, 'A fresh chapter entry can play its own entrance')
 })
 
-test('a new weapon or a hidden origin cannot inherit a partial or completed line', () => {
+test('a hidden origin clears the entire line without replaying an already completed entrance', () => {
   const complete = run(createCalloutRevealState(), ready, 2)
-  const next = advanceCalloutReveal(complete, { ...ready, key: 'torpedoes' }, 5)
-  assert.equal(next.reveal, 0, 'Even a delayed first frame belongs to the new shot')
   const hidden = advanceCalloutReveal(complete, { ...ready, visible: false }, .02)
   assert.equal(hidden.reveal, 0)
   assert.equal(hidden.pending, false)
+  assert.deepEqual(calloutSegments(origin, points, hidden.reveal), [])
   const reappeared = advanceCalloutReveal(hidden, ready, .02)
-  assert.equal(reappeared.reveal, 0)
-  assert.equal(reappeared.pending, true)
+  assert.equal(reappeared.reveal, 1)
 })
 
-test('reduced motion still waits for readiness, while normal draw duration is frame-rate independent', () => {
-  let reduced = advanceCalloutReveal(createCalloutRevealState(), { ...ready, reducedMotion: true, scrolling: true }, 1)
-  assert.equal(reduced.reveal, 0)
-  reduced = advanceCalloutReveal(reduced, { ...ready, reducedMotion: true }, .001)
+test('reduced motion is immediate and normal draw duration is frame-rate independent', () => {
+  const reduced = advanceCalloutReveal(createCalloutRevealState(), { ...ready, reducedMotion: true, scrolling: true }, .001)
   assert.equal(reduced.reveal, 1)
-  const initial = advanceCalloutReveal(createCalloutRevealState(), ready, 0)
+  const initial = createCalloutRevealState()
   const thirty = run(initial, ready, .6, 30)
   const sixty = run(initial, ready, .6, 60)
   assert.ok(Math.abs(thirty.reveal - sixty.reveal) < 1e-12)
-  assert.deepEqual(advanceCalloutReveal(initial, ready, NaN), initial)
+  const invalidTime = advanceCalloutReveal(sixty, ready, NaN)
+  assert.equal(invalidTime.reveal, sixty.reveal)
 })

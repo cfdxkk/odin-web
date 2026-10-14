@@ -8,6 +8,7 @@
 }
 .odin-footer.footer-paper { --footer-bg: #ece5d6; --footer-ink: #242e31; --footer-muted: #526064; --footer-line: #3445482b; }
 .odin-footer .footer-landscape { position: absolute; inset: 0; margin: 0; pointer-events: none; }
+.odin-footer .footer-landscape > .footer-print { position: absolute; inset: 0; width: 100%; height: 100%; }
 .odin-footer .footer-landscape > img {
   position: absolute; bottom: 0; left: 0; width: 100%; height: clamp(330px,64svh,960px);
   max-width: none; object-fit: cover; object-position: 50% 58%;

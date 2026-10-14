@@ -295,13 +295,13 @@ onBeforeUnmount(() => {
       </div>
 
       <section id="archive" class="art-archive" :aria-label="c.gallery">
-        <div class="archive-heading"><h2>{{ c.artTitle }}</h2><a class="text-link" href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.artSource }} ↗</a></div>
+        <div class="archive-heading"><h2>{{ c.artTitle }}</h2></div>
         <div class="gallery-layout"><figure class="artwork-figure"><div class="artwork-well"><img :key="artwork.src" :src="artwork.src" :alt="`${c.artTitle} ${artworkIndex + 1}`" :width="artwork.width" :height="artwork.height" loading="lazy" decoding="async" /></div><figcaption><span>© Cloud Imperium Games</span><div class="gallery-controls"><button :aria-label="c.previousArt" @click="changeArtwork(artworkIndex - 1)">←</button><span>{{ String(artworkIndex + 1).padStart(2, '0') }}<small> / {{ ODIN_WALLPAPERS.length }}</small></span><button class="next-art" :aria-label="c.nextArt" @click="changeArtwork(artworkIndex + 1)">→</button></div></figcaption></figure></div>
       </section>
     </main>
 
     <OdinFooter :locale="locale" @overview="goToChapter(0)" />
 
-    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><div class="credits"><a href="https://www.youtube.com/watch?v=EKvbJh87rpY" target="_blank" rel="noopener noreferrer">{{ c.inspiration }} ↗</a><a href="https://www.youtube.com/watch?v=CFoQp6wRjPo" target="_blank" rel="noopener noreferrer">{{ c.developerShow }} ↗</a><a href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin" target="_blank" rel="noopener noreferrer">{{ c.shipSource }} ↗</a><a href="https://media.robertsspaceindustries.com/84qwqukbwkgsk/source.png" target="_blank" rel="noopener noreferrer">{{ c.badgeSource }} ↗</a></div><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
+    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
   </div>
 </template>

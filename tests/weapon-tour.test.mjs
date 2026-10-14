@@ -159,6 +159,35 @@ test('mirrored entry routes share a soft overlapping lateral-to-aft rotation and
   assert.ok(combined.position.z > combined.target.z && bridge.position.z > bridge.target.z, 'Combined turrets and bridge keep the same aft hemisphere')
 })
 
+test('both entry routes finish on the opposite rear quarter and keep pulling back through bridge and hangars', () => {
+  for (const side of [-1, 1]) for (const aspect of aspects) {
+    const shots = [sampleWeaponCamera(4, aspect, side), sampleTourCamera(2, aspect, side), sampleTourCamera(3, aspect, side)]
+    let previousDistance = 0
+    for (const [index, shot] of shots.entries()) {
+      const offset = shot.position.clone().sub(shot.target), distance = offset.length()
+      assert.equal(Math.sign(offset.x), -side, 'All aft chapters retain the opposite entry flank')
+      assert.ok(Math.abs(offset.x) / distance > .3, 'The finishing flank must read clearly, rather than almost straight astern')
+      assert.ok(offset.z / distance > .75, 'The route remains behind the ship')
+      assert.ok(distance > previousDistance, 'A fixed-FOV shot must pull back at each chapter, including ultrawide screens')
+      previousDistance = distance
+      if (index === 2) assert.ok(offset.y < 0, 'The hangar remains visible from below')
+    }
+    for (let chapter = 1; chapter < shots.length; chapter++) {
+      const from = { ...shots[chapter - 1], up: shots[chapter - 1].up ?? new THREE.Vector3(0, 1, 0) }
+      const to = { ...shots[chapter], up: new THREE.Vector3(0, 1, 0) }
+      let previousDistance = from.position.distanceTo(from.target)
+      for (let frame = 0; frame <= 100; frame++) {
+        const pose = interpolateOrientedOdinCamera(from, to, frame / 100)
+        const offset = pose.position.clone().sub(pose.target), distance = offset.length()
+        assert.ok(distance >= previousDistance - 1e-8, 'The transition must never dip inward before pulling back')
+        assert.equal(Math.sign(offset.x), -side, 'No transition crosses to the other flank')
+        assert.ok(offset.z > 0, 'No transition crosses the front of the ship')
+        previousDistance = distance
+      }
+    }
+  }
+})
+
 test('rapid weapon reversals retain the visible group pose without mutating transition snapshots', () => {
   let visible = uniformWeaponLevels(0)
   for (const next of [1, 4, 2, 0, 3, 1, 0, 4]) {

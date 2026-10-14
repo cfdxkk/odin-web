@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "portEntryFollowsHomepage": true,
+    "portNoExtraOrbit": true,
+    "portEntryDrawWaitsForCamera": true,
+    "portFirstDrawHasProgress": true,
+    "portPauseRetained": true,
+    "portLaterLeaderNeverPartiallyDrawn": true,
+    "portMainDualLeaders": true,
+    "portBeamNotRedrawnWithinChapter": true,
+    "portOppositeRearSide": true,
+    "portProgressivelyFarther": true,
+    "portBridgePullbackNoDip": true,
+    "portAftPullbackNoDip": true,
+    "portFinalFamiliesOnly": true,
+    "starboardEntryFollowsHomepage": true,
+    "starboardNoExtraOrbit": true,
+    "starboardEntryDrawWaitsForCamera": true,
+    "starboardFirstDrawHasProgress": true,
+    "starboardPauseRetained": true,
+    "starboardLaterLeaderNeverPartiallyDrawn": true,
+    "starboardMainDualLeaders": true,
+    "starboardBeamNotRedrawnWithinChapter": true,
+    "starboardOppositeRearSide": true,
+    "starboardProgressivelyFarther": true,
+    "starboardBridgePullbackNoDip": true,
+    "starboardAftPullbackNoDip": true,
+    "starboardFinalFamiliesOnly": true,
+    "completed": true,
+    "noRuntimeErrors": true,
+    "portFirstDrawAtCameraArrival": true,
+    "starboardFirstDrawAtCameraArrival": true,
+    "starboardFirstDrawBeforeMechanicsEnd": true
+  },
+  "failed": [],
+  "errors": [],
+  "routes": [
+    {
+      "key": "port",
+      "distances": [
+        4.453809549918025,
+        5.414435962922639,
+        6.375061498928147
+      ],
+      "firstLeader": {
+        "cameraTransition": "true",
+        "weaponTransition": "false",
+        "reveal": "0.050"
+      }
+    },
+    {
+      "key": "starboard",
+      "distances": [
+        4.453809549918025,
+        5.414435962922639,
+        6.375061498928147
+      ],
+      "firstLeader": {
+        "cameraTransition": "true",
+        "weaponTransition": "true",
+        "reveal": "0.033"
+      }
+    }
+  ]
+}

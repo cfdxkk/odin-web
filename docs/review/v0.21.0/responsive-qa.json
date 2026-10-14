@@ -1,0 +1,365 @@
+{
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "lang": "zh",
+      "bridge": {
+        "overflow": false,
+        "copy": {
+          "top": 205.1999969482422,
+          "bottom": 830.8625335693359,
+          "left": 97.9124984741211,
+          "right": 477.9124984741211
+        },
+        "media": {
+          "top": 534.4000244140625,
+          "bottom": 730.8625335693359,
+          "left": 97.9124984741211,
+          "right": 477.9124984741211
+        },
+        "arrow": {
+          "top": 766.8624877929688,
+          "bottom": 830.8624877929688,
+          "left": 97.9124984741211,
+          "right": 141.9124984741211
+        },
+        "video": "/videos/odin-interiors/captain-privacy-divider.mp4"
+      },
+      "gallery": {
+        "buttons": [
+          {
+            "label": "\u4e0a\u4e00\u5f20\u827a\u672f\u56fe",
+            "top": 1012,
+            "bottom": 1056
+          },
+          {
+            "label": "\u4e0b\u4e00\u5f20\u827a\u672f\u56fe",
+            "top": 1012,
+            "bottom": 1056
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 153.1999969482422,
+          "bottom": 348.4499969482422,
+          "left": 97.9124984741211,
+          "right": 795.9749984741211
+        },
+        "official": {
+          "top": 153.1999969482422,
+          "bottom": 232.6999969482422,
+          "left": 1476.8875732421875,
+          "right": 1806.8875732421875
+        },
+        "colophon": {
+          "top": 1005.6000366210938,
+          "bottom": 1053.6000366210938,
+          "left": 97.9124984741211,
+          "right": 1806.8874740600586
+        },
+        "links": [
+          {
+            "text": "Anvil Odin \u2197",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub \u6e90\u4ee3\u7801 \u2197",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-1a67e047": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "144.1",
+          "dpr": "1.0000000149011612",
+          "dots": "123387",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2"
+        }
+      }
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "lang": "en",
+      "bridge": {
+        "overflow": false,
+        "copy": {
+          "top": 273.6000061035156,
+          "bottom": 924.0625305175781,
+          "left": 175.4375,
+          "right": 555.4375
+        },
+        "media": {
+          "top": 627.6000366210938,
+          "bottom": 824.0625457763672,
+          "left": 175.4375,
+          "right": 555.4375
+        },
+        "arrow": {
+          "top": 860.0625,
+          "bottom": 924.0625,
+          "left": 175.4375,
+          "right": 219.4375
+        },
+        "video": "/videos/odin-interiors/captain-privacy-divider.mp4"
+      },
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 1372,
+            "bottom": 1416
+          },
+          {
+            "label": "Next artwork",
+            "top": 1372,
+            "bottom": 1416
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 169.60000610351562,
+          "bottom": 400.00001525878906,
+          "left": 175.4375,
+          "right": 1442.237548828125
+        },
+        "official": {
+          "top": 169.60000610351562,
+          "bottom": 249.10000610351562,
+          "left": 2849.362548828125,
+          "right": 3249.362548828125
+        },
+        "colophon": {
+          "top": 1365.5999755859375,
+          "bottom": 1413.5999755859375,
+          "left": 175.4375,
+          "right": 3249.362548828125
+        },
+        "links": [
+          {
+            "text": "Anvil Odin \u2197",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub \u2197",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-1a67e047": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "194.0",
+          "dpr": "1.0000000149011612",
+          "dots": "298671",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2"
+        }
+      }
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "lang": "zh",
+      "bridge": {
+        "overflow": false,
+        "copy": {
+          "top": 128,
+          "bottom": 629.25,
+          "left": 69.67500305175781,
+          "right": 424.93751525878906
+        },
+        "media": {
+          "top": 408.9125061035156,
+          "bottom": 550.7500152587891,
+          "left": 69.67500305175781,
+          "right": 319.6750030517578
+        },
+        "arrow": {
+          "top": 577.75,
+          "bottom": 624.75,
+          "left": 69.67500305175781,
+          "right": 113.67500305175781
+        },
+        "video": "/videos/odin-interiors/captain-privacy-divider.mp4"
+      },
+      "gallery": {
+        "buttons": [
+          {
+            "label": "\u4e0a\u4e00\u5f20\u827a\u672f\u56fe",
+            "top": 706,
+            "bottom": 750
+          },
+          {
+            "label": "\u4e0b\u4e00\u5f20\u827a\u672f\u56fe",
+            "top": 706,
+            "bottom": 750
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 131.35000610351562,
+          "bottom": 316.83750915527344,
+          "left": 69.67500305175781,
+          "right": 560.6125030517578
+        },
+        "official": {
+          "top": 131.35000610351562,
+          "bottom": 210.85000610351562,
+          "left": 951.5250244140625,
+          "right": 1281.5250244140625
+        },
+        "colophon": {
+          "top": 693.6000366210938,
+          "bottom": 741.6000366210938,
+          "left": 69.67500305175781,
+          "right": 1281.5249786376953
+        },
+        "links": [
+          {
+            "text": "Anvil Odin \u2197",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "GitHub \u6e90\u4ee3\u7801 \u2197",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-1a67e047": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "48.9",
+          "dpr": "1.0000000149011612",
+          "dots": "60484",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "lang": "en",
+      "bridge": {
+        "overflow": false,
+        "copy": {
+          "top": 141.60000610351562,
+          "bottom": 653.0125122070312,
+          "left": 27.325000762939453,
+          "right": 363.0625190734863
+        },
+        "media": {
+          "top": 441.2749938964844,
+          "bottom": 581.0124969482422,
+          "left": 27.325000762939453,
+          "right": 272.32500076293945
+        },
+        "arrow": {
+          "top": 601.0125122070312,
+          "bottom": 653.0125122070312,
+          "left": 27.325000762939453,
+          "right": 71.32500076293945
+        },
+        "video": "/videos/odin-interiors/captain-privacy-divider.mp4"
+      },
+      "gallery": {
+        "buttons": [
+          {
+            "label": "Previous artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938
+          },
+          {
+            "label": "Next artwork",
+            "top": 781.6000366210938,
+            "bottom": 819.6000366210938
+          }
+        ]
+      },
+      "footer": {
+        "overflow": false,
+        "intro": {
+          "top": 105,
+          "bottom": 321.75,
+          "left": 27.325000762939453,
+          "right": 235.02499771118164
+        },
+        "official": {
+          "top": 105,
+          "bottom": 179,
+          "left": 253.02500915527344,
+          "right": 347.87500762939453
+        },
+        "colophon": {
+          "top": 778,
+          "bottom": 826,
+          "left": 27.325000762939453,
+          "right": 347.8750190734863
+        },
+        "links": [
+          {
+            "text": "Anvil Odin \u2197",
+            "href": "https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin",
+            "inFooter": true
+          },
+          {
+            "text": "Source on GitHub \u2197",
+            "href": "https://github.com/cfdxkk/odin-web",
+            "inFooter": true
+          }
+        ],
+        "githubBackground": "rgba(0, 0, 0, 0)",
+        "community": true,
+        "print": {
+          "v-1a67e047": "",
+          "ready": "true",
+          "renderCount": "1",
+          "source": "/images/odin-mountain-footer-v0.19.0.webp",
+          "observing": "true",
+          "gridPitch": "3.2",
+          "screenCount": "1",
+          "renderMs": "21.1",
+          "dpr": "1.0000000149011612",
+          "dots": "14229",
+          "raster": "native-pixels",
+          "descreenBlur": "2.2"
+        }
+      }
+    }
+  ],
+  "errors": []
+}

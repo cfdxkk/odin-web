@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WEAPON_TOUR, WEAPON_SOURCE, clampWeaponStep } from '~/lib/odin-weapon-tour'
+import { WEAPON_TOUR, clampWeaponStep } from '~/lib/odin-weapon-tour'
 import { INTERIOR_SECTIONS } from '~/lib/odin-interiors'
 const props = defineProps<{ step: number; locale: 'zh' | 'en'; active: boolean }>()
 const emit = defineEmits<{ select: [step: number] }>()
@@ -77,6 +77,5 @@ onBeforeUnmount(() => {
       </button>
       <div class="weapon-film-caption"><span>{{ locale === 'zh' ? '官方演示' : 'Official demonstration' }}</span><span>{{ playing ? (locale === 'zh' ? '正在播放' : 'Playing') : (locale === 'zh' ? '悬停播放' : 'Hover to play') }}</span></div>
     </div>
-    <a v-if="!interior" class="weapon-source" :href="WEAPON_SOURCE" target="_blank" rel="noopener noreferrer">{{ locale === 'zh' ? '官方武备资料' : 'Official armament details' }} <span aria-hidden="true">↗</span></a>
   </div>
 </template>

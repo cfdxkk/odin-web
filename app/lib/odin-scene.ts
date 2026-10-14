@@ -139,6 +139,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let manualLevels: WeaponLevels | undefined
   let viewIndex = hooks.state().viewIndex
   let weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+  let animateWeaponEntryCallout = viewIndex === 1 && weaponStep === 0
   let weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
   let weaponRouteSide: WeaponRouteSide = -1
   let orientedCameraTransition = viewIndex === 1 || viewIndex === 2
@@ -197,10 +198,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = viewIndex === 1 ? sampleContinuousWeaponCamera(weaponCameraProgress, camera.aspect, weaponRouteSide) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
-    // Continue the same rear-quarter route instead of jumping to the bow-side
-    // bridge view. The route is retained when scrolling back into weapons.
-    if (viewIndex === 2) shot.position.x = shot.target.x - weaponRouteSide * (shot.position.x - shot.target.x)
+    const shot = viewIndex === 1 ? sampleContinuousWeaponCamera(weaponCameraProgress, camera.aspect, weaponRouteSide) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700, weaponRouteSide)
     target.copy(shot.target); desired.copy(shot.position)
     if ('up' in shot) desiredUp.copy(shot.up as THREE.Vector3)
     else desiredUp.set(0, 1, 0)
@@ -329,11 +327,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       hooks.anchor?.(calloutPoints[0]!)
     } else hooks.anchor?.({ x: 0, y: 0, visible: false })
     callouts.render(viewIndex === 1 && !state.explore ? state.calloutOrigin : undefined, calloutPoints, dt, !!state.reducedMotion, {
-      key: weaponStep, cameraRemaining: transitioning,
-      // Selective chapters bypass the film's deployment track; only its real
-      // exhaust fade and the selected family animation can delay this line.
-      mechanismRemaining: Math.max(motionTransition ? (selective ? motionTransition.fadeSeconds : motionTransition.duration) - motionElapsed : 0, weaponTransition ? weaponTransition.duration - weaponTransition.elapsed : 0),
-      scrolling: weaponCameraMoving,
+      key: weaponStep, animate: animateWeaponEntryCallout, cameraRemaining: transitioning,
+      // The first leader begins as the camera settles, even while unrelated
+      // turrets finish stowing. Later leaders simply track their moving guns.
+      scrolling: Math.abs(weaponCameraProgress - weaponDestination) > .002,
     })
     needsRender = false
     canvas.dataset.renderedFrames = String(++renderedFrames)
@@ -453,6 +450,7 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     if (!motionTransition) { time = targetTime; renderedMotion = sampleOdinMotion(time); renderedAnimationTime = time; hooks.tick(time) }
     if (viewIndex === 1) {
       weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
+      animateWeaponEntryCallout = previousViewIndex !== 1 && weaponStep === 0
       weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
       transitionWeapons(focusedWeaponLevels(weaponStep))
     } else if (selective) transitionWeapons(uniformWeaponLevels(sampleOdinMotion(targetTime).deployment), Math.max(WEAPON_DEPLOY_SECONDS, nextMotion.duration))
@@ -467,7 +465,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     needsRender = true
   }
   function setWeaponStep(step: number) {
-    weaponStep = clampWeaponStep(step)
+    const next = clampWeaponStep(step)
+    if (next === weaponStep) return
+    weaponStep = next
+    animateWeaponEntryCallout = false
     if (viewIndex !== 1) return
     callouts.reset()
     transitionWeapons(focusedWeaponLevels(weaponStep))

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{ alt: string }>()
 
-const SOURCE = '/images/odin-valley-continuous-v0.16.2.png'
+const SOURCE = '/images/odin-mountain-footer-v0.19.0.webp'
 const BACKGROUND = '#070b10'
 const root = ref<HTMLElement>()
 const canvas = ref<HTMLCanvasElement>()
@@ -71,28 +71,36 @@ async function render() {
     if (width < 1 || height < 1) return
     const dpr = window.devicePixelRatio || 1
     const mobile = window.matchMedia('(max-width: 700px)').matches
-    const pitch = 3
+    const pitch = 3.2
     const size = `${width}:${height}:${dpr}:${mobile}`
     if (size === lastSize) { dirty = false; target.dataset.ready = 'true'; return }
 
     const started = performance.now()
-    const columns = Math.ceil(width / pitch), rows = Math.ceil(height / pitch)
-    // This temporary canvas contains continuous tones, one sample per print
-    // cell. Only this unscreened image is ever resampled or resized.
+    const artHeight = mobile ? Math.max(300, height * .55) : Math.min(height * .75, width * .43)
+    const artTop = height - artHeight
+    const columns = Math.ceil(width / pitch), rows = Math.ceil(artHeight / pitch)
+    // Descreen the existing illustration into broad tones before applying a
+    // single responsive AM screen. Mountains and ship share this whole pass;
+    // no separate ship mask, stipple layer or stretched pre-screened image.
+    const plate = document.createElement('canvas')
+    plate.width = Math.ceil(width); plate.height = Math.ceil(artHeight)
+    const plateContext = plate.getContext('2d')
     const samples = document.createElement('canvas')
     samples.width = columns; samples.height = rows
     const sampleContext = samples.getContext('2d', { willReadFrequently: true })
     const context = target.getContext('2d', { alpha: false })
-    if (!sampleContext || !context) throw new Error('Footer canvas is unavailable')
+    if (!sampleContext || !context || !plateContext) throw new Error('Footer canvas is unavailable')
     sampleContext.fillStyle = BACKGROUND
     sampleContext.fillRect(0, 0, columns, rows)
     sampleContext.imageSmoothingEnabled = true
     sampleContext.imageSmoothingQuality = 'high'
-    const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight)
-    const sourceWidth = width / scale, sourceHeight = height / scale
+    const scale = Math.max(width / image.naturalWidth, artHeight / image.naturalHeight)
+    const sourceWidth = width / scale, sourceHeight = artHeight / scale
     const sourceX = (image.naturalWidth - sourceWidth) * (mobile ? .53 : .5)
     const sourceY = (image.naturalHeight - sourceHeight) * (mobile ? .5 : .55)
-    sampleContext.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width / pitch, height / pitch)
+    plateContext.filter = 'blur(2.2px) grayscale(1)'
+    plateContext.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width, artHeight)
+    sampleContext.drawImage(plate, 0, 0, columns, rows)
     const pixels = sampleContext.getImageData(0, 0, columns, rows).data
 
     target.width = Math.round(width * dpr)
@@ -107,13 +115,14 @@ async function render() {
     const scaleX = target.width / width, scaleY = target.height / height
     let dots = 0
     for (let row = 0; row < rows; row++) {
-      const y = (row + .5) * pitch, fraction = y / height
-      const fade = smooth((fraction - .18) / .22) * (1 - .75 * smooth((fraction - .86) / .14))
+      const localY = (row + .5) * pitch, fraction = localY / artHeight
+      const y = artTop + localY
+      const fade = smooth((fraction - .02) / .24) * (1 - .3 * smooth((fraction - .85) / .15))
       if (fade === 0) continue
       for (let column = 0; column < columns; column++) {
         const offset = (row * columns + column) * 4
         const luminance = .2126 * pixels[offset]! + .7152 * pixels[offset + 1]! + .0722 * pixels[offset + 2]!
-        const tone = Math.pow(clamp((luminance - 40) / 190), 1.35) * .9 * fade
+        const tone = Math.pow(clamp((luminance - 10) / 115), 1.1) * .95 * fade
         const radius = radii[Math.round(tone * 1024)]! * pitch
         if (radius * dpr < .015) continue
         const x = (column + .5) * pitch
@@ -128,25 +137,25 @@ async function render() {
             // center pixel as its radius approaches zero.
             const coverage = Math.min(Math.PI * r * r, clamp(r + .5 - Math.hypot(px + .5 - cx, py + .5 - cy)))
             const index = (py * target.width + px) * 4
-            const red = Math.round(7 + 176 * coverage)
+            const red = Math.round(7 + 189 * coverage)
             if (red <= ink[index]!) continue
             ink[index] = red
-            ink[index + 1] = Math.round(11 + 175 * coverage)
-            ink[index + 2] = Math.round(16 + 160 * coverage)
+            ink[index + 1] = Math.round(11 + 189 * coverage)
+            ink[index + 2] = Math.round(16 + 181 * coverage)
           }
         }
         dots++
       }
     }
     context.putImageData(print, 0, 0)
-    samples.width = samples.height = 1
+    samples.width = samples.height = plate.width = plate.height = 1
     dirty = false
     lastSize = size
     renderCount++
     Object.assign(target.dataset, {
       ready: 'true', source: SOURCE, gridPitch: String(pitch), screenCount: '1',
       renderCount: String(renderCount), renderMs: (performance.now() - started).toFixed(1),
-      dpr: String(dpr), dots: String(dots), raster: 'native-pixels',
+      dpr: String(dpr), dots: String(dots), raster: 'native-pixels', descreenBlur: '2.2',
     })
     delete target.dataset.error
   } catch {

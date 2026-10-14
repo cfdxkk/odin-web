@@ -20,7 +20,7 @@ export const WEAPON_TOUR = [
   { id: 'single', group: 'single', point: [0, 8, 29], distance: 6.4, anchor: 'SideBattery_2_Starboard', video: null,
     zh: { title: '单联装副炮', body: 'S10 单联炮塔分为有人与遥控两种配置，分布在舰体不同位置。', spec: '3 座有人 + 8 座遥控 / S10' },
     en: { title: 'Single-gun batteries', body: 'S10 single-gun turrets are distributed around the hull in crewed and remote configurations.', spec: '3 crewed + 8 remote / S10' } },
-  { id: 'bridge-batteries', group: 'defense', groups: ['defense', 'quad'], point: [0, -55, 73], distance: 5.3,
+  { id: 'bridge-batteries', group: 'defense', groups: ['defense', 'quad'], point: [0, -55, 73], distance: 5.1,
     anchor: 'Defense_03_Elevation', anchors: ['Defense_03_Elevation', 'PDC_Starboard_Gimbal'], video: 'quad-turret',
     zh: { title: '双联与四联炮塔', body: '八座有人双联炮塔各配备两门 S8 武器。舰桥两侧另设两座有人四联炮塔，每座配备四门 S8 武器。', spec: '8 × 双联 S8 / 2 × 四联 S8' },
     en: { title: 'Twin and quad turrets', body: 'Eight crewed twin turrets carry two S8 guns each. Two crewed quad turrets flank the bridge, with four S8 guns per mount.', spec: '8 × twin S8 / 2 × quad S8' } },
@@ -75,17 +75,23 @@ export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vec
 
 export function weaponRouteAngles(progress: number) {
   const p = clampWeaponProgress(progress)
-  // Both channels move from .42 to .64: no hard lateral-to-pitch corner.
-  // The sweep finishes just beyond the spine and then holds its azimuth.
+  // Cross the spine at the torpedoes, finish on the opposite flank, then
+  // hold that hemisphere. The added roll overlaps the aft pitch so the
+  // route has no hard lateral-to-pitch corner.
   const lateral = THREE.MathUtils.smootherstep(p, 0, .64)
+  const oppositeFlank = THREE.MathUtils.smootherstep(p, .42, .68)
   const aft = THREE.MathUtils.smootherstep(p, .42, 1)
-  return { lateral: THREE.MathUtils.lerp(.12, 1.68, lateral), aft: THREE.MathUtils.lerp(.12, .94, aft) }
+  return { lateral: THREE.MathUtils.lerp(.12, 1.56, lateral) + .66 * oppositeFlank, aft: THREE.MathUtils.lerp(.12, .94, aft) }
 }
+
+// The aft tour must use the same lens framing as its weapon entry; changing
+// the ultrawide compensation at the chapter boundary would create a zoom-in.
+export const inspectionCameraFraming = (aspect: number) => Math.max(.8, Math.pow(1.6 / Math.max(1.6, aspect), .35)) * Math.max(1, 1 / aspect)
 
 export function sampleContinuousWeaponCamera(progress: number, aspect: number, side: WeaponRouteSide = -1) {
   const p = clampWeaponProgress(progress)
   const target = new THREE.Vector3(sampleTrack(trackX, p), sampleTrack(trackY, p), sampleTrack(trackZ, p))
-  const framing = Math.max(.8, Math.pow(1.6 / Math.max(1.6, aspect), .35)) * Math.max(1, 1 / aspect)
+  const framing = inspectionCameraFraming(aspect)
   const angle = weaponRouteAngles(p)
   const position = new THREE.Vector3(side * Math.cos(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.aft))
     .multiplyScalar(sampleTrack(trackDistance, p) * framing).add(target)
