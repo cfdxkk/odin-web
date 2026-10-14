@@ -4,14 +4,14 @@ import { weaponScrollProgress, weaponScrollOffset, weaponStepAt, weaponStageTop,
 
 test('each inspection choice maps to its real scroll position at any viewport height', () => {
   for (const viewport of [600,844,1080,1440]) {
-    const height = viewport * 6.5
-    for (let step=0;step<6;step++) {
-      const offset=weaponScrollOffset(step,6,height,viewport)
-      assert.equal(weaponStepAt(weaponScrollProgress(-offset,height,viewport),6),step)
+    const height = viewport * 5.5
+    for (let step=0;step<5;step++) {
+      const offset=weaponScrollOffset(step,5,height,viewport)
+      assert.equal(weaponStepAt(weaponScrollProgress(-offset,height,viewport),5),step)
       assert.equal(weaponStageTop(-offset,height,viewport),0,'weapon chapter stays selected throughout the pinned range')
     }
     const positions=Array.from({length:51},(_,i)=>weaponScrollProgress(-i/50*(height-viewport),height,viewport))
-    assert.equal(new Set(positions).size,51,'wheel position is continuous, not six quantized camera stops')
+    assert.equal(new Set(positions).size,51,'wheel position is continuous, not quantized camera stops')
     assert.equal(weaponScrollProgress(200,height,viewport),0)
     assert.equal(weaponScrollProgress(-height,height,viewport),1)
   }

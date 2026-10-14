@@ -1,0 +1,224 @@
+{
+  "results": [
+    {
+      "key": "1366x768-zh",
+      "chapter": {
+        "title": "双联与四联炮塔",
+        "story": {
+          "x": 69.67500305175781,
+          "y": 128,
+          "width": 355.26251220703125,
+          "height": 437.3000183105469,
+          "bottom": 565.3000183105469,
+          "right": 424.93751525878906
+        },
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "width": 1351.2000732421875,
+          "height": 768,
+          "bottom": 768,
+          "right": 1351.2000732421875
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "607",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.3013",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "1.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "8.130",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.000,0.730,0.550",
+          "cameraPosition": "0.329543,3.735686,4.690151",
+          "cameraQuaternion": "-0.309733,0.016929,-0.051883,0.949256",
+          "weapon": "bridge-batteries",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":1,\"quad\":1}",
+          "weaponTransition": "false",
+          "weaponProgress": "1.000000",
+          "weaponRouteSide": "port",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        },
+        "callout": {
+          "engine": "three.js r186",
+          "visible": "true",
+          "reveal": "1.000",
+          "points": "[{\"x\":946.3761699468515,\"y\":375.84493963698975,\"visible\":true,\"ghost\":false},{\"x\":971.1849705090151,\"y\":307.2105804037201,\"visible\":true,\"ghost\":false}]",
+          "origin": "{\"x\":441.4375,\"y\":221,\"visible\":true}"
+        },
+        "horizontalOverflow": false
+      },
+      "footer": {
+        "text": "GitHub 源代码 ↗",
+        "background": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "top": 699.6000366210938,
+        "bottom": 735.6000366210938,
+        "visible": true
+      }
+    },
+    {
+      "key": "3440x1440-zh",
+      "chapter": {
+        "title": "双联与四联炮塔",
+        "story": {
+          "x": 175.4375,
+          "y": 273.6000061035156,
+          "width": 380,
+          "height": 679.2000122070312,
+          "bottom": 952.8000183105469,
+          "right": 555.4375
+        },
+        "stage": {
+          "x": 0,
+          "y": 0,
+          "width": 3424.800048828125,
+          "height": 1440,
+          "bottom": 1440,
+          "right": 3424.800048828125
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin.glb",
+          "renderedFrames": "622",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.3687",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "-0.1350,0.0000",
+          "deployment": "1.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "8.344",
+          "joints": "215",
+          "quality": "high",
+          "cameraTarget": "0.000,0.730,0.550",
+          "cameraPosition": "0.296546,3.434728,4.275600",
+          "cameraQuaternion": "-0.309733,0.016929,-0.051883,0.949256",
+          "weapon": "bridge-batteries",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":1,\"quad\":1}",
+          "weaponTransition": "false",
+          "weaponProgress": "1.000000",
+          "weaponRouteSide": "port",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        },
+        "callout": {
+          "engine": "three.js r186",
+          "visible": "true",
+          "reveal": "1.000",
+          "points": "[{\"x\":2357.867219316564,\"y\":703.1000639603925,\"visible\":true,\"ghost\":false},{\"x\":2411.8123736016373,\"y\":559.1485115744902,\"visible\":true,\"ghost\":false}]",
+          "origin": "{\"x\":571.9375,\"y\":405.3000183105469,\"visible\":true}"
+        },
+        "horizontalOverflow": false
+      },
+      "footer": {
+        "text": "GitHub 源代码 ↗",
+        "background": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "top": 1371.5999755859375,
+        "bottom": 1407.5999755859375,
+        "visible": true
+      }
+    },
+    {
+      "key": "390x844-en",
+      "chapter": {
+        "title": "Twin and quad turrets",
+        "story": {
+          "x": 27.325000762939453,
+          "y": 141.60000610351562,
+          "width": 335.7375183105469,
+          "height": 451.38751220703125,
+          "bottom": 592.9875183105469,
+          "right": 363.0625190734863
+        },
+        "stage": {
+          "x": 0,
+          "y": -0.4000000059604645,
+          "width": 375.20001220703125,
+          "height": 844,
+          "bottom": 843.5999999940395,
+          "right": 375.20001220703125
+        },
+        "canvas": {
+          "engine": "three.js r186",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "asset": "/models/odin-lite.glb",
+          "renderedFrames": "606",
+          "view": "batteries",
+          "ready": "true",
+          "time": "24.00",
+          "cameraTime": "0.2673",
+          "cameraMode": "detail",
+          "filmPlaying": "false",
+          "cameraTransition": "false",
+          "motionTransition": "false",
+          "manualReturn": "false",
+          "seeking": "false",
+          "cameraFov": "33.00",
+          "cameraOffset": "0.0000,0.0000",
+          "deployment": "1.000",
+          "thrust": "0.000",
+          "exhaustLayers": "39",
+          "exhaustTime": "8.109",
+          "joints": "215",
+          "quality": "low",
+          "cameraTarget": "0.000,0.730,0.550",
+          "cameraPosition": "0.766346,7.719670,10.177849",
+          "cameraQuaternion": "-0.309733,0.016929,-0.051883,0.949256",
+          "weapon": "bridge-batteries",
+          "weaponLevels": "{\"main\":0,\"single\":0,\"defense\":1,\"quad\":1}",
+          "weaponTransition": "false",
+          "weaponProgress": "1.000000",
+          "weaponRouteSide": "port",
+          "cameraUp": "0.000,0.000,-1.000",
+          "fps": "75"
+        },
+        "callout": {
+          "engine": "three.js r186",
+          "visible": "true",
+          "reveal": "1.000",
+          "points": "[{\"x\":230.55929742151648,\"y\":418.0355982991346,\"visible\":true,\"ghost\":false},{\"x\":239.67201113947186,\"y\":386.6684127033985,\"visible\":true,\"ghost\":false}]",
+          "origin": "{\"x\":369.5625,\"y\":232.9499969482422,\"visible\":true}"
+        },
+        "horizontalOverflow": false
+      },
+      "footer": {
+        "text": "Source on GitHub ↗",
+        "background": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "top": 784,
+        "bottom": 820,
+        "visible": true
+      }
+    }
+  ],
+  "errors": []
+}

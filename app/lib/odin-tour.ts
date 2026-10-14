@@ -8,7 +8,7 @@ import { sampleOdinCamera } from './odin-camera.ts'
 export const ODIN_TOUR = [
   { id: 'overview', point: [0, 32, 26], view: [1.6, 1.1, .9], distance: 10.6, time: 0 },
   { id: 'batteries', point: [0, 160, 20], view: [1.35, .7, .8], distance: 8.1, time: 24 },
-  { id: 'bridge', point: [0, -59, 89], view: [2.1, .9, .5], distance: 2.85, time: 0 },
+  { id: 'bridge', point: [0, -75, 83], view: [.3, -1.2, .6], distance: 3.7, time: 0 },
   { id: 'engines', point: [0, -190, 2], view: [1.3, -2.2, -.7], distance: 6.2, time: 46 },
 ] as const
 

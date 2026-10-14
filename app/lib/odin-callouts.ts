@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { advanceCalloutReveal, createCalloutRevealState } from './odin-callout-reveal.ts'
+import type { CalloutReadiness } from './odin-callout-reveal.ts'
 
 export type CalloutOrigin = { x: number; y: number; visible: boolean }
 export type CalloutPoint = CalloutOrigin & { ghost?: boolean }
@@ -44,29 +46,31 @@ export function createOdinCallouts(host: HTMLElement) {
     const dot = new THREE.Mesh(dotGeometry, new THREE.MeshBasicMaterial({ color: 0xc4cbcc, transparent: true, opacity: .80, depthTest: false, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }))
     scene.add(dot); return dot
   })
-  let elapsed = 0, width = 1, height = 1, dirty = true, wasVisible = false
+  let revealState = createCalloutRevealState()
+  let width = 1, height = 1, dirty = true, wasVisible = false
   let lastOrigin = '', lastPoints = ''
-  function reset() { elapsed = 0; dirty = true; wasVisible = false; canvas.style.opacity = '0'; clear() }
-  function clear() { renderer.clear(); canvas.dataset.visible = 'false'; canvas.dataset.points = '[]' }
+  function reset() { revealState = createCalloutRevealState(); dirty = true; wasVisible = false; clear() }
+  function clear() { renderer.clear(); canvas.style.opacity = '0'; canvas.dataset.visible = 'false'; canvas.dataset.reveal = '0.000'; canvas.dataset.points = '[]' }
   function resize(w: number, h: number, ratio: number) {
     width = w; height = h; renderer.setPixelRatio(Math.min(2, ratio)); renderer.setSize(width, height, false)
     camera.right = width; camera.bottom = height; camera.updateProjectionMatrix(); dirty = true
   }
-  function moving(origin?: CalloutOrigin) { return dirty || (!!origin?.visible && wasVisible && elapsed < .95) }
-  function render(origin: CalloutOrigin | undefined, points: readonly CalloutPoint[], dt: number, reducedMotion: boolean) {
+  function moving(origin?: CalloutOrigin) { return dirty || (!!origin?.visible && revealState.pending) }
+  function render(origin: CalloutOrigin | undefined, points: readonly CalloutPoint[], dt: number, reducedMotion: boolean, readiness: CalloutReadiness = { key: 0 }) {
     const visible = !!origin?.visible && points.some(point => point.visible)
+    const previousReveal = revealState.reveal
+    revealState = advanceCalloutReveal(revealState, { ...readiness, visible, reducedMotion }, dt)
     const originKey = origin ? `${origin.x}/${origin.y}/${origin.visible}` : ''
     const pointKey = points.map(point => `${point.x}/${point.y}/${point.visible}/${point.ghost}`).join(';')
-    if (!visible) {
+    if (!visible || revealState.reveal <= 0) {
       if (wasVisible || dirty) clear()
       wasVisible = false; dirty = false; lastOrigin = originKey; lastPoints = pointKey
       return
     }
-    elapsed = reducedMotion ? .95 : Math.min(.95, elapsed + dt)
-    if (!dirty && elapsed >= .95 && originKey === lastOrigin && pointKey === lastPoints && wasVisible) return
+    if (!dirty && revealState.reveal === previousReveal && originKey === lastOrigin && pointKey === lastPoints && wasVisible) return
     dirty = false; wasVisible = true; lastOrigin = originKey; lastPoints = pointKey
-    canvas.style.opacity = String(ease(elapsed / .16))
-    const segments = calloutSegments(origin!, points, elapsed / .95)
+    canvas.style.opacity = String(ease(revealState.reveal / .16))
+    const segments = calloutSegments(origin!, points, revealState.reveal)
     let vertex = 0
     for (const segment of segments) {
       const dx = segment.x2 - segment.x1, dy = segment.y2 - segment.y1, length = Math.hypot(dx, dy)
@@ -87,11 +91,11 @@ export function createOdinCallouts(host: HTMLElement) {
     geometry.attributes.position!.needsUpdate = true; geometry.attributes.color!.needsUpdate = true
     dots.forEach((dot, index) => {
       const point = points[index]
-      dot.visible = !!point?.visible && elapsed >= .94
+      dot.visible = !!point?.visible && revealState.reveal >= .99
       if (point) { dot.position.set(point.x, point.y, 0); dot.material.opacity = .80 }
     })
     renderer.render(scene, camera)
-    canvas.dataset.visible = 'true'; canvas.dataset.reveal = (elapsed / .95).toFixed(3)
+    canvas.dataset.visible = 'true'; canvas.dataset.reveal = revealState.reveal.toFixed(3)
     canvas.dataset.origin = JSON.stringify(origin)
     canvas.dataset.points = JSON.stringify(points)
   }

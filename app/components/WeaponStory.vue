@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
 <template>
   <div ref="root" class="weapon-story" :data-weapon="shot.id" :data-active="active">
     <div class="weapon-section-label"><p class="eyebrow">02 / {{ locale === 'zh' ? '武备导览' : 'Armament tour' }}</p></div>
-    <nav class="weapon-step-nav" :aria-label="locale === 'zh' ? '选择武器' : 'Choose a weapon'">
+    <nav class="weapon-step-nav" :style="{ '--weapon-count': WEAPON_TOUR.length }" :aria-label="locale === 'zh' ? '选择武器' : 'Choose a weapon'">
       <button v-for="(weapon, index) in WEAPON_TOUR" :key="weapon.id" :aria-label="`${String(index + 1).padStart(2, '0')} / ${weapon[locale].title}`" :aria-current="index === clampWeaponStep(step) ? 'step' : undefined" @click="emit('select', index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button>
     </nav>
     <div class="weapon-copy" :key="shot.id" aria-live="polite" aria-atomic="true">

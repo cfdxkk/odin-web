@@ -3,28 +3,28 @@ import { WEAPON_GROUPS, type WeaponGroup } from './odin-weapon-groups.ts'
 
 export const WEAPON_SOURCE = 'https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin'
 // Source coordinates: +Y points toward the bow, +Z is above the hull.
-// The inspection follows the hull from bow to aft while crossing over the
-// dorsal surface, from port to starboard. Bow remains at the top of the view.
+// The entry side follows the visible homepage pose. Lateral movement eases
+// into an aft pitch after the torpedoes, while the bow stays screen-up.
 export const WEAPON_TOUR = [
-  { id: 'beam', group: null, point: [0, 369.5, 6.8], distance: 4.1, anchor: null, video: 'bow-laser',
+  // Frame the emitter bank and its aft radiator together; the leader still
+  // identifies the emitters rather than following the framing center.
+  { id: 'beam', group: null, point: [0, 300, 6.8], calloutPoint: [0, 369.5, 6.8], distance: 4.5, anchor: null, video: 'bow-laser',
     zh: { title: '舰艏光束武器', body: '舰艏的 12 个发射器构成一套 S12 光束武器，由驾驶员控制。', spec: '1 × S12 / 驾驶员控制' },
     en: { title: 'Bow beam weapon', body: 'Twelve bow emitters form one pilot-controlled S12 beam weapon.', spec: '1 × S12 / Pilot controlled' } },
   { id: 'main', group: 'main', point: [0, 100, 0], distance: 5.9, anchor: 'Main_Dorsal_Shroud_Center', anchors: ['Main_Dorsal_Shroud_Center', 'Main_Ventral_Shroud_Center'], video: 'main-battery',
     zh: { title: '三联装主炮', body: '舰体上层与舰腹各布置一座有人炮塔，每座搭载三门 S12 主炮。', spec: '2 座炮塔 / 每座 3 × S12' },
     en: { title: 'Triple main batteries', body: 'One crewed turret sits above the hull and another below it. Each carries three S12 guns.', spec: '2 turrets / 3 × S12 each' } },
-  { id: 'torpedoes', group: null, point: [12, 30, 43], distance: 4.5, anchor: null, video: null,
+  { id: 'torpedoes', group: null, point: [0, 30, 43], distance: 4.5, anchor: null, video: null,
     zh: { title: '垂直发射鱼雷', body: '主炮后方布置 S12 垂直发射系统。', spec: '20 套 S12 垂直发射系统' },
     en: { title: 'Vertical-launch torpedoes', body: 'S12 vertical-launch systems sit behind the main battery.', spec: '20 × S12 vertical-launch systems' } },
-  { id: 'single', group: 'single', point: [45, 16, 10], distance: 7, anchor: 'SideBattery_2_Starboard', video: null,
+  { id: 'single', group: 'single', point: [0, 8, 29], distance: 6.4, anchor: 'SideBattery_2_Starboard', video: null,
     zh: { title: '单联装副炮', body: 'S10 单联炮塔分为有人与遥控两种配置，分布在舰体不同位置。', spec: '3 座有人 + 8 座遥控 / S10' },
     en: { title: 'Single-gun batteries', body: 'S10 single-gun turrets are distributed around the hull in crewed and remote configurations.', spec: '3 crewed + 8 remote / S10' } },
-  { id: 'twin', group: 'defense', point: [22, -36, 53], distance: 3.6, anchor: 'Defense_03_Elevation', video: null,
-    zh: { title: '双联装炮塔', body: '八座有人双联炮塔，每座配备两门 S8 武器。', spec: '8 座炮塔 / 每座 2 × S8' },
-    en: { title: 'Twin-gun turrets', body: 'Eight crewed twin turrets each carry two S8 weapons.', spec: '8 turrets / 2 × S8 each' } },
-  { id: 'quad', group: 'quad', point: [43, -58, 106], distance: 3.1, anchor: 'PDC_Starboard_Gimbal', video: 'quad-turret',
-    zh: { title: '四联装炮塔', body: '舰桥两侧各有一座有人四联炮塔，每座配置四门 S8 武器。', spec: '2 座炮塔 / 每座 4 × S8' },
-    en: { title: 'Quad-gun turrets', body: 'A crewed quad turret flanks each side of the bridge, with four S8 weapons per mount.', spec: '2 turrets / 4 × S8 each' } },
-] as const satisfies readonly { id: string; group: WeaponGroup | null; point: readonly [number, number, number]; distance: number; anchor: string | null; anchors?: readonly string[]; video: string | null; zh: { title: string; body: string; spec: string }; en: { title: string; body: string; spec: string } }[]
+  { id: 'bridge-batteries', group: 'defense', groups: ['defense', 'quad'], point: [0, -55, 73], distance: 5.3,
+    anchor: 'Defense_03_Elevation', anchors: ['Defense_03_Elevation', 'PDC_Starboard_Gimbal'], video: 'quad-turret',
+    zh: { title: '双联与四联炮塔', body: '八座有人双联炮塔各配备两门 S8 武器。舰桥两侧另设两座有人四联炮塔，每座配备四门 S8 武器。', spec: '8 × 双联 S8 / 2 × 四联 S8' },
+    en: { title: 'Twin and quad turrets', body: 'Eight crewed twin turrets carry two S8 guns each. Two crewed quad turrets flank the bridge, with four S8 guns per mount.', spec: '8 × twin S8 / 2 × quad S8' } },
+] as const satisfies readonly { id: string; group: WeaponGroup | null; groups?: readonly WeaponGroup[]; point: readonly [number, number, number]; calloutPoint?: readonly [number, number, number]; distance: number; anchor: string | null; anchors?: readonly string[]; video: string | null; zh: { title: string; body: string; spec: string }; en: { title: string; body: string; spec: string } }[]
 
 export const WEAPON_DEPLOY_SECONDS = 4.8
 export type WeaponLevels = Record<WeaponGroup, number>
@@ -32,8 +32,9 @@ export function uniformWeaponLevels(value: number): WeaponLevels {
   return { main: value, single: value, defense: value, quad: value }
 }
 export function focusedWeaponLevels(step: number): WeaponLevels {
-  const levels = uniformWeaponLevels(0), group = WEAPON_TOUR[clampWeaponStep(step)]!.group
-  if (group) levels[group] = 1
+  const levels = uniformWeaponLevels(0), shot = WEAPON_TOUR[clampWeaponStep(step)]!
+  const groups = 'groups' in shot ? shot.groups : shot.group ? [shot.group] : []
+  for (const group of groups) levels[group] = 1
   return levels
 }
 export function interpolateWeaponLevels(from: WeaponLevels, to: WeaponLevels, progress: number): WeaponLevels {
@@ -64,20 +65,35 @@ const trackY = WEAPON_TOUR.map(shot => shot.point[2] * .01)
 const trackZ = WEAPON_TOUR.map(shot => -shot.point[1] * .01)
 const trackDistance = WEAPON_TOUR.map(shot => shot.distance)
 
-export function sampleContinuousWeaponCamera(progress: number, aspect: number) {
+export type WeaponRouteSide = -1 | 1
+export function chooseWeaponRouteSide(position: THREE.Vector3, target: THREE.Vector3, previous: WeaponRouteSide = -1): WeaponRouteSide {
+  const offset = position.clone().sub(target)
+  // Close to a head-on view, retain the previous route rather than choosing
+  // an arbitrary side from subpixel noise. Otherwise use the rendered pose.
+  return Math.abs(offset.x) < offset.length() * .015 ? previous : offset.x < 0 ? -1 : 1
+}
+
+export function weaponRouteAngles(progress: number) {
+  const p = clampWeaponProgress(progress)
+  // Both channels move from .42 to .64: no hard lateral-to-pitch corner.
+  // The sweep finishes just beyond the spine and then holds its azimuth.
+  const lateral = THREE.MathUtils.smootherstep(p, 0, .64)
+  const aft = THREE.MathUtils.smootherstep(p, .42, 1)
+  return { lateral: THREE.MathUtils.lerp(.12, 1.68, lateral), aft: THREE.MathUtils.lerp(.12, .94, aft) }
+}
+
+export function sampleContinuousWeaponCamera(progress: number, aspect: number, side: WeaponRouteSide = -1) {
   const p = clampWeaponProgress(progress)
   const target = new THREE.Vector3(sampleTrack(trackX, p), sampleTrack(trackY, p), sampleTrack(trackZ, p))
   const framing = Math.max(.8, Math.pow(1.6 / Math.max(1.6, aspect), .35)) * Math.max(1, 1 / aspect)
-  const angle = THREE.MathUtils.lerp(.12, Math.PI - .12, p)
-  // A small longitudinal offset gives depth while never passing below the
-  // hull. Unlike a world-up orbit this stays stable directly over the spine.
-  const position = new THREE.Vector3(-Math.cos(angle), Math.sin(angle), .16).normalize()
+  const angle = weaponRouteAngles(p)
+  const position = new THREE.Vector3(side * Math.cos(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.lateral) * Math.cos(angle.aft), Math.sin(angle.aft))
     .multiplyScalar(sampleTrack(trackDistance, p) * framing).add(target)
   return { position, target, up: new THREE.Vector3(0, 0, -1) }
 }
 
-export function sampleWeaponCamera(step: number, aspect: number) {
-  return sampleContinuousWeaponCamera(weaponStepProgress(step), aspect)
+export function sampleWeaponCamera(step: number, aspect: number, side: WeaponRouteSide = -1) {
+  return sampleContinuousWeaponCamera(weaponStepProgress(step), aspect, side)
 }
 
 export function advanceWeaponCameraProgress(current: number, destination: number, dt: number) {

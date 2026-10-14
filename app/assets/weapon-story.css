@@ -2,7 +2,7 @@
    Its screen placement belongs to the parent chapter, not each substep. */
 .weapon-story { width: 100%; max-width: var(--story-width); min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 .weapon-section-label .eyebrow { color: var(--accent); font-size: 10px; letter-spacing: .09em; }
-.weapon-step-nav { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 12px; pointer-events: auto; }
+.weapon-step-nav { display: grid; grid-template-columns: repeat(var(--weapon-count,5),minmax(0,1fr)); gap: 12px; pointer-events: auto; }
 .weapon-step-nav button { min-width: 0; min-height: 38px; text-align: left; font: 400 11px/1 var(--sans); font-variant-numeric: tabular-nums; color: #86939c; border-bottom: 1px solid var(--line); }
 .weapon-step-nav button[aria-current=step] { border-color: var(--accent); color: var(--text); }
 .weapon-step-nav button:hover { color: var(--accent); }

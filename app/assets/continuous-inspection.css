@@ -1,6 +1,6 @@
 /* Only weapon inspection consumes continuous document scroll. Its copy stays
    pinned while the full-screen model follows the real scroll position. */
-#batteries.weapon-chapter { height: 650svh; min-height: 0; padding: 0; }
+#batteries.weapon-chapter { height: 550svh; min-height: 0; padding: 0; }
 #batteries > .chapter-stage { position: sticky; top: 0; height: 100svh; padding: max(145px,19svh) var(--page-margin) 40px; }
 .weapon-copy { animation: weapon-copy-in .28s ease-out both; }
 @keyframes weapon-copy-in { from { opacity: 0; } to { opacity: 1; } }

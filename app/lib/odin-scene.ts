@@ -9,14 +9,14 @@ import { OdinGTAOPass } from './odin-ao'
 import { createOdinRig } from './odin-rig'
 import { createExplorationControls } from './odin-controls'
 import { FILM_DURATION, DEPLOY_SECONDS, sampleOdinMotion } from './odin-motion'
-import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera, odinCameraPhase } from './odin-camera'
+import { ODIN_CAMERA_ORBIT_SECONDS, sampleOdinCamera, odinCameraFraming, interpolateOdinCamera, interpolateOrientedOdinCamera, odinCameraPhase } from './odin-camera'
 import { clampTourIndex, sampleTourDisplayCamera, ODIN_TOUR, ODIN_TOUR_CAMERA_SECONDS, createTourTransition, sampleTourTransition } from './odin-tour'
 import type { TourTransition } from './odin-tour'
 import { ODIN_DISPLAY_BACKGROUND, ODIN_ENVIRONMENT_INTENSITY, addOdinDisplayLighting } from './odin-lighting'
 import { createOdinExhaust, updateOdinExhaust } from './odin-exhaust'
 import type { OdinExhaust } from './odin-exhaust'
-import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels } from './odin-weapon-tour'
-import type { WeaponLevels } from './odin-weapon-tour'
+import { WEAPON_TOUR, WEAPON_DEPLOY_SECONDS, clampWeaponStep, clampWeaponProgress, weaponStepProgress, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide } from './odin-weapon-tour'
+import type { WeaponLevels, WeaponRouteSide } from './odin-weapon-tour'
 import { createManualReturn, sampleManualReturn, advanceManualResume, advanceFilmClock } from './odin-manual-return'
 import { createOdinCallouts } from './odin-callouts'
 import type { CalloutOrigin, CalloutPoint } from './odin-callouts'
@@ -140,6 +140,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   let viewIndex = hooks.state().viewIndex
   let weaponStep = clampWeaponStep(hooks.state().weaponStep ?? 0)
   let weaponCameraProgress = clampWeaponProgress(hooks.state().weaponProgress ?? weaponStepProgress(weaponStep))
+  let weaponRouteSide: WeaponRouteSide = -1
+  let orientedCameraTransition = viewIndex === 1 || viewIndex === 2
   let weaponLevels = uniformWeaponLevels(sampleOdinMotion(time).deployment)
   let selective = viewIndex === 1
   let weaponTransition: { from: WeaponLevels; to: WeaponLevels; elapsed: number; duration: number } | undefined
@@ -195,7 +197,10 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas)
 
   function sampleCamera(t: number) {
-    const shot = viewIndex === 1 ? sampleContinuousWeaponCamera(weaponCameraProgress, camera.aspect) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
+    const shot = viewIndex === 1 ? sampleContinuousWeaponCamera(weaponCameraProgress, camera.aspect, weaponRouteSide) : viewIndex === undefined ? sampleOdinCamera(t, camera.aspect, width < 700) : sampleTourDisplayCamera(viewIndex, t, camera.aspect, width < 700)
+    // Continue the same rear-quarter route instead of jumping to the bow-side
+    // bridge view. The route is retained when scrolling back into weapons.
+    if (viewIndex === 2) shot.position.x = shot.target.x - weaponRouteSide * (shot.position.x - shot.target.x)
     target.copy(shot.target); desired.copy(shot.position)
     if ('up' in shot) desiredUp.copy(shot.up as THREE.Vector3)
     else desiredUp.set(0, 1, 0)
@@ -254,9 +259,14 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       if (transitioning > 0) {
         transitioning = Math.max(0, transitioning - dt)
         const u = smooth(0, 1, 1 - transitioning / cameraTransitionSeconds)
-        const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
-        camera.position.copy(pose.position); cameraAim.copy(pose.target)
-        camera.up.copy(upFrom).lerp(desiredUp, u).normalize()
+        if (orientedCameraTransition) {
+          const pose = interpolateOrientedOdinCamera({ position: cameraFrom, target: aimFrom, up: upFrom }, { position: desired, target, up: desiredUp }, u)
+          camera.position.copy(pose.position); cameraAim.copy(pose.target); camera.up.copy(pose.up)
+        } else {
+          const pose = interpolateOdinCamera({ position: cameraFrom, target: aimFrom }, { position: desired, target }, u)
+          camera.position.copy(pose.position); cameraAim.copy(pose.target)
+          camera.up.copy(upFrom).lerp(desiredUp, u).normalize()
+        }
       } else { camera.position.copy(desired); cameraAim.copy(target); camera.up.copy(desiredUp) }
       camera.lookAt(cameraAim)
       controls.target.copy(cameraAim)
@@ -307,14 +317,24 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
       for (let index = 0; index < Math.max(1, anchors.length); index++) {
         const anchor = anchors[index]
         if (anchor) anchor.object.localToWorld(anchorWorld.copy(anchor.center))
-        else { const [x, y, z] = WEAPON_TOUR[weaponStep]!.point; anchorWorld.set(x * .01, z * .01, -y * .01) }
+        else {
+          const shot = WEAPON_TOUR[weaponStep]!
+          const [x, y, z] = 'calloutPoint' in shot ? shot.calloutPoint : shot.point
+          anchorWorld.set(x * .01, z * .01, -y * .01)
+        }
         projectedAnchor.copy(anchorWorld).project(camera)
         const ghost = !!anchor && (anchor.name.includes('Ventral') ? camera.position.y > anchorWorld.y : anchor.name.includes('Dorsal') && camera.position.y < anchorWorld.y)
         calloutPoints.push({ x: (projectedAnchor.x + 1) * width / 2, y: (1 - projectedAnchor.y) * height / 2, visible: projectedAnchor.z > -1 && projectedAnchor.z < 1 && Math.abs(projectedAnchor.x) < 1 && Math.abs(projectedAnchor.y) < 1, ghost })
       }
       hooks.anchor?.(calloutPoints[0]!)
     } else hooks.anchor?.({ x: 0, y: 0, visible: false })
-    callouts.render(viewIndex === 1 && !state.explore ? state.calloutOrigin : undefined, calloutPoints, dt, !!state.reducedMotion)
+    callouts.render(viewIndex === 1 && !state.explore ? state.calloutOrigin : undefined, calloutPoints, dt, !!state.reducedMotion, {
+      key: weaponStep, cameraRemaining: transitioning,
+      // Selective chapters bypass the film's deployment track; only its real
+      // exhaust fade and the selected family animation can delay this line.
+      mechanismRemaining: Math.max(motionTransition ? (selective ? motionTransition.fadeSeconds : motionTransition.duration) - motionElapsed : 0, weaponTransition ? weaponTransition.duration - weaponTransition.elapsed : 0),
+      scrolling: weaponCameraMoving,
+    })
     needsRender = false
     canvas.dataset.renderedFrames = String(++renderedFrames)
     canvas.dataset.view = viewIndex === undefined ? 'film' : ODIN_TOUR[viewIndex]!.id
@@ -333,10 +353,12 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     canvas.dataset.joints = String(mechanism.joints); canvas.dataset.quality = state.lowPower ? 'low' : 'high'
     canvas.dataset.cameraTarget = controls.target.toArray().map(n => n.toFixed(3)).join(',')
     canvas.dataset.cameraPosition = camera.position.toArray().map(n => n.toFixed(6)).join(',')
+    canvas.dataset.cameraQuaternion = camera.quaternion.toArray().map(n => n.toFixed(6)).join(',')
     canvas.dataset.weapon = viewIndex === 1 ? WEAPON_TOUR[weaponStep]!.id : ''
     canvas.dataset.weaponLevels = JSON.stringify(weaponLevels)
     canvas.dataset.weaponTransition = String(!!weaponTransition)
     canvas.dataset.weaponProgress = weaponCameraProgress.toFixed(6)
+    canvas.dataset.weaponRouteSide = weaponRouteSide < 0 ? 'port' : 'starboard'
     canvas.dataset.cameraUp = camera.up.toArray().map(n => n.toFixed(3)).join(',')
     frameCount++
     if (now - fpsStart > 1500) { canvas.dataset.fps = (frameCount * 1000 / (now - fpsStart)).toFixed(0); fpsStart = now; frameCount = 0 }
@@ -411,7 +433,12 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
     returningFromManual = false
     seeking = false
     callouts.reset()
+    const previousViewIndex = viewIndex
     viewIndex = clampTourIndex(index)
+    if ((previousViewIndex === undefined || previousViewIndex === 0) && viewIndex !== 0) {
+      weaponRouteSide = chooseWeaponRouteSide(camera.position, cameraAim, weaponRouteSide)
+    }
+    orientedCameraTransition = viewIndex === 1 || viewIndex === 2 || previousViewIndex === 1 || previousViewIndex === 2
     cameraFrom.copy(camera.position); aimFrom.copy(cameraAim); upFrom.copy(camera.up)
     if (viewIndex === 0) cameraTime = odinCameraPhase({ position: cameraFrom, target: aimFrom })
     // Chapter selection changes effective film playback without changing the
@@ -434,7 +461,8 @@ export async function createOdinExperience(canvas: HTMLCanvasElement, hooks: Hoo
   }
   function transitionWeapons(to: WeaponLevels, duration = WEAPON_DEPLOY_SECONDS) {
     selective = true
-    if (hooks.state().reducedMotion) { weaponLevels = to; weaponTransition = undefined; selective = viewIndex === 1 }
+    const unchanged = (Object.keys(to) as (keyof WeaponLevels)[]).every(group => Math.abs(weaponLevels[group] - to[group]) < .00001)
+    if (hooks.state().reducedMotion || unchanged) { weaponLevels = { ...to }; weaponTransition = undefined; selective = viewIndex === 1 }
     else weaponTransition = { from: { ...weaponLevels }, to, elapsed: 0, duration }
     needsRender = true
   }

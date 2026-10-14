@@ -2,9 +2,10 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
 import * as THREE from 'three'
-import { WEAPON_TOUR, clampWeaponStep, sampleWeaponCamera, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, weaponStepProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels } from '../app/lib/odin-weapon-tour.ts'
+import { WEAPON_TOUR, clampWeaponStep, sampleWeaponCamera, sampleContinuousWeaponCamera, advanceWeaponCameraProgress, weaponStepProgress, uniformWeaponLevels, focusedWeaponLevels, interpolateWeaponLevels, chooseWeaponRouteSide, weaponRouteAngles } from '../app/lib/odin-weapon-tour.ts'
 import { classifyWeaponJoint, WEAPON_GROUPS } from '../app/lib/odin-weapon-groups.ts'
-import { interpolateOdinCamera } from '../app/lib/odin-camera.ts'
+import { interpolateOdinCamera, interpolateOrientedOdinCamera, odinCameraOrientation, sampleOdinCamera } from '../app/lib/odin-camera.ts'
+import { sampleTourCamera } from '../app/lib/odin-tour.ts'
 
 const aspects = [390 / 844, 4 / 3, 16 / 9, 21 / 9, 32 / 9]
 const close = (actual, expected, label) => assert.ok(Math.abs(actual - expected) < 1e-9, `${label}: ${actual} != ${expected}`)
@@ -17,14 +18,14 @@ function project(point, pose, up, aspect) {
   return point.clone().project(camera)
 }
 
-test('continuous weapon inspection travels from port over the dorsal hull to starboard', () => {
+test('continuous weapon inspection crosses the dorsal hull then pitches toward the stern', () => {
   for (const aspect of aspects) {
     const first = sampleWeaponCamera(0, aspect)
     assert.ok(first.position.x < first.target.x, 'Start on the port side')
     const last = sampleWeaponCamera(WEAPON_TOUR.length - 1, aspect)
-    assert.ok(last.position.x > last.target.x, 'Finish on the starboard side')
+    assert.ok(last.position.z - last.target.z > last.position.y - last.target.y, 'Finish behind the hull looking toward the bridge')
     const overhead = sampleContinuousWeaponCamera(.5, aspect)
-    assert.ok(Math.abs(overhead.position.x - overhead.target.x) < 1e-9)
+    assert.ok(Math.abs(overhead.position.x - overhead.target.x) < .15, 'Torpedo shot reaches the spine')
     assert.ok(overhead.position.y - overhead.target.y > 3, 'Midpoint passes above the hull, not through it')
     let previousY = Infinity
     for (let step = 0; step < WEAPON_TOUR.length; step++) {
@@ -87,21 +88,75 @@ test('scroll smoothing is frame-rate independent and reverses immediately from t
   assert.equal(advanceWeaponCameraProgress(.4, 1, 0), .4)
 })
 
-test('a focused step activates only its physical weapon family, with the static bow beam activating none', () => {
+test('bow framing includes the aft radiator while the callout remains on the emitter bank', () => {
+  const shot = WEAPON_TOUR[0]
+  assert.deepEqual(shot.calloutPoint, [0, 369.5, 6.8])
+  assert.ok(shot.point[1] < shot.calloutPoint[1], 'Framing moves aft of the emitter tip')
+  for (const side of [-1, 1]) for (const aspect of aspects) {
+    const pose = sampleWeaponCamera(0, aspect, side)
+    const emitter = new THREE.Vector3(shot.calloutPoint[0] * .01, shot.calloutPoint[2] * .01, -shot.calloutPoint[1] * .01)
+    const projected = project(emitter, pose, pose.up, aspect)
+    assert.ok(projected.y > 0 && projected.y < .7, 'The emitter remains comfortably visible above the framing center')
+    assert.ok(Math.abs(projected.x) < .9)
+  }
+})
+
+test('focused chapters activate the selected families and combine twin and quad turrets', () => {
   const bytes = readFileSync(new URL('../public/models/odin.glb', import.meta.url))
   const model = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)))
   const joints = new Map(model.nodes.filter(node => node.extras?.staticJoint).map(node => [node.name, node]))
-  const expectedGroups = [null, 'main', null, 'single', 'defense', 'quad']
+  const expectedGroups = [[], ['main'], [], ['single'], ['defense', 'quad']]
   assert.equal(WEAPON_TOUR.length, expectedGroups.length)
   WEAPON_TOUR.forEach((shot, step) => {
-    assert.equal(shot.group, expectedGroups[step])
     const levels = focusedWeaponLevels(step)
-    for (const group of WEAPON_GROUPS) assert.equal(levels[group], group === shot.group ? 1 : 0, `${shot.id} incorrectly activates ${group}`)
+    for (const group of WEAPON_GROUPS) assert.equal(levels[group], expectedGroups[step].includes(group) ? 1 : 0, `${shot.id} incorrectly activates ${group}`)
     if (shot.anchor) {
-      assert.ok(joints.has(shot.anchor), `${shot.id} anchor must exist in the actual model`)
-      assert.equal(classifyWeaponJoint(shot.anchor), shot.group, `${shot.id} anchor belongs to another mechanism`)
+      for (const anchor of shot.anchors ?? [shot.anchor]) {
+        assert.ok(joints.has(anchor), `${shot.id} anchor must exist in the actual model`)
+        assert.ok(expectedGroups[step].includes(classifyWeaponJoint(anchor)), `${shot.id} anchor belongs to another mechanism`)
+      }
     } else assert.equal(shot.group, null, 'Only a static hull feature can omit a moving anchor')
   })
+})
+
+test('entry chooses the currently visible homepage side and takes the shortest orientation arc', () => {
+  for (const aspect of aspects) for (let time = 0; time < 45; time += .25) {
+    const visible = { ...sampleOdinCamera(time, aspect), up: new THREE.Vector3(0, 1, 0) }
+    const offset = visible.position.clone().sub(visible.target)
+    const side = chooseWeaponRouteSide(visible.position, visible.target)
+    if (Math.abs(offset.x) > offset.length() * .015) assert.equal(side, Math.sign(offset.x))
+    const end = sampleWeaponCamera(0, aspect, side)
+    assert.equal(Math.sign(end.position.x - end.target.x), side)
+    const startOrientation = odinCameraOrientation(visible), endOrientation = odinCameraOrientation(end)
+    let previousOrientation = startOrientation, total = 0
+    for (let step = 0; step <= 32; step++) {
+      const pose = interpolateOrientedOdinCamera(visible, end, step / 32)
+      const orientation = odinCameraOrientation(pose)
+      total += previousOrientation.angleTo(orientation); previousOrientation = orientation
+      assert.ok(pose.position.distanceTo(pose.target) >= Math.min(offset.length(), end.position.distanceTo(end.target)) - 1e-8, 'Never dive through the hull during the handoff')
+    }
+    assert.ok(total <= Math.PI + 1e-6, 'No extra revolution or roll is introduced')
+    assert.ok(Math.abs(total - startOrientation.angleTo(endOrientation)) < 1e-6)
+  }
+  const headOn = new THREE.Vector3(1e-8, 2, 9), aim = new THREE.Vector3()
+  assert.equal(chooseWeaponRouteSide(headOn, aim, 1), 1)
+  assert.equal(chooseWeaponRouteSide(headOn, aim, -1), -1)
+})
+
+test('mirrored entry routes share a soft overlapping lateral-to-aft rotation and an aft bridge continuation', () => {
+  for (let step = 0; step <= 200; step++) {
+    const p = step / 200, left = sampleContinuousWeaponCamera(p, 16 / 9, -1), right = sampleContinuousWeaponCamera(p, 16 / 9, 1)
+    close(left.position.x - left.target.x, -(right.position.x - right.target.x), 'Mirrored side')
+    close(left.position.y, right.position.y, 'Shared altitude')
+    close(left.position.z, right.position.z, 'Shared aft pitch')
+  }
+  const a = weaponRouteAngles(.48), b = weaponRouteAngles(.52)
+  assert.ok(b.lateral > a.lateral && b.aft > a.aft, 'Both axes move together around the torpedo handoff')
+  close(weaponRouteAngles(.75).lateral, weaponRouteAngles(1).lateral, 'Lateral sweep has stopped for the aft chapters')
+  assert.ok(weaponRouteAngles(1).aft > weaponRouteAngles(.75).aft, 'Aft pitch continues through the combined turrets')
+  const single = sampleWeaponCamera(3, 16 / 9), combined = sampleWeaponCamera(4, 16 / 9), bridge = sampleTourCamera(2, 16 / 9)
+  assert.ok(single.position.y - single.target.y > single.position.z - single.target.z, 'Single batteries are shown from high above the stern')
+  assert.ok(combined.position.z > combined.target.z && bridge.position.z > bridge.target.z, 'Combined turrets and bridge keep the same aft hemisphere')
 })
 
 test('rapid weapon reversals retain the visible group pose without mutating transition snapshots', () => {
