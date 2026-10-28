@@ -1,0 +1,302 @@
+{
+  "revision": "v0.25.0",
+  "status": "passed",
+  "testedAt": "2026-10-28T15:13:49.151Z",
+  "target": {
+    "url": "http://127.0.0.1:4180/",
+    "kind": "generated static output",
+    "browser": "Chromium via Playwright CLI",
+    "runtime": "bundled Node 24.22.1",
+    "title": "ODIN AWAKENING — 唤醒雷霆"
+  },
+  "summary": {
+    "assertions": 68,
+    "failed": 0,
+    "applicationErrors": 0,
+    "initialConsoleWarnings": 0,
+    "failedNetworkRequests": 0
+  },
+  "asset": {
+    "path": "/models/odin.glb",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "joints": 215,
+    "articulatedGroupMembers": {
+      "main": 34,
+      "single": 104,
+      "defense": 40,
+      "quad": 36
+    }
+  },
+  "suites": {
+    "core": {
+      "assertions": 24,
+      "passed": [
+        "preludeReady",
+        "startRunsFilm",
+        "explicitPauseStopsFilmAndEffects",
+        "allFourChapterRoutesKeepPause",
+        "pausedTimelineDragKeepsPause",
+        "timelineSeeksAllActs",
+        "allFourWeaponGroupsDeploy",
+        "halfOpenAndHalfClosedPoses",
+        "engineIgnitionInterlocked",
+        "filmEndingVisible",
+        "resumeMovesFilm",
+        "playingTimelineDragTemporarilyPauses",
+        "timelineReleaseResumesPriorPlaying",
+        "timelineKeyboardHoldTemporarilyPauses",
+        "timelineKeyboardReleaseResumes",
+        "inspectionKeepsExplicitPause",
+        "allInspectionModesWorkAndKeepPause",
+        "inspectionEngineInterlock",
+        "inspectionSliderKeepsPauseAndStopsThrust",
+        "playingDeploymentDragTemporarilyPauses",
+        "deploymentReleaseResumesPriorPlaying",
+        "spectralKeepsPause",
+        "returnToFilmKeepsPause",
+        "photoWorksAndKeepsPause"
+      ],
+      "failed": [],
+      "errors": []
+    },
+    "overlays": {
+      "assertions": 15,
+      "passed": [
+        "舰内记忆 ↗FocusClose",
+        "舰内记忆 ↗KeyboardWrap",
+        "舰内记忆 ↗ReturnsFocus",
+        "舰内记忆 ↗KeepsPause",
+        "概念影像 ↗FocusClose",
+        "概念影像 ↗KeyboardWrap",
+        "概念影像 ↗ReturnsFocus",
+        "概念影像 ↗KeepsPause",
+        "allEightImagesLoad",
+        "playingOverlayTemporarilyStopsClock",
+        "aboutCopyAndSource",
+        "closeOverlayResumesPriorPlaying",
+        "soundDefaultsOff",
+        "soundOptIn",
+        "noViewportOverflow"
+      ],
+      "failed": [],
+      "errors": []
+    },
+    "lifecycle": {
+      "assertions": 15,
+      "passed": [
+        "controlledVisibilityStopsFrames",
+        "visibilityPreservesExplicitPause",
+        "dragBeginsTemporaryPause",
+        "hiddenReleasesOnlyTemporaryScrub",
+        "pointerCancelReleasesTemporaryScrub",
+        "windowBlurReleasesTemporaryScrub",
+        "keyboardBlurDoesNotStick",
+        "fullscreenEnters",
+        "fullscreenExitsKeepsPause",
+        "contextLossDisablesControls",
+        "contextRetryRecoversAndKeepsPause",
+        "reducedMotionStopsUnrequestedMotion",
+        "returnPreludeResetsDisplayedClock",
+        "reducedMotionExplicitPlayOptIn",
+        "preferenceChangePreservesExplicitPause"
+      ],
+      "failed": [],
+      "errors": []
+    },
+    "film": {
+      "assertions": 9,
+      "passed": [
+        "continuousFilmReaches72",
+        "fourActsVisited",
+        "filmClockNeverReverses",
+        "noUnrequestedPause",
+        "deployAndStowSeen",
+        "continuousEngineInterlock",
+        "endingAppears",
+        "clockClampsAtEnd",
+        "replayRestarts"
+      ],
+      "failed": [],
+      "errors": []
+    },
+    "ending": {
+      "assertions": 5,
+      "passed": [
+        "desktopCaptionAbsentAtEnd",
+        "mobileCaptionAbsentAtEnd",
+        "mobileEndingControlsFit",
+        "mobileGalleryImageLoaded",
+        "mobileGalleryControlsFit"
+      ],
+      "failed": [],
+      "errors": []
+    }
+  },
+  "continuousFilm": {
+    "realSeconds": 74.247,
+    "samples": 72,
+    "firstTime": 0.0133,
+    "lastTime": 72,
+    "framesRendered": 5420,
+    "meanFps": 75,
+    "acts": [
+      "01 显影 REVELATION ↗",
+      "02 重构 RECONSTRUCTION ↗",
+      "03 武备 ARMAMENT ↗",
+      "04 跃迁 TRANSCENDENCE ↗"
+    ],
+    "performanceScope": "Observed local RTX 4070 SUPER at 1920×1080; not a cross-device benchmark. Real elapsed time includes polling, screenshots, end clamp and replay checks.",
+    "sampleMethod": "One sample per second after first started/playing renderer tick.",
+    "deploymentAndThrustOverlapSamples": 0
+  },
+  "mechanicalKeyframes": [
+    {
+      "time": 35.25,
+      "allFourGroups": 0.5,
+      "thrust": 0
+    },
+    {
+      "time": 38.5,
+      "allFourGroups": 1,
+      "thrust": 0
+    },
+    {
+      "time": 50.75,
+      "allFourGroups": 0.5,
+      "thrust": 0
+    },
+    {
+      "time": 54,
+      "allFourGroups": 0,
+      "thrust": 0
+    },
+    {
+      "time": 57,
+      "allFourGroups": 0,
+      "thrust": 0.5
+    },
+    {
+      "time": 60,
+      "allFourGroups": 0,
+      "thrust": 1
+    }
+  ],
+  "inspectionModes": [
+    {
+      "mode": "overview",
+      "deployment": 0,
+      "thrust": 0,
+      "explicitlyPaused": true
+    },
+    {
+      "mode": "main",
+      "deployment": 1,
+      "thrust": 0,
+      "explicitlyPaused": true
+    },
+    {
+      "mode": "secondary",
+      "deployment": 1,
+      "thrust": 0,
+      "explicitlyPaused": true
+    },
+    {
+      "mode": "defense",
+      "deployment": 1,
+      "thrust": 0,
+      "explicitlyPaused": true
+    },
+    {
+      "mode": "bridge",
+      "deployment": 1,
+      "thrust": 0,
+      "explicitlyPaused": true
+    },
+    {
+      "mode": "engines",
+      "deployment": 0,
+      "thrust": 0.86,
+      "explicitlyPaused": true
+    }
+  ],
+  "responsive": [
+    {
+      "viewport": "1920×1080",
+      "state": "prelude",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "1920×1080",
+      "state": "inspection",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "1366×768",
+      "state": "prelude",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "1366×768",
+      "state": "inspection",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "3440×1440",
+      "state": "prelude",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "3440×1440",
+      "state": "inspection",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "390×844",
+      "state": "prelude",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    },
+    {
+      "viewport": "390×844",
+      "state": "inspection",
+      "documentOverflow": false,
+      "controlsOutsideViewport": 0
+    }
+  ],
+  "gallery": {
+    "distinctImagesLoaded": 8,
+    "nativeDialogFocusAndEscape": "passed",
+    "arrowKeyWrapping": "passed",
+    "mobileImageAndControls": "passed"
+  },
+  "lifecycle": {
+    "contextLoss": "Real WEBGL_lose_context extension used; retry restored rendered scene, film time and explicit pause.",
+    "fullscreen": "Native browser fullscreen entered and exited.",
+    "visibility": "Controlled document.hidden/visibilityState getters and real visibilitychange events; real tab hiding was inconclusive in this Playwright CLI harness in prior QA.",
+    "pointerCancelAndWindowBlur": "Event handler checks use dispatched pointercancel/window blur after real pointer drag start.",
+    "reducedMotion": "Default static state and explicit play opt-in verified."
+  },
+  "resolved": [
+    "Keyboard timeline holds now suspend playback until release.",
+    "Ending chapter caption is removed on desktop and mobile, leaving a single ending title."
+  ],
+  "warnings": [
+    "No warnings or errors on clean static startup. Intentional context-loss test may emit a WEBGL_lose_context disposal warning.",
+    "Existing nonfatal Nitro external-import warnings remain in the successful generate log; see README.md in this review directory."
+  ],
+  "screenshots": {
+    "prologue": "output/playwright/v0250-qa-prologue.png",
+    "reconstruction": "output/playwright/v0250-qa-film-24.png",
+    "armament": "output/playwright/v0250-qa-film-46.png",
+    "ending": "output/playwright/v0250-qa-ending.png",
+    "mobilePrologue": "output/playwright/v0250-qa-mobile-prelude.png",
+    "ultrawideInspection": "output/playwright/v0250-qa-layout-3440.png"
+  },
+  "evidence": "Bounded helpers and raw logs remain in ignored work/v0250-review; six focus views and half-deployment captures remain in output/playwright. Core, overlays and lifecycle passed before the final caption-only patch; final static startup, full continuous film and ending/mobile captures passed after that patch."
+}
