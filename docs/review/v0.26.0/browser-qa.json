@@ -1,0 +1,317 @@
+{
+  "revision": "v0.26.0",
+  "date": "2026-10-29",
+  "timezone": "Asia/Shanghai",
+  "target": "http://127.0.0.1:4180/",
+  "environment": {
+    "browser": "Chromium via Playwright CLI, headed, clean folio-final session",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 SUPER (0x00002783) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "asset": "/models/odin.glb",
+    "joints": "215",
+    "groups": {
+      "main": 34,
+      "single": 104,
+      "defense": 40,
+      "quad": 36
+    }
+  },
+  "result": {
+    "passed": 96,
+    "failed": 0,
+    "targetedVisualAssertionsPassed": 5,
+    "targetedVisualAssertionsFailed": 0
+  },
+  "buildScope": "Full suite used generated output. A refreshed build received targeted checks after the final highlight, camera and caption fixes.",
+  "suites": {
+    "core": {
+      "passed": [
+        "coverIsModelOnly",
+        "defaultOrbitRuns",
+        "explicitPauseFreezesMotion",
+        "allTreatmentsKeepPause",
+        "anatomyRouteKeepsPause",
+        "anatomyAutomaticallyDeploys",
+        "fourMechanicalViewsAndIntermediatePoses",
+        "openWeaponsAlwaysHaveZeroThrust",
+        "engineClosesBeforeIgniting",
+        "engineModeKeepsPause",
+        "pausedDragKeepsPauseAndStopsEngine",
+        "playingDragTemporarilyPauses",
+        "pointerReleaseResumes",
+        "keyboardHoldTemporarilyPauses",
+        "keyboardReleaseResumes",
+        "pointerCancelReleasesScrub",
+        "windowBlurReleasesScrub",
+        "pausedKeyboardKeepsPause",
+        "resetViewKeepsPause",
+        "photoDownloads",
+        "coverReturnsOverviewKeepsPause",
+        "coverAutomaticallyStows"
+      ],
+      "failed": [],
+      "completed": true,
+      "errors": []
+    },
+    "gallery": {
+      "passed": [
+        "archiveStopsHiddenModelFrames",
+        "dialogFocusesClose",
+        "galleryArrowRightFromDefaultFocus",
+        "galleryArrowLeftReturns",
+        "image1ReturnsFocus",
+        "image2ReturnsFocus",
+        "image3ReturnsFocus",
+        "image4ReturnsFocus",
+        "image5ReturnsFocus",
+        "image6ReturnsFocus",
+        "image7ReturnsFocus",
+        "image8ReturnsFocus",
+        "image9ReturnsFocus",
+        "image10ReturnsFocus",
+        "image11ReturnsFocus",
+        "allElevenImagesLoadWithSources",
+        "previousButtonWraps",
+        "nextButtonWraps",
+        "allFourInteriorsAndWrap",
+        "interiorOpensCorrectFullImage",
+        "interiorCloseReturnsFocus",
+        "navigationAndDialogsPreservePause",
+        "aboutTemporarilyStopsFrames",
+        "aboutHasTwelveSourceLinks",
+        "closingAboutResumesPriorPlaying",
+        "chapterKeyboardNavigation"
+      ],
+      "failed": [],
+      "completed": true,
+      "errors": []
+    },
+    "lifecycle": {
+      "passed": [
+        "hiddenPageStopsFrames",
+        "visibilityKeepsExplicitPause",
+        "dragStartsScrub",
+        "visibilityReleasesOnlyTemporaryPause",
+        "orbitDragWorksWhileExplicitlyPaused",
+        "wheelZoomWorks",
+        "resetAfterManualOrbitKeepsPause",
+        "contextLossShowsRecovery",
+        "contextLossDisablesControls",
+        "contextRetryRestoresSceneAndPause",
+        "reducedMotionStatic",
+        "reducedMotionExplicitOptIn",
+        "mediaPreferenceChangeKeepsPause"
+      ],
+      "failed": [],
+      "completed": true,
+      "errors": []
+    },
+    "layout": {
+      "passed": [
+        "1920x1080_cover_noHorizontalOverflow",
+        "1920x1080_cover_controlsInViewport",
+        "1920x1080_anatomy_noHorizontalOverflow",
+        "1920x1080_anatomy_controlsInViewport",
+        "1920x1080_within_noHorizontalOverflow",
+        "1920x1080_within_controlsInViewport",
+        "1920x1080_archive_noHorizontalOverflow",
+        "1920x1080_archive_controlsInViewport",
+        "1366x768_cover_noHorizontalOverflow",
+        "1366x768_cover_controlsInViewport",
+        "1366x768_anatomy_noHorizontalOverflow",
+        "1366x768_anatomy_controlsInViewport",
+        "1366x768_within_noHorizontalOverflow",
+        "1366x768_within_controlsInViewport",
+        "1366x768_archive_noHorizontalOverflow",
+        "1366x768_archive_controlsInViewport",
+        "3440x1440_cover_noHorizontalOverflow",
+        "3440x1440_cover_controlsInViewport",
+        "3440x1440_anatomy_noHorizontalOverflow",
+        "3440x1440_anatomy_controlsInViewport",
+        "3440x1440_within_noHorizontalOverflow",
+        "3440x1440_within_controlsInViewport",
+        "3440x1440_archive_noHorizontalOverflow",
+        "3440x1440_archive_controlsInViewport",
+        "390x844_cover_noHorizontalOverflow",
+        "390x844_cover_controlsInViewport",
+        "390x844_anatomy_noHorizontalOverflow",
+        "390x844_anatomy_controlsInViewport",
+        "390x844_within_noHorizontalOverflow",
+        "390x844_within_controlsInViewport",
+        "390x844_archive_noHorizontalOverflow",
+        "390x844_archive_controlsInViewport",
+        "mobileLastThumbnailReachable",
+        "mobileDialogControlsFit",
+        "mobileDialogFocusRestored"
+      ],
+      "failed": [],
+      "completed": true,
+      "errors": []
+    }
+  },
+  "mechanics": {
+    "modesChecked": [
+      "overview",
+      "main",
+      "secondary",
+      "defense",
+      "bridge",
+      "engines"
+    ],
+    "fourGroupPoses": [
+      0.5,
+      1
+    ],
+    "engineInterlock": {
+      "samples": 85,
+      "violations": 0,
+      "first": {
+        "deployment": 1,
+        "thrust": 0
+      },
+      "last": {
+        "deployment": 0,
+        "thrust": 0.04
+      }
+    },
+    "chapterDefaults": "Cover returns overview and stows to 0; entering anatomy from cover deploys to 1, without clearing explicit pause."
+  },
+  "images": {
+    "archiveUniqueLoaded": 11,
+    "interiorsUniqueLoaded": 4,
+    "sourceLinksChecked": true,
+    "keyboardNavigationAndFocusRestore": true
+  },
+  "layouts": [
+    {
+      "viewport": "1920x1080",
+      "pages": [
+        "cover",
+        "anatomy",
+        "within",
+        "archive"
+      ],
+      "documentMatchesViewport": true,
+      "outOfBoundsControls": 0
+    },
+    {
+      "viewport": "1366x768",
+      "pages": [
+        "cover",
+        "anatomy",
+        "within",
+        "archive"
+      ],
+      "documentMatchesViewport": true,
+      "outOfBoundsControls": 0
+    },
+    {
+      "viewport": "3440x1440",
+      "pages": [
+        "cover",
+        "anatomy",
+        "within",
+        "archive"
+      ],
+      "documentMatchesViewport": true,
+      "outOfBoundsControls": 0
+    },
+    {
+      "viewport": "390x844",
+      "pages": [
+        "cover",
+        "anatomy",
+        "within",
+        "archive"
+      ],
+      "documentMatchesViewport": true,
+      "outOfBoundsControls": 0
+    }
+  ],
+  "recovery": {
+    "webglLossInjected": true,
+    "retryPassed": true,
+    "controlsDisabledDuringLoss": true,
+    "console": "Only the expected informational THREE.WebGLRenderer: Context Lost message occurred during intentional fault injection; no browser errors or warnings."
+  },
+  "targetedVisual": {
+    "passed": [
+      "coverUses3DWithoutArtwork",
+      "threeTreatmentsKeepPause",
+      "fourMechanicalModesRemainDeployedAndPaused",
+      "mobileCoverNoOverflow",
+      "mobileAnatomyNoOverflow"
+    ],
+    "failed": [],
+    "completed": true,
+    "errors": [],
+    "warnings": [],
+    "networkErrors": [],
+    "performance": {
+      "durationMs": 2016,
+      "frames": 151,
+      "fps": 74.9,
+      "viewport": "1920x1080",
+      "method": "renderedFrames delta over 2-second playing window; hardware-specific spot sample"
+    },
+    "focuses": [
+      {
+        "mode": "main",
+        "actual": "main",
+        "highlightedGroup": "main",
+        "deployment": 1,
+        "thrust": 0,
+        "playing": "false"
+      },
+      {
+        "mode": "secondary",
+        "actual": "secondary",
+        "highlightedGroup": "single",
+        "deployment": 1,
+        "thrust": 0,
+        "playing": "false"
+      },
+      {
+        "mode": "defense",
+        "actual": "defense",
+        "highlightedGroup": "defense",
+        "deployment": 1,
+        "thrust": 0,
+        "playing": "false"
+      },
+      {
+        "mode": "bridge",
+        "actual": "bridge",
+        "highlightedGroup": "quad",
+        "deployment": 1,
+        "thrust": 0,
+        "playing": "false"
+      }
+    ]
+  },
+  "visualReview": {
+    "status": "passed by image inspection",
+    "fixedIssue": "Merged hull primitive retained Axial_Stern_FixedSlotLips as its mesh name and was incorrectly highlighted as a secondary weapon. Highlight ancestry now requires actual static joints; secondary camera was pulled back 20%.",
+    "checks": [
+      "Secondary weapon assemblies are blue while the hull remains neutral.",
+      "Main, defense and bridge modes retain their own local accents; fixed bridge armor stays neutral.",
+      "Secondary menu labels and arrow remain readable against the paper backing.",
+      "Desktop cover note is below the bow, separated from the model.",
+      "Mobile cover contains the complete ship; mobile main-battery view shows both selected assemblies.",
+      "Print, contour and solid treatments render distinctly and preserve explicit pause."
+    ]
+  },
+  "limitations": [
+    "Controlled document.hidden/visibilityState getters with visibilitychange events; native background-tab visibility was not reliably available in this CLI harness.",
+    "Responsive checks used Chromium viewport emulation on desktop hardware, not physical mobile devices.",
+    "Performance is a short hardware-specific observation, not a cross-device benchmark.",
+    "No geometry or articulation helper changes were introduced by the final visual fixes."
+  ],
+  "screenshots": [
+    "output/playwright/v0260-qa-final-cover.png",
+    "output/playwright/v0260-qa-final-mobile-cover.png",
+    "output/playwright/v0260-qa-main-deployed.png",
+    "output/playwright/v0260-qa-secondary-deployed.png",
+    "output/playwright/v0260-qa-defense-deployed.png",
+    "output/playwright/v0260-qa-bridge-deployed.png"
+  ]
+}
