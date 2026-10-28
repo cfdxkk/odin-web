@@ -1,307 +1,662 @@
 <script setup lang="ts">
-import { FILM_DURATION, MODES, isPlaying, nextPlayback, sampleOdinMotion } from '~/lib/odin-motion'
-import { ODIN_TOUR, clampTourIndex, selectTourChapter, tourWheelTarget } from '~/lib/odin-tour'
-import { CHAPTER_COPY } from '~/lib/odin-copy'
-import { ODIN_WALLPAPERS } from '~/lib/odin-artwork'
-import { WEAPON_TOUR, clampWeaponStep } from '~/lib/odin-weapon-tour'
+import { isPlaying, nextPlayback } from '~/lib/odin-motion'
+import {
+  ATLAS_MODES as modes,
+  ATLAS_GALLERY as gallery,
+  type AtlasModeId,
+} from '~/lib/atlas-content'
 import { INTERIOR_SECTIONS } from '~/lib/odin-interiors'
-import { weaponScrollProgress, weaponScrollOffset, weaponStepAt, weaponStageTop, isWithinWeaponScroll } from '~/lib/odin-scroll'
-
-const { locale, copy: c, setLocale } = useOdinLocale()
-const viewer = ref<{ seek: (t: number, options?: { immediate?: boolean }) => void; capturePhoto: () => Promise<Blob> }>()
-const reviewMode = ref(false), activeChapter = ref(0), modelPanel = ref<HTMLElement>()
-const ready = ref(false), progress = ref(0), explore = ref(false), deployed = ref(true), lowPower = ref(false)
-const viewportActive = ref(true), reducedMotion = ref(false)
-const changingView = ref(false)
-const weaponStep = ref(0)
-const weaponProgress = ref(0)
-const calloutOrigin = ref({ x: 0, y: 0, visible: false })
-const capturing = ref(false), photoStatus = ref('')
-const timelineTime = ref(0)
-let rewindFrame = 0, rewindStarted = 0
-function cancelRewind() { cancelAnimationFrame(rewindFrame); rewindFrame = 0; timelineTime.value = filmTime.value }
-function onFilmTick(time: number) { filmTime.value = time; if (!rewindFrame) timelineTime.value = time }
-function rewindTimeline() {
-  cancelAnimationFrame(rewindFrame)
-  if (reducedMotion.value) { timelineTime.value = filmTime.value; return }
-  rewindStarted = performance.now()
-  const update = (now: number) => {
-    const t = Math.min(1, (now - rewindStarted) / 650), eased = t * t * (3 - 2 * t)
-    timelineTime.value = FILM_DURATION + (filmTime.value - FILM_DURATION) * eased
-    rewindFrame = t < 1 ? requestAnimationFrame(update) : 0
-  }
-  rewindFrame = requestAnimationFrame(update)
-}
-async function capturePhoto() {
-  if (!viewer.value || capturing.value) return
-  capturing.value = true; photoStatus.value = ''
-  try {
-    const blob = await viewer.value.capturePhoto(), url = URL.createObjectURL(blob)
-    const link = document.createElement('a'); link.href = url; link.download = 'odin-free-view.png'; link.click()
-    setTimeout(() => URL.revokeObjectURL(url), 30000)
-    photoStatus.value = locale.value === 'zh' ? '已导出透明 PNG' : 'Transparent PNG exported'
-  } catch { photoStatus.value = locale.value === 'zh' ? '导出失败，请重试' : 'Export failed. Please retry.' }
-  finally { capturing.value = false }
-}
-const chromeVisible = computed(() => activeChapter.value === 0 && viewportActive.value)
-const archiveActive = ref(false)
-const headerVisible = computed(() => chromeVisible.value || archiveActive.value)
-// The homepage autoplays; an explicit pause remains in force across chapters.
-const playback = ref({ userPaused: false, scrubbing: false })
-const sequenceOverride = ref(false)
-const playing = computed(() => isPlaying(playback.value))
-const filmPlaying = computed(() => !explore.value && playing.value && (activeChapter.value === 0 || sequenceOverride.value))
-function togglePlayback() {
-  if (activeChapter.value === 1) {
-    playback.value = nextPlayback(playback.value, 'toggle')
-    sequenceOverride.value = false
-    return
-  }
-  if (filmPlaying.value) playback.value = nextPlayback(playback.value, 'toggle')
-  else { playback.value = { ...playback.value, userPaused: false }; sequenceOverride.value = true }
-}
-const beginScrub = () => { cancelRewind(); playback.value = nextPlayback(playback.value, 'scrub-start') }
-let scrubPointer: number | undefined, scrubStartX = 0, scrubDragging = false
-const endScrub = () => { playback.value = nextPlayback(playback.value, 'scrub-end'); scrubPointer = undefined; scrubDragging = false }
-function startPointerScrub(event: PointerEvent) { scrubPointer = event.pointerId; scrubStartX = event.clientX; scrubDragging = false; beginScrub() }
-function movePointerScrub(event: PointerEvent) { if (event.pointerId === scrubPointer && Math.abs(event.clientX - scrubStartX) > 3) scrubDragging = true }
-const filmTime = ref(0), error = ref(''), showAbout = ref(false)
-const aboutDialog = ref<HTMLDialogElement>()
-watch(showAbout, value => { if (value) aboutDialog.value?.showModal(); else aboutDialog.value?.close() })
-const chapters = computed(() => ODIN_TOUR.map(shot => {
-  const copy = CHAPTER_COPY[locale.value][shot.id]
-  const interior = shot.id === 'bridge' ? INTERIOR_SECTIONS.bridge : shot.id === 'engines' ? INTERIOR_SECTIONS.aft : undefined
-  return { ...shot, ...copy, body: interior?.[locale.value].body ?? copy.body, specs: interior ? [] : copy.specs, interior }
+const mode = ref<AtlasModeId>('overview'),
+  deployment = ref(0)
+const currentMode = computed(
+  () => modes.find((item) => item.id === mode.value)!,
+)
+const playback = ref({ userPaused: false, scrubbing: false }),
+  playing = computed(() => isPlaying(playback.value))
+const technical = ref(false),
+  reducedMotion = ref(false),
+  ready = ref(false),
+  progress = ref(0),
+  error = ref('')
+const viewer = ref<{
+  resetView: () => void
+  capturePhoto: () => Promise<Blob>
+}>()
+const lab = ref<HTMLElement>(),
+  labActive = ref(false),
+  labLoaded = ref(false),
+  visible = ref(true)
+const menuOpen = ref(false),
+  currentSection = ref('intro'),
+  photoStatus = ref(''),
+  capturing = ref(false)
+const heroShift = ref({ x: 0, y: 0 })
+const heroStyle = computed(() => ({
+  '--shift-x': `${heroShift.value.x}px`,
+  '--shift-y': `${heroShift.value.y}px`,
 }))
-const currentChapter = computed(() => chapters.value[activeChapter.value]!)
-const phaseIndex = computed(() => filmTime.value < 12 ? 0 : filmTime.value < 32 ? 1 : 2)
-const phases = computed(() => [c.value.exterior, c.value.combat, c.value.navigation])
-const formatTime = (t: number) => `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(Math.floor(t % 60)).padStart(2, '0')}`
-const clock = computed(() => formatTime(filmTime.value))
-const artworkIndex = ref(0)
-const artwork = computed(() => ODIN_WALLPAPERS[artworkIndex.value]!)
-function changeArtwork(index: number) { artworkIndex.value = (index + ODIN_WALLPAPERS.length) % ODIN_WALLPAPERS.length }
-function goToChapter(index: number, entry: 'start' | 'end' = 'start') {
-  const next = clampTourIndex(index), element = document.getElementById(ODIN_TOUR[next]!.id)
-  if (!element) return
-  const bounds = element.getBoundingClientRect()
-  const offset = next === 1 && entry === 'end' ? Math.max(0, bounds.height - window.innerHeight) : 0
-  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value || Math.abs(next - activeChapter.value) > 1 ? 'instant' : 'smooth' })
+const links = [
+  { id: 'intro', label: '初见', no: '01' },
+  { id: 'observatory', label: '机械之美', no: '02' },
+  { id: 'interior', label: '舰内世界', no: '03' },
+  { id: 'archive', label: '影像档案', no: '04' },
+]
+const interiorIndex = ref(0)
+const interiors = [
+  {
+    no: '01',
+    title: '指挥中枢',
+    en: 'THE BRIDGE',
+    text: '透过舰桥，读懂一艘战舰。前方中央的舰长席位连接观察、决策与舰队协同。',
+    image: INTERIOR_SECTIONS.bridge.images[0]!,
+  },
+  {
+    no: '02',
+    title: '舰队的另一端',
+    en: 'THE HANGAR',
+    text: '中央机库与六座侧机库相连。从回收到补给，每一次再次出动，都从这片空间开始。',
+    image: INTERIOR_SECTIONS.aft.images[0]!,
+  },
+  {
+    no: '03',
+    title: '行动之前',
+    en: 'THE BRIEFING ROOM',
+    text: '一场行动，从共同的坐标开始。简报空间为船员集合、讨论与战术协作而设。',
+    image: INTERIOR_SECTIONS.bridge.images[2]!,
+  },
+]
+const interior = computed(() => interiors[interiorIndex.value]!)
+const lightbox = ref<HTMLDialogElement>(),
+  galleryIndex = ref(0)
+const galleryImage = computed(() => gallery[galleryIndex.value]!)
+const formatIndex = (n: number) => String(n + 1).padStart(2, '0')
+function chooseMode(id: AtlasModeId) {
+  mode.value = id
+  deployment.value = ['main', 'secondary', 'defense', 'bridge'].includes(id)
+    ? 1
+    : 0
 }
-function selectWeaponStep(index: number) {
-  const section = document.getElementById('batteries')
-  if (!section) return
-  const bounds = section.getBoundingClientRect()
-  const offset = weaponScrollOffset(clampWeaponStep(index), WEAPON_TOUR.length, bounds.height, window.innerHeight)
-  window.scrollTo({ top: window.scrollY + bounds.top + offset, behavior: reducedMotion.value ? 'instant' : 'smooth' })
+function togglePlayback() {
+  playback.value = nextPlayback(playback.value, 'toggle')
 }
-function advanceChapter(index: number) {
-  if (index === 1 && weaponStep.value < WEAPON_TOUR.length - 1) selectWeaponStep(weaponStep.value + 1)
-  else goToChapter(index + 1)
+function onSceneFail(message: string) {
+  error.value = message
+  ready.value = false
 }
-function nextStepLabel(index: number) {
-  return index === 1 && weaponStep.value < WEAPON_TOUR.length - 1 ? locale.value === 'zh' ? '下一项武备' : 'Next weapon' : c.value.nextChapter
-}
-function goToArchive() { document.getElementById('archive')?.scrollIntoView({ block: 'start', behavior: reducedMotion.value ? 'instant' : 'smooth' }) }
-async function choosePhase(index: number) {
-  cancelRewind()
-  explore.value = false
+async function retryScene() {
+  error.value = ''
+  ready.value = false
+  progress.value = 0
+  labLoaded.value = false
   await nextTick()
-  viewer.value?.seek(filmPlaying.value ? MODES[index]!.time : [0, 24, 46][index]!)
+  labLoaded.value = true
 }
-watch(locale, () => {
-  if (!viewportActive.value || reviewMode.value) return
-  const chapter = activeChapter.value, savedProgress = weaponProgress.value
-  nextTick(() => {
-    const element = document.getElementById(ODIN_TOUR[chapter]!.id)
-    if (!element) return
-    const bounds = element.getBoundingClientRect()
-    window.scrollTo({ top: window.scrollY + bounds.top + (chapter === 1 ? savedProgress * Math.max(0, bounds.height - window.innerHeight) : 0), behavior: 'instant' })
-  })
-})
-function toggleExplore() {
-  cancelRewind(); photoStatus.value = ''
-  if (!explore.value) deployed.value = sampleOdinMotion(filmTime.value).deployment > .5
-  explore.value = !explore.value
+function beginScrub(event?: PointerEvent) {
+  if (event)
+    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
+  playback.value = nextPlayback(playback.value, 'scrub-start')
 }
-function scrub(event: Event) { cancelRewind(); viewer.value?.seek(Number((event.target as HTMLInputElement).value), { immediate: scrubDragging }) }
-function scrubKey(event: KeyboardEvent) { if (/^(Arrow|Home|End|Page)/.test(event.key)) beginScrub() }
-function keyboard(event: KeyboardEvent) {
-  const element = event.target as HTMLElement
-  if (/INPUT|BUTTON|A|TEXTAREA|SELECT/.test(element.tagName) || showAbout.value) return
-  if (event.code === 'Space' && viewportActive.value) { event.preventDefault(); if (ready.value && !explore.value) togglePlayback() }
-  if (event.key.toLowerCase() === 'r' && !explore.value && viewportActive.value) { cancelRewind(); viewer.value?.seek(ODIN_TOUR[activeChapter.value]!.time) }
+function endScrub() {
+  playback.value = nextPlayback(playback.value, 'scrub-end')
 }
-watch(activeChapter, () => {
-  explore.value = false
-  sequenceOverride.value = false
-  scheduleWeaponConnector()
-})
-watch(weaponStep, () => nextTick(scheduleWeaponConnector))
-let scrollFrame = 0
-let connectorFrame = 0
-function scheduleWeaponConnector() {
-  if (!import.meta.client || connectorFrame) return
-  connectorFrame = requestAnimationFrame(updateWeaponConnector)
+function sliderKey(event: KeyboardEvent) {
+  if (
+    [
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End',
+      'PageUp',
+      'PageDown',
+    ].includes(event.key)
+  )
+    beginScrub()
 }
-function updateWeaponConnector() {
-  connectorFrame = 0
-  const origin = document.querySelector<HTMLElement>('#batteries .weapon-callout-origin')
-  const canvas = modelPanel.value?.querySelector<HTMLCanvasElement>('.odin-canvas')
-  if (activeChapter.value !== 1 || !viewportActive.value || !ready.value || !origin || !canvas) {
-    calloutOrigin.value = { ...calloutOrigin.value, visible: false }
-    return
+function onHeroMove(event: PointerEvent) {
+  if (reducedMotion.value || event.pointerType === 'touch') return
+  const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
+  heroShift.value = {
+    x: ((event.clientX - rect.left) / rect.width - 0.5) * 14,
+    y: ((event.clientY - rect.top) / rect.height - 0.5) * 10,
   }
-  const bounds = canvas.getBoundingClientRect(), label = origin.getBoundingClientRect()
-  const startX = label.left + label.width / 2 - bounds.left
-  const startY = label.top + label.height / 2 - bounds.top
-  calloutOrigin.value = { x: startX, y: startY, visible: bounds.width > 0 && bounds.height > 0 && label.width > 0 && label.height > 0 }
 }
-watch([locale, ready, viewportActive], () => nextTick(scheduleWeaponConnector))
-let wheelAmount = 0, wheelLastAt = 0, wheelCommitted = false
-function tourAnchor() {
-  // Each chapter occupies a whole viewport; the canvas fills that viewport too.
-  return 0
+function openImage(index: number) {
+  galleryIndex.value = index
+  lightbox.value?.showModal()
 }
-function onTourWheel(event: WheelEvent) {
-  const element = event.target as Element
-  if (reviewMode.value || showAbout.value || element.closest?.('dialog') || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
-  const archiveTop = document.getElementById('archive')?.getBoundingClientRect().top ?? Infinity
-  const fromArchive = !!element.closest?.('#archive') && event.deltaY < 0 && Math.abs(archiveTop) < 48
-  if (!element.closest?.('#tour') && !fromArchive) return
-  if (explore.value && element.closest('.scene-wrap')) return
-  const bounds = document.getElementById(ODIN_TOUR[activeChapter.value]!.id)?.getBoundingClientRect()
-  if (!bounds) return
-  const direction = event.deltaY > 0 ? 1 : -1
-  if (activeChapter.value === 1 && !fromArchive && isWithinWeaponScroll(bounds.top, bounds.height, window.innerHeight, direction)) {
-    wheelAmount = 0; wheelCommitted = false
-    return
+function stepImage(step: number) {
+  galleryIndex.value =
+    (galleryIndex.value + step + gallery.length) % gallery.length
+}
+function onDialogKey(event: KeyboardEvent) {
+  if (event.key === 'ArrowLeft') stepImage(-1)
+  if (event.key === 'ArrowRight') stepImage(1)
+}
+async function capture() {
+  if (!viewer.value || capturing.value) return
+  capturing.value = true
+  try {
+    const blob = await viewer.value.capturePhoto(),
+      url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = 'ODIN-ATLAS.png'
+    anchor.click()
+    setTimeout(() => URL.revokeObjectURL(url), 10000)
+    photoStatus.value = '影像已保存'
+  } catch {
+    photoStatus.value = '保存失败，请重试'
+  } finally {
+    capturing.value = false
   }
-  const top = activeChapter.value === 1 ? weaponStageTop(bounds.top, bounds.height, window.innerHeight) : bounds.top
-  const next = fromArchive ? 3 : tourWheelTarget(activeChapter.value, event.deltaY > 0 ? 1 : -1, top, tourAnchor(), true)
-  if (next === undefined) return
-  event.preventDefault()
-  const now = performance.now()
-  if (now - wheelLastAt > 180) { wheelAmount = 0; wheelCommitted = false }
-  wheelLastAt = now
-  if (wheelCommitted) return
-  wheelAmount += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1)
-  if (Math.abs(wheelAmount) < 40) return
-  wheelCommitted = true
-  if (next === ODIN_TOUR.length) goToArchive()
-  else goToChapter(next, direction < 0 && next === 1 ? 'end' : 'start')
 }
-function updateChapter() {
-  scrollFrame = 0
-  if (reviewMode.value) return
-  const tour = document.getElementById('tour')?.getBoundingClientRect()
-  archiveActive.value = (document.getElementById('archive')?.getBoundingClientRect().top ?? Infinity) < window.innerHeight * .5
-  const header = headerVisible.value ? document.querySelector('.site-header')?.getBoundingClientRect().height || 92 : 0
-  // Once the canvas has scrolled behind the fixed header, it is no longer
-  // visible. Observing its full box alone would keep rendering that hidden strip.
-  viewportActive.value = !!tour && tour.bottom > header + 1 && tour.top < window.innerHeight
-  const anchor = tourAnchor()
-  const tops = ODIN_TOUR.map((shot, index) => {
-    const bounds = document.getElementById(shot.id)?.getBoundingClientRect()
-    if (!bounds) return Infinity
-    if (index !== 1) return bounds.top
-    weaponProgress.value = weaponScrollProgress(bounds.top, bounds.height, window.innerHeight)
-    weaponStep.value = weaponStepAt(weaponProgress.value, WEAPON_TOUR.length)
-    return weaponStageTop(bounds.top, bounds.height, window.innerHeight)
-  })
-  activeChapter.value = selectTourChapter(tops, anchor)
-  scheduleWeaponConnector()
+function onVisibility() {
+  visible.value = !document.hidden
+  endScrub()
 }
-function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateChapter) }
+function onKey(event: KeyboardEvent) {
+  if (event.key === 'Escape') menuOpen.value = false
+  if (
+    event.code === 'Space' &&
+    labActive.value &&
+    !(
+      event.target instanceof Element &&
+      event.target.closest('button, input, a, dialog')
+    )
+  ) {
+    event.preventDefault()
+    togglePlayback()
+  }
+}
+let observer: IntersectionObserver | undefined,
+  navObserver: IntersectionObserver | undefined,
+  motionQuery: MediaQueryList | undefined
+function onMotion() {
+  reducedMotion.value = motionQuery?.matches ?? false
+  if (reducedMotion.value) playback.value.userPaused = true
+}
 onMounted(() => {
-  reviewMode.value = new URLSearchParams(window.location.search).get('review') === 'secondary'
-  reducedMotion.value = matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (reducedMotion.value) playback.value = { ...playback.value, userPaused: true }
-  lowPower.value = window.innerWidth < 700
-  window.addEventListener('keydown', keyboard)
+  motionQuery = matchMedia('(prefers-reduced-motion: reduce)')
+  onMotion()
+  motionQuery.addEventListener('change', onMotion)
+  observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0]!
+      labActive.value = entry.isIntersecting
+      if (entry.isIntersecting) labLoaded.value = true
+    },
+    { rootMargin: '250px' },
+  )
+  if (lab.value) observer.observe(lab.value)
+  navObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries)
+        if (entry.isIntersecting) currentSection.value = entry.target.id
+    },
+    { rootMargin: '-12% 0px -60% 0px' },
+  )
+  links.forEach((link) => {
+    const section = document.getElementById(link.id)
+    if (section) navObserver?.observe(section)
+  })
+  document.addEventListener('visibilitychange', onVisibility)
   window.addEventListener('pointerup', endScrub)
   window.addEventListener('pointercancel', endScrub)
-  window.addEventListener('blur', endScrub)
-  window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('wheel', onTourWheel, { passive: false })
-  window.addEventListener('resize', onScroll, { passive: true })
-  nextTick(() => {
-    if (!modelPanel.value) return
-    updateChapter()
-  })
+  window.addEventListener('keydown', onKey)
 })
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', keyboard)
+  observer?.disconnect()
+  navObserver?.disconnect()
+  motionQuery?.removeEventListener('change', onMotion)
+  document.removeEventListener('visibilitychange', onVisibility)
   window.removeEventListener('pointerup', endScrub)
   window.removeEventListener('pointercancel', endScrub)
-  window.removeEventListener('blur', endScrub)
-  window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('wheel', onTourWheel)
-  window.removeEventListener('resize', onScroll)
-  cancelAnimationFrame(scrollFrame)
-  cancelAnimationFrame(connectorFrame)
-  cancelAnimationFrame(rewindFrame)
+  window.removeEventListener('keydown', onKey)
 })
 </script>
 
 <template>
-  <ClientOnly v-if="reviewMode"><ArticulationReview /></ClientOnly>
-  <div v-else class="site-shell">
-    <header class="site-header" :class="{ 'is-hidden': !headerVisible }" :inert="!headerVisible" :aria-hidden="!headerVisible">
-      <a href="#overview" class="brand" :aria-label="c.home" @click.prevent="goToChapter(0)"><img src="/images/odin-founders-badge-v0.11.47.png" alt="" width="46" height="46" /><span>ODIN<small>{{ c.brandSub }}</small></span></a>
-      <nav :aria-label="c.navLabel"><a href="#overview" @click.prevent="goToChapter(0)"><span>01</span>{{ c.navTour }}</a><a href="#archive"><span>02</span>{{ c.navArt }}</a><button @click="showAbout = true"><span>03</span>{{ c.navAbout }}</button></nav>
-      <div class="header-right"><button class="language-switch" :aria-label="c.switchLanguage" @click="setLocale(locale === 'zh' ? 'en' : 'zh')">{{ locale === 'zh' ? 'EN' : 'ZH' }} <span aria-hidden="true">↔</span></button></div>
+  <div class="atlas">
+    <a class="skip-link" href="#main">跳至内容</a>
+    <header class="site-header">
+      <a
+        class="brand"
+        href="#intro"
+        aria-label="Odin Atlas 首页"
+        @click="menuOpen = false"
+        ><svg viewBox="0 0 36 36" aria-hidden="true">
+          <path d="M3 5h9l6 11 6-11h9L22 26h-8L3 5Z" fill="currentColor" />
+          <path d="M14 29h8v4h-8z" fill="currentColor" /></svg
+        ><span>ODIN<span class="brand-sub">THE ATLAS PROJECT</span></span></a
+      >
+      <nav class="desktop-nav" aria-label="主要导航">
+        <a
+          v-for="link in links.slice(1)"
+          :key="link.id"
+          :href="`#${link.id}`"
+          :class="{ selected: currentSection === link.id }"
+          >{{ link.label }}<sup>{{ link.no }}</sup></a
+        >
+      </nav>
+      <button
+        class="menu-toggle"
+        :aria-expanded="menuOpen"
+        aria-controls="site-index"
+        @click="menuOpen = !menuOpen"
+      >
+        <span>{{ menuOpen ? '关闭索引' : '探索索引' }}</span
+        ><span class="menu-symbol">{{ menuOpen ? '−' : '+' }}</span>
+      </button>
     </header>
-
-    <main>
-      <div id="tour" class="tour-layout">
-        <section ref="modelPanel" class="model-panel" :class="{ 'is-exploring': explore, 'has-home-controls': chromeVisible }" :aria-label="c.canvasLabel" :data-chapter="currentChapter.id" :data-weapon-step="activeChapter === 1 ? weaponStep : undefined">
-          <div class="panel-toprail"><nav class="chapter-index" :aria-label="c.chapterNav"><button v-for="(chapter, index) in chapters" :key="chapter.id" :aria-label="`${String(index + 1).padStart(2,'0')} / ${chapter.label}`" :aria-current="activeChapter === index ? 'step' : undefined" @click="goToChapter(index)"><span>{{ String(index + 1).padStart(2, '0') }}</span></button></nav></div>
-          <div class="scene-wrap">
-            <ClientOnly><OdinScene ref="viewer" :playing="playing" :film="filmPlaying" :explore="explore" :deployed="deployed" :low-power="lowPower" :view-index="activeChapter" :weapon-step="activeChapter === 1 ? weaponStep : undefined" :weapon-progress="weaponProgress" :callout-origin="calloutOrigin" :active="viewportActive" :reduced-motion="reducedMotion" :canvas-label="c.canvasLabel" @ready="ready = true" @progress="progress = $event" @tick="onFilmTick" @loop="rewindTimeline" @transition="changingView = $event" @fail="error = $event" /></ClientOnly>
-            <div class="scene-shade" aria-hidden="true" />
-            <div class="viewport-status" :aria-hidden="!chromeVisible">{{ !ready ? c.loading : explore ? c.manualView : changingView ? c.changingView : filmPlaying ? c.playing : c.paused }}</div>
-            <Transition name="fade"><div v-if="!ready && !error" class="loading-state" role="status"><p class="eyebrow">{{ c.loading }}</p><p>{{ c.loadingModel }} <span>{{ Math.round(progress) }}%</span></p><div class="loading-track"><span :style="{ width: `${progress}%` }" /></div></div></Transition>
-            <div v-if="error" class="error-state" role="alert"><p class="eyebrow">{{ c.unavailable }}</p><h2>{{ c.errorTitle }}</h2><p>{{ c.errorBody }}</p><button class="outline-button" @click="reloadNuxtApp({ force: true })">{{ c.reload }}</button><details><summary>{{ c.errorDetails }}</summary>{{ error }}</details></div>
+    <nav
+      v-if="menuOpen"
+      id="site-index"
+      class="site-index"
+      aria-label="章节索引"
+    >
+      <a
+        v-for="link in links"
+        :key="link.id"
+        :href="`#${link.id}`"
+        @click="menuOpen = false"
+        ><small>{{ link.no }}</small
+        >{{ link.label }}<span>↗</span></a
+      >
+      <p>AN INDEPENDENT STUDY OF THE ANVIL ODIN.</p>
+    </nav>
+    <main id="main">
+      <section
+        id="intro"
+        class="hero"
+        :style="heroStyle"
+        @pointermove="onHeroMove"
+        @pointerleave="heroShift = { x: 0, y: 0 }"
+      >
+        <div class="hero-kicker">
+          <span><i class="status-dot" />ANVIL AEROSPACE</span
+          ><span>BATTLECRUISER / 概念战列巡洋舰</span
+          ><span class="hero-edition">INDEPENDENT ARCHIVE — VOL. 01</span>
+        </div>
+        <h1 class="hero-title">ODIN<span class="title-star">✳</span></h1>
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="orbit-cross cross-one">+</span
+          ><span class="orbit-cross cross-two">+</span>
+        </div>
+        <div class="hero-image">
+          <img
+            :src="'/images/atlas-hero-v0.24.0.png'"
+            alt="奥丁战列巡洋舰的完整舰体与层叠的舰艉结构"
+            width="2600"
+            height="1199"
+            fetchpriority="high"
+          />
+        </div>
+        <span class="hero-coordinate mono"
+          >FIG. 001<br />ANVIL / ODIN<br />EXTERIOR STUDY</span
+        >
+        <div class="hero-bottom">
+          <div class="hero-intro">
+            <span class="eyebrow">ENGINEERED TO OVERWHELM.</span>
+            <h2>沉默之中，<br />自有雷霆。</h2>
           </div>
-          <div class="viewer-console" :inert="!chromeVisible" :aria-hidden="!chromeVisible">
-            <div class="view-actions">
-              <div class="manual-actions" :class="{ visible: explore }" :inert="!explore" :aria-hidden="!explore"><button class="mode-switch" @click="deployed = !deployed">{{ deployed ? c.switchNav : c.switchScm }} <span aria-hidden="true">↔</span></button><button class="photo-button" :disabled="capturing" @click="capturePhoto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h5l2-3h4l2 3h5v13H3Z"/><circle cx="12" cy="13" r="4"/></svg>{{ capturing ? c.capturing : c.photo }}</button></div>
-              <button class="explore-button" :disabled="!ready" :aria-pressed="explore" @click="toggleExplore">{{ explore ? c.returnGuide : c.manual }}<span aria-hidden="true">↔</span></button>
-            </div>
-            <div class="manual-hint" :class="{ visible: explore }" aria-live="polite">{{ photoStatus || c.controlsHint }}</div>
-            <div class="playback-top"><button class="play-button" :disabled="!ready || explore" :aria-label="filmPlaying ? c.pause : c.play" @click="togglePlayback"><svg v-if="filmPlaying" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4v12M14 4v12" /></svg><svg v-else viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 11 7-11 7Z" /></svg></button><span class="timecode">{{ clock }} <span>/ {{ formatTime(FILM_DURATION) }}</span></span><span class="playback-label">{{ c.sequence }}</span><button class="quality-button" :aria-pressed="!lowPower" :aria-label="lowPower ? c.enableHigh : c.enableLow" @click="lowPower = !lowPower">{{ lowPower ? c.lowQuality : c.highQuality }}</button></div>
-            <input class="timeline" type="range" min="0" :max="FILM_DURATION - .01" step="0.1" :value="timelineTime" :disabled="!ready || explore" :aria-label="c.animationTime" :aria-valuetext="clock" :style="{ '--progress': `${timelineTime / FILM_DURATION * 100}%` }" @pointerdown="startPointerScrub" @pointermove="movePointerScrub" @pointerup="endScrub" @pointercancel="endScrub" @keydown="scrubKey" @keyup="endScrub" @change="endScrub" @input="scrub" />
-            <div class="phase-buttons"><button v-for="(phase, index) in phases" :key="index" :disabled="!ready" :aria-pressed="!explore && phaseIndex === index" @click="choosePhase(index)">{{ phase }}</button></div>
+          <a class="round-cta" href="#observatory"
+            ><span
+              >进入三维检视<span class="cta-sub">ENTER OBSERVATORY</span></span
+            ><span class="cta-arrow">↗</span></a
+          >
+          <p class="hero-note">
+            一份关于力量、尺度与机械秩序的<br />交互式舰船档案。
+          </p>
+        </div>
+        <div class="hero-foot mono">
+          <span>SCROLL TO DISCOVER ↓</span><span>01 — 04</span
+          ><span>FAN-MADE. DETAIL-DRIVEN.</span>
+        </div>
+      </section>
+      <section class="manifesto section-pad">
+        <p class="eyebrow">
+          <span class="section-number">01 /</span> THE PRESENCE
+        </p>
+        <div class="manifesto-main">
+          <h2>有些舰船抵达战场。<br />有些舰船，<span>改变战场。</span></h2>
+          <div class="manifesto-copy">
+            <p>
+              奥丁的魅力，并不止于火力。<br />是装甲开启的节奏，是复杂结构的精确咬合，<br />也是一艘庞大战舰在太空中，近乎从容的姿态。
+            </p>
+            <a class="text-link" href="#observatory"
+              >走近它的每一处细节 <span>↗</span></a
+            >
           </div>
-        </section>
-        <div class="story-rail">
-          <article v-for="(chapter, index) in chapters" :id="chapter.id" :key="chapter.id" class="story-chapter" :class="{ 'chapter-intro': index === 0, 'weapon-chapter': index === 1, current: index === activeChapter }" :aria-labelledby="`${chapter.id}-title`" :data-index="index">
-            <div class="chapter-stage">
-            <div class="chapter-content">
-            <WeaponStory v-if="index === 1" :step="weaponStep" :locale="locale" :active="activeChapter === 1 && viewportActive" @select="selectWeaponStep" />
-            <template v-else>
-            <div class="chapter-heading"><p class="eyebrow">{{ String(index + 1).padStart(2, '0') }} / {{ chapter.label }}</p><h1 v-if="index === 0" :id="`${chapter.id}-title`">ODIN</h1><h2 v-else :id="`${chapter.id}-title`">{{ chapter.title }}</h2><p v-if="index === 0" class="vehicle-class">{{ c.vehicleClass }}<span>{{ c.manufacturer }}</span></p></div>
-            <p v-if="index > 0" class="chapter-body">{{ chapter.body }}</p>
-            <dl v-if="chapter.specs.length" class="chapter-specs"><div v-for="spec in chapter.specs" :key="spec[0]"><dt>{{ spec[0] }}</dt><dd>{{ spec[1] }}</dd></div></dl>
-            <ul v-if="chapter.interior" class="interior-specs"><li v-for="spec in chapter.interior[locale].specs" :key="spec">{{ spec }}</li></ul>
-            <InteriorGallery v-if="chapter.interior" :images="chapter.interior.images" :locale="locale" />
-            </template>
-            <div class="chapter-bottom"><button v-if="index < chapters.length - 1" class="scroll-cue next-chapter" :aria-label="nextStepLabel(index)" @click="advanceChapter(index)"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></button><a v-else class="scroll-cue next-chapter" :aria-label="c.viewArchive" href="#archive" @click.prevent="goToArchive"><svg viewBox="0 0 40 64" aria-hidden="true"><path d="M20 3v52M5 40l15 15 15-15" /></svg></a></div>
+        </div>
+        <div class="identity-strip">
+          <span>ANVIL<small>制造商</small></span
+          ><span>BATTLECRUISER<small>战列巡洋舰</small></span
+          ><span>SCM ↔ NAV<small>战斗与航行构型</small></span
+          ><span>ODIN<small>星际公民 · 概念舰船</small></span>
+        </div>
+      </section>
+      <section id="observatory" ref="lab" class="observatory">
+        <div class="lab-heading">
+          <p class="eyebrow">
+            <span class="section-number">02 /</span> THE OBSERVATORY
+          </p>
+          <div>
+            <h2>解构，<span>机械之美。</span></h2>
+            <p>亲手转动视角，让每一处结构进入视野。</p>
+          </div>
+          <span class="live-status mono"><i class="status-dot" />LIVE 3D</span>
+        </div>
+        <div class="lab-layout">
+          <div class="viewer-stage" :class="{ technical }">
+            <div class="viewer-grid" aria-hidden="true" />
+            <span class="stage-corner corner-tl" aria-hidden="true" /><span
+              class="stage-corner corner-br"
+              aria-hidden="true"
+            />
+            <div class="stage-label mono">
+              ODN—01 <span>/ {{ currentMode.eyebrow }}</span>
             </div>
+            <AtlasScene
+              v-if="labLoaded"
+              ref="viewer"
+              :playing="playing"
+              :mode="mode"
+              :deployment="deployment"
+              :active="labActive && visible"
+              :reduced-motion="reducedMotion"
+              :technical="technical"
+              :scrubbing="playback.scrubbing"
+              @ready="ready = true"
+              @progress="progress = $event"
+              @fail="onSceneFail"
+            />
+            <div v-if="!ready && !error" class="model-loading" role="status">
+              <span class="loading-orbit" /><span>正在开启检视舱</span
+              ><small class="mono">{{ Math.round(progress) }}%</small>
             </div>
-          </article>
+            <div v-if="error" class="model-error" role="alert">
+              <p>当前设备无法开启三维视图。</p>
+              <p>你仍可浏览下方的舰内空间与影像档案。</p>
+              <button
+                class="text-link"
+                @click="retryScene"
+              >
+                重新尝试 ↻
+              </button>
+            </div>
+            <div class="stage-tools">
+              <button
+                :disabled="!ready"
+                :aria-pressed="technical"
+                @click="technical = !technical"
+              >
+                {{ technical ? '实体材质' : '结构线框'
+                }}<span>{{ technical ? '◧' : '⌗' }}</span></button
+              ><button
+                :disabled="!ready"
+                aria-label="重置观察视角"
+                @click="viewer?.resetView()"
+              >
+                复位<span>↺</span></button
+              ><button :disabled="!ready || capturing" @click="capture">
+                {{ capturing ? '保存中' : '拍照' }}<span>↗</span>
+              </button>
+            </div>
+            <div class="stage-bottom">
+              <span class="mono">DRAG TO ORBIT · SCROLL TO ZOOM</span
+              ><span>拖动旋转 · 滚轮缩放</span>
+            </div>
+          </div>
+          <aside class="inspection-panel">
+            <div class="inspection-top mono">
+              <span>SELECT A SYSTEM</span
+              ><span>{{ currentMode.number }} / 06</span>
+            </div>
+            <div class="mode-list" role="group" aria-label="选择检视系统">
+              <button
+                v-for="item in modes"
+                :key="item.id"
+                :class="{ active: mode === item.id }"
+                :aria-pressed="mode === item.id"
+                @click="chooseMode(item.id)"
+              >
+                <small>{{ item.number }}</small
+                ><span>{{ item.label }}</span
+                ><span class="mode-arrow">↗</span>
+              </button>
+            </div>
+            <div class="mode-description" aria-live="polite">
+              <span class="eyebrow">{{ currentMode.eyebrow }}</span>
+              <h3>{{ currentMode.title }}</h3>
+              <p>{{ currentMode.body }}</p>
+            </div>
+            <div class="deployment-control">
+              <div>
+                <label for="deployment">武备展开程度</label
+                ><output for="deployment" class="mono"
+                  >{{ Math.round(deployment * 100) }}<small>%</small></output
+                >
+              </div>
+              <input
+                id="deployment"
+                v-model.number="deployment"
+                type="range"
+                min="0"
+                max="1"
+                step="0.001"
+                :disabled="!ready || mode === 'engines'"
+                aria-label="武备展开程度"
+                @pointerdown="beginScrub"
+                @pointerup="endScrub"
+                @pointercancel="endScrub"
+                @keydown="sliderKey"
+                @keyup="endScrub"
+                @blur="endScrub"
+              />
+              <div class="range-labels mono">
+                <span>STOWED</span><span>DEPLOYED</span>
+              </div>
+            </div>
+            <button
+              class="playback-control"
+              :aria-pressed="!playback.userPaused"
+              @click="togglePlayback"
+            >
+              <span class="playback-icon">{{
+                playback.userPaused ? '▶' : 'Ⅱ'
+              }}</span
+              >{{ playback.userPaused ? '继续自动环绕' : '暂停自动环绕'
+              }}<small>SPACE</small>
+            </button>
+          </aside>
+        </div>
+        <div class="lab-footer mono">
+          <span>INTERACTIVE MODEL / FAN INTERPRETATION</span
+          ><span role="status">{{
+            photoStatus || '自由观察，保留你的视角。'
+          }}</span
+          ><span>ALL SYSTEMS IN VIEW ↗</span>
+        </div>
+      </section>
+      <section class="cinematic" aria-label="奥丁官方概念艺术">
+        <img
+          src="/images/official/v0.13.0/13-sc-anvil-odin-exterior-3.webp"
+          alt="轨道交战中的奥丁，身后是行星与深空"
+          width="2400"
+          height="1013"
+          loading="lazy"
+        />
+        <div class="cinematic-shade" />
+        <div class="cinematic-top mono">
+          <span>BEYOND THE SILHOUETTE</span
+          ><span>ANVIL ODIN / CONCEPT ART</span>
+        </div>
+        <h2>AN UNFAIR<br /><em>ADVANTAGE.</em></h2>
+        <div class="cinematic-bottom">
+          <p>让存在本身，<br />成为一种威慑。</p>
+          <span class="mono"
+            >OFFICIAL ARTWORK<br />© CLOUD IMPERIUM GAMES</span
+          >
+        </div>
+      </section>
+      <section id="interior" class="interior section-pad">
+        <div class="section-heading">
+          <p class="eyebrow">
+            <span class="section-number">03 /</span> LIFE WITHIN
+          </p>
+          <h2>钢铁之下，<br /><span>另一个世界。</span></h2>
+          <p>
+            走过指挥中枢、机库与简报室。<br />这艘战舰，也是一群人的共同航程。
+          </p>
+        </div>
+        <div class="interior-layout">
+          <div class="interior-nav">
+            <button
+              v-for="(item, index) in interiors"
+              :key="item.no"
+              :class="{ active: interiorIndex === index }"
+              :aria-pressed="interiorIndex === index"
+              @click="interiorIndex = index"
+            >
+              <small class="mono">{{ item.no }}</small
+              ><span
+                >{{ item.title }}<small>{{ item.en }}</small></span
+              ><span>↗</span>
+            </button>
+            <div class="interior-description" aria-live="polite">
+              <p>{{ interior.text }}</p>
+              <a
+                :href="interior.image.source"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >查看官方资料 <span>↗</span></a
+              ><small>内部空间与配置处于概念设计阶段。</small>
+            </div>
+          </div>
+          <figure class="interior-figure">
+            <div class="interior-image-frame">
+              <img
+                :key="interior.image.src"
+                :src="interior.image.src"
+                :alt="interior.image.zh"
+                :width="interior.image.width"
+                :height="interior.image.height"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <span class="mono">{{ interior.en }} — {{ interior.no }}</span
+              ><span>空间概念 / 官方资料</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section id="archive" class="archive section-pad">
+        <div class="archive-heading">
+          <p class="eyebrow">
+            <span class="section-number">04 /</span> THE VISUAL ARCHIVE
+          </p>
+          <div>
+            <h2>每一帧，<span>皆有引力。</span></h2>
+            <p>以另一种尺度，看见奥丁。</p>
+          </div>
+          <span class="archive-count mono">[ 04 IMAGES ]</span>
+        </div>
+        <div class="gallery-grid">
+          <button
+            v-for="(item, index) in gallery"
+            :key="item.src"
+            class="gallery-item"
+            @click="openImage(index)"
+            :aria-label="`放大查看：${item.zh.title}`"
+          >
+            <div class="gallery-image">
+              <img
+                :src="item.src"
+                :alt="item.zh.alt"
+                :width="item.width"
+                :height="item.height"
+                loading="lazy"
+              /><span class="gallery-open">↗</span>
+            </div>
+            <div class="gallery-caption">
+              <span
+                ><small class="mono">{{ formatIndex(index) }}</small
+                >{{ item.title }}</span
+              ><span class="mono">{{ item.eyebrow }}</span>
+            </div>
+          </button>
+        </div>
+        <p class="archive-note">官方概念艺术 · 点击展开影像</p>
+      </section>
+      <footer class="site-footer">
+        <div class="footer-top">
+          <p>为想象力而造。<br /><span>为每一个仰望星空的人。</span></p>
+          <a href="#intro" class="back-top">回到起点 <span>↑</span></a>
+        </div>
+        <div class="footer-wordmark">ODIN<span>✳</span></div>
+        <div class="footer-bottom">
+          <div class="mono">
+            THE ATLAS PROJECT<br />AN INDEPENDENT ODIN EXPERIENCE
+          </div>
+          <p>
+            本项目为非官方粉丝创作，与 Cloud Imperium Games 无隶属关系。<br />Star
+            Citizen、Anvil Odin
+            与官方影像版权归各自权利人所有。舰船资料以官方后续发布为准。
+          </p>
+          <a
+            href="https://robertsspaceindustries.com/en/comm-link/transmission/21133-Anvil-Odin"
+            target="_blank"
+            rel="noopener noreferrer"
+            >官方舰船档案 ↗</a
+          >
+        </div>
+      </footer>
+    </main>
+    <dialog
+      ref="lightbox"
+      class="lightbox"
+      aria-label="奥丁影像档案"
+      @keydown="onDialogKey"
+      @click="
+        (event) => {
+          if (event.target === lightbox) lightbox?.close()
+        }
+      "
+    >
+      <div class="lightbox-inner">
+        <div class="lightbox-top">
+          <span class="mono"
+            >VISUAL ARCHIVE / {{ formatIndex(galleryIndex) }} — 04</span
+          ><button autofocus aria-label="关闭影像" @click="lightbox?.close()">
+            关闭 <span>×</span>
+          </button>
+        </div>
+        <img
+          :src="galleryImage.src"
+          :alt="galleryImage.zh.alt"
+          :width="galleryImage.width"
+          :height="galleryImage.height"
+        />
+        <div class="lightbox-bottom">
+          <div>
+            <h3>{{ galleryImage.zh.title }}</h3>
+            <a
+              :href="galleryImage.source"
+              target="_blank"
+              rel="noopener noreferrer"
+              >官方原图 ↗</a
+            >
+          </div>
+          <div class="lightbox-controls">
+            <button aria-label="上一张影像" @click="stepImage(-1)">←</button
+            ><button aria-label="下一张影像" @click="stepImage(1)">→</button>
+          </div>
         </div>
       </div>
-
-      <section id="archive" class="art-archive" :aria-label="c.gallery">
-        <div class="archive-heading"><h2>{{ c.artTitle }}</h2></div>
-        <div class="gallery-layout"><figure class="artwork-figure"><div class="artwork-well"><img :key="artwork.src" :src="artwork.src" :alt="`${c.artTitle} ${artworkIndex + 1}`" :width="artwork.width" :height="artwork.height" loading="lazy" decoding="async" /></div><figcaption><span>© Cloud Imperium Games</span><div class="gallery-controls"><button :aria-label="c.previousArt" @click="changeArtwork(artworkIndex - 1)">←</button><span>{{ String(artworkIndex + 1).padStart(2, '0') }}<small> / {{ ODIN_WALLPAPERS.length }}</small></span><button class="next-art" :aria-label="c.nextArt" @click="changeArtwork(artworkIndex + 1)">→</button></div></figcaption></figure></div>
-      </section>
-    </main>
-
-    <OdinFooter :locale="locale" @overview="goToChapter(0)" />
-
-    <Teleport to="body"><dialog ref="aboutDialog" class="about-dialog" :aria-label="c.sourceNotes" @close="showAbout = false" @cancel="showAbout = false"><div class="dialog-backdrop" @click="showAbout = false" /><section role="document"><button class="dialog-close" :aria-label="c.closeAbout" @click="showAbout = false">×</button><p class="eyebrow">{{ c.projectNotes }}</p><h2>{{ c.aboutTitle }}</h2><p>{{ c.aboutIntro }}</p><p>{{ c.aboutDesign }}</p><small>{{ c.modelNotice }}</small></section></dialog></Teleport>
+    </dialog>
   </div>
 </template>
