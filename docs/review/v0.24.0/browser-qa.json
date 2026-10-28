@@ -1,0 +1,102 @@
+{
+  "environment": "Chromium / NVIDIA RTX 4070 SUPER / full odin.glb",
+  "unitTests": 165,
+  "staticBuild": "passed",
+  "assets": "Both GLBs valid, 0 animation clips",
+  "notes": [
+    "Content and recovery checks were repeated against the generated static build on port 4180 after final formatting and error-handler extraction.",
+    "Real background-tab throttling was inconclusive because the automation browser kept document.hidden=false; controlled visibility events, offscreen suspension and explicit pause persistence passed."
+  ],
+  "phases": {
+    "content": {
+      "checks": {
+        "menuOpens": true,
+        "escapeClosesMenu": true,
+        "menuLinkClosesAndNavigates": true,
+        "interiorSwitching": true,
+        "dialogOpensAndFocusesClose": true,
+        "dialogButtonAndKeyboardNavigation": true,
+        "dialogWrapAround": true,
+        "escapeClosesDialog": true,
+        "dialogReturnsFocus": true,
+        "allShownImagesLoad": true,
+        "allImagesHaveAlt": true,
+        "contentKeepsExplicitPause": true,
+        "noHorizontalOverflow": true
+      },
+      "errors": []
+    },
+    "playback": {
+      "checks": {
+        "realGpuModelLoaded": true,
+        "explicitPauseStopsAnimation": true,
+        "pausedRangeDragPreservesPause": true,
+        "pausedKeyboardPreservesPause": true,
+        "keyboardHomeWorks": true,
+        "resumeAdvancesAnimation": true,
+        "playingRangeDragTemporarilyPauses": true,
+        "rangeReleaseResumes": true,
+        "keyboardHoldTemporarilyPauses": true,
+        "keyboardReleaseResumes": true,
+        "keyboardBlurResumes": true,
+        "pointerCancelDoesNotStickPaused": true,
+        "mainRoutesAndKeepsPause": true,
+        "secondaryRoutesAndKeepsPause": true,
+        "defenseRoutesAndKeepsPause": true,
+        "bridgeRoutesAndKeepsPause": true,
+        "enginesRoutesAndKeepsPause": true,
+        "engineSliderDisabled": true,
+        "overviewRoutesAndKeepsPause": true,
+        "technicalTogglePreservesPause": true,
+        "photoDownload": true,
+        "photoKeepsPause": true
+      },
+      "errors": []
+    },
+    "lifecycle": {
+      "checks": {
+        "visibilityKeepsExplicitPause": true,
+        "returnToVisibleResumesPriorPlaying": true,
+        "mainModeHasIntermediatePoses": true,
+        "mainModeCompletesDeployment": true,
+        "enginesHasIntermediateStow": true,
+        "engineIgnitionInterlocked": true,
+        "engineThrustAfterStow": true,
+        "modeChangesPreservePause": true,
+        "scrubInterruptsAutomaticPoseTransition": true,
+        "manualOrbitWorksWhilePaused": true,
+        "resetKeepsPauseAndSelectedMode": true,
+        "reducedMotionStaysPaused": true,
+        "removingReducedMotionDoesNotResume": true
+      },
+      "errors": [],
+      "sampleCount": 175,
+      "inconclusive": [
+        "realBackgroundTabStopsRendering",
+        "playingBackgroundStopsClock"
+      ]
+    },
+    "visibility": {
+      "checks": {
+        "controlledHiddenStopsFrames": true,
+        "controlledVisibilityKeepsExplicitPause": true,
+        "controlledHiddenStopsPlayingClock": true,
+        "controlledVisibleResumesPriorPlaying": true,
+        "offscreenViewerStopsRendering": true,
+        "onscreenViewerResumesPriorPlaying": true,
+        "spaceTogglesOrbit": true
+      },
+      "errors": []
+    },
+    "recovery": {
+      "checks": {
+        "finalHeroLoads": true,
+        "contextLossDisablesControls": true,
+        "lostContextStopsRendering": true,
+        "retryCreatesWorkingScene": true,
+        "retryKeepsExplicitPause": true
+      },
+      "errors": []
+    }
+  }
+}
